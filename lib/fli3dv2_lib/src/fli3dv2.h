@@ -4,7 +4,7 @@
  
 #ifndef _FLI3DV2_H_
 #define _FLI3DV2_H_
-#define LIB_VERSION "Fli3dv2 lib 1.99.0/20260723"
+#define LIB_VERSION "Fli3dv2 lib 1.99.0/20260727"
 
 #include <Arduino.h>
 #include <EEPROM.h>
@@ -218,7 +218,7 @@ extern const char gpsStatusName[9][11]; */
 struct __attribute__ ((packed)) cfg_boot_t {
     char        magic_number = 'b';
     uint8_t     version = 2;
-    uint8_t     boot_bank;
+    uint8_t     boot_bank = 1;
     uint8_t     size_cfg_boot = 50;
     uint8_t     size_config = 250;
     char        cfg_name[3][10] = { "empty", "empty", "empty" };
@@ -587,7 +587,7 @@ struct __attribute__ ((packed)) tm_gndctrl_t {   // APID: 55 (37)
     uint8_t     radio_rx_pktrate;
     uint8_t     radio_tx_pktrate;
     uint8_t     archive_pktrate;
-    int8_t      wifi_rssi;             // TODO: implement
+    int8_t      wifi_rssi;             // TODO: implement (once IDF5 is used)
     int8_t      radio_rssi;            // TODO: implement
     uint16_t    mem_free;
     uint16_t    fs_free;
@@ -598,7 +598,6 @@ struct __attribute__ ((packed)) tm_gndctrl_t {   // APID: 55 (37)
     uint8_t     archive_buffer_queue;
     uint8_t     buffer_size;
     char        archive_path[20];
-    
     bool        espnow_rx_enabled:1;   // 7
     bool        espnow_tx_enabled:1;   //  6
     bool        serial_rx_enabled:1;   //   5
@@ -715,7 +714,7 @@ struct __attribute__ ((packed)) cfg_packet_t {  // APID: 59/60/61 (3b/3d/3e)
     uint8_t     archive_fs:2;         // 7-6
     uint8_t     ftp_fs:2;             //  5-4
     uint8_t     free_00:4;            //   0-3
-    byte        wifi_my_ip[4];        // TODO: assign fixed IP to each party
+    byte        wifi_my_ip[4];        // TODO: assign fixed IP to each party NOPE?
     byte        my_mac[6];
     byte        peer_mac[6];
     uint32_t    serial_baud;
@@ -849,12 +848,12 @@ extern tm_radio_t          tm_radio;
 extern tm_esp32cam_t       tm_esp32cam;
 extern tm_camera_t         tm_camera;
 extern tm_gndctrl_t        tm_gndctrl;
-extern tmr_esp32_t       tmr_esp32;
-extern tmr_esp32cam_t    tmr_esp32cam;
-extern tmr_gndctrl_t     tmr_gndctrl;
-extern cfg_packet_t     cfg_esp32;
-extern cfg_packet_t     cfg_esp32cam;
-extern cfg_packet_t     cfg_gndctrl;
+extern tmr_esp32_t         tmr_esp32;
+extern tmr_esp32cam_t      tmr_esp32cam;
+extern tmr_gndctrl_t       tmr_gndctrl;
+extern cfg_packet_t        cfg_esp32;
+extern cfg_packet_t        cfg_esp32cam;
+extern cfg_packet_t        cfg_gndctrl;
 extern var_t               var;
 extern bool                default_routing_espnow[];
 extern bool                default_routing_serial[];
@@ -908,6 +907,8 @@ extern bool set_opsmode (const uint8_t mode);
 extern void setup_wifi ();
 extern bool setup_wifi_ap ();
 extern bool setup_wifi_sta ();
+extern void enable_wifi_services ();
+extern void disable_wifi_services ();
 
 // ESP-NOW Functionality
 extern bool setup_espnow ();

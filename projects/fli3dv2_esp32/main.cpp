@@ -1,12 +1,12 @@
 /* 
  *  Fli3dv2 - core system functionality
  *  
- *  To compile in the Arduino IDE v2.3.x, ESP32 core v3.3.x, for ESP32 MH-ET LIVE MiniKit.
+ *  To compile in Visual Studio with PlatformIO, with ESP32 core v3.3.x, for ESP32 MH-ET LIVE MiniKit.
  *  Use partition scheme "Default with spiffs" or custom partition scheme "Fli3d ESP32 (OTA/maximized SPIFFS)".
  */
 
 // Set versioning
-#define SW_VERSION "Fli3d ESP32 v1.99.0 (20260723)"
+#define SW_VERSION "Fli3d ESP32 v1.99.0 (20260727)"
 
 // Set functionality to compile
 //#define RADIO
@@ -133,10 +133,6 @@ void setup() {
     setup_power();
     setup_buzzer();
 
-    // Set up wifi
-    //setup_wifi_ap();
-    //setup_wifi_sta();
-
     #ifdef CAMERA
     if (cfg_esp32.camera_enable) { 
         esp32.camera_enabled = true;
@@ -163,16 +159,6 @@ void setup() {
     }
     #endif // PRESSURE
 
-    // Initialize FTP server
-    if (cfg_this->ftp_enable) {
-        //tm_this->ftp_enabled = ftp_setup();
-    }
-
-    // Initialize OTA
-    if (cfg_this->ota_enable) {
-        setup_ota();
-    }
-
     // Initialisation complete
     setup_timer();
     publish_event (STS_THIS, SS_THIS, EVENT_INIT, "ESP32 initialisation complete");  
@@ -184,75 +170,71 @@ void loop() {
   
     check_serialtransfer_rx();
     process_rx_queue();
-   
-    // separation status (monitored via interrupt)
-    if (separation_sts_changed) {
-        separation_publish();
-        separation_sts_changed = false;
-    }
- 
-    // BMP280 pressure sensor
-    #ifdef PRESSURE
-    else if (tmr_esp32.millis >= var.next_pressure_time and esp32.pressure_enabled) {
-      start_millis = millis();
-      if (bmp280_acquire()) {
-        publish_packet ((ccsds_t*)&bmp280);
-      }
-      else {
-        // will try to reset pressure sensor once, and then give up
-        esp32.pressure_enabled = pressure_setup();
-      }
-      var.next_pressure_time = tmr_esp32.millis + var.pressure_interval;
-      tmr_esp32.pressure_duration += millis() - start_millis;
-    } 
-    #endif // PRESSURE
 
-    // MPU6050 or MPU9250 accelerometer/gyroscope
-    #ifdef MOTION
-    else if (tmr_esp32.millis >= var.next_motion_time and esp32.motion_enabled) {
-      start_millis = millis();
-      if (mpu_acquire()) {
-        publish_packet ((ccsds_t*)&motion);
-      }
-      else {
-        // will try to reset accelerometer once, and then give up
-        esp32.motion_enabled = motion_setup();
-      }
-      var.next_motion_time = tmr_esp32.millis + var.motion_interval;
-      tmr_esp32.motion_duration += millis() - start_millis;
-    } 
-    #endif // MOTION
+    if (tm_this->opsmode == MODE_MAINTENANCE) {
+        // In maintenance mode, we can check for OTA and FTP
+        if (cfg_this->ota_enable) {
+            ArduinoOTA.handle();
+            tm_this->ota_enabled = true;
+        }
+        if (tm_this->ftp_enabled) {
+            //ftp_check (cfg_this->buffer_fs);
+        }
+    }
+    else { 
+        // separation status (monitored via interrupt)
+        if (separation_sts_changed) {
+            separation_publish();
+            separation_sts_changed = false;
+        }
     
-  // NEO6MV2 GPS
-    #ifdef GPS
-    if (tmr_esp32.millis >= var.next_gps_time and tm_esp32.gps_enabled) {
+        // BMP280 pressure sensor
+        #ifdef PRESSURE
+        else if (tmr_esp32.millis >= var.next_pressure_time and esp32.pressure_enabled) {
         start_millis = millis();
-        if (check_gps()) {
-            publish_packet ((ccsds_t*)&tm_gps);
-            reset_gps_timer = true;
-            var.next_gps_time = tmr_esp32.millis + 1000;  // 1Hz as long as no data 
+        if (bmp280_acquire()) {
+            publish_packet ((ccsds_t*)&bmp280);
         }
-        if (var.do_gps) {
-            publish_packet ((ccsds_t*)&tm_gps);
-            var.do_gps = false;
+        else {
+            // will try to reset pressure sensor once, and then give up
+            esp32.pressure_enabled = pressure_setup();
         }
-        tmr_esp32.gps_duration += millis() - start_millis;
-    }
-    #endif // GPS
-      
-    // OTA check
-    if (tm_this->opsmode == MODE_MAINTENANCE and cfg_this->ota_enable) {
-      start_millis = millis();    
-      ArduinoOTA.handle();
-      tm_this->ota_enabled = true;
-      tmr_this->ota_duration += millis() - start_millis;
-    }
-    
-    // FTP check
-    if ((tm_this->opsmode == MODE_CHECKOUT or tm_this->opsmode == MODE_MAINTENANCE) and tm_this->ftp_enabled) {
-      // FTP server is active when Fli3d is being prepared or done
-      start_millis = millis();    
-    // ftp_check (cfg_this->buffer_fs);
-      tmr_this->ftp_duration += millis() - start_millis;
-    }
+        var.next_pressure_time = tmr_esp32.millis + var.pressure_interval;
+        tmr_esp32.pressure_duration += millis() - start_millis;
+        } 
+        #endif // PRESSURE
+
+        // MPU6050 or MPU9250 accelerometer/gyroscope
+        #ifdef MOTION
+        else if (tmr_esp32.millis >= var.next_motion_time and esp32.motion_enabled) {
+        start_millis = millis();
+        if (mpu_acquire()) {
+            publish_packet ((ccsds_t*)&motion);
+        }
+        else {
+            // will try to reset accelerometer once, and then give up
+            esp32.motion_enabled = motion_setup();
+        }
+        var.next_motion_time = tmr_esp32.millis + var.motion_interval;
+        tmr_esp32.motion_duration += millis() - start_millis;
+        } 
+        #endif // MOTION
+        
+    // NEO6MV2 GPS
+        #ifdef GPS
+        if (tmr_esp32.millis >= var.next_gps_time and tm_esp32.gps_enabled) {
+            start_millis = millis();
+            if (check_gps()) {
+                publish_packet ((ccsds_t*)&tm_gps);
+                reset_gps_timer = true;
+                var.next_gps_time = tmr_esp32.millis + 1000;  // 1Hz as long as no data 
+            }
+            if (var.do_gps) {
+                publish_packet ((ccsds_t*)&tm_gps);
+                var.do_gps = false;
+            }
+            tmr_esp32.gps_duration += millis() - start_millis;
+        }
+        #endif // GPS
+    }  
 }

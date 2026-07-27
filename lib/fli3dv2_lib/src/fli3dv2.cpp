@@ -198,7 +198,6 @@ void init_config () {
     strcpy(cfg_this->password, default_password); 
     cfg_this->radio_baud = 2000;
     cfg_this->serial_baud = 115200;
-    cfg_this->ftp_enable = true;
     cfg_this->ota_enable = true;
     cfg_this->espnow_longrange = false;    
     switch(SS_THIS) {
@@ -224,6 +223,7 @@ void init_config () {
         cfg_this->fs_enable = true;
         cfg_this->flush_fs_enable = true;
         cfg_this->sd_enable = false;
+        cfg_this->ftp_enable = true;
         cfg_this->ftp_fs = FS_LITTLEFS;
         cfg_this->archive_fs = FS_LITTLEFS;
         cfg_esp32.pressure_tm_rate = 1;
@@ -261,6 +261,7 @@ void init_config () {
         cfg_this->fs_enable = false;
         cfg_this->flush_fs_enable = false;
         cfg_this->sd_enable = true;
+        cfg_this->ftp_enable = true;
         cfg_this->ftp_fs = FS_SD_MMC;
         cfg_this->archive_fs = FS_SD_MMC;
         break;
@@ -286,6 +287,7 @@ void init_config () {
         cfg_this->fs_enable = false;
         cfg_this->flush_fs_enable = false;
         cfg_this->sd_enable = false;
+        cfg_this->ftp_enable = false;
         cfg_this->ftp_fs = FS_NONE;
         cfg_this->archive_fs = FS_NONE;
         break;
@@ -308,6 +310,11 @@ bool load_boot_config () {
     if (stored_cfg_boot.magic_number == cfg_this->cfg_boot.magic_number) {
         if (stored_cfg_boot.version == cfg_this->cfg_boot.version) {
             EEPROM.get(0, cfg_this->cfg_boot);
+            if (cfg_this->cfg_boot.boot_bank < 1 or cfg_this->cfg_boot.boot_bank > 3) {
+                cfg_this->cfg_boot.boot_bank = 1;
+                sprintf(buffer, "Invalid boot bank stored in %s EEPROM; falling back to bank 1", subsystem[SS_THIS].name);
+                publish_event(STS_THIS, SS_THIS, EVENT_WARNING, buffer);
+            }
             sprintf(buffer, "Configurations found in %s EEPROM banks: 1:%s 2:%s 3:%s, %u selected", subsystem[SS_THIS].name, cfg_this->cfg_boot.cfg_name[0], cfg_this->cfg_boot.cfg_name[1], cfg_this->cfg_boot.cfg_name[2], cfg_this->cfg_boot.boot_bank);              
             publish_event(STS_THIS, SS_THIS, EVENT_INIT, buffer);
             return true;
@@ -319,6 +326,7 @@ bool load_boot_config () {
     else {
         sprintf(buffer, "No boot configuration table found in %s EEPROM (magic number %u, expected %u)", subsystem[SS_THIS].name, (uint8_t)stored_cfg_boot.magic_number, (uint8_t)cfg_this->cfg_boot.magic_number);
     }
+    cfg_this->cfg_boot.boot_bank = 1;
     publish_event(STS_THIS, SS_THIS, EVENT_ERROR, buffer);
     return false;
 }
@@ -388,9 +396,26 @@ bool save_config (const uint8_t bank, const char* tag) {
 }
 
 bool set_opsmode (const uint8_t mode) {
+    
     if (mode == MODE_CHECKOUT or mode == MODE_NOMINAL or mode == MODE_MAINTENANCE) {
+        if (tm_this->opsmode == MODE_MAINTENANCE and mode != MODE_MAINTENANCE) {
+           // leaving maintenance mode, deactivate wifi and use ESPNOW again
+           disable_wifi_services();
+           tm_this->espnow_rx_enabled = true;
+           tm_this->espnow_tx_enabled = true;
+           sprintf (buffer, "Disabling WiFi services and reenabling ESPNOW");
+           publish_event (STS_THIS, SS_THIS, EVENT_INFO, buffer);
+        }
         sprintf (buffer, "Setting %s opsmode to '%s'", subsystem[SS_THIS].name, opsmode[mode].name);
         publish_event (STS_THIS, SS_THIS, EVENT_INFO, buffer);
+        if (mode == MODE_MAINTENANCE and tm_this->opsmode != MODE_MAINTENANCE) {
+           // entering maintenance mode, activate wifi and do not use ESPNOW
+           enable_wifi_services();
+           tm_this->espnow_rx_enabled = false;
+           tm_this->espnow_tx_enabled = false;
+           sprintf (buffer, "Enabling WiFi services and disabling ESPNOW");
+           publish_event (STS_THIS, SS_THIS, EVENT_INFO, buffer);
+        }
         tm_this->opsmode = mode;
     }
     else {
@@ -757,6 +782,7 @@ bool set_parameter (const char* parameter, const char* value) {
 // WiFi Functionality
 
 void setup_wifi () {
+    // Setup wifi interface for use by ESPNOW or WiFi services (AP, STA, FTP, OTA)
     char hostname[64];
     sprintf(hostname, "%s-%s", cfg_this->rocket_name, subsystem[SS_THIS].name);
     if (cfg_this->wifi_ap_enable) {
@@ -767,27 +793,70 @@ void setup_wifi () {
     }
     WiFi.config(INADDR_NONE, INADDR_NONE, INADDR_NONE);
     WiFi.setHostname(hostname);
+    WiFi.setSleep(false);
 }
 
 bool setup_wifi_ap () {
     if (cfg_this->wifi_ap_enable) {
         byte my_mac[6];
         WiFi.softAP(cfg_this->rocket_name, cfg_this->password, cfg_this->wifi_channel);
+        esp_wifi_set_channel(cfg_this->wifi_channel, WIFI_SECOND_CHAN_NONE);
         esp_wifi_get_mac(WIFI_IF_AP, my_mac);
         sprintf (buffer, "Started WiFi access point %s with IP %s (%02x:%02x:%02x:%02x:%02x:%02x) on channel %d", 
   	                      cfg_this->rocket_name, WiFi.softAPIP().toString().c_str(), my_mac[0], my_mac[1], my_mac[2], my_mac[3], my_mac[4], my_mac[5], 0);
   		publish_event (STS_THIS, SS_THIS, EVENT_INIT, buffer); 
+        tm_this->wifi_ap_enabled = true;
   		return true; 
   	}
   	return false;
 }
 
 bool setup_wifi_sta () {
+    // Connect to WiFi network, as defined in fli3d_secrets.h
+    const unsigned long timeout_ms = 10000;
+    const unsigned long start_ms = millis();
     if (cfg_this->wifi_sta_enable) {
-        WiFi.begin(cfg_this->rocket_name, cfg_this->password);
-        return true;
+        WiFi.begin(wifi_ssid, wifi_password);
+        while (WiFi.status() != WL_CONNECTED && (millis() - start_ms) < timeout_ms) {
+            delay(500);
+        }
+
+        if (WiFi.status() == WL_CONNECTED) {
+            sprintf (buffer, "Connected to WiFi network %s with IP %s", wifi_ssid, WiFi.localIP().toString().c_str());
+            publish_event (STS_THIS, SS_THIS, EVENT_INIT, buffer);
+            tm_this->wifi_sta_enabled = true;
+            tm_this->wifi_connected = true;
+            return true;
+        }
+
+        sprintf (buffer, "Failed to connect to WiFi network %s within %lu ms", wifi_ssid, timeout_ms);
+        publish_event (STS_THIS, SS_THIS, EVENT_WARNING, buffer);
+        tm_this->wifi_sta_enabled = false;
+        return false;
     }
     return false;
+}
+
+void enable_wifi_services () {
+    // Set up wifi -> move to maintenance mode only
+    setup_wifi_ap();
+    setup_wifi_sta(); 
+
+    // Initialize FTP server
+    if (cfg_this->ftp_enable) {
+        //tm_this->ftp_enabled = ftp_setup();
+    }
+
+    // Initialize OTA
+    if (cfg_this->ota_enable) {
+        setup_ota();
+    }
+}
+
+void disable_wifi_services () {
+    WiFi.disconnect(true, false);
+    tm_this->wifi_ap_enabled = false;
+    tm_this->wifi_sta_enabled = false;
 }
 
 // ESP-NOW Functionality
@@ -841,6 +910,7 @@ bool setup_espnow () {
     esp_now_peer_info_t peerInfo = {};
 	
     if (cfg_this->espnow_rx_enable or cfg_this->espnow_tx_enable) {
+        esp_wifi_set_ps(WIFI_PS_NONE);
         esp_wifi_set_channel(cfg_this->wifi_channel, WIFI_SECOND_CHAN_NONE);
         // Check my MAC address
         esp_wifi_get_mac(WIFI_IF_STA, my_mac);
@@ -1972,7 +2042,7 @@ bool cmd_list_fs () {
 // OTA Functionality
 
 void setup_ota() {
-    // ArduinoOTA.setPort(3232);
+    ArduinoOTA.setPort(3232);
     char hostname[64];
     sprintf(hostname, "%s-%s", cfg_this->rocket_name, subsystem[SS_THIS].name);
     ArduinoOTA.setHostname(hostname);

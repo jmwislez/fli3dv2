@@ -4,17 +4,17 @@
  * Receives tm packets from Fli3dv2 payload over ESP-NOW, and send them to Yamcs over USB
  * Receives tc packets from Yamcs over USB, and send them to Fli3dv2 payload over ESP-NOW
  *
- * To compile in the Arduino IDE v2.3.x, ESP32 core v3.x.x.
+ * To compile in Visual Studio with PlatformIO, for ESP32 Dev Module.
  *
  */
 
 // Set versioning
-#define SW_VERSION "Fli3d gndctrl v0.1.0 (20260723)"
+#define SW_VERSION "Fli3d gndctrl v0.1.0 (20260727)"
 
 // Libraries
 #include <Arduino.h>
-#include <fli3dv2.h>
 #include <ArduinoOTA.h>
+#include <fli3dv2.h>
 
 // Global variables used in this file
 //extern tc_gndctrl_t     tc_gndctrl;
@@ -63,49 +63,36 @@ void setup_timer() {
 }
 
 void setup() {
-    // Initial configuration
+    // Initial settings configuration
     init_config();
-     
+    
+    // Serial port to Yamcs
     Serial.begin(cfg_this->serial_baud);
     setup_serialtransfer(Serial);
+
+    // Startup telemetry
     init_ccsds();
     sprintf (buffer, "%s started on %s", SW_VERSION, subsystem[SS_THIS].name); 
     publish_event (STS_THIS, SS_THIS, EVENT_INIT, buffer); 
     publish_packet((ccsds_t*)tm_this);
     publish_packet((ccsds_t*)cfg_this);
 
-    // Load configuration
+    // Load stored configuration
     if(load_boot_config()) {
         load_config(cfg_this->cfg_boot.boot_bank);
     }
     publish_packet((ccsds_t*)tm_this);
     publish_packet((ccsds_t*)cfg_this);
 
-
-    // Set up ESP-NOW
+    // Set up ESP-NOW for communication with Fli3dv2 rocket
     setup_wifi();
     setup_espnow();
     publish_packet((ccsds_t*)tm_this);
 
-    // Set up file system
+    // Set up file system for local storage of telemetry data
     setup_fs();
     setup_sd();
     setup_archive();
-
-    // Set up wifi
-    //setup_wifi_ap();
-    //setup_wifi_sta(); 
-
-    // Initialize FTP server
-    if (cfg_this->ftp_enable) {
-        //tm_this->ftp_enabled = ftp_setup();
-        publish_packet ((ccsds_t*)tm_this);  // #8
-    }
-
-    // Initialize OTA
-    if (cfg_this->ota_enable) {
-        setup_ota();
-    }
 
     // Initialisation complete
     setup_timer();
@@ -120,25 +107,18 @@ void loop() {
         process_tx_queue();
         var.next_tx_time += 20;
     }
-
     if (millis()>=var.next_second) {
         publish_packet((ccsds_t*)tm_this);
         var.next_second+=1000;
     }
-
-    // OTA check
-    if (tm_this->opsmode == MODE_MAINTENANCE and cfg_this->ota_enable) {
-      //start_millis = millis();    
-      ArduinoOTA.handle();
-      tm_this->ota_enabled = true;
-      //tmr_this->ota_duration += millis() - start_millis;
-    }
-    
-    // FTP check
-    if ((tm_this->opsmode == MODE_CHECKOUT or tm_this->opsmode == MODE_MAINTENANCE) and tm_this->ftp_enabled) {
-      // FTP server is active when Fli3d is being prepared or done
-      //start_millis = millis();    
-      // ftp_check (cfg_this->buffer_fs);
-      //tmr_this->ftp_duration += millis() - start_millis;
+    if (tm_this->opsmode == MODE_MAINTENANCE) {
+        // In maintenance mode, we can check for OTA and FTP
+        if (cfg_this->ota_enable) {
+            ArduinoOTA.handle();
+            tm_this->ota_enabled = true;
+        }
+        if (tm_this->ftp_enabled) {
+            //ftp_check(cfg_this->buffer_fs);
+        }
     }
 }
