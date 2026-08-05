@@ -1,0 +1,1 @@
+python bin\yamcs_serial_frontend.py
