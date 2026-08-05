@@ -1,0 +1,162 @@
+(footprint "XHP_1x02_P2.54mm"
+	(version 20240108)
+	(generator "pcbnew")
+	(generator_version "8.0")
+	(layer "F.Cu")
+	(descr "Molex KK-254 Interconnect System, old/engineering part number: AE-6410-02A example for new part number: 22-27-2021, 2 Pins (http://www.molex.com/pdm_docs/sd/022272021_sd.pdf), generated with kicad-footprint-generator")
+	(tags "connector Molex KK-254 vertical")
+	(property "Reference" "REF**"
+		(at -0.7 -4.2 0)
+		(layer "F.SilkS")
+		(uuid "401bd369-25d2-4c45-836b-bec74acacf7c")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "XHP_1x02_P2.54mm"
+		(at 1.27 4.08 0)
+		(layer "F.Fab")
+		(uuid "9923f83e-6616-462d-bd55-be8de3fd2ab9")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Footprint" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "6e376510-cd1d-49f0-a208-1350de50503c")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "0cc75bbd-7e20-4b75-9599-cf253ce6cc48")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "c9093446-f116-4d2a-941f-c9f37066052e")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr through_hole)
+	(fp_line
+		(start 0 1.99)
+		(end 2.54 1.99)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "a65bdbe2-5551-49d9-af2b-078b4cb4c5b6")
+	)
+	(fp_rect
+		(start -2.6 -3.5)
+		(end 4.9 2.3)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "F.SilkS")
+		(uuid "f23ce773-b728-4e76-82a0-f491081f0277")
+	)
+	(fp_rect
+		(start -2.8 -3.7)
+		(end 5.1 2.5)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(fill none)
+		(layer "F.CrtYd")
+		(uuid "668f746f-81b2-488b-a98e-cb9e954b7a3b")
+	)
+	(fp_line
+		(start -1.27 -0.5)
+		(end -0.562893 0)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "fe30edfd-b308-487c-8034-28d716ad1770")
+	)
+	(fp_line
+		(start -0.562893 0)
+		(end -1.27 0.5)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "aa687bde-1ae7-4fe0-b13a-3a166b2fb99b")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 1.27 -2.22 0)
+		(layer "F.Fab")
+		(uuid "ff3418c6-dbb4-42e2-a414-79e383506fac")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "1" thru_hole roundrect
+		(at 0 0)
+		(size 2 2)
+		(drill 0.9)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(roundrect_rratio 0.143678)
+		(uuid "e9846617-8656-413a-a2e9-ace80895fa71")
+	)
+	(pad "2" thru_hole circle
+		(at 2.54 0)
+		(size 2 2)
+		(drill 0.9)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(thermal_bridge_angle 90)
+		(uuid "16fc5370-527a-4f92-86d0-54a032c680c1")
+	)
+	(model "${KIPRJMOD}/step/Fli3dv2-XHP.step"
+		(offset
+			(xyz 5 -2.3 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 -90)
+		)
+	)
+)

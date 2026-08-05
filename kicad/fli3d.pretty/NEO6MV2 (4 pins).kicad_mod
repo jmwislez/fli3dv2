@@ -1,0 +1,245 @@
+(footprint "NEO6MV2 (4 pins)"
+	(version 20240108)
+	(generator "pcbnew")
+	(generator_version "8.0")
+	(layer "F.Cu")
+	(property "Reference" "REF**"
+		(at -0.1 14.1 0)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "2bbbaf00-13d8-422e-9765-441a0732851e")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+		)
+	)
+	(property "Value" "NEO6MV2 (4 pins)"
+		(at -0.1 15.6 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "2e509037-e7c7-4dd0-a0e3-2f8f9ab6f36a")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Footprint" ""
+		(at -0.1 14.6 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "007b53cb-14ce-40f2-bd6d-b6369a1c6b7f")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at -0.1 14.6 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "02692bf0-0e0d-4d33-88fd-8e546c91d64c")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at -0.1 14.6 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "add6f646-d84d-499a-b8e8-fb61480b2240")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr through_hole)
+	(fp_rect
+		(start -13 -17.5)
+		(end 13 18.5)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "F.SilkS")
+		(uuid "866d9c98-90b3-4b34-b1cf-ab24d1e75c2a")
+	)
+	(fp_circle
+		(center -10.5 -15)
+		(end -9 -15)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "F.SilkS")
+		(uuid "aa3e85dc-2be7-4ff2-8e6f-7e51217610df")
+	)
+	(fp_circle
+		(center -10.5 16)
+		(end -9 16)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "F.SilkS")
+		(uuid "40cb4424-36aa-49fc-bef8-952ceab75ec2")
+	)
+	(fp_circle
+		(center 10.5 -15)
+		(end 12 -15)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "F.SilkS")
+		(uuid "1f9288d8-49d8-4043-9abc-bdc7208697c3")
+	)
+	(fp_circle
+		(center 10.5 16)
+		(end 12 16)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "F.SilkS")
+		(uuid "44fa26e9-b449-40db-903f-5721e025567e")
+	)
+	(fp_text user "NEO6MV2 (4 pins)"
+		(at -6.3 -8.6 0)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "14e3df43-11bb-412c-a002-69882bc5b180")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+			(justify left bottom)
+		)
+	)
+	(fp_text user "3.3V"
+		(at -3 -11.4 90)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "3837a4fb-d68e-47a9-8c73-58199ef214f4")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+			(justify left bottom)
+		)
+	)
+	(fp_text user "TX"
+		(at 2 -12.9 90)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "75ec925d-198f-4922-92e1-0fb85e4ca76e")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+			(justify left bottom)
+		)
+	)
+	(fp_text user "RX"
+		(at -0.6 -12.6 90)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "ad24dc48-a57b-4181-af51-8067d5a7bfc1")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+			(justify left bottom)
+		)
+	)
+	(fp_text user "GND"
+		(at 4.5 -11.7 90)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "fef83664-9616-4b68-80a8-04daa5de892b")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+			(justify left bottom)
+		)
+	)
+	(fp_text user "${REFERENCE}"
+		(at -0.1 17.1 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "d9d753eb-83ec-4a1b-a7aa-ff0dbe4e01c3")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "1" thru_hole rect
+		(at -3.7 -16)
+		(size 1.7 1.7)
+		(drill 1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "89d32881-9bcd-4744-96a1-a300dcdf2551")
+	)
+	(pad "2" thru_hole circle
+		(at -1.24 -16)
+		(size 1.7 1.7)
+		(drill 1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "09094dfc-1926-487f-9f98-053d5d555867")
+	)
+	(pad "3" thru_hole circle
+		(at 1.3 -16)
+		(size 1.7 1.7)
+		(drill 1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "93032b33-5f58-4dbe-9873-e328b556e6bf")
+	)
+	(pad "4" thru_hole circle
+		(at 3.84 -16)
+		(size 1.7 1.7)
+		(drill 1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "17bfd32a-8d4d-4c1a-83f8-909fe6882f30")
+	)
+	(model "${KIPRJMOD}/step/Fli3dv2-GY-NEO6MV2.step"
+		(offset
+			(xyz 13 30.9 -1)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 -90)
+		)
+	)
+)
