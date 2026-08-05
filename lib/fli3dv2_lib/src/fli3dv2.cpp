@@ -11,6 +11,8 @@
 
 #include <fli3dv2.h>
 #include <fli3d_secrets.h>
+#include "soc/soc.h"
+#include "soc/rtc_cntl_reg.h"
 
 char buffer[BUFFER_MAX_SIZE];
 SerialTransfer serialtransfer;
@@ -18,6 +20,7 @@ LinkedList<buffer_t*> *ccsds_rx_fifo = new LinkedList<buffer_t*>();
 LinkedList<buffer_t*> *ccsds_tx_fifo = new LinkedList<buffer_t*>();
 LinkedList<index_t*> *ccsds_fs_archive = new LinkedList<index_t*>();
 index_t archive;
+SmartRC_CC1101 radio;
 //FtpServer wifiTCP_FTP;
 
 // Functions not exposed in fli3dv2.h
@@ -75,12 +78,12 @@ tm_radio_t          tm_radio;
 tm_esp32cam_t       tm_esp32cam;
 tm_camera_t         tm_camera;
 tm_gndctrl_t        tm_gndctrl;
-tmr_esp32_t       tmr_esp32;
-tmr_esp32cam_t    tmr_esp32cam;
-tmr_gndctrl_t     tmr_gndctrl;
-cfg_packet_t     cfg_esp32;
-cfg_packet_t     cfg_esp32cam;
-cfg_packet_t     cfg_gndctrl;
+tmr_esp32_t         tmr_esp32;
+tmr_esp32cam_t      tmr_esp32cam;
+tmr_gndctrl_t       tmr_gndctrl;
+cfg_packet_t        cfg_esp32;
+cfg_packet_t        cfg_esp32cam;
+cfg_packet_t        cfg_gndctrl;
 var_t               var;
 
 
@@ -199,7 +202,9 @@ void init_config () {
     cfg_this->radio_baud = 2000;
     cfg_this->serial_baud = 115200;
     cfg_this->ota_enable = true;
-    cfg_this->espnow_longrange = false;    
+    cfg_this->espnow_longrange = false;   
+    cfg_this->battery_voltage_min = 3300; // mV
+    cfg_this->battery_voltage_max = 4200; // mV 
     switch(SS_THIS) {
     case SS_ESP32:
         cfg_this->magic_number = 'e';
@@ -220,7 +225,7 @@ void init_config () {
         cfg_this->serial_buffer_enable = false;
         cfg_this->radio_buffer_enable = false;
         cfg_this->archive_buffer_enable = true;
-        cfg_this->fs_enable = true;
+        cfg_this->fs_enable = false;
         cfg_this->flush_fs_enable = true;
         cfg_this->sd_enable = false;
         cfg_this->ftp_enable = true;
@@ -310,9 +315,9 @@ bool load_boot_config () {
     if (stored_cfg_boot.magic_number == cfg_this->cfg_boot.magic_number) {
         if (stored_cfg_boot.version == cfg_this->cfg_boot.version) {
             EEPROM.get(0, cfg_this->cfg_boot);
-            if (cfg_this->cfg_boot.boot_bank < 1 or cfg_this->cfg_boot.boot_bank > 3) {
-                cfg_this->cfg_boot.boot_bank = 1;
-                sprintf(buffer, "Invalid boot bank stored in %s EEPROM; falling back to bank 1", subsystem[SS_THIS].name);
+            if (cfg_this->cfg_boot.boot_bank < 0 or cfg_this->cfg_boot.boot_bank > 3) {
+                cfg_this->cfg_boot.boot_bank = 0;
+                sprintf(buffer, "Invalid boot bank stored in %s EEPROM; falling back to defaults", subsystem[SS_THIS].name);
                 publish_event(STS_THIS, SS_THIS, EVENT_WARNING, buffer);
             }
             sprintf(buffer, "Configurations found in %s EEPROM banks: 1:%s 2:%s 3:%s, %u selected", subsystem[SS_THIS].name, cfg_this->cfg_boot.cfg_name[0], cfg_this->cfg_boot.cfg_name[1], cfg_this->cfg_boot.cfg_name[2], cfg_this->cfg_boot.boot_bank);              
@@ -320,13 +325,13 @@ bool load_boot_config () {
             return true;
         }
         else {
-            sprintf(buffer, "Boot configuration table in %s EEPROM has wrong version (%u, expected %u)", subsystem[SS_THIS].name, stored_cfg_boot.version, cfg_this->cfg_boot.version);
+            sprintf(buffer, "Boot configuration table in %s EEPROM has wrong version (%u, expected %u); falling back to defaults", subsystem[SS_THIS].name, stored_cfg_boot.version, cfg_this->cfg_boot.version);
         }
     }
     else {
-        sprintf(buffer, "No boot configuration table found in %s EEPROM (magic number %u, expected %u)", subsystem[SS_THIS].name, (uint8_t)stored_cfg_boot.magic_number, (uint8_t)cfg_this->cfg_boot.magic_number);
+        sprintf(buffer, "No boot configuration table found in %s EEPROM (magic number %u, expected %u); falling back to defaults", subsystem[SS_THIS].name, (uint8_t)stored_cfg_boot.magic_number, (uint8_t)cfg_this->cfg_boot.magic_number);
     }
-    cfg_this->cfg_boot.boot_bank = 1;
+    cfg_this->cfg_boot.boot_bank = 0;
     publish_event(STS_THIS, SS_THIS, EVENT_ERROR, buffer);
     return false;
 }
@@ -646,6 +651,12 @@ bool set_parameter (const char* parameter, const char* value) {
             success = true;
         }
     }
+    else if (!strcmp(parameter, "timestamp")) { 
+        setTime(atoi(value));
+        tm_this->time_set = true;
+        sprintf(value_str, "%lu", atoi(value));
+        success = true;
+    }
     else if (!strcmp(parameter, "pressure_enable")) {
         if(atoi(value)==0 or atoi(value)==1) {
             cfg_this->pressure_enable = atoi(value);
@@ -678,7 +689,6 @@ bool set_parameter (const char* parameter, const char* value) {
         if(atoi(value)>=0 and atoi(value)<=255) {
             cfg_this->motion_tm_rate = atoi(value);
             sprintf(value_str, "%u", atoi(value));
-
             success = true;
         }
     }  
@@ -785,6 +795,7 @@ void setup_wifi () {
     // Setup wifi interface for use by ESPNOW or WiFi services (AP, STA, FTP, OTA)
     char hostname[64];
     sprintf(hostname, "%s-%s", cfg_this->rocket_name, subsystem[SS_THIS].name);
+    WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 0); 
     if (cfg_this->wifi_ap_enable) {
         WiFi.mode(WIFI_AP_STA); 
     }
@@ -794,6 +805,7 @@ void setup_wifi () {
     WiFi.config(INADDR_NONE, INADDR_NONE, INADDR_NONE);
     WiFi.setHostname(hostname);
     WiFi.setSleep(false);
+    WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 1); 
 }
 
 bool setup_wifi_ap () {
@@ -826,6 +838,11 @@ bool setup_wifi_sta () {
             publish_event (STS_THIS, SS_THIS, EVENT_INIT, buffer);
             tm_this->wifi_sta_enabled = true;
             tm_this->wifi_connected = true;
+            cfg_this->wifi_my_ip[0] = WiFi.localIP()[0];
+            cfg_this->wifi_my_ip[1] = WiFi.localIP()[1];
+            cfg_this->wifi_my_ip[2] = WiFi.localIP()[2];
+            cfg_this->wifi_my_ip[3] = WiFi.localIP()[3];
+            publish_packet((ccsds_t*)cfg_this);
             return true;
         }
 
@@ -857,6 +874,17 @@ void disable_wifi_services () {
     WiFi.disconnect(true, false);
     tm_this->wifi_ap_enabled = false;
     tm_this->wifi_sta_enabled = false;
+    tm_this->ota_enabled = false;
+    tm_this->ftp_enabled = false;
+    cfg_this->wifi_my_ip[0] = 0;
+    cfg_this->wifi_my_ip[1] = 0;
+    cfg_this->wifi_my_ip[2] = 0;
+    cfg_this->wifi_my_ip[3] = 0;
+    publish_packet((ccsds_t*)cfg_this);
+
+    setup_wifi(); // Reset WiFi for ESPNOW mode
+    sprintf (buffer, "Disconnected from WiFi network and disabled WiFi services");
+    publish_event (STS_THIS, SS_THIS, EVENT_INIT, buffer);
 }
 
 // ESP-NOW Functionality
@@ -975,10 +1003,10 @@ bool setup_espnow () {
         //}
         peerInfo.encrypt = false;
         register_espnow_peer(peerInfo);
-        if (!cfg_this->espnow_broadcast) {
-            peerInfo.peer_addr[5] = cfg_this->peer_mac[5]+1;
-            register_espnow_peer(peerInfo);
-        }
+        //if (!cfg_this->espnow_broadcast) {
+        //    peerInfo.peer_addr[5] = cfg_this->peer_mac[5]+1;
+        //    register_espnow_peer(peerInfo);
+       // }
 
         // Register functions on ESP-NOW receive/send
         esp_now_register_send_cb(esp_now_send_cb_t(OnDataSent_espnow));
@@ -1096,6 +1124,101 @@ bool send_packet_through_serial (ccsds_t* ccsds_ptr) {
   	    serialtransfer.sendDatum(*ccsds_ptr, get_ccsds_packet_len(ccsds_ptr));
         Serial.print("s");
   	    return true;
+	}
+	return false;
+}
+
+// Radio Functionality
+
+bool setup_radio () {
+    if(cfg_this->radio_rx_enable or cfg_this->radio_tx_enable) {
+        radio.setSpiPin(RADIO_SCK_PIN, RADIO_MISO_PIN, RADIO_MOSI_PIN, RADIO_CS_PIN);
+        radio.Init();                // must be set to initialize the cc1101!
+        radio.setCCMode(1);          // set config for internal transmission mode.
+        radio.setModulation(0);      // set modulation mode. 0 = 2-FSK, 1 = GFSK, 2 = ASK/OOK, 3 = 4-FSK, 4 = MSK.
+        radio.setMHZ(433.92);        // Here you can set your basic frequency. The lib calculates the frequency automatically (default = 433.92).The cc1101 can: 300-348 MHZ, 387-464MHZ and 779-928MHZ. Read More info from datasheet.
+        radio.setDeviation(47.60);   // Set the Frequency deviation in kHz. Value from 1.58 to 380.85. Default is 47.60 kHz.
+        radio.setChannel(0);         // Set the Channelnumber from 0 to 255. Default is cahnnel 0.
+        radio.setChsp(199.95);       // The channel spacing is multiplied by the channel number CHAN and added to the base frequency in kHz. Value from 25.39 to 405.45. Default is 199.95 kHz.
+        radio.setRxBW(812.50);       // Set the Receive Bandwidth in kHz. Value from 58.03 to 812.50. Default is 812.50 kHz.
+        radio.setDRate(99.97);       // Set the Data Rate in kBaud. Value from 0.02 to 1621.83. Default is 99.97 kBaud!
+        radio.setPA(10);             // Set TxPower. The following settings are possible depending on the frequency band.  (-30  -20  -15  -10  -6    0    5    7    10   11   12) Default is max!
+        radio.setSyncMode(3);        // Combined sync-word qualifier mode. 0 = No preamble/sync. 1 = 16 sync word bits detected. 2 = 16/16 sync word bits detected. 3 = 30/32 sync word bits detected. 4 = No preamble/sync, carrier-sense above threshold. 5 = 15/16 + carrier-sense above threshold. 6 = 16/16 + carrier-sense above threshold. 7 = 30/32 + carrier-sense above threshold.
+        radio.setSyncWord(211, 145); // Set sync word. Must be the same for the transmitter and receiver. (Syncword high, Syncword low)
+        radio.setAdrChk(0);          // Controls address check configuration of received packages. 0 = No address check. 1 = Address check, no broadcast. 2 = Address check and 0 (0x00) broadcast. 3 = Address check and 0 (0x00) and 255 (0xFF) broadcast.
+        radio.setAddr(0);            // Address used for packet filtration. Optional broadcast addresses are 0 (0x00) and 255 (0xFF).
+        radio.setWhiteData(0);       // Turn data whitening on / off. 0 = Whitening off. 1 = Whitening on.
+        radio.setPktFormat(0);       // Format of RX and TX data. 0 = Normal mode, use FIFOs for RX and TX. 1 = Synchronous serial mode, Data in on GDO0 and data out on either of the GDOx pins. 2 = Random TX mode; sends random data using PN9 generator. Used for test. Works as normal mode, setting 0 (00), in RX. 3 = Asynchronous serial mode, Data in on GDO0 and data out on either of the GDOx pins.
+        radio.setLengthConfig(1);    // 0 = Fixed packet length mode. 1 = Variable packet length mode. 2 = Infinite packet length mode. 3 = Reserved
+        radio.setPacketLength(0);    // Indicates the packet length when fixed packet length mode is enabled. If variable packet length mode is used, this value indicates the maximum packet length allowed.
+        radio.setCrc(1);             // 1 = CRC calculation in TX and CRC check in RX enabled. 0 = CRC disabled for TX and RX.
+        radio.setCRC_AF(0);          // Enable automatic flush of RX FIFO when CRC is not OK. This requires that only one packet is in the RXIFIFO and that packet length is limited to the RX FIFO size.
+        radio.setDcFilterOff(0);     // Disable digital DC blocking filter before demodulator. Only for data rates ≤ 250 kBaud The recommended IF frequency changes when the DC blocking is disabled. 1 = Disable (current optimized). 0 = Enable (better sensitivity).
+        radio.setManchester(0);      // Enables Manchester encoding/decoding. 0 = Disable. 1 = Enable.
+        radio.setFEC(0);             // Enable Forward Error Correction (FEC) with interleaving for packet payload (Only supported for fixed packet length mode. 0 = Disable. 1 = Enable.
+        radio.setPRE(0);             // Sets the minimum number of preamble bytes to be transmitted. Values: 0 : 2, 1 : 3, 2 : 4, 3 : 6, 4 : 8, 5 : 12, 6 : 16, 7 : 24
+        radio.setPQT(0);             // Preamble quality estimator threshold. The preamble quality estimator increases an internal counter by one each time a bit is received that is different from the previous bit, and decreases the counter by 8 each time a bit is received that is the same as the last bit. A threshold of 4∙PQT for this counter is used to gate sync word detection. When PQT=0 a sync word is always accepted.
+        radio.setAppendStatus(0);    // When enabled, two status bytes will be appended to the payload of the packet. The status bytes contain RSSI and LQI values, as well as CRC OK.
+        
+        if(radio.getCC1101()) {
+            sprintf(buffer, "Radio module %s initialised on %s", "CC1101", subsystem[SS_THIS].name);
+            publish_event(STS_THIS, SS_RADIO, EVENT_INIT, buffer);
+        }
+        else {
+            publish_event(STS_THIS, SS_RADIO, EVENT_ERROR, "Radio module not detected");
+            tm_this->radio_rx_enabled = false;
+            tm_this->radio_tx_enabled = false;
+            return false;
+        }
+        //radio.SetRx();
+        //radio.SetTx();
+       
+        if(cfg_this->radio_rx_enable) {
+            tm_this->radio_rx_enabled = true;
+        }
+        if(cfg_this->radio_tx_enable) {
+            tm_this->radio_tx_enabled = true;
+        }
+        return true;
+    }
+    return false;
+}
+
+bool check_radio_rx () {
+    static byte radio_rx_buffer[BUFFER_MAX_SIZE];
+    if (cfg_this->radio_rx_enable) {
+        if(radio.CheckRxFifo(20)) {        
+            tm_this->radio_connected = true;
+            tm_this->radio_rx_active = true;    
+            radio.ReceiveData(radio_rx_buffer);
+            if(valid_ccsds_hdr((ccsds_t*)&(radio_rx_buffer), PKT_TM) or valid_ccsds_hdr((ccsds_t*)&(radio_rx_buffer), PKT_TC)) {
+                tm_this->radio_rx_pktrate++;
+       		    add_packet_to_memory_buffer(ccsds_rx_fifo, (ccsds_t*)radio_rx_buffer, SS_RADIO, COMMS_RADIO);
+       		    return true;
+       		}
+       		else {
+                sprintf(buffer, "Radio packet with invalid CCSDS header received by %s (%02x %02x %02x %02x %02x %02x)", 
+                                subsystem[SS_THIS].name,
+                                radio_rx_buffer[0], 
+                                radio_rx_buffer[1], 
+                                radio_rx_buffer[2],
+                                radio_rx_buffer[3],
+                                radio_rx_buffer[4],
+                                radio_rx_buffer[5]);
+                publish_event(STS_THIS, SS_RADIO_PEER, EVENT_WARNING, buffer);
+            }
+        }
+    }
+    return false;
+}
+
+bool send_packet_through_radio (ccsds_t* ccsds_ptr) {
+    if (tm_this->radio_tx_enabled) {
+	    tm_this->radio_tx_pktrate++;
+  	    tm_this->radio_tx_active = true;
+		radio.SendData((uint8_t*)ccsds_ptr, get_ccsds_packet_len (ccsds_ptr), 100);
+        Serial.print("r");
+        return true;
 	}
 	return false;
 }
@@ -1340,13 +1463,6 @@ bool save_packet_to_archive (ccsds_t* ccsds_ptr) {
     return false;
 }
 
-// Radio functionality
-
-bool send_packet_through_radio (ccsds_t* ccsds_ptr) { // TODO: write
-    //Serial.print("r");
-    return false;
-}
-
 // Packet Buffering Functionality
 
 bool add_packet_to_memory_buffer (LinkedList<buffer_t*> *ccsds_fifo_ptr, ccsds_t* ccsds_ptr, uint8_t source, uint8_t comms) {
@@ -1391,10 +1507,10 @@ void process_rx_queue () {
         if (valid_ccsds_hdr(ccsds_rx_buffer->ccsds_ptr, PKT_TM)) {
             // The received packet is TM
             uint8_t PID = get_ccsds_pid(ccsds_rx_buffer->ccsds_ptr); 
-            Serial.print(millis());
-            Serial.print(" In RX queue: ");
-            print_ccsds_data (ccsds_rx_buffer->ccsds_ptr);
-            Serial.println("");
+            //Serial.print(millis());
+            //Serial.print(" In RX queue: ");
+            //print_ccsds_data (ccsds_rx_buffer->ccsds_ptr);
+            //Serial.println("");
             if (packet[PID].source != SS_THIS) {
                 // The TM originated from another subsystem and I'm likely in the transmission chain (good): store in local structure and redistribute
                 if (get_ccsds_packet_ctr(packet[PID].ccsds_ptr) != get_ccsds_packet_ctr(ccsds_rx_buffer->ccsds_ptr)) {  // filter out duplicates
@@ -1410,13 +1526,6 @@ void process_rx_queue () {
         }
         else if (valid_ccsds_hdr (ccsds_rx_buffer->ccsds_ptr, PKT_TC)) {
             // The received packet is TC
-            /*if (!tm_this->time_set) {
-                setTime(get_ccsds_seconds(ccsds_rx_buffer->ccsds_ptr));
-                var.delta_millis = (get_ccsds_seconds(ccsds_rx_buffer->ccsds_ptr) - (millis() % 1000) + 1000) % 1000;
-                sprintf(buffer, "Set time to %lu : %lu : %04u-%02u-%02u %u:%02u:%02u.000", get_ccsds_epoch_time(ccsds_rx_buffer->ccsds_ptr), now(), year(), month(), day(), hour(), minute(), second());
-                publish_event(STS_THIS, SS_ESP32, EVENT_INIT, buffer);                
-                tm_this->time_set = true;
-            }*/
             uint8_t PID = get_ccsds_pid(ccsds_rx_buffer->ccsds_ptr); 
             if (packet[PID].dest == SS_THIS) {
                 // The TC is to be executed by this subsystem (good): store in local structure and execute
@@ -1578,13 +1687,32 @@ void publish_event (uint8_t PID, uint8_t subsystem, uint8_t event_type, const ch
     publish_packet (packet[PID].ccsds_ptr);
 }
 
+void publish_cmd (uint8_t PID, uint8_t command_id, const byte* cmd_payload, uint8_t payload_len) {
+    switch(PID) {
+        case TC_ESP32: 
+            tc_esp32.cmd_id = command_id;
+            memcpy (tc_esp32.parameter, cmd_payload, payload_len);
+            break;
+        case TC_ESP32CAM: 
+            tc_esp32cam.cmd_id = command_id;
+            memcpy (tc_esp32cam.parameter, cmd_payload, payload_len);
+            break;
+        case TC_GNDCTRL: 
+            tc_gndctrl.cmd_id = command_id;
+            memcpy (tc_gndctrl.parameter, cmd_payload, payload_len);
+            break;
+    }
+    set_ccsds_payload_len (packet[PID].ccsds_ptr, payload_len);
+    publish_packet (packet[PID].ccsds_ptr);
+}
+
 void update_packet (ccsds_t* ccsds_ptr) {
     // Increment sequence counter in CCSDS header
     ((ccsds_hdr_t*)ccsds_ptr)->seq_ctr_L++;
     if (((ccsds_hdr_t*)ccsds_ptr)->seq_ctr_L == 0) {
         ((ccsds_hdr_t*)ccsds_ptr)->seq_ctr_H++;
     }
-    if (((ccsds_hdr_t*)ccsds_ptr)->sec_hdr) {
+    if (((ccsds_hdr_t*)ccsds_ptr)->sec_hdr and tm_this->time_set) {
         ((ccsds_t*)ccsds_ptr)->ccsds_sec_hdr.seconds = now();
         ((ccsds_t*)ccsds_ptr)->ccsds_sec_hdr.subseconds = (millis()+var.delta_millis)%1000;
     }
@@ -1606,6 +1734,8 @@ void update_packet (ccsds_t* ccsds_ptr) {
                         tm_this->serial_buffer_queue = tm_this->buffer_size - var.serial_buffer_index;
                         tm_this->radio_buffer_queue = tm_this->buffer_size - var.radio_buffer_index;
                         tm_this->archive_buffer_queue = tm_this->buffer_size - var.archive_buffer_index;
+                        tm_this->battery_voltage = 0.9*tm_this->battery_voltage + 0.1*2*analogReadMilliVolts(BAT_V_PIN);
+                        tm_this->battery_percentage = min(100, max(0, (tm_this->battery_voltage - cfg_this->battery_voltage_min) * 100 / (cfg_this->battery_voltage_max - cfg_this->battery_voltage_min)));
                         /*if (get_routing(&cfg_this->routing_espnow, TM_THIS) and tm_this->espnow_tx_enabled) {
                             tm_this->espnow_tx_pktrate++;
                         }
@@ -1651,6 +1781,8 @@ void update_packet (ccsds_t* ccsds_ptr) {
     case TM_ESP32CAM:   tm_esp32cam.millis = millis();
                         tm_esp32cam.packet_ctr++;
                         tm_esp32cam.mem_free = ESP.getFreeHeap()/1024;
+                        tm_this->battery_voltage = 0.9*tm_this->battery_voltage + 0.1*2*analogReadMilliVolts(BAT_V_PIN);
+                        tm_this->battery_percentage = min(100, max(0, (tm_this->battery_voltage - cfg_this->battery_voltage_min) * 100 / (cfg_this->battery_voltage_max - cfg_this->battery_voltage_min)));
                         //tm_esp32cam.fs_free = fs_free();
                         //tm_esp32cam.sd_free = sd_free();
                     /*    if (cfg_this->routing_espnow[TM_THIS] and tm_this->espnow_tx_enabled) {
@@ -1672,6 +1804,8 @@ void update_packet (ccsds_t* ccsds_ptr) {
     case TM_GNDCTRL:    tm_gndctrl.millis = millis();
                         tm_gndctrl.packet_ctr++;
                         tm_gndctrl.mem_free = ESP.getFreeHeap()/1024;
+                        tm_this->battery_voltage = 0.9*tm_this->battery_voltage + 0.1*2*analogReadMilliVolts(BAT_V_PIN);
+                        tm_this->battery_percentage = min(100, max(0, (tm_this->battery_voltage - cfg_this->battery_voltage_min) * 100 / (cfg_this->battery_voltage_max - cfg_this->battery_voltage_min)));
                         tm_this->espnow_buffer_queue = tm_this->buffer_size - var.espnow_buffer_index;
                         tm_this->serial_buffer_queue = tm_this->buffer_size - var.serial_buffer_index;
                         tm_this->radio_buffer_queue = tm_this->buffer_size - var.radio_buffer_index;
@@ -1735,6 +1869,7 @@ void reset_packet (ccsds_t* ccsds_ptr) {
                         tm_esp32.serial_tx_active = false;
                         tm_esp32.radio_rx_active = false;
                         tm_esp32.radio_tx_active = false;
+                        tm_this->buzzer_active=false;
                         break;
     case TM_GPS:        tm_esp32.gps_pktrate++;
                         tm_gps.status = 8;  // set default to "none"
@@ -1760,6 +1895,7 @@ void reset_packet (ccsds_t* ccsds_ptr) {
                         //tm_esp32cam.rtsp_active = false;
                         tm_esp32cam.archive_active = false; 
                         tm_esp32cam.ota_enabled = false; 
+                        tm_this->buzzer_active=false;
                         break;
     case TM_CAMERA:     strcpy (tm_camera.filename, "");
                         tm_camera.filesize = 0;
@@ -1785,6 +1921,7 @@ void reset_packet (ccsds_t* ccsds_ptr) {
                         tm_gndctrl.ftp_active = false;
                         tm_gndctrl.archive_active = false;
                         tm_gndctrl.fs_active = false;
+                        tm_this->buzzer_active=false;
 						break;                        
     case TIMER_ESP32:   tmr_esp32.radio_duration = 0;
                         tmr_esp32.pressure_duration = 0;
@@ -1850,12 +1987,14 @@ void init_ccsds_hdr (ccsds_t* ccsds_ptr, uint16_t APID, uint8_t pkt_type, uint16
 	(ccsds_ptr->ccsds_hdr).seq_flag = 3;
 	(ccsds_ptr->ccsds_hdr).pkt_len_H = (uint8_t)(len >> 8);  
 	(ccsds_ptr->ccsds_hdr).pkt_len_L = (uint8_t)len;
+    (ccsds_ptr->ccsds_sec_hdr).seconds = 0;
 }
 
 bool valid_ccsds_hdr (ccsds_t* ccsds_ptr, bool pkt_type) {
 	return (((ccsds_hdr_t*)ccsds_ptr)->version == 0 and
 			((ccsds_hdr_t*)ccsds_ptr)->type == pkt_type and
-            ((ccsds_hdr_t*)ccsds_ptr)->seq_flag == 3);
+            ((ccsds_hdr_t*)ccsds_ptr)->seq_flag == 3 and
+            ((ccsds_hdr_t*)ccsds_ptr)->pkt_len_L + 256*((ccsds_hdr_t*)ccsds_ptr)->pkt_len_H + 1 <= PARAMETER_MAX_SIZE);
 }
 
 uint16_t get_ccsds_apid (ccsds_t* ccsds_ptr) {
@@ -2081,6 +2220,23 @@ void setup_ota() {
     }
     else {
         publish_event (STS_THIS, SS_THIS, EVENT_INIT, "OTA capability initialized but no wifi enabled");
+    }
+}
+
+bool get_ntp_time() {
+    tm timeinfo;
+    configTime(0, 0, "ntp.telenet.be", "pool.ntp.org");
+    if (getLocalTime(&timeinfo)) {
+        setTime(timeinfo.tm_hour, timeinfo.tm_min, timeinfo.tm_sec, timeinfo.tm_mday, timeinfo.tm_mon + 1, timeinfo.tm_year + 1900);
+//        sprintf(buffer, "Time set through NTP: %04u-%02u-%02u %02u:%02u:%02u", timeinfo.tm_year + 1900, timeinfo.tm_mon + 1, timeinfo.tm_mday, timeinfo.tm_hour, timeinfo.tm_min, timeinfo.tm_sec);
+        sprintf(buffer, "Time set through NTP: %04u-%02u-%02u %02u:%02u:%02u", year(), month(), day(), hour(), minute(), second());
+        publish_event (STS_THIS, SS_THIS, EVENT_INIT, buffer);
+        tm_this->time_set = true;
+        return true;
+    }
+    else {
+        publish_event (STS_THIS, SS_THIS, EVENT_ERROR, "Failed to obtain NTP time");
+        return false;
     }
 }
 

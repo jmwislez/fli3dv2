@@ -4,7 +4,7 @@
  
 #ifndef _FLI3DV2_H_
 #define _FLI3DV2_H_
-#define LIB_VERSION "Fli3dv2 lib 1.99.0/20260727"
+#define LIB_VERSION "Fli3dv2 lib 1.99.0/20260804"
 
 #include <Arduino.h>
 #include <EEPROM.h>
@@ -20,6 +20,7 @@
 #include <TimeLib.h>
 #include <ESPmDNS.h>
 #include <ArduinoOTA.h>
+#include <SmartRC_CC1101.h>
 //#include <ESPFtpServer.h>
 
 #define BUFFER_MAX_SIZE           512
@@ -52,6 +53,7 @@
 
 #ifdef PLATFORM_ESP32
 #define SS_ESPNOW_PEER  SS_GNDCTRL
+#define SS_RADIO_PEER  SS_GNDCTRL
 #define SS_SERIAL_PEER  SS_ESP32CAM
 #define SS_THIS      SS_ESP32       // define default subsystem
 #define SS_OTHER     SS_ESP32CAM    // define counterpart subsystem
@@ -76,6 +78,7 @@
 #endif
 #ifdef PLATFORM_GNDCTRL
 #define SS_ESPNOW_PEER  SS_ESP32
+#define SS_RADIO_PEER  SS_ESP32
 #define SS_SERIAL_PEER  SS_YAMCS
 #define SS_THIS      SS_GNDCTRL     // define default subsystem
 #define SS_OTHER     SS_ESP32       // define counterpart subsystem
@@ -245,7 +248,7 @@ struct __attribute__ ((packed)) ccsds_sec_hdr_t {
 struct __attribute__ ((packed)) ccsds_t {
     ccsds_hdr_t ccsds_hdr;
     ccsds_sec_hdr_t ccsds_sec_hdr;
-    byte        blob[PARAMETER_MAX_SIZE+6];   // sized for longest possible sts_esp32/sts_esp32cam packet
+    byte        blob[PARAMETER_MAX_SIZE];   // sized for longest possible sts_esp32/sts_esp32cam packet
 };
 
 struct __attribute__ ((packed)) tc_packet_t {     // APID: 42 (2a) / 43 (2b) / 44 (2c)
@@ -291,6 +294,8 @@ struct __attribute__ ((packed)) tm_esp32_t {     // APID: 48 (30)
     uint16_t    mem_free;
     uint16_t    fs_free;
     uint32_t    sd_free;
+    uint16_t    battery_voltage;          // mV
+    uint8_t     battery_percentage;       // %
     uint8_t     espnow_buffer_queue;
     uint8_t     serial_buffer_queue;
     uint8_t     radio_buffer_queue;
@@ -341,7 +346,7 @@ struct __attribute__ ((packed)) tm_esp32_t {     // APID: 48 (30)
     bool        radio_rx_active:1;     //     3
     bool        radio_tx_active:1;     //      2
     bool        wifi_active:1;         //       1  TODO: keep or not?
-    bool        free_30:1;             //        0
+    bool        battery_tethered:1;    //        0
 };
 
 struct __attribute__ ((packed)) tm_gps_t {       // APID: 49 (31)
@@ -504,6 +509,8 @@ struct __attribute__ ((packed)) tm_esp32cam_t {  // APID: 53 (35)
     uint16_t    mem_free;
     uint16_t    fs_free;
     uint16_t    sd_free;
+    uint16_t    battery_voltage;          // mV
+    uint8_t     battery_percentage;       // %
     char        archive_path[20];
     
     bool        wifi_ap_enabled:1;     // 7
@@ -529,7 +536,7 @@ struct __attribute__ ((packed)) tm_esp32cam_t {  // APID: 53 (35)
     bool        espnow_connected:1;    //   5 
     bool        serial_connected:1;    //    4
     bool        radio_connected:1;     //     3
-    bool        free_12:1;             //      2
+    bool        battery_tethered:1;    //      2
     bool        time_set:1;            //       1
     bool        free_10:1;             //        0
     
@@ -592,6 +599,8 @@ struct __attribute__ ((packed)) tm_gndctrl_t {   // APID: 55 (37)
     uint16_t    mem_free;
     uint16_t    fs_free;
     uint32_t    sd_free;
+    uint16_t    battery_voltage;          // mV    
+    uint8_t     battery_percentage;       // %
     uint8_t     espnow_buffer_queue;
     uint8_t     serial_buffer_queue;
     uint8_t     radio_buffer_queue;
@@ -622,7 +631,7 @@ struct __attribute__ ((packed)) tm_gndctrl_t {   // APID: 55 (37)
     bool        espnow_connected:1;    //    4     TODO: keep or not?
     bool        serial_connected:1;    //     3    TODO: keep or not?
     bool        radio_connected:1;     //      2   TODO: keep or not?
-    bool        free_11:1;             //       1
+    bool        battery_tethered:1;    //       1
     bool        time_set:1;            //        0	
     
     bool        ftp_active:1;          // 7 
@@ -706,7 +715,7 @@ struct __attribute__ ((packed)) cfg_packet_t {  // APID: 59/60/61 (3b/3d/3e)
     ccsds_hdr_t ccsds_hdr;
     ccsds_sec_hdr_t ccsds_sec_hdr;
     char        magic_number;
-    uint8_t     version = 3;	
+    uint8_t     version = 4;	
     uint8_t     wifi_channel:4;       // 7-4
     bool        espnow_longrange:1;   //  3
     bool        espnow_broadcast:1;   //   2
@@ -721,6 +730,8 @@ struct __attribute__ ((packed)) cfg_packet_t {  // APID: 59/60/61 (3b/3d/3e)
     uint32_t    radio_baud;
     char        rocket_name[10];
     char        password[10];
+    uint16_t    battery_voltage_min;      // mV
+    uint16_t    battery_voltage_max;      // mV
     
     bool        espnow_rx_enable:1;   // 7   
     bool        espnow_tx_enable:1;   //  6  
@@ -763,7 +774,7 @@ struct __attribute__ ((packed)) cfg_packet_t {  // APID: 59/60/61 (3b/3d/3e)
     uint32_t    routing_radio __attribute__((aligned(4)));
     uint32_t    routing_archive __attribute__((aligned(4)));
     
-    cfg_boot_t cfg_boot; __attribute__((aligned(sizeof(cfg_boot_t))));
+    cfg_boot_t  cfg_boot; // __attribute__((aligned(sizeof(cfg_boot_t))));
 
     uint8_t     pressure_tm_rate;      // Hz (up to 157 Hz, highest resolution up to 23 Hz); reached 176 Hz on ESP8266
     uint8_t     motion_tm_rate;        // Hz (up to 400) - 255 is highest set value
@@ -917,6 +928,11 @@ extern bool setup_espnow ();
 extern bool setup_serialtransfer (Stream &serialport);
 extern bool check_serialtransfer_rx ();
 
+// Radio Functionality
+extern bool setup_radio (); 
+extern bool check_radio_rx ();
+extern void send_radio_packet (ccsds_t* ccsds_ptr);
+
 // File System Functionality
 extern bool setup_fs ();
 extern bool setup_sd ();
@@ -931,12 +947,16 @@ extern void process_rx_queue ();
 extern void process_tx_queue ();
 extern void publish_packet (ccsds_t* ccsds_ptr);
 extern void publish_event (uint8_t PID, uint8_t subsystem, uint8_t event_type, const char* event_message);
+extern void publish_cmd (uint8_t PID, uint8_t command_id, const byte* cmd_payload, uint8_t cmd_payload_len);
 
 // CCSDS Functionality
 extern void init_ccsds ();
 
 // OTA Functionality
 extern void setup_ota ();
+
+// Time functionality
+extern bool get_ntp_time();
 
 // Support Functionality
 extern String get_hex_str (byte* blob, uint16_t length);

@@ -11,5 +11,6 @@ void setup_power()
   analogSetPinAttenuation(BAT_V_PIN, ADC_11db);
   sprintf (buffer, "Battery monitoring initialized (%lu mV)", 2*analogReadMilliVolts(BAT_V_PIN)); 
   publish_event (STS_THIS, SS_THIS, EVENT_INIT, buffer);
+  tm_this->battery_voltage = 2*analogReadMilliVolts(BAT_V_PIN);
 }
 

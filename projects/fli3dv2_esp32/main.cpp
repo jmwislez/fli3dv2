@@ -9,7 +9,7 @@
 #define SW_VERSION "Fli3d ESP32 v1.99.0 (20260727)"
 
 // Set functionality to compile
-//#define RADIO
+#define RADIO
 //#define PRESSURE
 //#define MOTION
 //#define GPS
@@ -77,13 +77,16 @@ void setup() {
 
     Serial.begin(cfg_this->serial_baud); // debug output
     Serial1.begin(cfg_this->serial_baud, SERIAL_8N1, GPS_RX_PIN, GPS_TX_PIN); // communication with GPS
-    Serial2.begin(cfg_this->serial_baud, SERIAL_8N1, ESP32CAM_RX_PIN, ESP32CAM_TX_PIN); // communication with ESP32CAM
-    setup_serialtransfer(Serial2);
+    if (cfg_esp32.serial_rx_enable or cfg_esp32.serial_tx_enable) {
+        Serial2.begin(cfg_this->serial_baud, SERIAL_8N1, ESP32CAM_RX_PIN, ESP32CAM_TX_PIN); // communication with ESP32CAM
+        setup_serialtransfer(Serial2);
+    }
     init_ccsds();
     sprintf (buffer, "%s started on %s", SW_VERSION, subsystem[SS_THIS].name); 
     publish_event (STS_THIS, SS_THIS, EVENT_INIT, buffer);  
     publish_packet((ccsds_t*)tm_this);
     publish_packet((ccsds_t*)cfg_this);
+    setup_power();
 
     // Start sending tm packets every second
     esp_timer_create_args_t timer_argsTM = {
@@ -123,6 +126,9 @@ void setup() {
     setup_wifi();
     setup_espnow();
 
+    // Set up radio
+    setup_radio();
+
     // Set up file system
     setup_fs();
     setup_sd();
@@ -130,7 +136,6 @@ void setup() {
 
     //
     setup_separation();
-    setup_power();
     setup_buzzer();
 
     #ifdef CAMERA
@@ -169,6 +174,7 @@ void loop() {
     static uint32_t start_millis;
   
     check_serialtransfer_rx();
+    check_radio_rx();
     process_rx_queue();
 
     if (tm_this->opsmode == MODE_MAINTENANCE) {
