@@ -12,34 +12,34 @@ void setup_gpio()
     pinMode(SET2_PIN, INPUT_PULLUP);
     pinMode(SET3_PIN, INPUT_PULLUP);
     pinMode(SET4_PIN, INPUT_PULLUP);
-    cfg_esp32.dip_set1 = !digitalRead (SET1_PIN);
-    cfg_esp32.dip_set2 = !digitalRead (SET2_PIN);
-    cfg_esp32.dip_set3 = !digitalRead (SET3_PIN);
-    cfg_esp32.dip_set4 = !digitalRead (SET4_PIN);
-    sprintf (buffer, "DIP switch settings acquired (1:%d 2:%d 3:%d 4:%d)", cfg_esp32.dip_set1, cfg_esp32.dip_set2, cfg_esp32.dip_set3, cfg_esp32.dip_set4); 
+    cfg_this->dip_set1 = !digitalRead (SET1_PIN);
+    cfg_this->dip_set2 = !digitalRead (SET2_PIN);
+    cfg_this->dip_set3 = !digitalRead (SET3_PIN);
+    cfg_this->dip_set4 = !digitalRead (SET4_PIN);
+    sprintf (buffer, "DIP switch settings acquired (1:%d 2:%d 3:%d 4:%d)", cfg_this->dip_set1, cfg_this->dip_set2, cfg_this->dip_set3, cfg_this->dip_set4);
     publish_event (STS_THIS, SS_THIS, EVENT_INIT, buffer);
-    cfg_esp32.buzzer_enable=cfg_esp32.dip_set1;
-    if (cfg_esp32.dip_set1) {
+    cfg_this->buzzer_enable=cfg_this->dip_set1;
+    if (cfg_this->dip_set1) {
         sprintf (buffer, "Enabled buzzer based on DIP switch 1 (on)");
     }
     else {
         sprintf (buffer, "Disabled buzzer based on DIP switch 1 (off)");
     }
     publish_event (STS_THIS, SS_THIS, EVENT_INIT, buffer);
-    cfg_esp32.flush_fs_enable=cfg_esp32.dip_set2;
-    if (cfg_esp32.dip_set2) {
+    cfg_this->flush_fs_enable=cfg_this->dip_set2;
+    if (cfg_this->dip_set2) {
         sprintf (buffer, "Enabled FS flushing at boot based on DIP switch 2 (on)");
     }
     else {
         sprintf (buffer, "Disabled FS flushing at boot based on DIP switch 2 (off)");
     }
     publish_event (STS_THIS, SS_THIS, EVENT_INIT, buffer);
-    if (cfg_esp32.dip_set3) {
-        var.boot_bank=3;
-        sprintf (buffer, "Override boot configuration to bank %u (%s) based on DIP switch 3 (on)", var.boot_bank, cfg_esp32.cfg_boot.cfg_name[2]);
+    if (cfg_this->dip_set3) {
+        cfg_this->cfg_boot.boot_bank=3;
+        sprintf (buffer, "Override boot configuration to bank %u (%s) based on DIP switch 3 (on)", cfg_this->cfg_boot.boot_bank, cfg_this->cfg_boot.cfg_name[2]);
     }
     else {
-        sprintf (buffer, "Using stored boot configuration based on DIP switch 3 (off)");
+        sprintf (buffer, "Using nominal stored boot configuration %u (%s) based on DIP switch 3 (off)", cfg_this->cfg_boot.boot_bank, cfg_this->cfg_boot.cfg_name[cfg_this->cfg_boot.boot_bank - 1]);
     }
     publish_event (STS_THIS, SS_THIS, EVENT_INIT, buffer);
 }

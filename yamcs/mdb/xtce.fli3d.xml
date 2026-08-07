@@ -57,10 +57,10 @@
                 <IntegerDataEncoding sizeInBits="16" />
             </IntegerParameterType>
             <IntegerParameterType name="CCSDS_Seconds_t" signed="false">
-                <IntegerDataEncoding sizeInBits="32" encoding="unsigned" />
+                 <IntegerDataEncoding sizeInBits="32" encoding="unsigned" byteOrder="leastSignificantByteFirst" />
             </IntegerParameterType>
-            <IntegerParameterType name="CCSDS_SubSeconds_t" signed="false">
-                <IntegerDataEncoding sizeInBits="16" encoding="unsigned" />
+            <IntegerParameterType name="CCSDS_SubSeconds_t" signed="false" >
+                <IntegerDataEncoding sizeInBits="16" encoding="unsigned" byteOrder="leastSignificantByteFirst" />
             </IntegerParameterType>
             
             <StringParameterType name="string_t">

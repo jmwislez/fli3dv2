@@ -9,7 +9,7 @@
  */
 
 // Set versioning
-#define SW_VERSION "Fli3d gndctrl v0.1.0 (20260804)"
+#define SW_VERSION "Fli3d gndctrl v0.1.0 (20260805)"
 
 // Libraries
 #include <Arduino.h>
@@ -87,8 +87,8 @@ void setup() {
     publish_packet((ccsds_t*)cfg_this);
 
     // Load stored configuration
-    if(load_boot_config()) {
-        load_config(cfg_this->cfg_boot.boot_bank);
+    if(init_boot_config()) {
+        load_config_bank(cfg_this->cfg_boot.boot_bank);
     }
     publish_packet((ccsds_t*)tm_this);
     publish_packet((ccsds_t*)cfg_this);
@@ -127,7 +127,7 @@ void loop() {
     }
     if (millis()>=var.next_second) {
         if (tm_this->time_set and tm_esp32.packet_ctr>0 and !tm_esp32.time_set) {
-            //set_esp32_time();
+            set_esp32_time();
         }
         publish_packet((ccsds_t*)tm_this);
         var.next_second+=1000;

@@ -114,11 +114,8 @@ void setup() {
 
     // Load configuration
     setup_gpio();
-    if(load_boot_config()) {
-        if(var.boot_bank) {
-            cfg_esp32.cfg_boot.boot_bank=var.boot_bank;
-        }
-        load_config(cfg_this->cfg_boot.boot_bank);
+    if(init_boot_config()) {
+        load_config_bank(cfg_this->cfg_boot.boot_bank);
     }
     publish_packet((ccsds_t*)cfg_this);
 
@@ -150,19 +147,13 @@ void setup() {
     }
     #endif // GPS
 
-    #ifdef MOTION
-    if ((esp32.motion_enabled = motion_setup())) {
+    #ifdef MOTION || PRESSURE
+    if ((tm_esp32.motion_enabled = setup_icm20948())) {
         //mpu6050_calibrate();    // TODO: to be done offline on loose sensor, then put calibration values in configuration file
         //mpu6050_checkConfig(); 
         //mpu6050_printConfig(); 
     }
-    #endif // MOTION
-
-    #ifdef PRESSURE
-    if ((esp32.pressure_enabled = pressure_setup())) { // needs to be after MOTION
-        bmp280_checkConfig();
-    }
-    #endif // PRESSURE
+    #endif // MOTION || PRESSURE
 
     // Initialisation complete
     setup_timer();
@@ -194,35 +185,35 @@ void loop() {
             separation_sts_changed = false;
         }
     
-        // BMP280 pressure sensor
+        // BMP388 pressure sensor
         #ifdef PRESSURE
-        else if (tmr_esp32.millis >= var.next_pressure_time and esp32.pressure_enabled) {
-        start_millis = millis();
-        if (bmp280_acquire()) {
-            publish_packet ((ccsds_t*)&bmp280);
-        }
-        else {
-            // will try to reset pressure sensor once, and then give up
-            esp32.pressure_enabled = pressure_setup();
-        }
-        var.next_pressure_time = tmr_esp32.millis + var.pressure_interval;
-        tmr_esp32.pressure_duration += millis() - start_millis;
+        if (tmr_esp32.millis >= var.next_pressure_time and esp32.pressure_enabled) {
+        //start_millis = millis();
+            if (acquire_BMP()) {
+                publish_packet ((ccsds_t*)&pressure);
+            }
+            //else {
+                // will try to reset pressure sensor once, and then give up
+                //esp32.pressure_enabled = setup_icm20948();
+            //}
+            var.next_pressure_time = tmr_esp32.millis + var.pressure_interval;
+            //tmr_esp32.pressure_duration += millis() - start_millis;
         } 
         #endif // PRESSURE
 
-        // MPU6050 or MPU9250 accelerometer/gyroscope
+        // ICM-20948 accelerometer/gyroscope/magnetometer
         #ifdef MOTION
-        else if (tmr_esp32.millis >= var.next_motion_time and esp32.motion_enabled) {
-        start_millis = millis();
-        if (mpu_acquire()) {
-            publish_packet ((ccsds_t*)&motion);
-        }
-        else {
-            // will try to reset accelerometer once, and then give up
-            esp32.motion_enabled = motion_setup();
-        }
-        var.next_motion_time = tmr_esp32.millis + var.motion_interval;
-        tmr_esp32.motion_duration += millis() - start_millis;
+        if (tmr_esp32.millis >= var.next_motion_time and esp32.motion_enabled) {
+            //start_millis = millis();
+            if (acquire_ICU()) {
+                publish_packet ((ccsds_t*)&motion);
+            }
+            //else {
+                // will try to reset accelerometer once, and then give up
+                //esp32.motion_enabled = setup_icm20948();
+            //}
+            var.next_motion_time = tmr_esp32.millis + var.motion_interval;
+            //tmr_esp32.motion_duration += millis() - start_millis;
         } 
         #endif // MOTION
         

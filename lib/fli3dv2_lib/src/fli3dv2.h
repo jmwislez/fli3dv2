@@ -221,10 +221,10 @@ extern const char gpsStatusName[9][11]; */
 struct __attribute__ ((packed)) cfg_boot_t {
     char        magic_number = 'b';
     uint8_t     version = 2;
-    uint8_t     boot_bank = 1;
+    uint8_t     boot_bank = 0;
     uint8_t     size_cfg_boot = 50;
     uint8_t     size_config = 250;
-    char        cfg_name[3][10] = { "empty", "empty", "empty" };
+    char        cfg_name[3][10] = { "???", "???", "???" };
 };
 
 struct __attribute__ ((packed)) ccsds_hdr_t {
@@ -723,7 +723,7 @@ struct __attribute__ ((packed)) cfg_packet_t {  // APID: 59/60/61 (3b/3d/3e)
     uint8_t     archive_fs:2;         // 7-6
     uint8_t     ftp_fs:2;             //  5-4
     uint8_t     free_00:4;            //   0-3
-    byte        wifi_my_ip[4];        // TODO: assign fixed IP to each party NOPE?
+    byte        wifi_my_ip[4];        
     byte        my_mac[6];
     byte        peer_mac[6];
     uint32_t    serial_baud;
@@ -774,7 +774,7 @@ struct __attribute__ ((packed)) cfg_packet_t {  // APID: 59/60/61 (3b/3d/3e)
     uint32_t    routing_radio __attribute__((aligned(4)));
     uint32_t    routing_archive __attribute__((aligned(4)));
     
-    cfg_boot_t  cfg_boot; // __attribute__((aligned(sizeof(cfg_boot_t))));
+    cfg_boot_t  cfg_boot;  __attribute__((aligned(sizeof(cfg_boot_t))));
 
     uint8_t     pressure_tm_rate;      // Hz (up to 157 Hz, highest resolution up to 23 Hz); reached 176 Hz on ESP8266
     uint8_t     motion_tm_rate;        // Hz (up to 400) - 255 is highest set value
@@ -800,7 +800,6 @@ struct var_t {
     uint16_t    gps_interval;
     uint16_t    camera_interval;
     uint16_t    delta_millis;
-    uint8_t     boot_bank;
     uint8_t     espnow_buffer_index;
     uint8_t     serial_buffer_index;
     uint8_t     radio_buffer_index;
@@ -910,8 +909,9 @@ extern name_t subsystem[];
 
 // Configuration Functionality
 extern void init_config ();
+extern bool init_boot_config ();
 extern bool load_boot_config ();
-extern bool load_config (const uint8_t bank);
+extern bool load_config_bank (const uint8_t bank);
 extern bool set_opsmode (const uint8_t mode);
 
 // WiFi Functionality

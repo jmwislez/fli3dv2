@@ -24,7 +24,10 @@ SmartRC_CC1101 radio;
 //FtpServer wifiTCP_FTP;
 
 // Functions not exposed in fli3dv2.h
-extern bool save_config (const uint8_t bank, const char* tag);
+extern bool save_config_bank (const uint8_t bank, const char* tag, const cfg_packet_t *cfg_ptr);
+extern bool check_config_bank (const uint8_t bank);
+extern bool clear_config_bank (const uint8_t bank);
+extern bool set_boot_bank (const uint8_t bank);
 extern bool set_parameter (const char* parameter, const char* value);
 extern void OnDataSent_espnow(const esp_now_peer_info_t *info, esp_now_send_status_t status);
 extern void OnDataRecv_espnow(const esp_now_peer_info_t *info, const uint8_t *espnow_rx_buffer, int len);
@@ -196,6 +199,7 @@ name_t filesystem[] = { // also update #define in fli3dv2.h and xtce.fli3d.xml
 // Configuration Functionality
 
 void init_config () {
+    // Set default configuration values
     cfg_this->wifi_channel = default_wifi_channel;
     strcpy(cfg_this->rocket_name, default_rocket_name); 
     strcpy(cfg_this->password, default_password); 
@@ -217,8 +221,8 @@ void init_config () {
         cfg_this->espnow_tx_enable = true;
         cfg_this->serial_rx_enable = true;
         cfg_this->serial_tx_enable = true;
-        cfg_this->radio_rx_enable = true;
-        cfg_this->radio_tx_enable = true;
+        cfg_this->radio_rx_enable = false;
+        cfg_this->radio_tx_enable = false;
         cfg_this->espnow_broadcast = false;
         cfg_this->archive_enable = true;
         cfg_this->espnow_buffer_enable = true;
@@ -281,8 +285,8 @@ void init_config () {
         cfg_this->espnow_tx_enable = true;
         cfg_this->serial_rx_enable = true;
         cfg_this->serial_tx_enable = true;
-        cfg_this->radio_rx_enable = true;
-        cfg_this->radio_tx_enable = true;
+        cfg_this->radio_rx_enable = false;
+        cfg_this->radio_tx_enable = false;
         cfg_this->espnow_broadcast = false;
         cfg_this->archive_enable = false;
         cfg_this->espnow_buffer_enable = false;
@@ -305,76 +309,107 @@ void init_config () {
 	}
 }
 
-bool load_boot_config () {
+bool init_boot_config () {
     cfg_boot_t stored_cfg_boot;
+
+    // Check that EEPROM is correctly sized for boot configuration table and configuration tables, and addressable
+    if(cfg_this->cfg_boot.size_cfg_boot < sizeof(cfg_boot_t)) {
+        sprintf (buffer, "EEPROM bank for boot configuration table is too small (%u bytes, expected %u). Please correct code.", cfg_this->cfg_boot.size_cfg_boot, sizeof(cfg_boot_t));
+        publish_event (STS_THIS, SS_THIS, EVENT_ERROR, buffer);
+        return false;
+    }
+    if(cfg_this->cfg_boot.size_config < sizeof(cfg_packet_t)) {
+        sprintf (buffer, "EEPROM bank for configuration tables is too small (%u bytes, expected %u). Please correct code.", cfg_this->cfg_boot.size_config, sizeof(cfg_packet_t));
+        publish_event (STS_THIS, SS_THIS, EVENT_ERROR, buffer);
+        return false;
+    }
     if(!EEPROM.begin(cfg_this->cfg_boot.size_cfg_boot + 3 * cfg_this->cfg_boot.size_config)) {
         sprintf (buffer, "Cannot address %u bytes in %s EEPROM", cfg_this->cfg_boot.size_cfg_boot + 3 * cfg_this->cfg_boot.size_config, subsystem[SS_THIS].name);
-        publish_event (STS_THIS, SS_THIS, EVENT_ERROR, buffer);         
+        publish_event (STS_THIS, SS_THIS, EVENT_ERROR, buffer);
+        return false;    
     }
+    // Load boot configuration table from EEPROM and check that it is valid (correct magic number and version)
     EEPROM.get(0, stored_cfg_boot);
     if (stored_cfg_boot.magic_number == cfg_this->cfg_boot.magic_number) {
         if (stored_cfg_boot.version == cfg_this->cfg_boot.version) {
-            EEPROM.get(0, cfg_this->cfg_boot);
-            if (cfg_this->cfg_boot.boot_bank < 0 or cfg_this->cfg_boot.boot_bank > 3) {
-                cfg_this->cfg_boot.boot_bank = 0;
-                sprintf(buffer, "Invalid boot bank stored in %s EEPROM; falling back to defaults", subsystem[SS_THIS].name);
-                publish_event(STS_THIS, SS_THIS, EVENT_WARNING, buffer);
-            }
-            sprintf(buffer, "Configurations found in %s EEPROM banks: 1:%s 2:%s 3:%s, %u selected", subsystem[SS_THIS].name, cfg_this->cfg_boot.cfg_name[0], cfg_this->cfg_boot.cfg_name[1], cfg_this->cfg_boot.cfg_name[2], cfg_this->cfg_boot.boot_bank);              
-            publish_event(STS_THIS, SS_THIS, EVENT_INIT, buffer);
-            return true;
+            load_boot_config();
+            // Check validity of the stored configurations
+            return (check_config_bank(1) && check_config_bank(2) && check_config_bank(3));
         }
         else {
-            sprintf(buffer, "Boot configuration table in %s EEPROM has wrong version (%u, expected %u); falling back to defaults", subsystem[SS_THIS].name, stored_cfg_boot.version, cfg_this->cfg_boot.version);
+            sprintf(buffer, "Boot configuration table in %s EEPROM has wrong version (%u, expected %u); re-initializing", subsystem[SS_THIS].name, stored_cfg_boot.version, cfg_this->cfg_boot.version);
         }
     }
     else {
-        sprintf(buffer, "No boot configuration table found in %s EEPROM (magic number %u, expected %u); falling back to defaults", subsystem[SS_THIS].name, (uint8_t)stored_cfg_boot.magic_number, (uint8_t)cfg_this->cfg_boot.magic_number);
+        sprintf(buffer, "No valid boot configuration table found in %s EEPROM (magic number %u, expected %u); re-initializing", subsystem[SS_THIS].name, (uint8_t)stored_cfg_boot.magic_number, (uint8_t)cfg_this->cfg_boot.magic_number);
     }
-    cfg_this->cfg_boot.boot_bank = 0;
     publish_event(STS_THIS, SS_THIS, EVENT_ERROR, buffer);
+    // Re-initialize boot configuration table to default values
+    clear_config_bank(1);
+    clear_config_bank(2);
+    clear_config_bank(3);
+    set_boot_bank(0);
     return false;
 }
 
-void print_boot_config () {
-    cfg_boot_t stored_cfg_boot;
-    EEPROM.get(0, stored_cfg_boot);
-    Serial.print("Memory: ");
-    Serial.println(get_hex_str((byte*)&cfg_this->cfg_boot, sizeof(cfg_boot_t)));
-    Serial.print("Stored: ");
-    Serial.println(get_hex_str((byte*)&stored_cfg_boot, sizeof(cfg_boot_t)));
+bool load_boot_config () {
+    // Load boot configuration table from EEPROM    
+    EEPROM.get(0, cfg_this->cfg_boot);
+    sprintf(buffer, "Configurations found in %s EEPROM banks: 1:%s 2:%s 3:%s, %u selected", subsystem[SS_THIS].name, cfg_this->cfg_boot.cfg_name[0], cfg_this->cfg_boot.cfg_name[1], cfg_this->cfg_boot.cfg_name[2], cfg_this->cfg_boot.boot_bank);              
+    publish_event(STS_THIS, SS_THIS, EVENT_INIT, buffer);
+    return true;        
 }
 
-void print_config (uint8_t bank) {
-    cfg_packet_t stored_cfg;
-    EEPROM.get(cfg_this->cfg_boot.size_cfg_boot + (bank-1) * cfg_this->cfg_boot.size_config, stored_cfg);
-    Serial.print("Memory: ");
-    Serial.println(get_hex_str((byte*)cfg_this, sizeof(cfg_packet_t)));
-    Serial.print("Stored: ");
-    Serial.println(get_hex_str((byte*)&stored_cfg, sizeof(cfg_packet_t)));
+bool save_boot_config () {
+    // Save boot configuration table to EEPROM    
+    EEPROM.put(0, cfg_this->cfg_boot);
+    if(!EEPROM.commit()) {
+        sprintf(buffer, "Failed to commit boot configuration table to %s EEPROM", subsystem[SS_THIS].name);
+        publish_event(STS_THIS, SS_THIS, EVENT_ERROR, buffer);
+        return false;
+    }
+    cfg_boot_t stored_cfg_boot;
+    EEPROM.get(0, stored_cfg_boot);
+    if(memcmp(&stored_cfg_boot, &cfg_this->cfg_boot, sizeof(cfg_boot_t)) != 0) {
+        sprintf(buffer, "Verification of boot configuration table in %s EEPROM failed", subsystem[SS_THIS].name);
+        publish_event(STS_THIS, SS_THIS, EVENT_ERROR, buffer);
+        return false;
+    }
+    sprintf(buffer, "Saved boot configuration table to %s EEPROM", subsystem[SS_THIS].name);              
+    publish_event(STS_THIS, SS_THIS, EVENT_INFO, buffer);
+    return true;        
+}
+
+bool clear_config_bank (const uint8_t bank) {
+    cfg_packet_t empty_config = {};
+    if (bank>0 and bank<4) {
+        sprintf(buffer, "Clearing configuration in EEPROM bank %u", bank);              
+        publish_event(STS_THIS, SS_THIS, EVENT_INFO, buffer);
+        save_config_bank(bank, "empty", &empty_config);  
+        return true;
+    }
+    return false;
 }
 
 bool set_boot_bank (uint8_t bank) {
     cfg_this->cfg_boot.boot_bank = bank;
-    print_boot_config();
-    EEPROM.put(0, cfg_this->cfg_boot);
-    EEPROM.commit();
-    print_boot_config();
-    sprintf (buffer, "Set %s to boot with configuration from bank %u (%s)", subsystem[SS_THIS].name, bank, cfg_this->cfg_boot.cfg_name[bank-1]);
+    save_boot_config();
+    if(bank==0) {
+        sprintf (buffer, "Set %s to boot with default configuration", subsystem[SS_THIS].name);
+    }
+    else {
+        sprintf (buffer, "Set %s to boot with configuration from bank %u (%s)", subsystem[SS_THIS].name, bank, cfg_this->cfg_boot.cfg_name[bank-1]);
+    }
     publish_event (STS_THIS, SS_THIS, EVENT_INFO, buffer);    
     return true;
 }
 
-bool load_config (const uint8_t bank) {
+bool check_config_bank (const uint8_t bank) { 
     cfg_packet_t stored_config = {};
     if (bank>0 and bank<4) {
         EEPROM.get(cfg_this->cfg_boot.size_cfg_boot + (bank-1) * cfg_this->cfg_boot.size_config, stored_config);
-        if (stored_config.magic_number == cfg_this->magic_number) {
-            if (stored_config.version == cfg_this->version) {
-                EEPROM.get(cfg_this->cfg_boot.size_cfg_boot + (bank-1) * cfg_this->cfg_boot.size_config, *cfg_this);
-                sprintf(buffer, "Loaded configuration '%s' from %s EEPROM bank %u", cfg_this->cfg_boot.cfg_name[bank-1], subsystem[SS_THIS].name, bank);              
-                publish_event(STS_THIS, SS_THIS, EVENT_INIT, buffer);
-                publish_packet((ccsds_t*)cfg_this);
+        if (stored_config.magic_number == cfg_this->magic_number or stored_config.magic_number == 0) {
+            if (stored_config.version == cfg_this->version or stored_config.version == 0) {
                 return true;
             }
             else {
@@ -385,20 +420,75 @@ bool load_config (const uint8_t bank) {
             sprintf(buffer, "No configuration found in %s EEPROM bank %u (magic number %u, expected %u)", subsystem[SS_THIS].name, bank, (uint8_t)stored_config.magic_number, (uint8_t)cfg_this->magic_number);
         } 
         publish_event (STS_THIS, SS_THIS, EVENT_ERROR, buffer);
+        clear_config_bank(bank);
     }
     return false;
 }
 
-bool save_config (const uint8_t bank, const char* tag) {
+bool load_config_bank (const uint8_t bank) {
+    cfg_packet_t stored_config = {};
+    cfg_boot_t preserved_cfg_boot = {};
+    if (bank>0 and bank<4) {
+        EEPROM.get(cfg_this->cfg_boot.size_cfg_boot + (bank-1) * cfg_this->cfg_boot.size_config, stored_config);
+        if (stored_config.magic_number == cfg_this->magic_number) {
+            if (stored_config.version == cfg_this->version) {
+                memcpy(&preserved_cfg_boot, &cfg_this->cfg_boot, sizeof(cfg_boot_t)); // preserve boot configuration table
+                EEPROM.get(cfg_this->cfg_boot.size_cfg_boot + (bank-1) * cfg_this->cfg_boot.size_config, *cfg_this);
+                memcpy(&cfg_this->cfg_boot, &preserved_cfg_boot, sizeof(cfg_boot_t)); // restore boot configuration table
+                sprintf(buffer, "Loaded configuration '%s' from %s EEPROM bank %u", cfg_this->cfg_boot.cfg_name[bank-1], subsystem[SS_THIS].name, bank);              
+                publish_event(STS_THIS, SS_THIS, EVENT_INIT, buffer);
+                publish_packet((ccsds_t*)cfg_this);
+                return true;
+            }
+        }
+    }
+    sprintf(buffer, "Keeping default configuration, not loading from EEPROM bank");              
+    publish_event(STS_THIS, SS_THIS, EVENT_INIT, buffer);
+    return false;
+}
+
+bool save_config_bank (const uint8_t bank, const char* tag, const cfg_packet_t* cfg_ptr) {
     if (bank>0 and bank<4) {
         strcpy(cfg_this->cfg_boot.cfg_name[bank-1], tag);
-        EEPROM.put(0, cfg_this->cfg_boot);
-        EEPROM.put(cfg_this->cfg_boot.size_cfg_boot + (bank-1) * cfg_this->cfg_boot.size_config, *cfg_this);
-        EEPROM.commit();
-        return true;
+        save_boot_config();
+        EEPROM.put(cfg_this->cfg_boot.size_cfg_boot + (bank-1) * cfg_this->cfg_boot.size_config, *cfg_ptr);
+        if(!EEPROM.commit()) {
+            sprintf(buffer, "Failed to commit configuration to %s EEPROM bank %u", subsystem[SS_THIS].name, bank);
+            publish_event(STS_THIS, SS_THIS, EVENT_ERROR, buffer);
+            return false;
+        }
+        cfg_packet_t stored_config;
+        EEPROM.get(cfg_this->cfg_boot.size_cfg_boot + (bank-1) * cfg_this->cfg_boot.size_config, stored_config);
+        if(memcmp(&stored_config, cfg_ptr, sizeof(cfg_packet_t)) != 0) {
+            sprintf(buffer, "Verification of configuration in %s EEPROM bank %u failed", subsystem[SS_THIS].name, bank);
+            publish_event(STS_THIS, SS_THIS, EVENT_ERROR, buffer);
+            return false;
+        }
+        sprintf(buffer, "Saved  configuration  to %s EEPROM bank %u", subsystem[SS_THIS].name, bank);              
+        publish_event(STS_THIS, SS_THIS, EVENT_INFO, buffer);
+        return true; 
     }
     return false;
 }
+
+/*void print_boot_config () { // TODO: delete
+    cfg_boot_t stored_cfg_boot;
+    EEPROM.get(0, stored_cfg_boot);
+    Serial.print("Memory: ");
+    Serial.println(get_hex_str((byte*)&cfg_this->cfg_boot, sizeof(cfg_boot_t)));
+    Serial.print("Stored: ");
+    Serial.println(get_hex_str((byte*)&stored_cfg_boot, sizeof(cfg_boot_t)));
+}*/
+
+/*void print_config_bank (uint8_t bank) { // TODO: delete
+    cfg_packet_t stored_cfg;
+    EEPROM.get(cfg_this->cfg_boot.size_cfg_boot + (bank-1) * cfg_this->cfg_boot.size_config, stored_cfg);
+    Serial.print("Memory: ");
+    Serial.println(get_hex_str((byte*)cfg_this, sizeof(cfg_packet_t)));
+    Serial.print("Stored: ");
+    Serial.println(get_hex_str((byte*)&stored_cfg, sizeof(cfg_packet_t)));
+}*/
+
 
 bool set_opsmode (const uint8_t mode) {
     
@@ -654,7 +744,8 @@ bool set_parameter (const char* parameter, const char* value) {
     else if (!strcmp(parameter, "timestamp")) { 
         setTime(atoi(value));
         tm_this->time_set = true;
-        sprintf(value_str, "%lu", atoi(value));
+        var.delta_millis = millis()%1000;
+        sprintf(value_str, "%04u-%02u-%02u %02u:%02u:%02u.%03u", year(atoi(value)), month(atoi(value)), day(atoi(value)), hour(atoi(value)), minute(atoi(value)), second(atoi(value)), var.delta_millis);
         success = true;
     }
     else if (!strcmp(parameter, "pressure_enable")) {
@@ -795,7 +886,7 @@ void setup_wifi () {
     // Setup wifi interface for use by ESPNOW or WiFi services (AP, STA, FTP, OTA)
     char hostname[64];
     sprintf(hostname, "%s-%s", cfg_this->rocket_name, subsystem[SS_THIS].name);
-    WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 0); 
+    //WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 0); 
     if (cfg_this->wifi_ap_enable) {
         WiFi.mode(WIFI_AP_STA); 
     }
@@ -805,7 +896,7 @@ void setup_wifi () {
     WiFi.config(INADDR_NONE, INADDR_NONE, INADDR_NONE);
     WiFi.setHostname(hostname);
     WiFi.setSleep(false);
-    WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 1); 
+    //WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 1); 
 }
 
 bool setup_wifi_ap () {
@@ -943,7 +1034,7 @@ bool setup_espnow () {
         // Check my MAC address
         esp_wifi_get_mac(WIFI_IF_STA, my_mac);
         if (memcmp(&cfg_this->my_mac, &my_mac, 6)) {
-            sprintf(buffer, "%s mac (%02x:%02x:%02x:%02x:%02x:%02x) does not match configured default (%02x:%02x:%02x:%02x:%02x:%02x)", 
+            sprintf(buffer, "%s mac (%02x:%02x:%02x:%02x:%02x:%02x) does not match configured default (%02x:%02x:%02x:%02x:%02x:%02x); overriding default", 
                           subsystem[SS_THIS].name,
                           my_mac[0],
                           my_mac[1],
@@ -959,6 +1050,41 @@ bool setup_espnow () {
                           cfg_this->my_mac[5]);
             publish_event(STS_THIS, SS_ESPNOW, EVENT_WARNING, buffer);
             memcpy(&cfg_this->my_mac, &my_mac, 6);
+        }
+        // Check peer MAC address
+        if (SS_OTHER==SS_GNDCTRL && memcmp(&cfg_this->peer_mac, &default_mac_gndctrl, 6)) {
+            sprintf(buffer, "%s mac (%02x:%02x:%02x:%02x:%02x:%02x) from memory bank does not match default (%02x:%02x:%02x:%02x:%02x:%02x); using memory bank mac", 
+                          subsystem[SS_OTHER].name,
+                          cfg_this->peer_mac[0],
+                          cfg_this->peer_mac[1],
+                          cfg_this->peer_mac[2],
+                          cfg_this->peer_mac[3],
+                          cfg_this->peer_mac[4],
+                          cfg_this->peer_mac[5],
+                          default_mac_gndctrl[0],
+                          default_mac_gndctrl[1],
+                          default_mac_gndctrl[2],
+                          default_mac_gndctrl[3],
+                          default_mac_gndctrl[4],
+                          default_mac_gndctrl[5]);
+            publish_event(STS_THIS, SS_ESPNOW, EVENT_WARNING, buffer);
+        }
+        if (SS_OTHER==SS_ESP32 && memcmp(&cfg_this->peer_mac, &default_mac_esp32, 6)) {
+            sprintf(buffer, "%s mac (%02x:%02x:%02x:%02x:%02x:%02x) from memory bank does not match default (%02x:%02x:%02x:%02x:%02x:%02x); using memory bank mac", 
+                          subsystem[SS_OTHER].name,
+                          cfg_this->peer_mac[0],
+                          cfg_this->peer_mac[1],
+                          cfg_this->peer_mac[2],
+                          cfg_this->peer_mac[3],
+                          cfg_this->peer_mac[4],
+                          cfg_this->peer_mac[5],
+                          default_mac_esp32[0],
+                          default_mac_esp32[1],
+                          default_mac_esp32[2],
+                          default_mac_esp32[3],
+                          default_mac_esp32[4],
+                          default_mac_esp32[5]);
+            publish_event(STS_THIS, SS_ESPNOW, EVENT_WARNING, buffer);
         }
     
         // Initialize ESP-NOW
@@ -1988,13 +2114,15 @@ void init_ccsds_hdr (ccsds_t* ccsds_ptr, uint16_t APID, uint8_t pkt_type, uint16
 	(ccsds_ptr->ccsds_hdr).pkt_len_H = (uint8_t)(len >> 8);  
 	(ccsds_ptr->ccsds_hdr).pkt_len_L = (uint8_t)len;
     (ccsds_ptr->ccsds_sec_hdr).seconds = 0;
+    (ccsds_ptr->ccsds_sec_hdr).subseconds = 0;
 }
 
 bool valid_ccsds_hdr (ccsds_t* ccsds_ptr, bool pkt_type) {
 	return (((ccsds_hdr_t*)ccsds_ptr)->version == 0 and
 			((ccsds_hdr_t*)ccsds_ptr)->type == pkt_type and
-            ((ccsds_hdr_t*)ccsds_ptr)->seq_flag == 3 and
-            ((ccsds_hdr_t*)ccsds_ptr)->pkt_len_L + 256*((ccsds_hdr_t*)ccsds_ptr)->pkt_len_H + 1 <= PARAMETER_MAX_SIZE);
+            ((ccsds_hdr_t*)ccsds_ptr)->seq_flag == 3);
+            // and
+            //((ccsds_hdr_t*)ccsds_ptr)->pkt_len_L + 256*((ccsds_hdr_t*)ccsds_ptr)->pkt_len_H + 1 <= PARAMETER_MAX_SIZE);
 }
 
 uint16_t get_ccsds_apid (ccsds_t* ccsds_ptr) {
@@ -2121,7 +2249,7 @@ bool cmd_set_parameter (const char* parameter, const char* value) {
 }
 
 bool cmd_load_config (const uint8_t bank) {
-    if (load_config(bank)) {
+    if (load_config_bank(bank)) {
         return true;
     }
     else {
@@ -2130,7 +2258,7 @@ bool cmd_load_config (const uint8_t bank) {
 }
 
 bool cmd_save_config (const uint8_t bank, const char* tag) {
-    if (save_config(bank, tag)) {
+    if (save_config_bank(bank, tag, cfg_this)) {
         sprintf (buffer, "Stored current %s configuration to bank %u as '%s'", subsystem[SS_THIS].name, bank, tag);
         publish_event (STS_THIS, SS_THIS, EVENT_CMD_RESP, buffer);
         publish_packet ((ccsds_t*)cfg_this);
