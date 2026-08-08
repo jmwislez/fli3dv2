@@ -353,7 +353,7 @@ bool init_boot_config () {
 }
 
 bool load_boot_config () {
-    // Load boot configuration table from EEPROM    
+    // Load boot configuration table from EEPROM
     EEPROM.get(0, cfg_this->cfg_boot);
     sprintf(buffer, "Configurations found in %s EEPROM banks: 1:%s 2:%s 3:%s, %u selected", subsystem[SS_THIS].name, cfg_this->cfg_boot.cfg_name[0], cfg_this->cfg_boot.cfg_name[1], cfg_this->cfg_boot.cfg_name[2], cfg_this->cfg_boot.boot_bank);              
     publish_event(STS_THIS, SS_THIS, EVENT_INIT, buffer);
@@ -773,6 +773,7 @@ bool set_parameter (const char* parameter, const char* value) {
         if(atoi(value)>=0 and atoi(value)<=255) {
             cfg_this->pressure_tm_rate = atoi(value);
             sprintf(value_str, "%u", atoi(value));
+            var.pressure_interval = (1000 / cfg_esp32.pressure_tm_rate);
             success = true;
         }
     }  
@@ -780,13 +781,16 @@ bool set_parameter (const char* parameter, const char* value) {
         if(atoi(value)>=0 and atoi(value)<=255) {
             cfg_this->motion_tm_rate = atoi(value);
             sprintf(value_str, "%u", atoi(value));
+            var.motion_interval = (1000 / cfg_esp32.motion_tm_rate);
             success = true;
         }
     }  
     else if (!strcmp(parameter, "gps_tm_rate")) {
-        if(atoi(value)==1 or atoi(value)==5 or atoi(value)==10 or atoi(value)==16) {
-            cfg_this->pressure_tm_rate = atoi(value);
+        //if(atoi(value)==1 or atoi(value)==5 or atoi(value)==10 or atoi(value)==16) {
+        if(atoi(value)>=0 and atoi(value)<=255) {
+            cfg_this->gps_tm_rate = atoi(value);
             sprintf(value_str, "%u", atoi(value));
+            var.gps_interval = (1000 / cfg_esp32.gps_tm_rate);
             success = true;
         }
     }  
@@ -1876,13 +1880,17 @@ void update_packet (ccsds_t* ccsds_ptr) {
                             tm_this->archive_pktrate++;
                         } */
                         break; 
-    case TM_GPS:        tm_gps.packet_ctr++;
+    case TM_GPS:        tm_gps.millis=millis();
+                        tm_gps.packet_ctr++;
                         break;                    
-    case TM_MOTION:     tm_motion.packet_ctr++;
+    case TM_MOTION:     tm_motion.millis=millis();
+                        tm_motion.packet_ctr++;
                         break; 
-    case TM_PRESSURE:   tm_pressure.packet_ctr++;
+    case TM_PRESSURE:   tm_pressure.millis=millis();
+                        tm_pressure.packet_ctr++;
                         break;                         
-    case TM_RADIO:      tm_radio.packet_ctr++; /*
+    case TM_RADIO:      tm_radio.millis=millis();
+                        tm_radio.packet_ctr++; /*
                         tm_radio.opsmode = tm_esp32.opsmode;
                         tm_radio.error_ctr = min(255, esp32.error_ctr + esp32cam.error_ctr);
                         tm_radio.warning_ctr = min(255, esp32.warning_ctr + esp32cam.warning_ctr);
@@ -1925,7 +1933,8 @@ void update_packet (ccsds_t* ccsds_ptr) {
                             tm_this->archive_pktrate++;
                         } */
                         break;   
-    case TM_CAMERA:     tm_camera.packet_ctr++;
+    case TM_CAMERA:     tm_camera.millis = millis();
+                        tm_camera.packet_ctr++;
                         break;
     case TM_GNDCTRL:    tm_gndctrl.millis = millis();
                         tm_gndctrl.packet_ctr++;

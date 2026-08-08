@@ -352,6 +352,7 @@ struct __attribute__ ((packed)) tm_esp32_t {     // APID: 48 (30)
 struct __attribute__ ((packed)) tm_gps_t {       // APID: 49 (31)
     ccsds_hdr_t ccsds_hdr;
     ccsds_sec_hdr_t ccsds_sec_hdr;
+    uint32_t    millis:24;
     uint16_t    packet_ctr;
     uint8_t     status:4;                // 4-7
     uint8_t     satellites:4;            //  0-3   *GGA
@@ -398,6 +399,7 @@ struct __attribute__ ((packed)) tm_gps_t {       // APID: 49 (31)
 struct __attribute__ ((packed)) tm_motion_t {    // APID: 50 (32)
     ccsds_hdr_t ccsds_hdr;
     ccsds_sec_hdr_t ccsds_sec_hdr;
+    uint32_t    millis:24;
     uint16_t    packet_ctr;
     int16_t     accel_x;                 // cm/s2
     int16_t     accel_y;                 // cm/s2
@@ -423,6 +425,7 @@ struct __attribute__ ((packed)) tm_motion_t {    // APID: 50 (32)
 struct __attribute__ ((packed)) tm_pressure_t {  // APID: 51 (33)
     ccsds_hdr_t ccsds_hdr;
     ccsds_sec_hdr_t ccsds_sec_hdr;
+    uint32_t    millis:24;
     uint16_t    packet_ctr;
     uint32_t    pressure;                // Pa
     uint32_t    zero_level_pressure;     // Pa
@@ -442,6 +445,7 @@ struct __attribute__ ((packed)) tm_pressure_t {  // APID: 51 (33)
 struct __attribute__ ((packed)) tm_radio_t {     // APID: 52 (34)
     ccsds_hdr_t ccsds_hdr;
     ccsds_sec_hdr_t ccsds_sec_hdr;
+    uint32_t    millis:24;
     uint16_t    packet_ctr;
     uint8_t     opsmode:2;               // 6
     uint8_t     state:2;                 //  4
@@ -562,6 +566,7 @@ struct __attribute__ ((packed)) tm_esp32cam_t {  // APID: 53 (35)
 struct __attribute__ ((packed)) tm_camera_t {    // APID: 54 (36)
     ccsds_hdr_t ccsds_hdr;
     ccsds_sec_hdr_t ccsds_sec_hdr;
+    uint32_t    millis:24;
     uint16_t    packet_ctr;
     uint8_t     camera_mode:2;           // 6-7
     uint8_t     resolution:4;            //  2-5

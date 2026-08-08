@@ -6,13 +6,13 @@
  */
 
 // Set versioning
-#define SW_VERSION "Fli3d ESP32 v1.99.0 (20260727)"
+#define SW_VERSION "Fli3d ESP32 v1.99.0 (20260807)"
 
 // Set functionality to compile
 #define RADIO
-//#define PRESSURE
-//#define MOTION
-//#define GPS
+#define PRESSURE
+#define MOTION
+#define GPS
 //#define CAMERA
 
 // Libraries
@@ -76,7 +76,9 @@ void setup() {
     init_config();
 
     Serial.begin(cfg_this->serial_baud); // debug output
-    Serial1.begin(cfg_this->serial_baud, SERIAL_8N1, GPS_RX_PIN, GPS_TX_PIN); // communication with GPS
+    if(cfg_esp32.gps_enable) {
+        Serial1.begin(cfg_this->serial_baud, SERIAL_8N1, GPS_RX_PIN, GPS_TX_PIN); // communication with GPS
+    }
     if (cfg_esp32.serial_rx_enable or cfg_esp32.serial_tx_enable) {
         Serial2.begin(cfg_this->serial_baud, SERIAL_8N1, ESP32CAM_RX_PIN, ESP32CAM_TX_PIN); // communication with ESP32CAM
         setup_serialtransfer(Serial2);
@@ -114,10 +116,12 @@ void setup() {
 
     // Load configuration
     setup_gpio();
-    if(init_boot_config()) {
-        load_config_bank(cfg_this->cfg_boot.boot_bank);
+    if(cfg_this->cfg_boot.boot_bank != 255) {
+        if(init_boot_config()) {
+            load_config_bank(cfg_this->cfg_boot.boot_bank);
+        }
+        publish_packet((ccsds_t*)cfg_this);
     }
-    publish_packet((ccsds_t*)cfg_this);
 
     // Set up ESP-NOW
     setup_wifi();
@@ -143,17 +147,28 @@ void setup() {
 
     #ifdef GPS
     if (cfg_esp32.gps_enable) {
-        tm_esp32.gps_enabled = setup_gps();
+        if((tm_esp32.gps_enabled = setup_neo6mv2())) {
+        }
     }
     #endif // GPS
 
-    #ifdef MOTION || PRESSURE
-    if ((tm_esp32.motion_enabled = setup_icm20948())) {
-        //mpu6050_calibrate();    // TODO: to be done offline on loose sensor, then put calibration values in configuration file
-        //mpu6050_checkConfig(); 
-        //mpu6050_printConfig(); 
+    #ifdef MOTION
+    if (cfg_esp32.motion_enable) {
+        if ((tm_esp32.motion_enabled = setup_icm20948())) {
+            //mpu6050_calibrate();    // TODO: to be done offline on loose sensor, then put calibration values in configuration file
+            //mpu6050_checkConfig(); 
+            //mpu6050_printConfig(); 
+        }
     }
-    #endif // MOTION || PRESSURE
+    #endif // MOTION
+
+    #ifdef PRESSURE
+    if (cfg_esp32.pressure_enable) {
+        if ((tm_esp32.pressure_enabled = setup_bmp388())) {
+            //bmp388_calibrate();
+        }
+    }
+    #endif // PRESSURE
 
     // Initialisation complete
     setup_timer();
@@ -167,6 +182,7 @@ void loop() {
     check_serialtransfer_rx();
     check_radio_rx();
     process_rx_queue();
+    tmr_esp32.millis = millis();
 
     if (tm_this->opsmode == MODE_MAINTENANCE) {
         // In maintenance mode, we can check for OTA and FTP
@@ -187,41 +203,41 @@ void loop() {
     
         // BMP388 pressure sensor
         #ifdef PRESSURE
-        if (tmr_esp32.millis >= var.next_pressure_time and esp32.pressure_enabled) {
-        //start_millis = millis();
-            if (acquire_BMP()) {
-                publish_packet ((ccsds_t*)&pressure);
+        else if (tmr_esp32.millis >= var.next_pressure_time and tm_esp32.pressure_enabled) {
+            start_millis = millis();
+            if (tm_esp32.pressure_active = acquire_BMP()) {
+                publish_packet ((ccsds_t*)&tm_pressure);
             }
             //else {
                 // will try to reset pressure sensor once, and then give up
                 //esp32.pressure_enabled = setup_icm20948();
             //}
             var.next_pressure_time = tmr_esp32.millis + var.pressure_interval;
-            //tmr_esp32.pressure_duration += millis() - start_millis;
+            tmr_esp32.pressure_duration += millis() - start_millis;
         } 
         #endif // PRESSURE
 
         // ICM-20948 accelerometer/gyroscope/magnetometer
         #ifdef MOTION
-        if (tmr_esp32.millis >= var.next_motion_time and esp32.motion_enabled) {
-            //start_millis = millis();
-            if (acquire_ICU()) {
-                publish_packet ((ccsds_t*)&motion);
+        else if (tmr_esp32.millis >= var.next_motion_time and tm_esp32.motion_enabled) {
+            start_millis = millis();
+            if (tm_esp32.motion_active = acquire_IMU()) {
+                publish_packet ((ccsds_t*)&tm_motion);
             }
             //else {
                 // will try to reset accelerometer once, and then give up
                 //esp32.motion_enabled = setup_icm20948();
             //}
             var.next_motion_time = tmr_esp32.millis + var.motion_interval;
-            //tmr_esp32.motion_duration += millis() - start_millis;
+            tmr_esp32.motion_duration += millis() - start_millis;
         } 
         #endif // MOTION
         
-    // NEO6MV2 GPS
+        // NEO6MV2 GPS
         #ifdef GPS
-        if (tmr_esp32.millis >= var.next_gps_time and tm_esp32.gps_enabled) {
+        else if (tmr_esp32.millis >= var.next_gps_time and tm_esp32.gps_enabled) {
             start_millis = millis();
-            if (check_gps()) {
+            /*if (check_gps()) {
                 publish_packet ((ccsds_t*)&tm_gps);
                 reset_gps_timer = true;
                 var.next_gps_time = tmr_esp32.millis + 1000;  // 1Hz as long as no data 
@@ -229,7 +245,16 @@ void loop() {
             if (var.do_gps) {
                 publish_packet ((ccsds_t*)&tm_gps);
                 var.do_gps = false;
+            } */
+            if (tm_esp32.gps_active = acquire_gps()) {
+                publish_packet ((ccsds_t*)&tm_gps);
+                var.next_gps_time = tmr_esp32.millis + var.gps_interval;
             }
+            else {
+                publish_packet ((ccsds_t*)&tm_gps);
+                var.next_gps_time = tmr_esp32.millis + 1000;  // 1Hz as long as no data
+            }
+            
             tmr_esp32.gps_duration += millis() - start_millis;
         }
         #endif // GPS

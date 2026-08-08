@@ -35,11 +35,11 @@ void setup_gpio()
     }
     publish_event (STS_THIS, SS_THIS, EVENT_INIT, buffer);
     if (cfg_this->dip_set3) {
-        cfg_this->cfg_boot.boot_bank=3;
-        sprintf (buffer, "Override boot configuration to bank %u (%s) based on DIP switch 3 (on)", cfg_this->cfg_boot.boot_bank, cfg_this->cfg_boot.cfg_name[2]);
+        sprintf (buffer, "Using boot configuration stored in EEPROM based on DIP switch 3 (on)");
     }
     else {
-        sprintf (buffer, "Using nominal stored boot configuration %u (%s) based on DIP switch 3 (off)", cfg_this->cfg_boot.boot_bank, cfg_this->cfg_boot.cfg_name[cfg_this->cfg_boot.boot_bank - 1]);
+        sprintf (buffer, "Skipping stored boot configuration based on DIP switch 3 (off)");
+        cfg_this->cfg_boot.boot_bank=255; // force to skip stored boot configuration
     }
     publish_event (STS_THIS, SS_THIS, EVENT_INIT, buffer);
 }
