@@ -322,11 +322,11 @@ struct __attribute__ ((packed)) tm_esp32_t {     // APID: 48 (30)
     bool        gps_enabled:1;         //        0
     
     bool        buzzer_enabled:1;      // 7
-    bool        wifi_connected:1;      //  6       TODO: keep or not?
-    bool        ftp_connected:1;       //   5      TODO: keep or not?
-    bool        espnow_connected:1;    //    4     TODO: keep or not?
-    bool        serial_connected:1;    //     3    TODO: keep or not?
-    bool        radio_connected:1;     //      2   TODO: keep or not?
+    bool        free06:1;      //  6       TODO: keep or not?
+    bool        free05:1;       //   5      TODO: keep or not?
+    bool        free04:1;    //    4     TODO: keep or not?
+    bool        free03:1;    //     3    TODO: keep or not?
+    bool        free02:1;     //      2   TODO: keep or not?
     bool        separation_sts:1;      //       1
     bool        time_set:1;            //        0
     
@@ -472,7 +472,7 @@ struct __attribute__ ((packed)) tm_radio_t {     // APID: 52 (34)
     uint8_t     gps_height;              // m               (0 - 255 m)
     uint16_t    camera_image_ctr;  
     bool        delete_030:1;        // 7
-    bool        esp32_espnow_connected:1;          //  6 
+    bool        delete_036:1;          //  6 
     bool        delete_031:1;    //   5        
     bool        esp32_warn_espnow_connloss:1;      //    4       
     bool        delete_032:1;     //     3
@@ -480,7 +480,7 @@ struct __attribute__ ((packed)) tm_radio_t {     // APID: 52 (34)
     bool        esp32_err_fs_dataloss:1;         //       1  
     bool        separation_sts:1;                //        0
     bool        delete_033:1;     // 7
-    bool        esp32cam_espnow_connected:1;       //  6
+    bool        delete_037:1;       //  6
     bool        delete_034:1; //   5        
     bool        esp32cam_warn_espnow_connloss:1;   //    4       
     bool        delete_035:1;  //     3
@@ -508,59 +508,51 @@ struct __attribute__ ((packed)) tm_esp32cam_t {  // APID: 53 (35)
     uint8_t     serial_tx_pktrate;
     uint8_t     archive_pktrate;
     uint8_t     camera_pktrate;
-    uint8_t     sd_image_rate;
     int8_t      wifi_rssi;
     uint16_t    mem_free;
     uint16_t    fs_free;
     uint16_t    sd_free;
-    uint16_t    battery_voltage;          // mV
-    uint8_t     battery_percentage;       // %
+    uint8_t     espnow_buffer_queue;
+    uint8_t     serial_buffer_queue;
+    uint8_t     archive_buffer_queue;
+    uint8_t     buffer_size;
     char        archive_path[20];
     
-    bool        wifi_ap_enabled:1;     // 7
-    bool        wifi_sta_enabled:1;    //  6
-    bool        espnow_rx_enabled:1;   //   5
-    bool        espnow_tx_enabled:1;   //    4
-    bool        serial_rx_enabled:1;   //     3
-    bool        serial_tx_enabled:1;   //      2
-    bool        radio_rx_enabled:1;    //       1
-    bool        radio_tx_enabled:1;    //        0
+    bool        espnow_rx_enabled:1;   // 7
+    bool        espnow_tx_enabled:1;   //  6
+    bool        serial_rx_enabled:1;   //   5
+    bool        serial_tx_enabled:1;   //    4
+    bool        free03:1;              //     3
+    bool        wifi_rtsp_enabled:1;   //      2
+    bool        wifi_ap_enabled:1;     //       1
+    bool        wifi_sta_enabled:1;    //        0
     
     bool        ftp_enabled:1;         // 7
     bool        ota_enabled:1;         //  6 
-    bool        archive_enabled:1;     //   5
-    bool        fs_enabled:1;          //    4
-    bool        sd_enabled:1;          //     3
+    bool        fs_enabled:1;          //   5
+    bool        sd_enabled:1;          //    4
+    bool        archive_enabled:1;     //     3
     bool        camera_enabled:1;      //      2
-    bool        wifi_rtsp_enabled:1;   //       1
-    bool        free_00:1;             //        0
-    
-    bool        wifi_connected:1;      // 7 
-    bool        ftp_connected:1;       //  6 
-    bool        espnow_connected:1;    //   5 
-    bool        serial_connected:1;    //    4
-    bool        radio_connected:1;     //     3
-    bool        battery_tethered:1;    //      2
-    bool        time_set:1;            //       1
-    bool        free_10:1;             //        0
-    
-    bool        wifi_active:1;         // 7 
-    bool        ftp_active:1;          //  6 
-    bool        archive_active:1;      //   5
-    bool        fs_active:1;           //    4
-    bool        sd_active:1;           //     3
-    bool        camera_active:1;       //      2
-    bool        wifi_rtsp_active:1;    //       1
-    bool        free_20:1;             //        0
-    
+    bool        free11:1;              //       1
+    bool        time_set:1;            //        0
+
     bool        espnow_rx_active:1;    // 7
     bool        espnow_tx_active:1;    //  6
     bool        serial_rx_active:1;    //   5
     bool        serial_tx_active:1;    //    4
-    bool        free_33:1;             //     3
-    bool        free_32:1;             //      2
-    bool        free_31:1;             //       1
-    bool        free_30:1;             //        0
+    bool        free23:1;              //     3
+    bool        wifi_rtsp_active:1;    //      2
+    bool        wifi_active:1;         //       1  TODO: keep or not?
+    bool        free20:1;              //        0
+
+    bool        ftp_active:1;          // 7 
+    bool        free36:1;              //  6
+    bool        fs_active:1;           //   5
+    bool        sd_active:1;           //    4
+    bool        archive_active:1;      //     3
+    bool        camera_active:1;       //      2
+    bool        free31:1;              //       1
+    bool        free30:1;              //        0
 };
 
 struct __attribute__ ((packed)) tm_camera_t {    // APID: 54 (36)
@@ -631,11 +623,11 @@ struct __attribute__ ((packed)) tm_gndctrl_t {   // APID: 55 (37)
     bool        free_00:1;             //        0
     
     bool        buzzer_enabled:1;      // 7
-    bool        wifi_connected:1;      //  6       TODO: keep or not?
-    bool        ftp_connected:1;       //   5      TODO: keep or not?
-    bool        espnow_connected:1;    //    4     TODO: keep or not?
-    bool        serial_connected:1;    //     3    TODO: keep or not?
-    bool        radio_connected:1;     //      2   TODO: keep or not?
+    bool        free16:1;      //  6       TODO: keep or not?
+    bool        free15:1;       //   5      TODO: keep or not?
+    bool        free14:1;    //    4     TODO: keep or not?
+    bool        free13:1;    //     3    TODO: keep or not?
+    bool        free12:1;     //      2   TODO: keep or not?
     bool        battery_tethered:1;    //       1
     bool        time_set:1;            //        0	
     

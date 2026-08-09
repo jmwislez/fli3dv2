@@ -249,30 +249,27 @@ void init_config () {
         tm_motion.gyro_range = 3;
         break;
     case SS_ESP32CAM:
-        cfg_this->magic_number = 'c';
-        cfg_this->target_opsmode = MODE_CHECKOUT;
-        memcpy(&cfg_this->my_mac, &default_mac_esp32cam, 6);
-        memcpy(&cfg_this->peer_mac, &default_mac_gndctrl, 6);  
-        cfg_this->wifi_ap_enable = true;
-        cfg_this->wifi_sta_enable = false;
-        cfg_this->espnow_rx_enable = false;
-        cfg_this->espnow_tx_enable = false;        
-        cfg_this->serial_rx_enable = true;
-        cfg_this->serial_tx_enable = true;
-        cfg_this->radio_rx_enable = false;
-        cfg_this->radio_tx_enable = false;
-        cfg_this->espnow_broadcast = false;
-        cfg_this->archive_enable = true;
-        cfg_this->espnow_buffer_enable = false;
-        cfg_this->serial_buffer_enable = true;
-        cfg_this->radio_buffer_enable = false;
-        cfg_this->archive_buffer_enable = false;
-        cfg_this->fs_enable = false;
-        cfg_this->flush_fs_enable = false;
-        cfg_this->sd_enable = true;
-        cfg_this->ftp_enable = true;
-        cfg_this->ftp_fs = FS_SD_MMC;
-        cfg_this->archive_fs = FS_SD_MMC;
+        cfg_esp32cam.magic_number = 'c';
+        cfg_esp32cam.target_opsmode = MODE_CHECKOUT;
+        memcpy(&cfg_esp32cam.my_mac, &default_mac_esp32cam, 6);
+        memcpy(&cfg_esp32cam.peer_mac, &default_mac_gndctrl, 6);  
+        cfg_esp32cam.wifi_ap_enable = false;
+        cfg_esp32cam.wifi_sta_enable = true;
+        cfg_esp32cam.espnow_rx_enable = false;
+        cfg_esp32cam.espnow_tx_enable = false;        
+        cfg_esp32cam.serial_rx_enable = true;
+        cfg_esp32cam.serial_tx_enable = true;
+        cfg_esp32cam.espnow_broadcast = false;
+        cfg_esp32cam.archive_enable = true;
+        cfg_esp32cam.espnow_buffer_enable = false;
+        cfg_esp32cam.serial_buffer_enable = true;
+        cfg_esp32cam.archive_buffer_enable = false;
+        cfg_esp32cam.fs_enable = false;
+        cfg_esp32cam.flush_fs_enable = false;
+        cfg_esp32cam.sd_enable = true;
+        cfg_esp32cam.ftp_enable = true;
+        cfg_esp32cam.ftp_fs = FS_SD_MMC;
+        cfg_esp32cam.archive_fs = FS_SD_MMC;
         break;
     case SS_GNDCTRL:
         cfg_this->magic_number = 'g';
@@ -749,22 +746,28 @@ bool set_parameter (const char* parameter, const char* value) {
         success = true;
     }
     else if (!strcmp(parameter, "pressure_enable")) {
+        if(atoi(value)==-1) { value=cfg_this->pressure_enable?"0":"1"; }
         if(atoi(value)==0 or atoi(value)==1) {
-            cfg_this->pressure_enable = atoi(value);
+            cfg_esp32.pressure_enable = atoi(value);
+            tm_esp32.pressure_enabled = atoi(value);
             sprintf(value_str, "%s", (atoi(value)==1)?"true":"false");
             success = true;
         }
     }  
     else if (!strcmp(parameter, "motion_enable")) {
+        if(atoi(value)==-1) { value=cfg_this->motion_enable?"0":"1"; }
         if(atoi(value)==0 or atoi(value)==1) {
-            cfg_this->motion_enable = atoi(value);
+            cfg_esp32.motion_enable = atoi(value);
+            tm_esp32.motion_enabled = atoi(value);
             sprintf(value_str, "%s", (atoi(value)==1)?"true":"false");
             success = true;
         }
     }  
     else if (!strcmp(parameter, "gps_enable")) {
+        if(atoi(value)==-1) { value=cfg_this->gps_enable?"0":"1"; }
         if(atoi(value)==0 or atoi(value)==1) {
-            cfg_this->gps_enable = atoi(value);
+            cfg_esp32.gps_enable = atoi(value);
+            tm_esp32.gps_enabled = atoi(value);
             sprintf(value_str, "%s", (atoi(value)==1)?"true":"false");
             success = true;
         }
@@ -932,7 +935,6 @@ bool setup_wifi_sta () {
             sprintf (buffer, "Connected to WiFi network %s with IP %s", wifi_ssid, WiFi.localIP().toString().c_str());
             publish_event (STS_THIS, SS_THIS, EVENT_INIT, buffer);
             tm_this->wifi_sta_enabled = true;
-            tm_this->wifi_connected = true;
             cfg_this->wifi_my_ip[0] = WiFi.localIP()[0];
             cfg_this->wifi_my_ip[1] = WiFi.localIP()[1];
             cfg_this->wifi_my_ip[2] = WiFi.localIP()[2];
@@ -985,23 +987,16 @@ void disable_wifi_services () {
 // ESP-NOW Functionality
 
 void OnDataSent_espnow(const esp_now_peer_info_t *info, esp_now_send_status_t status) {
-  if (status != ESP_NOW_SEND_SUCCESS) {
-  	  if (tm_this->espnow_connected) {
-  	      tm_this->espnow_connected=false;
-  	  	  sprintf(buffer, "ESP-NOW packet sent from %s to %s but not delivered", 
-  	  	                   subsystem[SS_THIS].name,
-                           subsystem[SS_ESPNOW_PEER].name);
-  	  	  publish_event(STS_THIS, SS_ESPNOW, EVENT_WARNING, buffer);
-      }
-  }
-  else {
-  	  tm_this->espnow_connected = true;
-  }
+    if (status != ESP_NOW_SEND_SUCCESS) {
+  	    sprintf(buffer, "ESP-NOW packet sent from %s to %s but not delivered", 
+  	  	                 subsystem[SS_THIS].name,
+                         subsystem[SS_ESPNOW_PEER].name);
+  	  	publish_event(STS_THIS, SS_ESPNOW, EVENT_WARNING, buffer);
+    }
 }
 
 void OnDataRecv_espnow(const esp_now_peer_info_t *info, const uint8_t *espnow_rx_buffer, int len) {
     if (cfg_this->espnow_rx_enable) {
-        tm_this->espnow_connected = true;
 		tm_this->espnow_rx_active = true;
         if(valid_ccsds_hdr((ccsds_t*)espnow_rx_buffer, PKT_TM) or valid_ccsds_hdr((ccsds_t*)espnow_rx_buffer, PKT_TC)) {
             tm_this->espnow_rx_pktrate++;
@@ -1196,11 +1191,8 @@ bool send_packet_through_espnow (ccsds_t* ccsds_ptr) {
 			return true;
 		}
 		else {
-			if (tm_this->espnow_connected) {
-			    tm_this->espnow_connected = false;
-				sprintf(buffer, "Failed to send ESP-NOW packet from %s to %s", subsystem[SS_THIS].name, subsystem[SS_ESPNOW_PEER].name);
-				publish_event(STS_THIS, SS_ESPNOW, EVENT_WARNING, buffer);
-			}
+			sprintf(buffer, "Failed to send ESP-NOW packet from %s to %s", subsystem[SS_THIS].name, subsystem[SS_ESPNOW_PEER].name);
+			publish_event(STS_THIS, SS_ESPNOW, EVENT_WARNING, buffer);
 		}
 	}
 	return false;
@@ -1222,7 +1214,6 @@ bool check_serialtransfer_rx () {
     static byte serial_rx_buffer[BUFFER_MAX_SIZE];
     if (cfg_this->serial_rx_enable) {
         if(serialtransfer.available()) {        
-            tm_this->serial_connected = true;
             tm_this->serial_rx_active = true;    
             serialtransfer.rxObj(serial_rx_buffer);
             if(valid_ccsds_hdr((ccsds_t*)&(serial_rx_buffer), PKT_TM) or valid_ccsds_hdr((ccsds_t*)&(serial_rx_buffer), PKT_TC)) {
@@ -1258,8 +1249,8 @@ bool send_packet_through_serial (ccsds_t* ccsds_ptr) {
 	return false;
 }
 
+#if defined(PLATFORM_ESP32) || defined(PLATFORM_GNDCTRL)
 // Radio Functionality
-
 bool setup_radio () {
     if(cfg_this->radio_rx_enable or cfg_this->radio_tx_enable) {
         radio.setSpiPin(RADIO_SCK_PIN, RADIO_MISO_PIN, RADIO_MOSI_PIN, RADIO_CS_PIN);
@@ -1318,7 +1309,6 @@ bool check_radio_rx () {
     static byte radio_rx_buffer[BUFFER_MAX_SIZE];
     if (cfg_this->radio_rx_enable) {
         if(radio.CheckRxFifo(20)) {        
-            tm_this->radio_connected = true;
             tm_this->radio_rx_active = true;    
             radio.ReceiveData(radio_rx_buffer);
             if(valid_ccsds_hdr((ccsds_t*)&(radio_rx_buffer), PKT_TM) or valid_ccsds_hdr((ccsds_t*)&(radio_rx_buffer), PKT_TC)) {
@@ -1352,6 +1342,7 @@ bool send_packet_through_radio (ccsds_t* ccsds_ptr) {
 	}
 	return false;
 }
+#endif
 
 // File System Functionality
 
@@ -1739,6 +1730,7 @@ void process_tx_queue () {
         }
     }
 
+ #if defined(PLATFORM_ESP32) || defined(PLATFORM_GNDCTRL)
     if(tm_this->buffer_size > var.radio_buffer_index) {
         if(cfg_this->radio_tx_enable) {
             if(tm_this->radio_tx_enabled) {
@@ -1760,7 +1752,8 @@ void process_tx_queue () {
             var.radio_buffer_index++; 
         }
     }
-    
+ #endif
+
     if(tm_this->buffer_size > var.archive_buffer_index) {
         if(cfg_this->archive_enable) {
             if(tm_this->archive_enabled) {
@@ -1859,25 +1852,25 @@ void update_packet (ccsds_t* ccsds_ptr) {
                         tm_esp32.packet_ctr++;
                         tm_esp32.mem_free = ESP.getFreeHeap()/1024;
                         tm_esp32.fs_free = fs_free();
-                        tm_this->buffer_size = ccsds_tx_fifo->size();
-                        tm_this->espnow_buffer_queue = tm_this->buffer_size - var.espnow_buffer_index;
-                        tm_this->serial_buffer_queue = tm_this->buffer_size - var.serial_buffer_index;
-                        tm_this->radio_buffer_queue = tm_this->buffer_size - var.radio_buffer_index;
-                        tm_this->archive_buffer_queue = tm_this->buffer_size - var.archive_buffer_index;
-                        tm_this->battery_voltage = 0.9*tm_this->battery_voltage + 0.1*2*analogReadMilliVolts(BAT_V_PIN);
-                        tm_this->battery_percentage = min(100, max(0, (tm_this->battery_voltage - cfg_this->battery_voltage_min) * 100 / (cfg_this->battery_voltage_max - cfg_this->battery_voltage_min)));
-                        /*if (get_routing(&cfg_this->routing_espnow, TM_THIS) and tm_this->espnow_tx_enabled) {
-                            tm_this->espnow_tx_pktrate++;
+                        tm_esp32.buffer_size = ccsds_tx_fifo->size();
+                        tm_esp32.espnow_buffer_queue = tm_esp32.buffer_size - var.espnow_buffer_index;
+                        tm_esp32.serial_buffer_queue = tm_esp32.buffer_size - var.serial_buffer_index;
+                        tm_esp32.radio_buffer_queue = tm_esp32.buffer_size - var.radio_buffer_index;
+                        tm_esp32.archive_buffer_queue = tm_esp32.buffer_size - var.archive_buffer_index;
+                        tm_esp32.battery_voltage = 0.9*tm_esp32.battery_voltage + 0.1*2*analogReadMilliVolts(BAT_V_PIN);
+                        tm_esp32.battery_percentage = min(100, max(0, (tm_esp32.battery_voltage - cfg_esp32.battery_voltage_min) * 100 / (cfg_esp32.battery_voltage_max - cfg_esp32.battery_voltage_min)));
+                        /*if (get_routing(&cfg_esp32->routing_espnow, TM_ESP32) and tm_esp32->espnow_tx_enabled) {
+                            tm_esp32->espnow_tx_pktrate++;
                         }
-                        if (get_routing(&cfg_this->routing_serial, TM_THIS) and tm_this->serial_tx_enabled) {
-                            tm_this->serial_tx_pktrate++;
+                        if (get_routing(&cfg_esp32->routing_serial, TM_ESP32) and tm_esp32->serial_tx_enabled) {
+                            tm_esp32->serial_tx_pktrate++;
                         }
-                        if (get_routing(&cfg_this->routing_radio, TM_THIS) and tm_this->radio_tx_enabled) {
-                            tm_this->radio_tx_pktrate++;
+                        if (get_routing(&cfg_esp32->routing_radio, TM_ESP32) and tm_esp32->radio_tx_enabled) {
+                            tm_esp32->radio_tx_pktrate++;
                         }                        
-                        if (get_routing(&cfg_this->routing_archive, TM_THIS) and ((cfg_this->archive_fs==FS_LITTLEFS and tm_this->fs_enabled) or 
-                                                                                     (cfg_this->archive_fs==FS_SD_MMC and tm_this->sd_enabled)) {
-                            tm_this->archive_pktrate++;
+                        if (get_routing(&cfg_esp32->routing_archive, TM_ESP32) and ((cfg_esp32->archive_fs==FS_LITTLEFS and tm_esp32->fs_enabled) or 
+                                                                                     (cfg_esp32->archive_fs==FS_SD_MMC and tm_esp32->sd_enabled)) {
+                            tm_esp32->archive_pktrate++;
                         } */
                         break; 
     case TM_GPS:        tm_gps.millis=millis();
@@ -1906,19 +1899,19 @@ void update_packet (ccsds_t* ccsds_ptr) {
                         tm_radio.gps_velocity = uint8_t(sqrt (neo6mv2.v_north*neo6mv2.v_north + neo6mv2.v_east*neo6mv2.v_east + neo6mv2.v_down*neo6mv2.v_down) / 1000000);   
                         tm_radio.gps_height = max(0, min(255, (neo6mv2.z+50)/100));
                         tm_radio.camera_image_ctr = tm_camera.packet_ctr;
-                        tm_radio.esp32_espnow_connected = esp32.espnow_connected;
                         tm_radio.esp32_buffer_active = esp32.buffer_active;
                         tm_radio.separation_sts = esp32.separation_sts;
-                        tm_radio.esp32cam_espnow_connected = esp32cam.espnow_connected;
                         tm_radio.esp32cam_buffer_active = esp32cam.buffer_active; */
                         break;                          
     case TM_ESP32CAM:   tm_esp32cam.millis = millis();
                         tm_esp32cam.packet_ctr++;
                         tm_esp32cam.mem_free = ESP.getFreeHeap()/1024;
-                        tm_this->battery_voltage = 0.9*tm_this->battery_voltage + 0.1*2*analogReadMilliVolts(BAT_V_PIN);
-                        tm_this->battery_percentage = min(100, max(0, (tm_this->battery_voltage - cfg_this->battery_voltage_min) * 100 / (cfg_this->battery_voltage_max - cfg_this->battery_voltage_min)));
-                        //tm_esp32cam.fs_free = fs_free();
-                        //tm_esp32cam.sd_free = sd_free();
+                        tm_esp32cam.fs_free = fs_free();
+                        tm_esp32cam.sd_free = sd_free();
+                        tm_esp32cam.buffer_size = ccsds_tx_fifo->size();
+                        tm_esp32cam.espnow_buffer_queue = tm_esp32cam.buffer_size - var.espnow_buffer_index;
+                        tm_esp32cam.serial_buffer_queue = tm_esp32cam.buffer_size - var.serial_buffer_index;
+                        tm_esp32cam.archive_buffer_queue = tm_esp32cam.buffer_size - var.archive_buffer_index;
                     /*    if (cfg_this->routing_espnow[TM_THIS] and tm_this->espnow_tx_enabled) {
                             tm_this->espnow_tx_pktrate++;
                         }
@@ -1939,12 +1932,13 @@ void update_packet (ccsds_t* ccsds_ptr) {
     case TM_GNDCTRL:    tm_gndctrl.millis = millis();
                         tm_gndctrl.packet_ctr++;
                         tm_gndctrl.mem_free = ESP.getFreeHeap()/1024;
-                        tm_this->battery_voltage = 0.9*tm_this->battery_voltage + 0.1*2*analogReadMilliVolts(BAT_V_PIN);
-                        tm_this->battery_percentage = min(100, max(0, (tm_this->battery_voltage - cfg_this->battery_voltage_min) * 100 / (cfg_this->battery_voltage_max - cfg_this->battery_voltage_min)));
-                        tm_this->espnow_buffer_queue = tm_this->buffer_size - var.espnow_buffer_index;
-                        tm_this->serial_buffer_queue = tm_this->buffer_size - var.serial_buffer_index;
-                        tm_this->radio_buffer_queue = tm_this->buffer_size - var.radio_buffer_index;
-                        tm_this->archive_buffer_queue = tm_this->buffer_size - var.archive_buffer_index;
+                        tm_gndctrl.fs_free = fs_free();
+                        tm_gndctrl.battery_voltage = 0.9*tm_gndctrl.battery_voltage + 0.1*2*analogReadMilliVolts(BAT_V_PIN);
+                        tm_gndctrl.battery_percentage = min(100, max(0, (tm_gndctrl.battery_voltage - cfg_gndctrl.battery_voltage_min) * 100 / (cfg_gndctrl.battery_voltage_max - cfg_gndctrl.battery_voltage_min)));
+                        tm_gndctrl.buffer_size = ccsds_tx_fifo->size();
+                        tm_gndctrl.espnow_buffer_queue = tm_gndctrl.buffer_size - var.espnow_buffer_index;
+                        tm_gndctrl.serial_buffer_queue = tm_gndctrl.buffer_size - var.serial_buffer_index;
+                        tm_gndctrl.archive_buffer_queue = tm_gndctrl.buffer_size - var.archive_buffer_index;
              /*           if (cfg_this->routing_espnow[TM_THIS] and tm_this->espnow_tx_enabled) {
                             tm_this->espnow_tx_pktrate++;
                         }
@@ -2004,7 +1998,7 @@ void reset_packet (ccsds_t* ccsds_ptr) {
                         tm_esp32.serial_tx_active = false;
                         tm_esp32.radio_rx_active = false;
                         tm_esp32.radio_tx_active = false;
-                        tm_this->buzzer_active=false;
+                        tm_esp32.buzzer_active=false;
                         break;
     case TM_GPS:        tm_esp32.gps_pktrate++;
                         tm_gps.status = 8;  // set default to "none"
@@ -2018,19 +2012,23 @@ void reset_packet (ccsds_t* ccsds_ptr) {
                         tm_radio.gps_active = false; 
                         tm_radio.camera_active = false; 
                         break;
-    case TM_ESP32CAM:   tm_esp32cam.camera_pktrate = 0;
-                        tm_esp32cam.espnow_rx_pktrate = 0;
+    case TM_ESP32CAM:   tm_esp32cam.espnow_rx_pktrate = 0;
                         tm_esp32cam.espnow_tx_pktrate = 0;
                         tm_esp32cam.serial_rx_pktrate = 0;
                         tm_esp32cam.serial_tx_pktrate = 0;
-                        tm_esp32cam.camera_active = false;
+                        tm_esp32cam.archive_pktrate = 0;
+                        tm_esp32cam.camera_pktrate = 0;
+                        tm_esp32cam.wifi_active = false;
+                        tm_esp32cam.ftp_active = false;
+                        tm_esp32cam.archive_active = false;
                         tm_esp32cam.fs_active = false;
                         tm_esp32cam.sd_active = false;
-                        tm_esp32cam.ftp_active = false;
+                        tm_esp32cam.camera_active = false;
+                        tm_esp32cam.espnow_rx_active = false;
+                        tm_esp32cam.espnow_tx_active = false;
+                        tm_esp32cam.serial_rx_active = false;
+                        tm_esp32cam.serial_tx_active = false;
                         //tm_esp32cam.rtsp_active = false;
-                        tm_esp32cam.archive_active = false; 
-                        tm_esp32cam.ota_enabled = false; 
-                        tm_this->buzzer_active=false;
                         break;
     case TM_CAMERA:     strcpy (tm_camera.filename, "");
                         tm_camera.filesize = 0;
@@ -2046,17 +2044,17 @@ void reset_packet (ccsds_t* ccsds_ptr) {
 						tm_gndctrl.radio_rx_pktrate = 0;
 						tm_gndctrl.archive_pktrate = 0;
 						tm_gndctrl.radio_rssi = 0;
-						tm_gndctrl.espnow_rx_active = false;
+						tm_gndctrl.wifi_active = false;
+                        tm_gndctrl.ftp_active = false;
+                        tm_gndctrl.archive_active = false;
+                        tm_gndctrl.fs_active = false;
+                        tm_gndctrl.espnow_rx_active = false;
 						tm_gndctrl.espnow_tx_active = false;
 						tm_gndctrl.serial_rx_active = false;
 						tm_gndctrl.serial_tx_active = false;
 						tm_gndctrl.radio_rx_active = false;
 						tm_gndctrl.radio_tx_active = false;
-						tm_gndctrl.wifi_active = false;
-                        tm_gndctrl.ftp_active = false;
-                        tm_gndctrl.archive_active = false;
-                        tm_gndctrl.fs_active = false;
-                        tm_this->buzzer_active=false;
+                        tm_gndctrl.buzzer_active=false;
 						break;                        
     case TIMER_ESP32:   tmr_esp32.radio_duration = 0;
                         tmr_esp32.pressure_duration = 0;
