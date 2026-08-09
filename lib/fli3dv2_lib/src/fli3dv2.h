@@ -755,7 +755,7 @@ struct __attribute__ ((packed)) cfg_packet_t {  // APID: 59/60/61 (3b/3d/3e)
     bool        free_23:1;               //     3
     bool        free_22:1;               //      2
     bool        free_21:1;               //       1
-    bool        free_20:1;               //        0
+    bool        camera_enable:1;               //        0
 
     bool        dip_set1:1;           // 7
     bool        dip_set2:1;           //  6

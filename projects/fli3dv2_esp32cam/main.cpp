@@ -58,6 +58,8 @@ bool default_routing_radio[NUMBER_OF_PID] =   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 bool default_routing_serial[NUMBER_OF_PID] =  { 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0 };
 bool default_routing_archive[NUMBER_OF_PID] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
+extern bool setup_ov2640();
+
 void setup_timer() {
     var.next_second = 1000*(millis()/1000) + 1000;
     var.next_tx_time = millis();
@@ -89,6 +91,9 @@ void setup() {
     setup_fs();
     setup_sd();
     setup_archive();
+
+    // Start camera
+    setup_ov2640();
 
     // Initialisation complete
     setup_timer();
