@@ -81,6 +81,13 @@ void setup() {
     publish_packet((ccsds_t*)tm_this);
     publish_packet((ccsds_t*)cfg_this);
 
+    // Load stored configuration
+    if(init_boot_config()) {
+        load_config_bank(cfg_this->cfg_boot.boot_bank);
+    }
+    publish_packet((ccsds_t*)tm_this);
+    publish_packet((ccsds_t*)cfg_this);
+
     // Connect to wifi
     setup_wifi();
     enable_wifi_services();

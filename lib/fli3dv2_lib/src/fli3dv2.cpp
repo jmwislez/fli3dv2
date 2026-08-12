@@ -270,6 +270,7 @@ void init_config () {
         cfg_esp32cam.ftp_enable = true;
         cfg_esp32cam.ftp_fs = FS_SD_MMC;
         cfg_esp32cam.archive_fs = FS_SD_MMC;
+        cfg_esp32cam.camera_enable = true;
         break;
     case SS_GNDCTRL:
         cfg_this->magic_number = 'g';

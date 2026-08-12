@@ -3365,7 +3365,7 @@ $(pv_value)</tooltip>
       <keep_wh_ratio>false</keep_wh_ratio>
     </scale_options>
     <scripts />
-    <text>STS_ESP32</text>
+    <text>Event messages ESP32</text>
     <tooltip />
     <transparent>true</transparent>
     <vertical_alignment>1</vertical_alignment>
@@ -3644,7 +3644,7 @@ $(pv_value)</tooltip>
     <name>Text Update_81</name>
     <precision>0</precision>
     <precision_from_pv>false</precision_from_pv>
-    <pv_name>/fli3d/TIMER_ESP32_pressure_duration</pv_name>
+    <pv_name>/fli3d/TMR_ESP32_pressure_duration</pv_name>
     <pv_value />
     <rotation_angle>0.0</rotation_angle>
     <rules />
@@ -3777,7 +3777,7 @@ $(pv_value)</tooltip>
     <name>Text Update_83</name>
     <precision>0</precision>
     <precision_from_pv>false</precision_from_pv>
-    <pv_name>/fli3d/TIMER_ESP32_millis</pv_name>
+    <pv_name>/fli3d/TMR_ESP32_millis</pv_name>
     <pv_value />
     <rotation_angle>0.0</rotation_angle>
     <rules />
@@ -3830,7 +3830,7 @@ $(pv_value)</tooltip>
     <name>Text Update_84</name>
     <precision>0</precision>
     <precision_from_pv>false</precision_from_pv>
-    <pv_name>/fli3d/TIMER_ESP32_packet_ctr</pv_name>
+    <pv_name>/fli3d/TMR_ESP32_packet_ctr</pv_name>
     <pv_value />
     <rotation_angle>0.0</rotation_angle>
     <rules />
@@ -3883,7 +3883,7 @@ $(pv_value)</tooltip>
     <name>Text Update_85</name>
     <precision>0</precision>
     <precision_from_pv>false</precision_from_pv>
-    <pv_name>/fli3d/TIMER_ESP32_radio_duration</pv_name>
+    <pv_name>/fli3d/TMR_ESP32_radio_duration</pv_name>
     <pv_value />
     <rotation_angle>0.0</rotation_angle>
     <rules />
@@ -4176,7 +4176,7 @@ $(pv_value)</tooltip>
     <name>Text Update_86</name>
     <precision>0</precision>
     <precision_from_pv>false</precision_from_pv>
-    <pv_name>/fli3d/TIMER_ESP32_gps_duration</pv_name>
+    <pv_name>/fli3d/TMR_ESP32_gps_duration</pv_name>
     <pv_value />
     <rotation_angle>0.0</rotation_angle>
     <rules />
@@ -4229,7 +4229,7 @@ $(pv_value)</tooltip>
     <name>Text Update_87</name>
     <precision>0</precision>
     <precision_from_pv>false</precision_from_pv>
-    <pv_name>/fli3d/TIMER_ESP32_esp32cam_duration</pv_name>
+    <pv_name>/fli3d/TMR_ESP32_esp32cam_duration</pv_name>
     <pv_value />
     <rotation_angle>0.0</rotation_angle>
     <rules />
@@ -4322,7 +4322,7 @@ $(pv_value)</tooltip>
     <name>Text Update_88</name>
     <precision>0</precision>
     <precision_from_pv>false</precision_from_pv>
-    <pv_name>/fli3d/TIMER_ESP32_serial_duration</pv_name>
+    <pv_name>/fli3d/TMR_ESP32_serial_duration</pv_name>
     <pv_value />
     <rotation_angle>0.0</rotation_angle>
     <rules />
@@ -4468,7 +4468,7 @@ $(pv_value)</tooltip>
       <keep_wh_ratio>false</keep_wh_ratio>
     </scale_options>
     <scripts />
-    <text>STS_ESP32CAM</text>
+    <text>Event messages ESP32CAM</text>
     <tooltip />
     <transparent>true</transparent>
     <vertical_alignment>1</vertical_alignment>
@@ -4517,8 +4517,8 @@ $(pv_value)</tooltip>
     <width>80</width>
     <wrap_words>false</wrap_words>
     <wuid>3a01bf5:1714ea048bd:-7536</wuid>
-    <x>456</x>
-    <y>657</y>
+    <x>660</x>
+    <y>675</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -4623,8 +4623,8 @@ $(pv_value)</tooltip>
     <width>100</width>
     <wrap_words>false</wrap_words>
     <wuid>3a01bf5:1714ea048bd:-7534</wuid>
-    <x>538</x>
-    <y>657</y>
+    <x>742</x>
+    <y>675</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -5212,7 +5212,7 @@ $(pv_value)</tooltip>
       <keep_wh_ratio>false</keep_wh_ratio>
     </scale_options>
     <scripts />
-    <text>TM_CAMERA</text>
+    <text>OV2640 camera</text>
     <tooltip />
     <transparent>true</transparent>
     <vertical_alignment>1</vertical_alignment>
@@ -5682,7 +5682,7 @@ $(pv_value)</tooltip>
     <name>Text Update_135</name>
     <precision>0</precision>
     <precision_from_pv>false</precision_from_pv>
-    <pv_name>/fli3d/TIMER_ESP32_motion_duration</pv_name>
+    <pv_name>/fli3d/TMR_ESP32_motion_duration</pv_name>
     <pv_value />
     <rotation_angle>0.0</rotation_angle>
     <rules />
@@ -5815,7 +5815,7 @@ $(pv_value)</tooltip>
     <name>Text Update_136</name>
     <precision>0</precision>
     <precision_from_pv>false</precision_from_pv>
-    <pv_name>/fli3d/TIMER_ESP32_ota_duration</pv_name>
+    <pv_name>/fli3d/TMR_ESP32_ota_duration</pv_name>
     <pv_value />
     <rotation_angle>0.0</rotation_angle>
     <rules />
@@ -5868,7 +5868,7 @@ $(pv_value)</tooltip>
     <name>Text Update_137</name>
     <precision>0</precision>
     <precision_from_pv>false</precision_from_pv>
-    <pv_name>/fli3d/TIMER_ESP32_ftp_duration</pv_name>
+    <pv_name>/fli3d/TMR_ESP32_ftp_duration</pv_name>
     <pv_value />
     <rotation_angle>0.0</rotation_angle>
     <rules />
@@ -5961,7 +5961,7 @@ $(pv_value)</tooltip>
     <name>Text Update_138</name>
     <precision>0</precision>
     <precision_from_pv>false</precision_from_pv>
-    <pv_name>/fli3d/TIMER_ESP32_wifi_duration</pv_name>
+    <pv_name>/fli3d/TMR_ESP32_wifi_duration</pv_name>
     <pv_value />
     <rotation_angle>0.0</rotation_angle>
     <rules />
@@ -6054,7 +6054,7 @@ $(pv_value)</tooltip>
     <name>Text Update_139</name>
     <precision>0</precision>
     <precision_from_pv>false</precision_from_pv>
-    <pv_name>/fli3d/TIMER_ESP32_publish_fs_duration</pv_name>
+    <pv_name>/fli3d/TMR_ESP32_publish_fs_duration</pv_name>
     <pv_value />
     <rotation_angle>0.0</rotation_angle>
     <rules />
@@ -6147,7 +6147,7 @@ $(pv_value)</tooltip>
     <name>Text Update_140</name>
     <precision>0</precision>
     <precision_from_pv>false</precision_from_pv>
-    <pv_name>/fli3d/TIMER_ESP32_publish_serial_duration</pv_name>
+    <pv_name>/fli3d/TMR_ESP32_publish_serial_duration</pv_name>
     <pv_value />
     <rotation_angle>0.0</rotation_angle>
     <rules />
@@ -6280,7 +6280,7 @@ $(pv_value)</tooltip>
     <name>Text Update_141</name>
     <precision>0</precision>
     <precision_from_pv>false</precision_from_pv>
-    <pv_name>/fli3d/TIMER_ESP32_publish_yamcs_duration</pv_name>
+    <pv_name>/fli3d/TMR_ESP32_publish_yamcs_duration</pv_name>
     <pv_value />
     <rotation_angle>0.0</rotation_angle>
     <rules />
@@ -6333,7 +6333,7 @@ $(pv_value)</tooltip>
     <name>Text Update_142</name>
     <precision>0</precision>
     <precision_from_pv>false</precision_from_pv>
-    <pv_name>/fli3d/TIMER_ESP32_publish_udp_duration</pv_name>
+    <pv_name>/fli3d/TMR_ESP32_publish_udp_duration</pv_name>
     <pv_value />
     <rotation_angle>0.0</rotation_angle>
     <rules />
@@ -6426,7 +6426,7 @@ $(pv_value)</tooltip>
     <name>Text Update_143</name>
     <precision>0</precision>
     <precision_from_pv>false</precision_from_pv>
-    <pv_name>/fli3d/TIMER_ESP32_tc_duration</pv_name>
+    <pv_name>/fli3d/TMR_ESP32_tc_duration</pv_name>
     <pv_value />
     <rotation_angle>0.0</rotation_angle>
     <rules />
@@ -6519,7 +6519,7 @@ $(pv_value)</tooltip>
     <name>Text Update_144</name>
     <precision>0</precision>
     <precision_from_pv>false</precision_from_pv>
-    <pv_name>/fli3d/TIMER_ESP32_idle_duration</pv_name>
+    <pv_name>/fli3d/TMR_ESP32_idle_duration</pv_name>
     <pv_value />
     <rotation_angle>0.0</rotation_angle>
     <rules />
@@ -8383,7 +8383,7 @@ $(pv_value)</tooltip>
     <name>Text Update_164</name>
     <precision>0</precision>
     <precision_from_pv>false</precision_from_pv>
-    <pv_name>/fli3d/TIMER_ESP32CAM_millis</pv_name>
+    <pv_name>/fli3d/TMR_ESP32CAM_millis</pv_name>
     <pv_value />
     <rotation_angle>0.0</rotation_angle>
     <rules />
@@ -8436,7 +8436,7 @@ $(pv_value)</tooltip>
     <name>Text Update_165</name>
     <precision>0</precision>
     <precision_from_pv>false</precision_from_pv>
-    <pv_name>/fli3d/TIMER_ESP32CAM_packet_ctr</pv_name>
+    <pv_name>/fli3d/TMR_ESP32CAM_packet_ctr</pv_name>
     <pv_value />
     <rotation_angle>0.0</rotation_angle>
     <rules />
@@ -8489,7 +8489,7 @@ $(pv_value)</tooltip>
     <name>Text Update_166</name>
     <precision>0</precision>
     <precision_from_pv>false</precision_from_pv>
-    <pv_name>/fli3d/TIMER_ESP32CAM_camera_duration</pv_name>
+    <pv_name>/fli3d/TMR_ESP32CAM_camera_duration</pv_name>
     <pv_value />
     <rotation_angle>0.0</rotation_angle>
     <rules />
@@ -8662,7 +8662,7 @@ $(pv_value)</tooltip>
     <name>Text Update_169</name>
     <precision>0</precision>
     <precision_from_pv>false</precision_from_pv>
-    <pv_name>/fli3d/TIMER_ESP32CAM_serial_duration</pv_name>
+    <pv_name>/fli3d/TMR_ESP32CAM_serial_duration</pv_name>
     <pv_value />
     <rotation_angle>0.0</rotation_angle>
     <rules />
@@ -8755,7 +8755,7 @@ $(pv_value)</tooltip>
     <name>Text Update_172</name>
     <precision>0</precision>
     <precision_from_pv>false</precision_from_pv>
-    <pv_name>/fli3d/TIMER_ESP32CAM_ftp_duration</pv_name>
+    <pv_name>/fli3d/TMR_ESP32CAM_ftp_duration</pv_name>
     <pv_value />
     <rotation_angle>0.0</rotation_angle>
     <rules />
@@ -8848,7 +8848,7 @@ $(pv_value)</tooltip>
     <name>Text Update_173</name>
     <precision>0</precision>
     <precision_from_pv>false</precision_from_pv>
-    <pv_name>/fli3d/TIMER_ESP32CAM_wifi_duration</pv_name>
+    <pv_name>/fli3d/TMR_ESP32CAM_wifi_duration</pv_name>
     <pv_value />
     <rotation_angle>0.0</rotation_angle>
     <rules />
@@ -8941,7 +8941,7 @@ $(pv_value)</tooltip>
     <name>Text Update_174</name>
     <precision>0</precision>
     <precision_from_pv>false</precision_from_pv>
-    <pv_name>/fli3d/TIMER_ESP32CAM_publish_fs_duration</pv_name>
+    <pv_name>/fli3d/TMR_ESP32CAM_publish_fs_duration</pv_name>
     <pv_value />
     <rotation_angle>0.0</rotation_angle>
     <rules />
@@ -9034,7 +9034,7 @@ $(pv_value)</tooltip>
     <name>Text Update_175</name>
     <precision>0</precision>
     <precision_from_pv>false</precision_from_pv>
-    <pv_name>/fli3d/TIMER_ESP32CAM_publish_serial_duration</pv_name>
+    <pv_name>/fli3d/TMR_ESP32CAM_publish_serial_duration</pv_name>
     <pv_value />
     <rotation_angle>0.0</rotation_angle>
     <rules />
@@ -9167,7 +9167,7 @@ $(pv_value)</tooltip>
     <name>Text Update_176</name>
     <precision>0</precision>
     <precision_from_pv>false</precision_from_pv>
-    <pv_name>/fli3d/TIMER_ESP32CAM_publish_yamcs_duration</pv_name>
+    <pv_name>/fli3d/TMR_ESP32CAM_publish_yamcs_duration</pv_name>
     <pv_value />
     <rotation_angle>0.0</rotation_angle>
     <rules />
@@ -9220,7 +9220,7 @@ $(pv_value)</tooltip>
     <name>Text Update_177</name>
     <precision>0</precision>
     <precision_from_pv>false</precision_from_pv>
-    <pv_name>/fli3d/TIMER_ESP32CAM_publish_udp_duration</pv_name>
+    <pv_name>/fli3d/TMR_ESP32CAM_publish_udp_duration</pv_name>
     <pv_value />
     <rotation_angle>0.0</rotation_angle>
     <rules />
@@ -9313,7 +9313,7 @@ $(pv_value)</tooltip>
     <name>Text Update_178</name>
     <precision>0</precision>
     <precision_from_pv>false</precision_from_pv>
-    <pv_name>/fli3d/TIMER_ESP32CAM_tc_duration</pv_name>
+    <pv_name>/fli3d/TMR_ESP32CAM_tc_duration</pv_name>
     <pv_value />
     <rotation_angle>0.0</rotation_angle>
     <rules />
@@ -9406,7 +9406,7 @@ $(pv_value)</tooltip>
     <name>Text Update_179</name>
     <precision>0</precision>
     <precision_from_pv>false</precision_from_pv>
-    <pv_name>/fli3d/TIMER_ESP32CAM_idle_duration</pv_name>
+    <pv_name>/fli3d/TMR_ESP32CAM_idle_duration</pv_name>
     <pv_value />
     <rotation_angle>0.0</rotation_angle>
     <rules />
@@ -9499,7 +9499,7 @@ $(pv_value)</tooltip>
     <name>Text Update_187</name>
     <precision>0</precision>
     <precision_from_pv>false</precision_from_pv>
-    <pv_name>/fli3d/TIMER_ESP32CAM_publish_sd_duration</pv_name>
+    <pv_name>/fli3d/TMR_ESP32CAM_publish_sd_duration</pv_name>
     <pv_value />
     <rotation_angle>0.0</rotation_angle>
     <rules />
@@ -9592,7 +9592,7 @@ $(pv_value)</tooltip>
     <name>Text Update_188</name>
     <precision>0</precision>
     <precision_from_pv>false</precision_from_pv>
-    <pv_name>/fli3d/TIMER_ESP32CAM_sd_duration</pv_name>
+    <pv_name>/fli3d/TMR_ESP32CAM_sd_duration</pv_name>
     <pv_value />
     <rotation_angle>0.0</rotation_angle>
     <rules />
@@ -21955,7 +21955,7 @@ $(pv_value)</tooltip>
       <color red="0" green="255" blue="0" />
     </on_color>
     <on_label>ON</on_label>
-    <pv_name>/fli3d/ESP32CAM_pressure_enabled</pv_name>
+    <pv_name>/fli3d/ESP32CAM_camera_enabled</pv_name>
     <pv_value />
     <rules />
     <scale_options>
@@ -22106,7 +22106,7 @@ $(pv_value)</tooltip>
       <color red="0" green="255" blue="0" />
     </on_color>
     <on_label>ON</on_label>
-    <pv_name>/fli3d/ESP32CAM_motion_enabled</pv_name>
+    <pv_name>/fli3d/ESP32CAM_buzzer_enabled</pv_name>
     <pv_value />
     <rules />
     <scale_options>
@@ -22204,7 +22204,7 @@ $(pv_value)</tooltip>
       <color red="0" green="255" blue="0" />
     </on_color>
     <on_label>ON</on_label>
-    <pv_name>/fli3d/ESP32CAM_pressure_active</pv_name>
+    <pv_name>/fli3d/ESP32CAM_camera_active</pv_name>
     <pv_value />
     <rules />
     <scale_options>
@@ -22262,7 +22262,7 @@ $(pv_value)</tooltip>
       <color red="0" green="255" blue="0" />
     </on_color>
     <on_label>ON</on_label>
-    <pv_name>/fli3d/ESP32CAM_motion_active</pv_name>
+    <pv_name>/fli3d/ESP32CAM_buzzer_active</pv_name>
     <pv_value />
     <rules />
     <scale_options>
@@ -24327,7 +24327,7 @@ $(pv_value)</tooltip>
       <color red="0" green="255" blue="0" />
     </on_color>
     <on_label>ON</on_label>
-    <pv_name>/fli3d/CFG_ESP32CAM_flash_enable</pv_name>
+    <pv_name>/fli3d/CFG_ESP32CAM_buzzer_enable</pv_name>
     <pv_value />
     <rules />
     <scale_options>

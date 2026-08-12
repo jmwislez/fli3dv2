@@ -172,7 +172,7 @@ $(pv_value)</tooltip>
     <width>79</width>
     <wrap_words>false</wrap_words>
     <wuid>-2fccbd24:194db345a5e:-789b</wuid>
-    <x>264</x>
+    <x>282</x>
     <y>6</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -212,7 +212,7 @@ $(pv_value)</tooltip>
     <width>79</width>
     <wrap_words>false</wrap_words>
     <wuid>-2fccbd24:194db345a5e:-7891</wuid>
-    <x>384</x>
+    <x>426</x>
     <y>6</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -2276,7 +2276,7 @@ $(pv_value)</tooltip>
     <width>100</width>
     <wrap_words>false</wrap_words>
     <wuid>-2b8d8eaa:194db79ac8e:-7e82</wuid>
-    <x>384</x>
+    <x>426</x>
     <y>60</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -2329,7 +2329,7 @@ $(pv_value)</tooltip>
     <width>100</width>
     <wrap_words>false</wrap_words>
     <wuid>-2b8d8eaa:194db79ac8e:-7e79</wuid>
-    <x>384</x>
+    <x>426</x>
     <y>368</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -2382,7 +2382,7 @@ $(pv_value)</tooltip>
     <width>100</width>
     <wrap_words>false</wrap_words>
     <wuid>-2b8d8eaa:194db79ac8e:-7e77</wuid>
-    <x>384</x>
+    <x>426</x>
     <y>174</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -2440,7 +2440,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-2b8d8eaa:194db79ac8e:-7e75</wuid>
-    <x>384</x>
+    <x>426</x>
     <y>79</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -2496,7 +2496,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-2b8d8eaa:194db79ac8e:-7e74</wuid>
-    <x>438</x>
+    <x>480</x>
     <y>78</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -2554,7 +2554,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-2b8d8eaa:194db79ac8e:-7e72</wuid>
-    <x>384</x>
+    <x>426</x>
     <y>98</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -2607,7 +2607,7 @@ $(pv_value)</tooltip>
     <width>100</width>
     <wrap_words>false</wrap_words>
     <wuid>-2b8d8eaa:194db79ac8e:-7e71</wuid>
-    <x>384</x>
+    <x>426</x>
     <y>30</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -2665,7 +2665,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-2b8d8eaa:194db79ac8e:-7e6c</wuid>
-    <x>384</x>
+    <x>426</x>
     <y>136</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -2723,7 +2723,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-2b8d8eaa:194db79ac8e:-7e6a</wuid>
-    <x>384</x>
+    <x>426</x>
     <y>155</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -2776,7 +2776,7 @@ $(pv_value)</tooltip>
     <width>100</width>
     <wrap_words>false</wrap_words>
     <wuid>-2b8d8eaa:194db79ac8e:-7e69</wuid>
-    <x>384</x>
+    <x>426</x>
     <y>193</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -2834,7 +2834,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-2b8d8eaa:194db79ac8e:-7e67</wuid>
-    <x>384</x>
+    <x>426</x>
     <y>222</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -2892,7 +2892,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-2b8d8eaa:194db79ac8e:-7e65</wuid>
-    <x>384</x>
+    <x>426</x>
     <y>241</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -2950,7 +2950,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-2b8d8eaa:194db79ac8e:-7e53</wuid>
-    <x>384</x>
+    <x>426</x>
     <y>309</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -3008,7 +3008,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-2b8d8eaa:194db79ac8e:-7e51</wuid>
-    <x>384</x>
+    <x>426</x>
     <y>328</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -3066,7 +3066,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-2b8d8eaa:194db79ac8e:-7e4f</wuid>
-    <x>384</x>
+    <x>426</x>
     <y>347</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -3119,7 +3119,7 @@ $(pv_value)</tooltip>
     <width>100</width>
     <wrap_words>false</wrap_words>
     <wuid>-2b8d8eaa:194db79ac8e:-7e49</wuid>
-    <x>383</x>
+    <x>425</x>
     <y>458</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -3175,7 +3175,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-2b8d8eaa:194db79ac8e:-7e48</wuid>
-    <x>438</x>
+    <x>480</x>
     <y>97</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -3231,7 +3231,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-2b8d8eaa:194db79ac8e:-7e47</wuid>
-    <x>438</x>
+    <x>480</x>
     <y>241</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -3287,7 +3287,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-2b8d8eaa:194db79ac8e:-7e46</wuid>
-    <x>438</x>
+    <x>480</x>
     <y>221</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -3343,7 +3343,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-2b8d8eaa:194db79ac8e:-7e45</wuid>
-    <x>438</x>
+    <x>480</x>
     <y>135</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -3399,7 +3399,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-2b8d8eaa:194db79ac8e:-7e44</wuid>
-    <x>438</x>
+    <x>480</x>
     <y>154</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -3455,7 +3455,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-2b8d8eaa:194db79ac8e:-7e3d</wuid>
-    <x>438</x>
+    <x>480</x>
     <y>309</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -3511,7 +3511,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-2b8d8eaa:194db79ac8e:-7e3b</wuid>
-    <x>438</x>
+    <x>480</x>
     <y>349</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -3567,7 +3567,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-2b8d8eaa:194db79ac8e:-7e3a</wuid>
-    <x>438</x>
+    <x>480</x>
     <y>329</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -3607,7 +3607,7 @@ $(pv_value)</tooltip>
     <width>110</width>
     <wrap_words>false</wrap_words>
     <wuid>77fe1811:194db870ef9:-78ca</wuid>
-    <x>528</x>
+    <x>570</x>
     <y>148</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -3647,7 +3647,7 @@ $(pv_value)</tooltip>
     <width>115</width>
     <wrap_words>false</wrap_words>
     <wuid>77fe1811:194db870ef9:-78c9</wuid>
-    <x>528</x>
+    <x>570</x>
     <y>128</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -3687,7 +3687,7 @@ $(pv_value)</tooltip>
     <width>92</width>
     <wrap_words>false</wrap_words>
     <wuid>77fe1811:194db870ef9:-78c8</wuid>
-    <x>528</x>
+    <x>570</x>
     <y>108</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -3745,7 +3745,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>77fe1811:194db870ef9:-78c4</wuid>
-    <x>1235</x>
+    <x>1277</x>
     <y>108</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -3803,7 +3803,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>77fe1811:194db870ef9:-78c3</wuid>
-    <x>1235</x>
+    <x>1277</x>
     <y>128</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -3861,7 +3861,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>77fe1811:194db870ef9:-78c2</wuid>
-    <x>1235</x>
+    <x>1277</x>
     <y>148</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -3919,7 +3919,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>77fe1811:194db870ef9:-78c0</wuid>
-    <x>1313</x>
+    <x>1355</x>
     <y>108</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -3977,7 +3977,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>77fe1811:194db870ef9:-78bf</wuid>
-    <x>1313</x>
+    <x>1355</x>
     <y>128</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -4035,7 +4035,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>77fe1811:194db870ef9:-78be</wuid>
-    <x>1313</x>
+    <x>1355</x>
     <y>148</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -4093,7 +4093,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>77fe1811:194db870ef9:-78b2</wuid>
-    <x>657</x>
+    <x>699</x>
     <y>108</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -4151,7 +4151,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>77fe1811:194db870ef9:-78b1</wuid>
-    <x>657</x>
+    <x>699</x>
     <y>128</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -4209,7 +4209,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>77fe1811:194db870ef9:-78b0</wuid>
-    <x>657</x>
+    <x>699</x>
     <y>148</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -4249,7 +4249,7 @@ $(pv_value)</tooltip>
     <width>121</width>
     <wrap_words>false</wrap_words>
     <wuid>77fe1811:194db870ef9:-78a2</wuid>
-    <x>528</x>
+    <x>570</x>
     <y>348</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -4289,7 +4289,7 @@ $(pv_value)</tooltip>
     <width>121</width>
     <wrap_words>false</wrap_words>
     <wuid>77fe1811:194db870ef9:-78a1</wuid>
-    <x>528</x>
+    <x>570</x>
     <y>368</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -4329,7 +4329,7 @@ $(pv_value)</tooltip>
     <width>115</width>
     <wrap_words>false</wrap_words>
     <wuid>77fe1811:194db870ef9:-78a0</wuid>
-    <x>528</x>
+    <x>570</x>
     <y>328</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -4387,7 +4387,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>77fe1811:194db870ef9:-788c</wuid>
-    <x>1235</x>
+    <x>1277</x>
     <y>328</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -4445,7 +4445,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>77fe1811:194db870ef9:-788b</wuid>
-    <x>1313</x>
+    <x>1355</x>
     <y>328</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -4503,7 +4503,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>77fe1811:194db870ef9:-788a</wuid>
-    <x>657</x>
+    <x>699</x>
     <y>328</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -4561,7 +4561,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>77fe1811:194db870ef9:-7889</wuid>
-    <x>1235</x>
+    <x>1277</x>
     <y>348</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -4619,7 +4619,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>77fe1811:194db870ef9:-7888</wuid>
-    <x>1313</x>
+    <x>1355</x>
     <y>348</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -4677,7 +4677,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>77fe1811:194db870ef9:-7887</wuid>
-    <x>657</x>
+    <x>699</x>
     <y>348</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -4735,7 +4735,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>77fe1811:194db870ef9:-7886</wuid>
-    <x>1235</x>
+    <x>1277</x>
     <y>368</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -4793,7 +4793,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>77fe1811:194db870ef9:-7885</wuid>
-    <x>1313</x>
+    <x>1355</x>
     <y>368</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -4851,7 +4851,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>77fe1811:194db870ef9:-7884</wuid>
-    <x>657</x>
+    <x>699</x>
     <y>368</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -4909,7 +4909,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>77fe1811:194db870ef9:-787d</wuid>
-    <x>737</x>
+    <x>779</x>
     <y>108</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -4967,7 +4967,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>77fe1811:194db870ef9:-787c</wuid>
-    <x>737</x>
+    <x>779</x>
     <y>128</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -5025,7 +5025,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>77fe1811:194db870ef9:-787b</wuid>
-    <x>737</x>
+    <x>779</x>
     <y>148</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -5083,7 +5083,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>77fe1811:194db870ef9:-7870</wuid>
-    <x>737</x>
+    <x>779</x>
     <y>328</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -5141,7 +5141,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>77fe1811:194db870ef9:-786f</wuid>
-    <x>737</x>
+    <x>779</x>
     <y>348</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -5199,7 +5199,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>77fe1811:194db870ef9:-786e</wuid>
-    <x>737</x>
+    <x>779</x>
     <y>368</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -5479,7 +5479,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>72fe3f2a:194e6f7d887:-7f18</wuid>
-    <x>462</x>
+    <x>504</x>
     <y>6</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -5618,7 +5618,7 @@ $(pv_value)</tooltip>
     <width>135</width>
     <wrap_words>false</wrap_words>
     <wuid>-2f8663c0:194e7254e9a:-6934</wuid>
-    <x>349</x>
+    <x>391</x>
     <y>260</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -5693,7 +5693,7 @@ $(pv_value)</tooltip>
     <width>135</width>
     <wrap_words>false</wrap_words>
     <wuid>-2f8663c0:194e7254e9a:-6933</wuid>
-    <x>349</x>
+    <x>391</x>
     <y>279</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -5759,7 +5759,7 @@ $(pv_value)</tooltip>
     <width>100</width>
     <wrap_words>false</wrap_words>
     <wuid>-2f8663c0:194e7254e9a:-6925</wuid>
-    <x>384</x>
+    <x>426</x>
     <y>117</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.MenuButton" version="1.0.0">
@@ -5899,7 +5899,7 @@ $(pv_value)</tooltip>
     <widget_type>Menu Button</widget_type>
     <width>100</width>
     <wuid>-2f8663c0:194e7254e9a:-5c97</wuid>
-    <x>383</x>
+    <x>425</x>
     <y>482</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -6111,7 +6111,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-59b51a4e:194ef1ccf65:-7ce4</wuid>
-    <x>384</x>
+    <x>426</x>
     <y>522</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -6167,7 +6167,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-59b51a4e:194ef1ccf65:-7ce3</wuid>
-    <x>438</x>
+    <x>480</x>
     <y>521</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -6957,7 +6957,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-59b51a4e:194ef1ccf65:-7be9</wuid>
-    <x>676</x>
+    <x>718</x>
     <y>148</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -7013,7 +7013,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-59b51a4e:194ef1ccf65:-7be4</wuid>
-    <x>676</x>
+    <x>718</x>
     <y>128</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -7069,7 +7069,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-59b51a4e:194ef1ccf65:-7bdf</wuid>
-    <x>676</x>
+    <x>718</x>
     <y>108</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -7125,7 +7125,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-59b51a4e:194ef1ccf65:-7ba4</wuid>
-    <x>676</x>
+    <x>718</x>
     <y>368</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -7181,7 +7181,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-59b51a4e:194ef1ccf65:-7ba3</wuid>
-    <x>676</x>
+    <x>718</x>
     <y>348</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -7237,7 +7237,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-59b51a4e:194ef1ccf65:-7ba2</wuid>
-    <x>676</x>
+    <x>718</x>
     <y>328</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -7295,7 +7295,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-59b51a4e:194ef1ccf65:-7b01</wuid>
-    <x>988</x>
+    <x>1030</x>
     <y>108</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -7353,66 +7353,8 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-59b51a4e:194ef1ccf65:-7b00</wuid>
-    <x>988</x>
+    <x>1030</x>
     <y>128</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
-    <actions hook="false" hook_all="false" />
-    <alarm_pulsing>false</alarm_pulsing>
-    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
-    <background_color>
-      <color red="240" green="240" blue="240" />
-    </background_color>
-    <bit>-1</bit>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_color>
-      <color red="0" green="128" blue="255" />
-    </border_color>
-    <border_style>0</border_style>
-    <border_width>1</border_width>
-    <bulb_border>3</bulb_border>
-    <bulb_border_color>
-      <color red="150" green="150" blue="150" />
-    </bulb_border_color>
-    <data_type>0</data_type>
-    <effect_3d>true</effect_3d>
-    <enabled>true</enabled>
-    <font>
-      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
-    </font>
-    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
-    <foreground_color>
-      <color red="192" green="192" blue="192" />
-    </foreground_color>
-    <height>20</height>
-    <name>LED_157</name>
-    <off_color>
-      <color red="0" green="100" blue="0" />
-    </off_color>
-    <off_label>OFF</off_label>
-    <on_color>
-      <color red="0" green="255" blue="0" />
-    </on_color>
-    <on_label>ON</on_label>
-    <pv_name>/fli3d/CFG_ESP32CAM_routing_espnow_sts_gndctrl</pv_name>
-    <pv_value />
-    <rules />
-    <scale_options>
-      <width_scalable>true</width_scalable>
-      <height_scalable>true</height_scalable>
-      <keep_wh_ratio>true</keep_wh_ratio>
-    </scale_options>
-    <scripts />
-    <show_boolean_label>false</show_boolean_label>
-    <square_led>false</square_led>
-    <tooltip>$(pv_name)
-$(pv_value)</tooltip>
-    <visible>true</visible>
-    <widget_type>LED</widget_type>
-    <width>20</width>
-    <wuid>-59b51a4e:194ef1ccf65:-7aff</wuid>
-    <x>988</x>
-    <y>148</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -7469,7 +7411,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-59b51a4e:194ef1ccf65:-7af4</wuid>
-    <x>988</x>
+    <x>1030</x>
     <y>328</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -7527,7 +7469,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-59b51a4e:194ef1ccf65:-7af3</wuid>
-    <x>988</x>
+    <x>1030</x>
     <y>348</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -7585,7 +7527,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-59b51a4e:194ef1ccf65:-7af2</wuid>
-    <x>988</x>
+    <x>1030</x>
     <y>368</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -7643,7 +7585,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-59b51a4e:194ef1ccf65:-786a</wuid>
-    <x>1066</x>
+    <x>1108</x>
     <y>108</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -7701,7 +7643,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-59b51a4e:194ef1ccf65:-7869</wuid>
-    <x>1066</x>
+    <x>1108</x>
     <y>128</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -7759,7 +7701,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-59b51a4e:194ef1ccf65:-7868</wuid>
-    <x>1066</x>
+    <x>1108</x>
     <y>148</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -7817,7 +7759,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-59b51a4e:194ef1ccf65:-785d</wuid>
-    <x>1066</x>
+    <x>1108</x>
     <y>328</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -7875,7 +7817,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-59b51a4e:194ef1ccf65:-785c</wuid>
-    <x>1066</x>
+    <x>1108</x>
     <y>348</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -7933,7 +7875,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-59b51a4e:194ef1ccf65:-785b</wuid>
-    <x>1066</x>
+    <x>1108</x>
     <y>368</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -8457,7 +8399,7 @@ $(pv_value)</tooltip>
     <width>100</width>
     <wrap_words>false</wrap_words>
     <wuid>-59b51a4e:194ef1ccf65:-7736</wuid>
-    <x>383</x>
+    <x>425</x>
     <y>396</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -8510,7 +8452,7 @@ $(pv_value)</tooltip>
     <width>100</width>
     <wrap_words>false</wrap_words>
     <wuid>-59b51a4e:194ef1ccf65:-7735</wuid>
-    <x>383</x>
+    <x>425</x>
     <y>415</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -8563,7 +8505,7 @@ $(pv_value)</tooltip>
     <width>100</width>
     <wrap_words>false</wrap_words>
     <wuid>-59b51a4e:194ef1ccf65:-7734</wuid>
-    <x>384</x>
+    <x>426</x>
     <y>434</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -8627,7 +8569,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-59b51a4e:194ef1ccf65:-7733</wuid>
-    <x>363</x>
+    <x>405</x>
     <y>396</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -8691,7 +8633,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-59b51a4e:194ef1ccf65:-7732</wuid>
-    <x>363</x>
+    <x>405</x>
     <y>415</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -8755,7 +8697,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-59b51a4e:194ef1ccf65:-7731</wuid>
-    <x>363</x>
+    <x>405</x>
     <y>434</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -8811,7 +8753,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>6b57b70a:194f4b95206:-7e0b</wuid>
-    <x>1254</x>
+    <x>1296</x>
     <y>148</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -8867,7 +8809,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>6b57b70a:194f4b95206:-7e0a</wuid>
-    <x>1254</x>
+    <x>1296</x>
     <y>128</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -8923,7 +8865,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>6b57b70a:194f4b95206:-7e09</wuid>
-    <x>1254</x>
+    <x>1296</x>
     <y>108</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -8979,7 +8921,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>6b57b70a:194f4b95206:-7e02</wuid>
-    <x>1254</x>
+    <x>1296</x>
     <y>368</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -9035,7 +8977,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>6b57b70a:194f4b95206:-7e01</wuid>
-    <x>1254</x>
+    <x>1296</x>
     <y>348</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -9091,7 +9033,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>6b57b70a:194f4b95206:-7e00</wuid>
-    <x>1254</x>
+    <x>1296</x>
     <y>328</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -9149,7 +9091,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-367d9305:1954bf60940:-7dc1</wuid>
-    <x>1395</x>
+    <x>1437</x>
     <y>108</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -9207,7 +9149,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-367d9305:1954bf60940:-7dc0</wuid>
-    <x>1395</x>
+    <x>1437</x>
     <y>128</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -9265,7 +9207,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-367d9305:1954bf60940:-7dbf</wuid>
-    <x>1395</x>
+    <x>1437</x>
     <y>148</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -9323,7 +9265,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-367d9305:1954bf60940:-7db4</wuid>
-    <x>1395</x>
+    <x>1437</x>
     <y>328</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -9381,7 +9323,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-367d9305:1954bf60940:-7db3</wuid>
-    <x>1395</x>
+    <x>1437</x>
     <y>348</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -9439,7 +9381,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-367d9305:1954bf60940:-7db2</wuid>
-    <x>1395</x>
+    <x>1437</x>
     <y>368</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -9497,7 +9439,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-367d9305:1954bf60940:-7dad</wuid>
-    <x>817</x>
+    <x>859</x>
     <y>108</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -9555,7 +9497,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-367d9305:1954bf60940:-7dac</wuid>
-    <x>817</x>
+    <x>859</x>
     <y>128</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -9613,7 +9555,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-367d9305:1954bf60940:-7dab</wuid>
-    <x>817</x>
+    <x>859</x>
     <y>148</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -9671,7 +9613,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-367d9305:1954bf60940:-7da0</wuid>
-    <x>817</x>
+    <x>859</x>
     <y>328</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -9729,7 +9671,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-367d9305:1954bf60940:-7d9f</wuid>
-    <x>817</x>
+    <x>859</x>
     <y>348</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -9787,7 +9729,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-367d9305:1954bf60940:-7d9e</wuid>
-    <x>817</x>
+    <x>859</x>
     <y>368</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -9845,7 +9787,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-367d9305:1954bf60940:-7d02</wuid>
-    <x>1475</x>
+    <x>1517</x>
     <y>108</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -9903,7 +9845,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-367d9305:1954bf60940:-7d01</wuid>
-    <x>1475</x>
+    <x>1517</x>
     <y>128</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -9961,7 +9903,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-367d9305:1954bf60940:-7d00</wuid>
-    <x>1475</x>
+    <x>1517</x>
     <y>148</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -10019,7 +9961,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-367d9305:1954bf60940:-7cf5</wuid>
-    <x>1475</x>
+    <x>1517</x>
     <y>328</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -10077,7 +10019,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-367d9305:1954bf60940:-7cf4</wuid>
-    <x>1475</x>
+    <x>1517</x>
     <y>348</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -10135,7 +10077,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-367d9305:1954bf60940:-7cf3</wuid>
-    <x>1475</x>
+    <x>1517</x>
     <y>368</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -10193,7 +10135,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-367d9305:1954bf60940:-7cee</wuid>
-    <x>897</x>
+    <x>939</x>
     <y>108</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -10251,7 +10193,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-367d9305:1954bf60940:-7ced</wuid>
-    <x>897</x>
+    <x>939</x>
     <y>128</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -10309,7 +10251,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-367d9305:1954bf60940:-7cec</wuid>
-    <x>897</x>
+    <x>939</x>
     <y>148</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -10367,7 +10309,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-367d9305:1954bf60940:-7ce1</wuid>
-    <x>897</x>
+    <x>939</x>
     <y>328</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -10425,7 +10367,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-367d9305:1954bf60940:-7ce0</wuid>
-    <x>897</x>
+    <x>939</x>
     <y>348</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -10483,7 +10425,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-367d9305:1954bf60940:-7cdf</wuid>
-    <x>897</x>
+    <x>939</x>
     <y>368</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -10541,7 +10483,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-367d9305:1954bf60940:-7cd7</wuid>
-    <x>1145</x>
+    <x>1187</x>
     <y>108</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -10599,7 +10541,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-367d9305:1954bf60940:-7cd6</wuid>
-    <x>1145</x>
+    <x>1187</x>
     <y>128</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -10657,7 +10599,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-367d9305:1954bf60940:-7cd5</wuid>
-    <x>1145</x>
+    <x>1187</x>
     <y>148</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -10715,7 +10657,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-367d9305:1954bf60940:-7cca</wuid>
-    <x>1145</x>
+    <x>1187</x>
     <y>328</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -10773,7 +10715,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-367d9305:1954bf60940:-7cc9</wuid>
-    <x>1145</x>
+    <x>1187</x>
     <y>348</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -10831,7 +10773,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-367d9305:1954bf60940:-7cc8</wuid>
-    <x>1145</x>
+    <x>1187</x>
     <y>368</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -10887,7 +10829,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-367d9305:1954bf60940:-70c1</wuid>
-    <x>756</x>
+    <x>798</x>
     <y>148</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -10943,7 +10885,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-367d9305:1954bf60940:-70c0</wuid>
-    <x>756</x>
+    <x>798</x>
     <y>128</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -10999,7 +10941,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-367d9305:1954bf60940:-70bf</wuid>
-    <x>756</x>
+    <x>798</x>
     <y>108</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -11055,7 +10997,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-367d9305:1954bf60940:-70b8</wuid>
-    <x>756</x>
+    <x>798</x>
     <y>368</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -11111,7 +11053,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-367d9305:1954bf60940:-70b7</wuid>
-    <x>756</x>
+    <x>798</x>
     <y>348</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -11167,7 +11109,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-367d9305:1954bf60940:-70b6</wuid>
-    <x>756</x>
+    <x>798</x>
     <y>328</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -11223,7 +11165,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-367d9305:1954bf60940:-7083</wuid>
-    <x>836</x>
+    <x>878</x>
     <y>148</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -11279,7 +11221,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-367d9305:1954bf60940:-7082</wuid>
-    <x>836</x>
+    <x>878</x>
     <y>128</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -11335,7 +11277,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-367d9305:1954bf60940:-7081</wuid>
-    <x>836</x>
+    <x>878</x>
     <y>108</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -11391,7 +11333,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-367d9305:1954bf60940:-707a</wuid>
-    <x>836</x>
+    <x>878</x>
     <y>368</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -11447,7 +11389,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-367d9305:1954bf60940:-7079</wuid>
-    <x>836</x>
+    <x>878</x>
     <y>348</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -11503,7 +11445,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-367d9305:1954bf60940:-7078</wuid>
-    <x>836</x>
+    <x>878</x>
     <y>328</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -11559,7 +11501,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-367d9305:1954bf60940:-7045</wuid>
-    <x>916</x>
+    <x>958</x>
     <y>148</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -11615,7 +11557,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-367d9305:1954bf60940:-7044</wuid>
-    <x>916</x>
+    <x>958</x>
     <y>128</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -11671,7 +11613,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-367d9305:1954bf60940:-7043</wuid>
-    <x>916</x>
+    <x>958</x>
     <y>108</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -11727,7 +11669,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-367d9305:1954bf60940:-703c</wuid>
-    <x>916</x>
+    <x>958</x>
     <y>368</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -11783,7 +11725,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-367d9305:1954bf60940:-703b</wuid>
-    <x>916</x>
+    <x>958</x>
     <y>348</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -11839,7 +11781,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-367d9305:1954bf60940:-703a</wuid>
-    <x>916</x>
+    <x>958</x>
     <y>328</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -11879,7 +11821,7 @@ $(pv_value)</tooltip>
     <width>305</width>
     <wrap_words>false</wrap_words>
     <wuid>-367d9305:1954bf60940:-6dca</wuid>
-    <x>657</x>
+    <x>699</x>
     <y>6</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -11919,7 +11861,7 @@ $(pv_value)</tooltip>
     <width>294</width>
     <wrap_words>false</wrap_words>
     <wuid>-367d9305:1954bf60940:-6dc9</wuid>
-    <x>949</x>
+    <x>991</x>
     <y>6</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -11959,7 +11901,7 @@ $(pv_value)</tooltip>
     <width>292</width>
     <wrap_words>false</wrap_words>
     <wuid>-367d9305:1954bf60940:-6dc8</wuid>
-    <x>1235</x>
+    <x>1277</x>
     <y>6</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -11999,7 +11941,7 @@ $(pv_value)</tooltip>
     <width>79</width>
     <wrap_words>false</wrap_words>
     <wuid>-367d9305:1954bf60940:-6dc0</wuid>
-    <x>659</x>
+    <x>701</x>
     <y>25</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -12039,7 +11981,7 @@ $(pv_value)</tooltip>
     <width>79</width>
     <wrap_words>false</wrap_words>
     <wuid>-367d9305:1954bf60940:-6db6</wuid>
-    <x>739</x>
+    <x>781</x>
     <y>25</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -12079,7 +12021,7 @@ $(pv_value)</tooltip>
     <width>79</width>
     <wrap_words>false</wrap_words>
     <wuid>-367d9305:1954bf60940:-6daa</wuid>
-    <x>819</x>
+    <x>861</x>
     <y>25</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -12119,7 +12061,7 @@ $(pv_value)</tooltip>
     <width>79</width>
     <wrap_words>false</wrap_words>
     <wuid>-367d9305:1954bf60940:-6da0</wuid>
-    <x>899</x>
+    <x>941</x>
     <y>25</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -12159,7 +12101,7 @@ $(pv_value)</tooltip>
     <width>79</width>
     <wrap_words>false</wrap_words>
     <wuid>-367d9305:1954bf60940:-6d85</wuid>
-    <x>990</x>
+    <x>1032</x>
     <y>25</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -12199,7 +12141,7 @@ $(pv_value)</tooltip>
     <width>79</width>
     <wrap_words>false</wrap_words>
     <wuid>-367d9305:1954bf60940:-6d84</wuid>
-    <x>1070</x>
+    <x>1112</x>
     <y>25</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -12239,7 +12181,7 @@ $(pv_value)</tooltip>
     <width>79</width>
     <wrap_words>false</wrap_words>
     <wuid>-367d9305:1954bf60940:-6d82</wuid>
-    <x>1149</x>
+    <x>1191</x>
     <y>25</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -12279,7 +12221,7 @@ $(pv_value)</tooltip>
     <width>79</width>
     <wrap_words>false</wrap_words>
     <wuid>-367d9305:1954bf60940:-6d6c</wuid>
-    <x>1237</x>
+    <x>1279</x>
     <y>25</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -12319,7 +12261,7 @@ $(pv_value)</tooltip>
     <width>79</width>
     <wrap_words>false</wrap_words>
     <wuid>-367d9305:1954bf60940:-6d6b</wuid>
-    <x>1317</x>
+    <x>1359</x>
     <y>25</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -12359,7 +12301,7 @@ $(pv_value)</tooltip>
     <width>79</width>
     <wrap_words>false</wrap_words>
     <wuid>-367d9305:1954bf60940:-6d6a</wuid>
-    <x>1397</x>
+    <x>1439</x>
     <y>25</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -12399,7 +12341,7 @@ $(pv_value)</tooltip>
     <width>79</width>
     <wrap_words>false</wrap_words>
     <wuid>-367d9305:1954bf60940:-6d69</wuid>
-    <x>1477</x>
+    <x>1519</x>
     <y>25</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -12455,7 +12397,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-367d9305:1954bf60940:-6d17</wuid>
-    <x>1332</x>
+    <x>1374</x>
     <y>148</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -12511,7 +12453,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-367d9305:1954bf60940:-6d16</wuid>
-    <x>1332</x>
+    <x>1374</x>
     <y>128</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -12567,7 +12509,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-367d9305:1954bf60940:-6d15</wuid>
-    <x>1332</x>
+    <x>1374</x>
     <y>108</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -12623,7 +12565,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-367d9305:1954bf60940:-6d0e</wuid>
-    <x>1332</x>
+    <x>1374</x>
     <y>368</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -12679,7 +12621,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-367d9305:1954bf60940:-6d0d</wuid>
-    <x>1332</x>
+    <x>1374</x>
     <y>348</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -12735,7 +12677,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-367d9305:1954bf60940:-6d0c</wuid>
-    <x>1332</x>
+    <x>1374</x>
     <y>328</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -12791,7 +12733,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-367d9305:1954bf60940:-6cc3</wuid>
-    <x>1414</x>
+    <x>1456</x>
     <y>148</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -12847,7 +12789,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-367d9305:1954bf60940:-6cc2</wuid>
-    <x>1414</x>
+    <x>1456</x>
     <y>128</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -12903,7 +12845,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-367d9305:1954bf60940:-6cc1</wuid>
-    <x>1414</x>
+    <x>1456</x>
     <y>108</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -12959,7 +12901,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-367d9305:1954bf60940:-6cba</wuid>
-    <x>1414</x>
+    <x>1456</x>
     <y>368</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -13015,7 +12957,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-367d9305:1954bf60940:-6cb9</wuid>
-    <x>1414</x>
+    <x>1456</x>
     <y>348</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -13071,7 +13013,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-367d9305:1954bf60940:-6cb8</wuid>
-    <x>1414</x>
+    <x>1456</x>
     <y>328</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -13127,7 +13069,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-367d9305:1954bf60940:-6c6f</wuid>
-    <x>1494</x>
+    <x>1536</x>
     <y>148</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -13183,7 +13125,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-367d9305:1954bf60940:-6c6e</wuid>
-    <x>1494</x>
+    <x>1536</x>
     <y>128</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -13239,7 +13181,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-367d9305:1954bf60940:-6c6d</wuid>
-    <x>1494</x>
+    <x>1536</x>
     <y>108</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -13295,7 +13237,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-367d9305:1954bf60940:-6c66</wuid>
-    <x>1494</x>
+    <x>1536</x>
     <y>368</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -13351,7 +13293,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-367d9305:1954bf60940:-6c65</wuid>
-    <x>1494</x>
+    <x>1536</x>
     <y>348</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -13407,7 +13349,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-367d9305:1954bf60940:-6c64</wuid>
-    <x>1494</x>
+    <x>1536</x>
     <y>328</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Rectangle" version="1.0.0">
@@ -13465,7 +13407,7 @@ $(pv_value)</tooltip>
     <widget_type>Rectangle</widget_type>
     <width>1034</width>
     <wuid>682968c1:19f9fb7dc25:-7447</wuid>
-    <x>522</x>
+    <x>564</x>
     <y>49</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -13523,7 +13465,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-7345</wuid>
-    <x>1235</x>
+    <x>1277</x>
     <y>49</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -13563,7 +13505,7 @@ $(pv_value)</tooltip>
     <width>79</width>
     <wrap_words>false</wrap_words>
     <wuid>682968c1:19f9fb7dc25:-7344</wuid>
-    <x>528</x>
+    <x>570</x>
     <y>49</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -13621,7 +13563,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-7343</wuid>
-    <x>1313</x>
+    <x>1355</x>
     <y>49</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -13661,7 +13603,7 @@ $(pv_value)</tooltip>
     <width>110</width>
     <wrap_words>false</wrap_words>
     <wuid>682968c1:19f9fb7dc25:-7342</wuid>
-    <x>528</x>
+    <x>570</x>
     <y>89</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -13701,7 +13643,7 @@ $(pv_value)</tooltip>
     <width>115</width>
     <wrap_words>false</wrap_words>
     <wuid>682968c1:19f9fb7dc25:-7341</wuid>
-    <x>528</x>
+    <x>570</x>
     <y>69</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -13759,7 +13701,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-7340</wuid>
-    <x>1235</x>
+    <x>1277</x>
     <y>89</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -13817,7 +13759,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-733f</wuid>
-    <x>1313</x>
+    <x>1355</x>
     <y>89</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -13875,7 +13817,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-733e</wuid>
-    <x>1235</x>
+    <x>1277</x>
     <y>69</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -13933,7 +13875,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-733d</wuid>
-    <x>1313</x>
+    <x>1355</x>
     <y>69</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -13991,7 +13933,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-733c</wuid>
-    <x>657</x>
+    <x>699</x>
     <y>49</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -14049,7 +13991,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-733b</wuid>
-    <x>657</x>
+    <x>699</x>
     <y>89</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -14107,7 +14049,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-733a</wuid>
-    <x>657</x>
+    <x>699</x>
     <y>69</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -14165,7 +14107,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-7339</wuid>
-    <x>737</x>
+    <x>779</x>
     <y>49</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -14223,7 +14165,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-7338</wuid>
-    <x>737</x>
+    <x>779</x>
     <y>89</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -14281,7 +14223,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-7337</wuid>
-    <x>737</x>
+    <x>779</x>
     <y>69</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -14337,7 +14279,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7336</wuid>
-    <x>676</x>
+    <x>718</x>
     <y>49</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -14393,7 +14335,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7335</wuid>
-    <x>676</x>
+    <x>718</x>
     <y>89</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -14449,7 +14391,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7334</wuid>
-    <x>676</x>
+    <x>718</x>
     <y>69</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -14507,7 +14449,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-7333</wuid>
-    <x>988</x>
+    <x>1030</x>
     <y>49</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -14565,7 +14507,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-7332</wuid>
-    <x>988</x>
+    <x>1030</x>
     <y>89</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -14623,7 +14565,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-7331</wuid>
-    <x>988</x>
+    <x>1030</x>
     <y>69</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -14681,7 +14623,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-7330</wuid>
-    <x>1066</x>
+    <x>1108</x>
     <y>49</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -14739,7 +14681,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-732f</wuid>
-    <x>1066</x>
+    <x>1108</x>
     <y>89</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -14797,7 +14739,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-732e</wuid>
-    <x>1066</x>
+    <x>1108</x>
     <y>69</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -14853,7 +14795,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-732d</wuid>
-    <x>1254</x>
+    <x>1296</x>
     <y>49</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -14909,7 +14851,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-732c</wuid>
-    <x>1254</x>
+    <x>1296</x>
     <y>89</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -14965,7 +14907,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-732b</wuid>
-    <x>1254</x>
+    <x>1296</x>
     <y>69</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -15023,7 +14965,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-732a</wuid>
-    <x>1395</x>
+    <x>1437</x>
     <y>49</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -15081,7 +15023,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-7329</wuid>
-    <x>1395</x>
+    <x>1437</x>
     <y>89</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -15139,7 +15081,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-7328</wuid>
-    <x>1395</x>
+    <x>1437</x>
     <y>69</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -15197,7 +15139,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-7327</wuid>
-    <x>817</x>
+    <x>859</x>
     <y>49</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -15255,7 +15197,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-7326</wuid>
-    <x>817</x>
+    <x>859</x>
     <y>89</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -15313,7 +15255,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-7325</wuid>
-    <x>817</x>
+    <x>859</x>
     <y>69</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -15371,7 +15313,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-7321</wuid>
-    <x>1475</x>
+    <x>1517</x>
     <y>49</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -15429,7 +15371,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-7320</wuid>
-    <x>1475</x>
+    <x>1517</x>
     <y>89</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -15487,7 +15429,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-731f</wuid>
-    <x>1475</x>
+    <x>1517</x>
     <y>69</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -15545,7 +15487,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-731e</wuid>
-    <x>897</x>
+    <x>939</x>
     <y>49</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -15603,7 +15545,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-731d</wuid>
-    <x>897</x>
+    <x>939</x>
     <y>89</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -15661,7 +15603,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-731c</wuid>
-    <x>897</x>
+    <x>939</x>
     <y>69</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -15719,7 +15661,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-731b</wuid>
-    <x>1145</x>
+    <x>1187</x>
     <y>49</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -15777,7 +15719,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-731a</wuid>
-    <x>1145</x>
+    <x>1187</x>
     <y>89</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -15835,7 +15777,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-7319</wuid>
-    <x>1145</x>
+    <x>1187</x>
     <y>69</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -15891,7 +15833,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7318</wuid>
-    <x>756</x>
+    <x>798</x>
     <y>49</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -15947,7 +15889,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7317</wuid>
-    <x>756</x>
+    <x>798</x>
     <y>89</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -16003,7 +15945,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7316</wuid>
-    <x>756</x>
+    <x>798</x>
     <y>69</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -16059,7 +16001,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7315</wuid>
-    <x>836</x>
+    <x>878</x>
     <y>49</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -16115,7 +16057,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7314</wuid>
-    <x>836</x>
+    <x>878</x>
     <y>89</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -16171,7 +16113,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7313</wuid>
-    <x>836</x>
+    <x>878</x>
     <y>69</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -16227,7 +16169,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7312</wuid>
-    <x>916</x>
+    <x>958</x>
     <y>49</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -16283,7 +16225,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7311</wuid>
-    <x>916</x>
+    <x>958</x>
     <y>89</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -16339,7 +16281,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7310</wuid>
-    <x>916</x>
+    <x>958</x>
     <y>69</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -16395,7 +16337,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-730f</wuid>
-    <x>1332</x>
+    <x>1374</x>
     <y>49</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -16451,7 +16393,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-730e</wuid>
-    <x>1332</x>
+    <x>1374</x>
     <y>89</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -16507,7 +16449,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-730d</wuid>
-    <x>1332</x>
+    <x>1374</x>
     <y>69</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -16563,7 +16505,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-730c</wuid>
-    <x>1414</x>
+    <x>1456</x>
     <y>49</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -16619,7 +16561,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-730b</wuid>
-    <x>1414</x>
+    <x>1456</x>
     <y>89</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -16675,7 +16617,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-730a</wuid>
-    <x>1414</x>
+    <x>1456</x>
     <y>69</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -16731,7 +16673,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7309</wuid>
-    <x>1494</x>
+    <x>1536</x>
     <y>49</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -16787,7 +16729,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7308</wuid>
-    <x>1494</x>
+    <x>1536</x>
     <y>89</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -16843,7 +16785,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7307</wuid>
-    <x>1494</x>
+    <x>1536</x>
     <y>69</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Rectangle" version="1.0.0">
@@ -16901,7 +16843,7 @@ $(pv_value)</tooltip>
     <widget_type>Rectangle</widget_type>
     <width>1034</width>
     <wuid>682968c1:19f9fb7dc25:-72ff</wuid>
-    <x>522</x>
+    <x>564</x>
     <y>167</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -16959,7 +16901,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-7102</wuid>
-    <x>1235</x>
+    <x>1277</x>
     <y>167</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -16999,7 +16941,7 @@ $(pv_value)</tooltip>
     <width>79</width>
     <wrap_words>false</wrap_words>
     <wuid>682968c1:19f9fb7dc25:-7101</wuid>
-    <x>528</x>
+    <x>570</x>
     <y>167</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -17057,7 +16999,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-7100</wuid>
-    <x>1313</x>
+    <x>1355</x>
     <y>167</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -17097,7 +17039,7 @@ $(pv_value)</tooltip>
     <width>110</width>
     <wrap_words>false</wrap_words>
     <wuid>682968c1:19f9fb7dc25:-70ff</wuid>
-    <x>528</x>
+    <x>570</x>
     <y>307</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -17155,7 +17097,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70fe</wuid>
-    <x>1235</x>
+    <x>1277</x>
     <y>307</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -17213,7 +17155,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70fd</wuid>
-    <x>1313</x>
+    <x>1355</x>
     <y>307</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -17271,7 +17213,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70fc</wuid>
-    <x>657</x>
+    <x>699</x>
     <y>167</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -17329,7 +17271,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70fb</wuid>
-    <x>657</x>
+    <x>699</x>
     <y>307</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -17369,7 +17311,7 @@ $(pv_value)</tooltip>
     <width>79</width>
     <wrap_words>false</wrap_words>
     <wuid>682968c1:19f9fb7dc25:-70fa</wuid>
-    <x>528</x>
+    <x>570</x>
     <y>187</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -17409,7 +17351,7 @@ $(pv_value)</tooltip>
     <width>92</width>
     <wrap_words>false</wrap_words>
     <wuid>682968c1:19f9fb7dc25:-70f9</wuid>
-    <x>528</x>
+    <x>570</x>
     <y>207</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -17449,7 +17391,7 @@ $(pv_value)</tooltip>
     <width>110</width>
     <wrap_words>false</wrap_words>
     <wuid>682968c1:19f9fb7dc25:-70f8</wuid>
-    <x>528</x>
+    <x>570</x>
     <y>227</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -17489,7 +17431,7 @@ $(pv_value)</tooltip>
     <width>110</width>
     <wrap_words>false</wrap_words>
     <wuid>682968c1:19f9fb7dc25:-70f7</wuid>
-    <x>528</x>
+    <x>570</x>
     <y>247</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -17529,7 +17471,7 @@ $(pv_value)</tooltip>
     <width>110</width>
     <wrap_words>false</wrap_words>
     <wuid>682968c1:19f9fb7dc25:-70f6</wuid>
-    <x>528</x>
+    <x>570</x>
     <y>267</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -17569,7 +17511,7 @@ $(pv_value)</tooltip>
     <width>110</width>
     <wrap_words>false</wrap_words>
     <wuid>682968c1:19f9fb7dc25:-70f5</wuid>
-    <x>528</x>
+    <x>570</x>
     <y>287</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -17627,7 +17569,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70f4</wuid>
-    <x>657</x>
+    <x>699</x>
     <y>187</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -17685,7 +17627,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70f3</wuid>
-    <x>657</x>
+    <x>699</x>
     <y>207</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -17743,7 +17685,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70f2</wuid>
-    <x>657</x>
+    <x>699</x>
     <y>227</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -17801,7 +17743,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70f1</wuid>
-    <x>657</x>
+    <x>699</x>
     <y>247</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -17859,7 +17801,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70f0</wuid>
-    <x>657</x>
+    <x>699</x>
     <y>267</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -17917,7 +17859,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70ef</wuid>
-    <x>657</x>
+    <x>699</x>
     <y>287</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -17975,7 +17917,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70ee</wuid>
-    <x>1235</x>
+    <x>1277</x>
     <y>187</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -18033,7 +17975,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70ed</wuid>
-    <x>1235</x>
+    <x>1277</x>
     <y>207</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -18091,7 +18033,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70ec</wuid>
-    <x>1235</x>
+    <x>1277</x>
     <y>227</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -18149,7 +18091,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70eb</wuid>
-    <x>1235</x>
+    <x>1277</x>
     <y>247</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -18207,7 +18149,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70ea</wuid>
-    <x>1235</x>
+    <x>1277</x>
     <y>267</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -18265,7 +18207,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70e9</wuid>
-    <x>1235</x>
+    <x>1277</x>
     <y>287</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -18323,7 +18265,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70e8</wuid>
-    <x>1313</x>
+    <x>1355</x>
     <y>187</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -18381,7 +18323,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70e7</wuid>
-    <x>1313</x>
+    <x>1355</x>
     <y>207</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -18439,7 +18381,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70e6</wuid>
-    <x>1313</x>
+    <x>1355</x>
     <y>227</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -18497,7 +18439,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70e5</wuid>
-    <x>1313</x>
+    <x>1355</x>
     <y>247</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -18555,7 +18497,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70e4</wuid>
-    <x>1313</x>
+    <x>1355</x>
     <y>267</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -18613,7 +18555,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70e3</wuid>
-    <x>1313</x>
+    <x>1355</x>
     <y>287</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -18671,7 +18613,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70e2</wuid>
-    <x>737</x>
+    <x>779</x>
     <y>167</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -18729,7 +18671,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70e1</wuid>
-    <x>737</x>
+    <x>779</x>
     <y>307</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -18787,7 +18729,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70e0</wuid>
-    <x>737</x>
+    <x>779</x>
     <y>187</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -18845,7 +18787,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70df</wuid>
-    <x>737</x>
+    <x>779</x>
     <y>207</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -18903,7 +18845,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70de</wuid>
-    <x>737</x>
+    <x>779</x>
     <y>227</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -18961,7 +18903,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70dd</wuid>
-    <x>737</x>
+    <x>779</x>
     <y>247</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -19019,7 +18961,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70dc</wuid>
-    <x>737</x>
+    <x>779</x>
     <y>267</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -19077,7 +19019,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70db</wuid>
-    <x>737</x>
+    <x>779</x>
     <y>287</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -19133,7 +19075,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-70da</wuid>
-    <x>676</x>
+    <x>718</x>
     <y>267</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -19189,7 +19131,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-70d9</wuid>
-    <x>676</x>
+    <x>718</x>
     <y>247</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -19245,7 +19187,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-70d8</wuid>
-    <x>676</x>
+    <x>718</x>
     <y>227</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -19301,7 +19243,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-70d7</wuid>
-    <x>676</x>
+    <x>718</x>
     <y>207</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -19357,7 +19299,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-70d6</wuid>
-    <x>676</x>
+    <x>718</x>
     <y>187</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -19413,7 +19355,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-70d5</wuid>
-    <x>676</x>
+    <x>718</x>
     <y>167</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -19469,7 +19411,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-70d4</wuid>
-    <x>676</x>
+    <x>718</x>
     <y>287</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -19525,7 +19467,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-70d3</wuid>
-    <x>676</x>
+    <x>718</x>
     <y>307</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -19583,7 +19525,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70d2</wuid>
-    <x>988</x>
+    <x>1030</x>
     <y>167</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -19641,7 +19583,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70d1</wuid>
-    <x>988</x>
+    <x>1030</x>
     <y>307</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -19699,7 +19641,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70d0</wuid>
-    <x>988</x>
+    <x>1030</x>
     <y>187</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -19757,7 +19699,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70cf</wuid>
-    <x>988</x>
+    <x>1030</x>
     <y>207</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -19815,7 +19757,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70ce</wuid>
-    <x>988</x>
+    <x>1030</x>
     <y>227</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -19873,7 +19815,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70cd</wuid>
-    <x>988</x>
+    <x>1030</x>
     <y>247</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -19931,7 +19873,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70cc</wuid>
-    <x>988</x>
+    <x>1030</x>
     <y>267</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -19989,7 +19931,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70cb</wuid>
-    <x>988</x>
+    <x>1030</x>
     <y>287</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -20047,7 +19989,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70ca</wuid>
-    <x>1066</x>
+    <x>1108</x>
     <y>167</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -20105,7 +20047,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70c9</wuid>
-    <x>1066</x>
+    <x>1108</x>
     <y>307</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -20163,7 +20105,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70c8</wuid>
-    <x>1066</x>
+    <x>1108</x>
     <y>187</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -20221,7 +20163,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70c7</wuid>
-    <x>1066</x>
+    <x>1108</x>
     <y>207</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -20279,7 +20221,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70c6</wuid>
-    <x>1066</x>
+    <x>1108</x>
     <y>227</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -20337,7 +20279,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70c5</wuid>
-    <x>1066</x>
+    <x>1108</x>
     <y>247</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -20395,7 +20337,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70c4</wuid>
-    <x>1066</x>
+    <x>1108</x>
     <y>267</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -20453,7 +20395,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70c3</wuid>
-    <x>1066</x>
+    <x>1108</x>
     <y>287</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -20509,7 +20451,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-70c2</wuid>
-    <x>1254</x>
+    <x>1296</x>
     <y>267</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -20565,7 +20507,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-70c1</wuid>
-    <x>1254</x>
+    <x>1296</x>
     <y>247</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -20621,7 +20563,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-70c0</wuid>
-    <x>1254</x>
+    <x>1296</x>
     <y>227</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -20677,7 +20619,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-70bf</wuid>
-    <x>1254</x>
+    <x>1296</x>
     <y>207</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -20733,7 +20675,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-70be</wuid>
-    <x>1254</x>
+    <x>1296</x>
     <y>187</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -20789,7 +20731,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-70bd</wuid>
-    <x>1254</x>
+    <x>1296</x>
     <y>167</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -20845,7 +20787,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-70bc</wuid>
-    <x>1254</x>
+    <x>1296</x>
     <y>287</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -20901,7 +20843,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-70bb</wuid>
-    <x>1254</x>
+    <x>1296</x>
     <y>307</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -20959,7 +20901,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70ba</wuid>
-    <x>1395</x>
+    <x>1437</x>
     <y>167</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -21017,7 +20959,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70b9</wuid>
-    <x>1395</x>
+    <x>1437</x>
     <y>307</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -21075,7 +21017,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70b8</wuid>
-    <x>1395</x>
+    <x>1437</x>
     <y>187</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -21133,7 +21075,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70b7</wuid>
-    <x>1395</x>
+    <x>1437</x>
     <y>207</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -21191,7 +21133,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70b6</wuid>
-    <x>1395</x>
+    <x>1437</x>
     <y>227</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -21249,7 +21191,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70b5</wuid>
-    <x>1395</x>
+    <x>1437</x>
     <y>247</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -21307,7 +21249,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70b4</wuid>
-    <x>1395</x>
+    <x>1437</x>
     <y>267</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -21365,7 +21307,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70b3</wuid>
-    <x>1395</x>
+    <x>1437</x>
     <y>287</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -21423,7 +21365,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70b2</wuid>
-    <x>817</x>
+    <x>859</x>
     <y>167</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -21481,7 +21423,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70b1</wuid>
-    <x>817</x>
+    <x>859</x>
     <y>307</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -21539,7 +21481,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70b0</wuid>
-    <x>817</x>
+    <x>859</x>
     <y>187</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -21597,7 +21539,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70af</wuid>
-    <x>817</x>
+    <x>859</x>
     <y>207</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -21655,7 +21597,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70ae</wuid>
-    <x>817</x>
+    <x>859</x>
     <y>227</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -21713,7 +21655,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70ad</wuid>
-    <x>817</x>
+    <x>859</x>
     <y>247</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -21771,7 +21713,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70ac</wuid>
-    <x>817</x>
+    <x>859</x>
     <y>267</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -21829,7 +21771,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70ab</wuid>
-    <x>817</x>
+    <x>859</x>
     <y>287</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -21887,7 +21829,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70a2</wuid>
-    <x>1475</x>
+    <x>1517</x>
     <y>167</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -21945,7 +21887,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70a1</wuid>
-    <x>1475</x>
+    <x>1517</x>
     <y>307</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -22003,7 +21945,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-70a0</wuid>
-    <x>1475</x>
+    <x>1517</x>
     <y>187</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -22061,7 +22003,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-709f</wuid>
-    <x>1475</x>
+    <x>1517</x>
     <y>207</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -22119,7 +22061,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-709e</wuid>
-    <x>1475</x>
+    <x>1517</x>
     <y>227</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -22177,7 +22119,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-709d</wuid>
-    <x>1475</x>
+    <x>1517</x>
     <y>247</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -22235,7 +22177,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-709c</wuid>
-    <x>1475</x>
+    <x>1517</x>
     <y>267</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -22293,7 +22235,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-709b</wuid>
-    <x>1475</x>
+    <x>1517</x>
     <y>287</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -22351,7 +22293,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-709a</wuid>
-    <x>897</x>
+    <x>939</x>
     <y>167</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -22409,7 +22351,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-7099</wuid>
-    <x>897</x>
+    <x>939</x>
     <y>307</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -22467,7 +22409,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-7098</wuid>
-    <x>897</x>
+    <x>939</x>
     <y>187</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -22525,7 +22467,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-7097</wuid>
-    <x>897</x>
+    <x>939</x>
     <y>207</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -22583,7 +22525,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-7096</wuid>
-    <x>897</x>
+    <x>939</x>
     <y>227</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -22641,7 +22583,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-7095</wuid>
-    <x>897</x>
+    <x>939</x>
     <y>247</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -22699,7 +22641,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-7094</wuid>
-    <x>897</x>
+    <x>939</x>
     <y>267</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -22757,7 +22699,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-7093</wuid>
-    <x>897</x>
+    <x>939</x>
     <y>287</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -22815,7 +22757,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-7092</wuid>
-    <x>1145</x>
+    <x>1187</x>
     <y>167</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -22873,7 +22815,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-7091</wuid>
-    <x>1145</x>
+    <x>1187</x>
     <y>307</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -22931,7 +22873,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-7090</wuid>
-    <x>1145</x>
+    <x>1187</x>
     <y>187</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -22989,7 +22931,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-708f</wuid>
-    <x>1145</x>
+    <x>1187</x>
     <y>207</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -23047,7 +22989,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-708e</wuid>
-    <x>1145</x>
+    <x>1187</x>
     <y>227</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -23105,7 +23047,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-708d</wuid>
-    <x>1145</x>
+    <x>1187</x>
     <y>247</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -23163,7 +23105,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-708c</wuid>
-    <x>1145</x>
+    <x>1187</x>
     <y>267</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -23221,7 +23163,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-708b</wuid>
-    <x>1145</x>
+    <x>1187</x>
     <y>287</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -23277,7 +23219,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-708a</wuid>
-    <x>756</x>
+    <x>798</x>
     <y>267</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -23333,7 +23275,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7089</wuid>
-    <x>756</x>
+    <x>798</x>
     <y>247</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -23389,7 +23331,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7088</wuid>
-    <x>756</x>
+    <x>798</x>
     <y>227</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -23445,7 +23387,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7087</wuid>
-    <x>756</x>
+    <x>798</x>
     <y>207</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -23501,7 +23443,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7086</wuid>
-    <x>756</x>
+    <x>798</x>
     <y>187</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -23557,7 +23499,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7085</wuid>
-    <x>756</x>
+    <x>798</x>
     <y>167</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -23613,7 +23555,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7084</wuid>
-    <x>756</x>
+    <x>798</x>
     <y>287</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -23669,7 +23611,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7083</wuid>
-    <x>756</x>
+    <x>798</x>
     <y>307</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -23725,7 +23667,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7082</wuid>
-    <x>836</x>
+    <x>878</x>
     <y>267</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -23781,7 +23723,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7081</wuid>
-    <x>836</x>
+    <x>878</x>
     <y>247</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -23837,7 +23779,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7080</wuid>
-    <x>836</x>
+    <x>878</x>
     <y>227</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -23893,7 +23835,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-707f</wuid>
-    <x>836</x>
+    <x>878</x>
     <y>207</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -23949,7 +23891,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-707e</wuid>
-    <x>836</x>
+    <x>878</x>
     <y>187</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -24005,7 +23947,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-707d</wuid>
-    <x>836</x>
+    <x>878</x>
     <y>167</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -24061,7 +24003,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-707c</wuid>
-    <x>836</x>
+    <x>878</x>
     <y>287</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -24117,7 +24059,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-707b</wuid>
-    <x>836</x>
+    <x>878</x>
     <y>307</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -24173,7 +24115,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-707a</wuid>
-    <x>916</x>
+    <x>958</x>
     <y>267</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -24229,7 +24171,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7079</wuid>
-    <x>916</x>
+    <x>958</x>
     <y>247</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -24285,7 +24227,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7078</wuid>
-    <x>916</x>
+    <x>958</x>
     <y>227</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -24341,7 +24283,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7077</wuid>
-    <x>916</x>
+    <x>958</x>
     <y>207</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -24397,7 +24339,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7076</wuid>
-    <x>916</x>
+    <x>958</x>
     <y>187</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -24453,7 +24395,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7075</wuid>
-    <x>916</x>
+    <x>958</x>
     <y>167</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -24509,7 +24451,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7074</wuid>
-    <x>916</x>
+    <x>958</x>
     <y>287</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -24565,7 +24507,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7073</wuid>
-    <x>916</x>
+    <x>958</x>
     <y>307</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -24621,7 +24563,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7072</wuid>
-    <x>1332</x>
+    <x>1374</x>
     <y>267</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -24677,7 +24619,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7071</wuid>
-    <x>1332</x>
+    <x>1374</x>
     <y>247</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -24733,7 +24675,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7070</wuid>
-    <x>1332</x>
+    <x>1374</x>
     <y>227</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -24789,7 +24731,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-706f</wuid>
-    <x>1332</x>
+    <x>1374</x>
     <y>207</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -24845,7 +24787,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-706e</wuid>
-    <x>1332</x>
+    <x>1374</x>
     <y>187</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -24901,7 +24843,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-706d</wuid>
-    <x>1332</x>
+    <x>1374</x>
     <y>167</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -24957,7 +24899,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-706c</wuid>
-    <x>1332</x>
+    <x>1374</x>
     <y>287</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -25013,7 +24955,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-706b</wuid>
-    <x>1332</x>
+    <x>1374</x>
     <y>307</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -25069,7 +25011,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-706a</wuid>
-    <x>1414</x>
+    <x>1456</x>
     <y>267</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -25125,7 +25067,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7069</wuid>
-    <x>1414</x>
+    <x>1456</x>
     <y>247</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -25181,7 +25123,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7068</wuid>
-    <x>1414</x>
+    <x>1456</x>
     <y>227</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -25237,7 +25179,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7067</wuid>
-    <x>1414</x>
+    <x>1456</x>
     <y>207</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -25293,7 +25235,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7066</wuid>
-    <x>1414</x>
+    <x>1456</x>
     <y>187</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -25349,7 +25291,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7065</wuid>
-    <x>1414</x>
+    <x>1456</x>
     <y>167</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -25405,7 +25347,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7064</wuid>
-    <x>1414</x>
+    <x>1456</x>
     <y>287</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -25461,7 +25403,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7063</wuid>
-    <x>1414</x>
+    <x>1456</x>
     <y>307</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -25517,7 +25459,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7062</wuid>
-    <x>1494</x>
+    <x>1536</x>
     <y>267</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -25573,7 +25515,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7061</wuid>
-    <x>1494</x>
+    <x>1536</x>
     <y>247</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -25629,7 +25571,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-7060</wuid>
-    <x>1494</x>
+    <x>1536</x>
     <y>227</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -25685,7 +25627,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-705f</wuid>
-    <x>1494</x>
+    <x>1536</x>
     <y>207</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -25741,7 +25683,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-705e</wuid>
-    <x>1494</x>
+    <x>1536</x>
     <y>187</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -25797,7 +25739,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-705d</wuid>
-    <x>1494</x>
+    <x>1536</x>
     <y>167</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -25853,7 +25795,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-705c</wuid>
-    <x>1494</x>
+    <x>1536</x>
     <y>287</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -25909,7 +25851,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-705b</wuid>
-    <x>1494</x>
+    <x>1536</x>
     <y>307</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Rectangle" version="1.0.0">
@@ -25967,7 +25909,7 @@ $(pv_value)</tooltip>
     <widget_type>Rectangle</widget_type>
     <width>1034</width>
     <wuid>682968c1:19f9fb7dc25:-7053</wuid>
-    <x>522</x>
+    <x>564</x>
     <y>387</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -26007,7 +25949,7 @@ $(pv_value)</tooltip>
     <width>110</width>
     <wrap_words>false</wrap_words>
     <wuid>682968c1:19f9fb7dc25:-6e91</wuid>
-    <x>528</x>
+    <x>570</x>
     <y>387</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -26065,7 +26007,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6e90</wuid>
-    <x>1235</x>
+    <x>1277</x>
     <y>387</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -26123,7 +26065,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6e8f</wuid>
-    <x>1313</x>
+    <x>1355</x>
     <y>387</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -26181,7 +26123,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6e8e</wuid>
-    <x>657</x>
+    <x>699</x>
     <y>387</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -26221,7 +26163,7 @@ $(pv_value)</tooltip>
     <width>110</width>
     <wrap_words>false</wrap_words>
     <wuid>682968c1:19f9fb7dc25:-6e8d</wuid>
-    <x>528</x>
+    <x>570</x>
     <y>427</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -26279,7 +26221,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6e8c</wuid>
-    <x>1235</x>
+    <x>1277</x>
     <y>427</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -26337,7 +26279,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6e8b</wuid>
-    <x>1313</x>
+    <x>1355</x>
     <y>427</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -26395,7 +26337,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6e8a</wuid>
-    <x>657</x>
+    <x>699</x>
     <y>427</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -26435,7 +26377,7 @@ $(pv_value)</tooltip>
     <width>130</width>
     <wrap_words>false</wrap_words>
     <wuid>682968c1:19f9fb7dc25:-6e89</wuid>
-    <x>528</x>
+    <x>570</x>
     <y>407</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -26493,7 +26435,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6e88</wuid>
-    <x>1235</x>
+    <x>1277</x>
     <y>407</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -26551,7 +26493,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6e87</wuid>
-    <x>1313</x>
+    <x>1355</x>
     <y>407</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -26609,7 +26551,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6e86</wuid>
-    <x>657</x>
+    <x>699</x>
     <y>407</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -26667,7 +26609,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6e85</wuid>
-    <x>737</x>
+    <x>779</x>
     <y>387</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -26725,7 +26667,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6e84</wuid>
-    <x>737</x>
+    <x>779</x>
     <y>427</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -26783,7 +26725,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6e83</wuid>
-    <x>737</x>
+    <x>779</x>
     <y>407</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -26839,7 +26781,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-6e82</wuid>
-    <x>676</x>
+    <x>718</x>
     <y>427</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -26895,7 +26837,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-6e81</wuid>
-    <x>676</x>
+    <x>718</x>
     <y>407</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -26951,7 +26893,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-6e80</wuid>
-    <x>676</x>
+    <x>718</x>
     <y>387</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -27009,7 +26951,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6e7f</wuid>
-    <x>988</x>
+    <x>1030</x>
     <y>387</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -27067,7 +27009,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6e7e</wuid>
-    <x>988</x>
+    <x>1030</x>
     <y>427</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -27125,7 +27067,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6e7d</wuid>
-    <x>988</x>
+    <x>1030</x>
     <y>407</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -27183,7 +27125,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6e7c</wuid>
-    <x>1066</x>
+    <x>1108</x>
     <y>387</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -27241,7 +27183,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6e7b</wuid>
-    <x>1066</x>
+    <x>1108</x>
     <y>427</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -27299,7 +27241,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6e7a</wuid>
-    <x>1066</x>
+    <x>1108</x>
     <y>407</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -27355,7 +27297,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-6e79</wuid>
-    <x>1254</x>
+    <x>1296</x>
     <y>427</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -27411,7 +27353,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-6e78</wuid>
-    <x>1254</x>
+    <x>1296</x>
     <y>407</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -27467,7 +27409,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-6e77</wuid>
-    <x>1254</x>
+    <x>1296</x>
     <y>387</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -27525,7 +27467,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6e76</wuid>
-    <x>1395</x>
+    <x>1437</x>
     <y>387</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -27583,7 +27525,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6e75</wuid>
-    <x>1395</x>
+    <x>1437</x>
     <y>427</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -27641,7 +27583,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6e74</wuid>
-    <x>1395</x>
+    <x>1437</x>
     <y>407</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -27699,7 +27641,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6e73</wuid>
-    <x>817</x>
+    <x>859</x>
     <y>387</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -27757,7 +27699,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6e72</wuid>
-    <x>817</x>
+    <x>859</x>
     <y>427</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -27815,7 +27757,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6e71</wuid>
-    <x>817</x>
+    <x>859</x>
     <y>407</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -27873,7 +27815,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6e6d</wuid>
-    <x>1475</x>
+    <x>1517</x>
     <y>387</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -27931,7 +27873,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6e6c</wuid>
-    <x>1475</x>
+    <x>1517</x>
     <y>427</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -27989,7 +27931,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6e6b</wuid>
-    <x>1475</x>
+    <x>1517</x>
     <y>407</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -28047,7 +27989,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6e6a</wuid>
-    <x>897</x>
+    <x>939</x>
     <y>387</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -28105,7 +28047,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6e69</wuid>
-    <x>897</x>
+    <x>939</x>
     <y>427</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -28163,7 +28105,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6e68</wuid>
-    <x>897</x>
+    <x>939</x>
     <y>407</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -28221,7 +28163,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6e67</wuid>
-    <x>1145</x>
+    <x>1187</x>
     <y>387</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -28279,7 +28221,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6e66</wuid>
-    <x>1145</x>
+    <x>1187</x>
     <y>427</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -28337,7 +28279,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6e65</wuid>
-    <x>1145</x>
+    <x>1187</x>
     <y>407</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -28393,7 +28335,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-6e64</wuid>
-    <x>756</x>
+    <x>798</x>
     <y>427</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -28449,7 +28391,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-6e63</wuid>
-    <x>756</x>
+    <x>798</x>
     <y>407</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -28505,7 +28447,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-6e62</wuid>
-    <x>756</x>
+    <x>798</x>
     <y>387</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -28561,7 +28503,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-6e61</wuid>
-    <x>836</x>
+    <x>878</x>
     <y>427</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -28617,7 +28559,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-6e60</wuid>
-    <x>836</x>
+    <x>878</x>
     <y>407</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -28673,7 +28615,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-6e5f</wuid>
-    <x>836</x>
+    <x>878</x>
     <y>387</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -28729,7 +28671,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-6e5e</wuid>
-    <x>916</x>
+    <x>958</x>
     <y>427</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -28785,7 +28727,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-6e5d</wuid>
-    <x>916</x>
+    <x>958</x>
     <y>407</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -28841,7 +28783,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-6e5c</wuid>
-    <x>916</x>
+    <x>958</x>
     <y>387</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -28897,7 +28839,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-6e5b</wuid>
-    <x>1332</x>
+    <x>1374</x>
     <y>427</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -28953,7 +28895,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-6e5a</wuid>
-    <x>1332</x>
+    <x>1374</x>
     <y>407</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -29009,7 +28951,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-6e59</wuid>
-    <x>1332</x>
+    <x>1374</x>
     <y>387</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -29065,7 +29007,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-6e58</wuid>
-    <x>1414</x>
+    <x>1456</x>
     <y>427</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -29121,7 +29063,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-6e57</wuid>
-    <x>1414</x>
+    <x>1456</x>
     <y>407</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -29177,7 +29119,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-6e56</wuid>
-    <x>1414</x>
+    <x>1456</x>
     <y>387</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -29233,7 +29175,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-6e55</wuid>
-    <x>1494</x>
+    <x>1536</x>
     <y>427</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -29289,7 +29231,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-6e54</wuid>
-    <x>1494</x>
+    <x>1536</x>
     <y>407</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -29345,7 +29287,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-6e53</wuid>
-    <x>1494</x>
+    <x>1536</x>
     <y>387</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -29385,7 +29327,7 @@ $(pv_value)</tooltip>
     <width>127</width>
     <wrap_words>false</wrap_words>
     <wuid>682968c1:19f9fb7dc25:-675b</wuid>
-    <x>529</x>
+    <x>571</x>
     <y>492</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -29443,7 +29385,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-675a</wuid>
-    <x>657</x>
+    <x>699</x>
     <y>492</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -29483,7 +29425,7 @@ $(pv_value)</tooltip>
     <width>127</width>
     <wrap_words>false</wrap_words>
     <wuid>682968c1:19f9fb7dc25:-6759</wuid>
-    <x>529</x>
+    <x>571</x>
     <y>511</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -29541,7 +29483,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6758</wuid>
-    <x>657</x>
+    <x>699</x>
     <y>511</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -29597,7 +29539,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-6757</wuid>
-    <x>676</x>
+    <x>718</x>
     <y>511</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -29653,7 +29595,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-6756</wuid>
-    <x>676</x>
+    <x>718</x>
     <y>491</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -29711,7 +29653,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6755</wuid>
-    <x>1235</x>
+    <x>1277</x>
     <y>492</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -29769,7 +29711,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6754</wuid>
-    <x>1235</x>
+    <x>1277</x>
     <y>511</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -29825,7 +29767,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-6753</wuid>
-    <x>1254</x>
+    <x>1296</x>
     <y>512</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -29881,7 +29823,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-6752</wuid>
-    <x>1254</x>
+    <x>1296</x>
     <y>492</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -29921,7 +29863,7 @@ $(pv_value)</tooltip>
     <width>127</width>
     <wrap_words>false</wrap_words>
     <wuid>682968c1:19f9fb7dc25:-6751</wuid>
-    <x>529</x>
+    <x>571</x>
     <y>531</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -29979,7 +29921,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6750</wuid>
-    <x>657</x>
+    <x>699</x>
     <y>531</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -30035,7 +29977,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-674f</wuid>
-    <x>676</x>
+    <x>718</x>
     <y>531</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -30093,7 +30035,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-674e</wuid>
-    <x>1235</x>
+    <x>1277</x>
     <y>531</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -30149,7 +30091,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-674d</wuid>
-    <x>1254</x>
+    <x>1296</x>
     <y>532</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -30202,7 +30144,7 @@ $(pv_value)</tooltip>
     <width>78</width>
     <wrap_words>false</wrap_words>
     <wuid>682968c1:19f9fb7dc25:-66e4</wuid>
-    <x>724</x>
+    <x>766</x>
     <y>473</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -30260,7 +30202,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-66e3</wuid>
-    <x>739</x>
+    <x>781</x>
     <y>492</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -30318,7 +30260,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-66e2</wuid>
-    <x>739</x>
+    <x>781</x>
     <y>511</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -30374,7 +30316,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-66e1</wuid>
-    <x>756</x>
+    <x>798</x>
     <y>512</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -30430,7 +30372,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-66e0</wuid>
-    <x>756</x>
+    <x>798</x>
     <y>492</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -30483,7 +30425,7 @@ $(pv_value)</tooltip>
     <width>80</width>
     <wrap_words>false</wrap_words>
     <wuid>682968c1:19f9fb7dc25:-66df</wuid>
-    <x>1297</x>
+    <x>1339</x>
     <y>473</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -30541,7 +30483,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-66de</wuid>
-    <x>1313</x>
+    <x>1355</x>
     <y>491</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -30599,7 +30541,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-66dd</wuid>
-    <x>1313</x>
+    <x>1355</x>
     <y>510</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -30657,7 +30599,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-66dc</wuid>
-    <x>739</x>
+    <x>781</x>
     <y>531</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -30713,7 +30655,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-66db</wuid>
-    <x>756</x>
+    <x>798</x>
     <y>532</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -30771,7 +30713,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-66da</wuid>
-    <x>1313</x>
+    <x>1355</x>
     <y>530</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -30827,7 +30769,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-66d9</wuid>
-    <x>1332</x>
+    <x>1374</x>
     <y>530</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -30880,7 +30822,7 @@ $(pv_value)</tooltip>
     <width>78</width>
     <wrap_words>false</wrap_words>
     <wuid>682968c1:19f9fb7dc25:-66aa</wuid>
-    <x>804</x>
+    <x>846</x>
     <y>473</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -30938,7 +30880,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-66a9</wuid>
-    <x>817</x>
+    <x>859</x>
     <y>492</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -30996,7 +30938,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-66a8</wuid>
-    <x>817</x>
+    <x>859</x>
     <y>511</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -31052,7 +30994,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-66a7</wuid>
-    <x>836</x>
+    <x>878</x>
     <y>511</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -31108,7 +31050,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-66a6</wuid>
-    <x>836</x>
+    <x>878</x>
     <y>491</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -31161,7 +31103,7 @@ $(pv_value)</tooltip>
     <width>82</width>
     <wrap_words>false</wrap_words>
     <wuid>682968c1:19f9fb7dc25:-66a5</wuid>
-    <x>1377</x>
+    <x>1419</x>
     <y>473</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -31219,7 +31161,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-66a4</wuid>
-    <x>1395</x>
+    <x>1437</x>
     <y>492</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -31277,7 +31219,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-66a3</wuid>
-    <x>1395</x>
+    <x>1437</x>
     <y>511</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -31333,7 +31275,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-66a2</wuid>
-    <x>1414</x>
+    <x>1456</x>
     <y>511</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -31389,7 +31331,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-66a1</wuid>
-    <x>1414</x>
+    <x>1456</x>
     <y>491</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -31447,7 +31389,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-66a0</wuid>
-    <x>817</x>
+    <x>859</x>
     <y>532</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -31503,7 +31445,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-669f</wuid>
-    <x>836</x>
+    <x>878</x>
     <y>532</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -31561,7 +31503,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-669e</wuid>
-    <x>1395</x>
+    <x>1437</x>
     <y>532</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -31617,7 +31559,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-669d</wuid>
-    <x>1414</x>
+    <x>1456</x>
     <y>532</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -31657,7 +31599,7 @@ $(pv_value)</tooltip>
     <width>127</width>
     <wrap_words>false</wrap_words>
     <wuid>682968c1:19f9fb7dc25:-6695</wuid>
-    <x>529</x>
+    <x>571</x>
     <y>473</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -31715,7 +31657,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6676</wuid>
-    <x>897</x>
+    <x>939</x>
     <y>492</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -31771,7 +31713,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-6675</wuid>
-    <x>916</x>
+    <x>958</x>
     <y>491</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -31829,7 +31771,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6674</wuid>
-    <x>1475</x>
+    <x>1517</x>
     <y>492</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -31885,7 +31827,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-6673</wuid>
-    <x>1494</x>
+    <x>1536</x>
     <y>492</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -31943,7 +31885,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6672</wuid>
-    <x>897</x>
+    <x>939</x>
     <y>532</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -31999,7 +31941,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-6671</wuid>
-    <x>916</x>
+    <x>958</x>
     <y>532</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -32057,7 +31999,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>682968c1:19f9fb7dc25:-6670</wuid>
-    <x>1475</x>
+    <x>1517</x>
     <y>532</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -32113,7 +32055,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>682968c1:19f9fb7dc25:-666f</wuid>
-    <x>1494</x>
+    <x>1536</x>
     <y>530</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -32171,7 +32113,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-4e161c2c:19fcd858392:-64d4</wuid>
-    <x>401</x>
+    <x>443</x>
     <y>612</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -32229,7 +32171,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-4e161c2c:19fcd858392:-64d3</wuid>
-    <x>420</x>
+    <x>462</x>
     <y>612</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -32287,7 +32229,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-4e161c2c:19fcd858392:-64d2</wuid>
-    <x>460</x>
+    <x>502</x>
     <y>612</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -32345,7 +32287,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-4e161c2c:19fcd858392:-64d1</wuid>
-    <x>441</x>
+    <x>483</x>
     <y>612</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -32398,7 +32340,7 @@ $(pv_value)</tooltip>
     <width>100</width>
     <wrap_words>false</wrap_words>
     <wuid>-150b93bc:19fe56f7187:-4fea</wuid>
-    <x>264</x>
+    <x>282</x>
     <y>60</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -32451,7 +32393,7 @@ $(pv_value)</tooltip>
     <width>100</width>
     <wrap_words>false</wrap_words>
     <wuid>-150b93bc:19fe56f7187:-4fe9</wuid>
-    <x>264</x>
+    <x>282</x>
     <y>368</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -32504,7 +32446,7 @@ $(pv_value)</tooltip>
     <width>100</width>
     <wrap_words>false</wrap_words>
     <wuid>-150b93bc:19fe56f7187:-4fe8</wuid>
-    <x>264</x>
+    <x>282</x>
     <y>174</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -32562,7 +32504,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-150b93bc:19fe56f7187:-4fe7</wuid>
-    <x>264</x>
+    <x>282</x>
     <y>79</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -32618,7 +32560,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4fe6</wuid>
-    <x>318</x>
+    <x>336</x>
     <y>78</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -32676,7 +32618,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-150b93bc:19fe56f7187:-4fe5</wuid>
-    <x>264</x>
+    <x>282</x>
     <y>98</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -32729,7 +32671,7 @@ $(pv_value)</tooltip>
     <width>100</width>
     <wrap_words>false</wrap_words>
     <wuid>-150b93bc:19fe56f7187:-4fe4</wuid>
-    <x>264</x>
+    <x>282</x>
     <y>30</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -32787,7 +32729,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-150b93bc:19fe56f7187:-4fe3</wuid>
-    <x>264</x>
+    <x>282</x>
     <y>136</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -32845,7 +32787,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-150b93bc:19fe56f7187:-4fe2</wuid>
-    <x>264</x>
+    <x>282</x>
     <y>155</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -32898,7 +32840,7 @@ $(pv_value)</tooltip>
     <width>100</width>
     <wrap_words>false</wrap_words>
     <wuid>-150b93bc:19fe56f7187:-4fe1</wuid>
-    <x>264</x>
+    <x>282</x>
     <y>193</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -32956,7 +32898,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-150b93bc:19fe56f7187:-4fe0</wuid>
-    <x>264</x>
+    <x>282</x>
     <y>222</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -33014,7 +32956,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-150b93bc:19fe56f7187:-4fdf</wuid>
-    <x>264</x>
+    <x>282</x>
     <y>241</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -33072,7 +33014,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-150b93bc:19fe56f7187:-4fde</wuid>
-    <x>264</x>
+    <x>282</x>
     <y>309</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -33130,7 +33072,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-150b93bc:19fe56f7187:-4fdd</wuid>
-    <x>264</x>
+    <x>282</x>
     <y>328</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -33188,7 +33130,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-150b93bc:19fe56f7187:-4fdc</wuid>
-    <x>264</x>
+    <x>282</x>
     <y>347</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -33241,7 +33183,7 @@ $(pv_value)</tooltip>
     <width>100</width>
     <wrap_words>false</wrap_words>
     <wuid>-150b93bc:19fe56f7187:-4fdb</wuid>
-    <x>263</x>
+    <x>281</x>
     <y>458</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -33297,7 +33239,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4fda</wuid>
-    <x>318</x>
+    <x>336</x>
     <y>97</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -33353,7 +33295,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4fd9</wuid>
-    <x>318</x>
+    <x>336</x>
     <y>241</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -33409,7 +33351,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4fd8</wuid>
-    <x>318</x>
+    <x>336</x>
     <y>221</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -33465,7 +33407,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4fd7</wuid>
-    <x>318</x>
+    <x>336</x>
     <y>135</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -33521,7 +33463,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4fd6</wuid>
-    <x>318</x>
+    <x>336</x>
     <y>154</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -33577,7 +33519,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4fd5</wuid>
-    <x>318</x>
+    <x>336</x>
     <y>309</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -33633,7 +33575,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4fd4</wuid>
-    <x>318</x>
+    <x>336</x>
     <y>349</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -33689,7 +33631,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4fd3</wuid>
-    <x>318</x>
+    <x>336</x>
     <y>329</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -33740,7 +33682,7 @@ widget.setValue(esp32_my_ip);]]></scriptText>
         <pv trig="true">/fli3d/CFG_ESP32CAM_wifi_my_ip_0</pv>
         <pv trig="true">/fli3d/CFG_ESP32CAM_wifi_my_ip_1</pv>
         <pv trig="true">/fli3d/CFG_ESP32CAM_wifi_my_ip_2</pv>
-        <pv trig="true">/fli3d/CFG_GNDCTRL_wifi_my_ip_3</pv>
+        <pv trig="true">/fli3d/CFG_ESP32CAM_wifi_my_ip_3</pv>
       </path>
     </scripts>
     <show_lohi>true</show_lohi>
@@ -33755,7 +33697,7 @@ $(pv_value)</tooltip>
     <width>100</width>
     <wrap_words>false</wrap_words>
     <wuid>-150b93bc:19fe56f7187:-4fd2</wuid>
-    <x>264</x>
+    <x>282</x>
     <y>117</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.MenuButton" version="1.0.0">
@@ -33825,7 +33767,7 @@ $(pv_value)</tooltip>
     <widget_type>Menu Button</widget_type>
     <width>100</width>
     <wuid>-150b93bc:19fe56f7187:-4fd1</wuid>
-    <x>263</x>
+    <x>281</x>
     <y>482</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -33883,7 +33825,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-150b93bc:19fe56f7187:-4fd0</wuid>
-    <x>264</x>
+    <x>282</x>
     <y>522</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -33939,7 +33881,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4fcf</wuid>
-    <x>318</x>
+    <x>336</x>
     <y>521</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -33992,7 +33934,7 @@ $(pv_value)</tooltip>
     <width>100</width>
     <wrap_words>false</wrap_words>
     <wuid>-150b93bc:19fe56f7187:-4fce</wuid>
-    <x>263</x>
+    <x>281</x>
     <y>396</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -34045,7 +33987,7 @@ $(pv_value)</tooltip>
     <width>100</width>
     <wrap_words>false</wrap_words>
     <wuid>-150b93bc:19fe56f7187:-4fcd</wuid>
-    <x>263</x>
+    <x>281</x>
     <y>415</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -34098,7 +34040,7 @@ $(pv_value)</tooltip>
     <width>100</width>
     <wrap_words>false</wrap_words>
     <wuid>-150b93bc:19fe56f7187:-4fcc</wuid>
-    <x>264</x>
+    <x>282</x>
     <y>434</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -34162,7 +34104,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-150b93bc:19fe56f7187:-4fcb</wuid>
-    <x>243</x>
+    <x>261</x>
     <y>396</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -34226,7 +34168,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-150b93bc:19fe56f7187:-4fca</wuid>
-    <x>243</x>
+    <x>261</x>
     <y>415</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -34290,7 +34232,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-150b93bc:19fe56f7187:-4fc9</wuid>
-    <x>243</x>
+    <x>261</x>
     <y>434</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -34330,7 +34272,7 @@ $(pv_value)</tooltip>
     <width>102</width>
     <wrap_words>false</wrap_words>
     <wuid>-150b93bc:19fe56f7187:-48f4</wuid>
-    <x>262</x>
+    <x>280</x>
     <y>551</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -34388,7 +34330,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-150b93bc:19fe56f7187:-48f3</wuid>
-    <x>263</x>
+    <x>281</x>
     <y>568</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -34444,7 +34386,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-48f2</wuid>
-    <x>317</x>
+    <x>335</x>
     <y>570</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -34519,7 +34461,7 @@ $(pv_value)</tooltip>
     <width>135</width>
     <wrap_words>false</wrap_words>
     <wuid>-150b93bc:19fe56f7187:-48db</wuid>
-    <x>229</x>
+    <x>247</x>
     <y>260</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -34594,7 +34536,7 @@ $(pv_value)</tooltip>
     <width>135</width>
     <wrap_words>false</wrap_words>
     <wuid>-150b93bc:19fe56f7187:-48da</wuid>
-    <x>229</x>
+    <x>247</x>
     <y>279</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -34650,7 +34592,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-460e</wuid>
-    <x>1164</x>
+    <x>1206</x>
     <y>148</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -34706,7 +34648,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-460d</wuid>
-    <x>1164</x>
+    <x>1206</x>
     <y>128</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -34762,7 +34704,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-460c</wuid>
-    <x>1164</x>
+    <x>1206</x>
     <y>108</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -34818,7 +34760,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-460b</wuid>
-    <x>1164</x>
+    <x>1206</x>
     <y>368</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -34874,7 +34816,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-460a</wuid>
-    <x>1164</x>
+    <x>1206</x>
     <y>348</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -34930,7 +34872,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4609</wuid>
-    <x>1164</x>
+    <x>1206</x>
     <y>328</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -34986,7 +34928,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4608</wuid>
-    <x>1164</x>
+    <x>1206</x>
     <y>49</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -35042,7 +34984,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4607</wuid>
-    <x>1164</x>
+    <x>1206</x>
     <y>89</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -35098,7 +35040,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4606</wuid>
-    <x>1164</x>
+    <x>1206</x>
     <y>69</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -35154,7 +35096,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4605</wuid>
-    <x>1164</x>
+    <x>1206</x>
     <y>267</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -35210,7 +35152,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4604</wuid>
-    <x>1164</x>
+    <x>1206</x>
     <y>247</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -35266,7 +35208,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4603</wuid>
-    <x>1164</x>
+    <x>1206</x>
     <y>227</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -35322,7 +35264,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4602</wuid>
-    <x>1164</x>
+    <x>1206</x>
     <y>207</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -35378,7 +35320,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4601</wuid>
-    <x>1164</x>
+    <x>1206</x>
     <y>187</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -35434,7 +35376,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4600</wuid>
-    <x>1164</x>
+    <x>1206</x>
     <y>167</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -35490,7 +35432,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-45ff</wuid>
-    <x>1164</x>
+    <x>1206</x>
     <y>287</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -35546,7 +35488,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-45fe</wuid>
-    <x>1164</x>
+    <x>1206</x>
     <y>307</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -35602,7 +35544,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-45fd</wuid>
-    <x>1164</x>
+    <x>1206</x>
     <y>427</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -35658,7 +35600,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-45fc</wuid>
-    <x>1164</x>
+    <x>1206</x>
     <y>407</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -35714,7 +35656,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-45fb</wuid>
-    <x>1164</x>
+    <x>1206</x>
     <y>387</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -35770,7 +35712,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-45fa</wuid>
-    <x>1164</x>
+    <x>1206</x>
     <y>491</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -35826,7 +35768,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-45f9</wuid>
-    <x>1164</x>
+    <x>1206</x>
     <y>532</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -35884,7 +35826,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-150b93bc:19fe56f7187:-45a5</wuid>
-    <x>990</x>
+    <x>1032</x>
     <y>492</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -35942,7 +35884,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-150b93bc:19fe56f7187:-45a3</wuid>
-    <x>990</x>
+    <x>1032</x>
     <y>511</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -35998,7 +35940,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-45a2</wuid>
-    <x>1009</x>
+    <x>1051</x>
     <y>511</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -36054,7 +35996,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-45a1</wuid>
-    <x>1009</x>
+    <x>1051</x>
     <y>491</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -36112,7 +36054,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-150b93bc:19fe56f7187:-459f</wuid>
-    <x>990</x>
+    <x>1032</x>
     <y>531</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -36168,7 +36110,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-459e</wuid>
-    <x>1009</x>
+    <x>1051</x>
     <y>531</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -36221,7 +36163,7 @@ $(pv_value)</tooltip>
     <width>78</width>
     <wrap_words>false</wrap_words>
     <wuid>-150b93bc:19fe56f7187:-459d</wuid>
-    <x>1057</x>
+    <x>1099</x>
     <y>473</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -36279,7 +36221,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-150b93bc:19fe56f7187:-459c</wuid>
-    <x>1072</x>
+    <x>1114</x>
     <y>492</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -36337,7 +36279,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-150b93bc:19fe56f7187:-459b</wuid>
-    <x>1072</x>
+    <x>1114</x>
     <y>511</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -36393,7 +36335,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-459a</wuid>
-    <x>1089</x>
+    <x>1131</x>
     <y>512</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -36449,7 +36391,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4599</wuid>
-    <x>1089</x>
+    <x>1131</x>
     <y>492</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -36507,7 +36449,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-150b93bc:19fe56f7187:-4598</wuid>
-    <x>1072</x>
+    <x>1114</x>
     <y>531</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -36563,7 +36505,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4597</wuid>
-    <x>1089</x>
+    <x>1131</x>
     <y>532</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -36621,7 +36563,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-150b93bc:19fe56f7187:-458e</wuid>
-    <x>1149</x>
+    <x>1191</x>
     <y>492</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -36679,7 +36621,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-150b93bc:19fe56f7187:-458d</wuid>
-    <x>1149</x>
+    <x>1191</x>
     <y>532</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -36735,7 +36677,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-454c</wuid>
-    <x>1085</x>
+    <x>1127</x>
     <y>148</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -36791,7 +36733,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-454b</wuid>
-    <x>1085</x>
+    <x>1127</x>
     <y>128</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -36847,7 +36789,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-454a</wuid>
-    <x>1085</x>
+    <x>1127</x>
     <y>108</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -36903,7 +36845,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4549</wuid>
-    <x>1085</x>
+    <x>1127</x>
     <y>368</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -36959,7 +36901,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4548</wuid>
-    <x>1085</x>
+    <x>1127</x>
     <y>348</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -37015,7 +36957,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4547</wuid>
-    <x>1085</x>
+    <x>1127</x>
     <y>328</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -37071,7 +37013,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4546</wuid>
-    <x>1085</x>
+    <x>1127</x>
     <y>49</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -37127,7 +37069,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4545</wuid>
-    <x>1085</x>
+    <x>1127</x>
     <y>89</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -37183,7 +37125,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4544</wuid>
-    <x>1085</x>
+    <x>1127</x>
     <y>69</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -37239,7 +37181,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4543</wuid>
-    <x>1085</x>
+    <x>1127</x>
     <y>267</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -37295,7 +37237,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4542</wuid>
-    <x>1085</x>
+    <x>1127</x>
     <y>247</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -37351,7 +37293,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4541</wuid>
-    <x>1085</x>
+    <x>1127</x>
     <y>227</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -37407,7 +37349,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4540</wuid>
-    <x>1085</x>
+    <x>1127</x>
     <y>207</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -37463,7 +37405,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-453f</wuid>
-    <x>1085</x>
+    <x>1127</x>
     <y>187</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -37519,7 +37461,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-453e</wuid>
-    <x>1085</x>
+    <x>1127</x>
     <y>167</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -37575,7 +37517,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-453d</wuid>
-    <x>1085</x>
+    <x>1127</x>
     <y>287</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -37631,7 +37573,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-453c</wuid>
-    <x>1085</x>
+    <x>1127</x>
     <y>307</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -37687,7 +37629,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-453b</wuid>
-    <x>1085</x>
+    <x>1127</x>
     <y>427</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -37743,7 +37685,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-453a</wuid>
-    <x>1085</x>
+    <x>1127</x>
     <y>407</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -37799,7 +37741,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4539</wuid>
-    <x>1085</x>
+    <x>1127</x>
     <y>387</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
@@ -37863,7 +37805,7 @@ $(pv_value)</tooltip>
     <widget_type>LED</widget_type>
     <width>20</width>
     <wuid>-150b93bc:19fe56f7187:-4531</wuid>
-    <x>349</x>
+    <x>367</x>
     <y>6</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -37919,7 +37861,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4244</wuid>
-    <x>1007</x>
+    <x>1049</x>
     <y>148</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -37975,7 +37917,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4243</wuid>
-    <x>1007</x>
+    <x>1049</x>
     <y>128</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -38031,7 +37973,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4242</wuid>
-    <x>1007</x>
+    <x>1049</x>
     <y>108</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -38087,7 +38029,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4241</wuid>
-    <x>1007</x>
+    <x>1049</x>
     <y>368</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -38143,7 +38085,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4240</wuid>
-    <x>1007</x>
+    <x>1049</x>
     <y>348</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -38199,7 +38141,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-423f</wuid>
-    <x>1007</x>
+    <x>1049</x>
     <y>328</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -38255,7 +38197,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-423e</wuid>
-    <x>1007</x>
+    <x>1049</x>
     <y>49</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -38311,7 +38253,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-423d</wuid>
-    <x>1007</x>
+    <x>1049</x>
     <y>89</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -38367,7 +38309,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-423c</wuid>
-    <x>1007</x>
+    <x>1049</x>
     <y>69</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -38423,7 +38365,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-423b</wuid>
-    <x>1007</x>
+    <x>1049</x>
     <y>267</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -38479,7 +38421,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-423a</wuid>
-    <x>1007</x>
+    <x>1049</x>
     <y>247</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -38535,7 +38477,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4239</wuid>
-    <x>1007</x>
+    <x>1049</x>
     <y>227</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -38591,7 +38533,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4238</wuid>
-    <x>1007</x>
+    <x>1049</x>
     <y>207</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -38647,7 +38589,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4237</wuid>
-    <x>1007</x>
+    <x>1049</x>
     <y>187</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -38703,7 +38645,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4236</wuid>
-    <x>1007</x>
+    <x>1049</x>
     <y>167</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -38759,7 +38701,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4235</wuid>
-    <x>1007</x>
+    <x>1049</x>
     <y>287</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -38815,7 +38757,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4234</wuid>
-    <x>1007</x>
+    <x>1049</x>
     <y>307</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -38871,7 +38813,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4233</wuid>
-    <x>1007</x>
+    <x>1049</x>
     <y>427</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -38927,7 +38869,7 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4232</wuid>
-    <x>1007</x>
+    <x>1049</x>
     <y>407</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -38983,7 +38925,65 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4231</wuid>
-    <x>1007</x>
+    <x>1049</x>
     <y>387</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
+    <actions hook="false" hook_all="false" />
+    <alarm_pulsing>false</alarm_pulsing>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color red="240" green="240" blue="240" />
+    </background_color>
+    <bit>-1</bit>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <bulb_border>3</bulb_border>
+    <bulb_border_color>
+      <color red="150" green="150" blue="150" />
+    </bulb_border_color>
+    <data_type>0</data_type>
+    <effect_3d>true</effect_3d>
+    <enabled>true</enabled>
+    <font>
+      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="192" green="192" blue="192" />
+    </foreground_color>
+    <height>20</height>
+    <name>LED_593</name>
+    <off_color>
+      <color red="0" green="100" blue="0" />
+    </off_color>
+    <off_label>OFF</off_label>
+    <on_color>
+      <color red="0" green="255" blue="0" />
+    </on_color>
+    <on_label>ON</on_label>
+    <pv_name>/fli3d/CFG_ESP32CAM_routing_espnow_sts_gndctrl</pv_name>
+    <pv_value />
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>true</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <show_boolean_label>false</show_boolean_label>
+    <square_led>false</square_led>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <visible>true</visible>
+    <widget_type>LED</widget_type>
+    <width>20</width>
+    <wuid>839b82a:19ff69348c3:-5182</wuid>
+    <x>1030</x>
+    <y>148</y>
   </widget>
 </display>

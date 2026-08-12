@@ -862,13 +862,13 @@
             <Parameter name="ESP32CAM_sd_enabled" parameterTypeRef="bool_t" />
             <Parameter name="ESP32CAM_archive_enabled" parameterTypeRef="bool_t" />
             <Parameter name="ESP32CAM_camera_enabled" parameterTypeRef="bool_t" />
-            <Parameter name="ESP32CAM_free11" parameterTypeRef="bool_t" />
+            <Parameter name="ESP32CAM_buzzer_enabled" parameterTypeRef="bool_t" />
             <Parameter name="ESP32CAM_time_set" parameterTypeRef="bool_t" />
             <Parameter name="ESP32CAM_espnow_rx_active" parameterTypeRef="bool_t" />
             <Parameter name="ESP32CAM_espnow_tx_active" parameterTypeRef="bool_t" />            
             <Parameter name="ESP32CAM_serial_rx_active" parameterTypeRef="bool_t" />
             <Parameter name="ESP32CAM_serial_tx_active" parameterTypeRef="bool_t" />
-            <Parameter name="ESP32CAM_free23" parameterTypeRef="bool_t" />
+            <Parameter name="ESP32CAM_buzzer_active" parameterTypeRef="bool_t" />
             <Parameter name="ESP32CAM_wifi_rtsp_active" parameterTypeRef="bool_t" />
             <Parameter name="ESP32CAM_wifi_active" parameterTypeRef="bool_t" />
             <Parameter name="ESP32CAM_free20" parameterTypeRef="bool_t" />
@@ -1486,7 +1486,7 @@
             <Parameter name="CFG_ESP32CAM_free_23" parameterTypeRef="bool_t" />
             <Parameter name="CFG_ESP32CAM_free_22" parameterTypeRef="bool_t" />
             <Parameter name="CFG_ESP32CAM_free_21" parameterTypeRef="bool_t" />
-            <Parameter name="CFG_ESP32CAM_free_20" parameterTypeRef="bool_t" />            
+            <Parameter name="CFG_ESP32CAM_camera_enable" parameterTypeRef="bool_t" />            
             <Parameter name="CFG_ESP32CAM_dip_set1" parameterTypeRef="bool_t" />
             <Parameter name="CFG_ESP32CAM_dip_set2" parameterTypeRef="bool_t" />
             <Parameter name="CFG_ESP32CAM_dip_set3" parameterTypeRef="bool_t" />
@@ -2006,7 +2006,7 @@
                     <ParameterRefEntry parameterRef="ESP32CAM_espnow_rx_enabled" />
 
                     <ParameterRefEntry parameterRef="ESP32CAM_time_set" />
-                    <ParameterRefEntry parameterRef="ESP32CAM_free11" />
+                    <ParameterRefEntry parameterRef="ESP32CAM_buzzer_enabled" />
                     <ParameterRefEntry parameterRef="ESP32CAM_camera_enabled" />
                     <ParameterRefEntry parameterRef="ESP32CAM_archive_enabled" />
                     <ParameterRefEntry parameterRef="ESP32CAM_sd_enabled" />
@@ -2017,7 +2017,7 @@
                     <ParameterRefEntry parameterRef="ESP32CAM_free20" />
                     <ParameterRefEntry parameterRef="ESP32CAM_wifi_active" />
                     <ParameterRefEntry parameterRef="ESP32CAM_wifi_rtsp_active" />
-                    <ParameterRefEntry parameterRef="ESP32CAM_free23" />
+                    <ParameterRefEntry parameterRef="ESP32CAM_buzzer_active" />
                     <ParameterRefEntry parameterRef="ESP32CAM_serial_tx_active" />
                     <ParameterRefEntry parameterRef="ESP32CAM_serial_rx_active" />
                     <ParameterRefEntry parameterRef="ESP32CAM_espnow_tx_active" />
@@ -2574,7 +2574,7 @@
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_archive_enable" />
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_ota_enable" />
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_ftp_enable" />      
-                    <ParameterRefEntry parameterRef="CFG_ESP32CAM_free_20" />
+                    <ParameterRefEntry parameterRef="CFG_ESP32CAM_camera_enable" />
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_free_21" />
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_free_22" />
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_free_23" />
@@ -2593,8 +2593,10 @@
                     
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_routing_espnow_tm_gps" />
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_routing_espnow_tm_esp32" />
+                    <ParameterRefEntry parameterRef="CFG_ESP32CAM_routing_espnow_sts_gndctrl" />
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_routing_espnow_sts_esp32cam" />
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_routing_espnow_sts_esp32" />
+                    <ParameterRefEntry parameterRef="CFG_ESP32CAM_routing_espnow_tc_gndctrl" />
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_routing_espnow_tc_esp32cam" />
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_routing_espnow_tc_esp32" />
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_routing_espnow_timer_esp32cam" />
