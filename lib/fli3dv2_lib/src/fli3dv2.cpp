@@ -201,8 +201,8 @@ name_t filesystem[] = { // also update #define in fli3dv2.h and xtce.fli3d.xml
 void init_config () {
     // Set default configuration values
     cfg_this->wifi_channel = default_wifi_channel;
-    strcpy(cfg_this->rocket_name, default_rocket_name); 
-    strcpy(cfg_this->password, default_password); 
+    strcpy(cfg_this->rocket_name, default_rocket_name[0]); 
+    strcpy(cfg_this->password, default_password[0]); 
     cfg_this->radio_baud = 2000;
     cfg_this->serial_baud = 115200;
     cfg_this->ota_enable = true;
@@ -901,6 +901,7 @@ void setup_wifi () {
     else {
         WiFi.mode(WIFI_STA); 
     }
+    WiFi.disconnect();
     WiFi.config(INADDR_NONE, INADDR_NONE, INADDR_NONE);
     WiFi.setHostname(hostname);
     WiFi.setSleep(false);
@@ -926,14 +927,25 @@ bool setup_wifi_sta () {
     // Connect to WiFi network, as defined in fli3d_secrets.h
     const unsigned long timeout_ms = 10000;
     const unsigned long start_ms = millis();
+    uint8_t networks=0, i=0, j=0;
     if (cfg_this->wifi_sta_enable) {
-        WiFi.begin(wifi_ssid, wifi_password);
+        networks = WiFi.scanNetworks();
+        for (i=0; i<networks; i++) {
+            for (j=0; j<sizeof(wifi_ssid)/sizeof(wifi_ssid[0]); j++) {
+                if (!strcmp(WiFi.SSID(i).c_str(), wifi_ssid[j])) {
+                    sprintf (buffer, "Found WiFi network %s with RSSI %d dBm", wifi_ssid[j], WiFi.RSSI(i));
+                    publish_event (STS_THIS, SS_THIS, EVENT_INIT, buffer);
+                    break;
+                }
+            }
+        }
+        WiFi.begin(wifi_ssid[j], wifi_password[j]);
         while (WiFi.status() != WL_CONNECTED && (millis() - start_ms) < timeout_ms) {
             delay(500);
         }
 
         if (WiFi.status() == WL_CONNECTED) {
-            sprintf (buffer, "Connected to WiFi network %s with IP %s", wifi_ssid, WiFi.localIP().toString().c_str());
+            sprintf (buffer, "Connected to WiFi network %s with IP %s", wifi_ssid[j], WiFi.localIP().toString().c_str());
             publish_event (STS_THIS, SS_THIS, EVENT_INIT, buffer);
             tm_this->wifi_sta_enabled = true;
             cfg_this->wifi_my_ip[0] = WiFi.localIP()[0];
@@ -944,7 +956,7 @@ bool setup_wifi_sta () {
             return true;
         }
 
-        sprintf (buffer, "Failed to connect to WiFi network %s within %lu ms", wifi_ssid, timeout_ms);
+        sprintf (buffer, "Failed to connect to any available WiFi network");
         publish_event (STS_THIS, SS_THIS, EVENT_WARNING, buffer);
         tm_this->wifi_sta_enabled = false;
         return false;
@@ -1350,7 +1362,7 @@ bool send_packet_through_radio (ccsds_t* ccsds_ptr) {
 bool setup_fs () {
     if (cfg_this->fs_enable) {
         if (LittleFS.begin(false)) {
-            sprintf (buffer, "Initialized FS (size: %u kB; free: %u kB)", LittleFS.totalBytes()/1024, (LittleFS.totalBytes()-LittleFS.usedBytes())/1024);
+            sprintf (buffer, "Mounted FS (size: %u kB; free: %u kB) %s", LittleFS.totalBytes()/1024, (LittleFS.totalBytes()-LittleFS.usedBytes())/1024, cfg_this->write_fs_enable?"(write enabled)":"(read only)");
             publish_event (STS_THIS, SS_FS, EVENT_INIT, buffer);
             if (cfg_this->flush_fs_enable) {
                 flush_fs();
@@ -1360,15 +1372,22 @@ bool setup_fs () {
             return true;
         }
         else {
-            if (LittleFS.begin(true)) {
-                sprintf(buffer, "Formatted and initialized FS (size: %u kB; free: %u kB)", LittleFS.totalBytes()/1024, fs_free());
-                publish_event(STS_THIS, SS_FS, EVENT_WARNING, buffer);
-                tm_this->fs_enabled = true;
-                tm_this->fs_active = true;
-                return true;
+            if (cfg_this->write_fs_enable) {
+                if (LittleFS.begin(true)) {
+                    sprintf(buffer, "Formatted and mounted FS (size: %u kB; free: %u kB)", LittleFS.totalBytes()/1024, fs_free());
+                    publish_event(STS_THIS, SS_FS, EVENT_WARNING, buffer);
+                    tm_this->fs_enabled = true;
+                    tm_this->fs_active = true;
+                    return true;
+                }
+                else {
+                    publish_event(STS_THIS, SS_FS, EVENT_ERROR, "Failed to mount or format FS");
+                    tm_this->fs_enabled = false;
+                    return false;
+                }
             }
             else {
-                publish_event(STS_THIS, SS_FS, EVENT_ERROR, "Failed to initialize or format FS");
+                publish_event(STS_THIS, SS_FS, EVENT_ERROR, "Failed to mount FS (read only mode)");
                 tm_this->fs_enabled = false;
                 return false;
             }
@@ -1389,7 +1408,7 @@ bool setup_sd () {
             tm_this->sd_enabled = false;
             return false;
         }
-        sprintf (buffer, "Card reader initialised and SD card mounted: size: %llu MB; space: %llu MB; used: %llu MB", SD_MMC.cardSize() / (1024 * 1024), SD_MMC.totalBytes() / (1024 * 1024), SD_MMC.usedBytes() / (1024 * 1024));
+        sprintf (buffer, "Card reader initialised and SD card mounted: size: %llu MB; space: %llu MB; used: %llu MB; %s", SD_MMC.cardSize() / (1024 * 1024), SD_MMC.totalBytes() / (1024 * 1024), SD_MMC.usedBytes() / (1024 * 1024), cfg_this->write_fs_enable?"(write enabled)":"(read only)");
         publish_event (STS_THIS, SS_SD, EVENT_INIT, buffer);       
         tm_this->sd_enabled = true;
         tm_this->sd_active = true;
@@ -1420,24 +1439,27 @@ uint32_t sd_free () {
 }
 
 bool flush_fs () {
-    File root = LittleFS.open("/");
-    File file;
-    char file_path[20];
-    while ((file = root.openNextFile())) {
-        sprintf(file_path, "/%s", file.name());
-        if (strcmp(file_path, tm_this->archive_path)) {
-            Serial.printf("Deleting file: %s (%u bytes)\n", file.name(), file.size());
-            file.close();
-            LittleFS.remove(file_path);
+    if(cfg_this->write_fs_enable and cfg_this->flush_fs_enable) {
+        File root = LittleFS.open("/");
+        File file;
+        char file_path[20];
+        while ((file = root.openNextFile())) {
+            sprintf(file_path, "/%s", file.name());
+            if (strcmp(file_path, tm_this->archive_path)) {
+                Serial.printf("Deleting file: %s (%u bytes)\n", file.name(), file.size());
+                file.close();
+                LittleFS.remove(file_path);
+            }
+            else {
+                Serial.printf("Keeping file: %s (%u bytes)\n", file.name(), file.size());
+            }
         }
-        else {
-            Serial.printf("Keeping file: %s (%u bytes)\n", file.name(), file.size());
-        }
+        tm_this->fs_active = true;
+        sprintf(buffer, "Flushed %s FS (free: %u kB)", filesystem[FS_LITTLEFS].name, (LittleFS.totalBytes()-LittleFS.usedBytes())/1024);
+        publish_event (STS_THIS, SS_FS, EVENT_INIT, buffer);
+        return true;
     }
-    tm_this->fs_active = true;
-    sprintf(buffer, "Flushed %s FS (free: %u kB)", filesystem[FS_LITTLEFS].name, (LittleFS.totalBytes()-LittleFS.usedBytes())/1024);
-    publish_event (STS_THIS, SS_FS, EVENT_INIT, buffer);
-    return true;
+    return false;
 }
 
 /*void create_today_dir () {
@@ -1463,7 +1485,7 @@ bool flush_fs () {
 // Packet Archive Functionality
 
 bool setup_archive () {
-    if(cfg_this->archive_enable) {
+    if(cfg_this->write_fs_enable && cfg_this->archive_enable) {
         switch (cfg_this->archive_fs) {
         case FS_LITTLEFS: 
             do {
@@ -1883,26 +1905,28 @@ void update_packet (ccsds_t* ccsds_ptr) {
     case TM_PRESSURE:   tm_pressure.millis=millis();
                         tm_pressure.packet_ctr++;
                         break;                         
-    case TM_RADIO:      tm_radio.millis=millis();
-                        tm_radio.packet_ctr++; /*
+    case TM_RADIO:      //tm_radio.millis=millis();
+                        tm_radio.packet_ctr++;
+                        tm_radio.battery_percentage = tm_esp32.battery_percentage; 
                         tm_radio.opsmode = tm_esp32.opsmode;
-                        tm_radio.error_ctr = min(255, esp32.error_ctr + esp32cam.error_ctr);
-                        tm_radio.warning_ctr = min(255, esp32.warning_ctr + esp32cam.warning_ctr);
-                        tm_radio.pressure_height = max(0, min(255, (bmp280.height+50)/100));
-                        tm_radio.pressure_velocity_v = int8_t((bmp280.velocity_v+((bmp280.velocity_v > 0) - (bmp280.velocity_v < 0))*50)/100);
-                        tm_radio.temperature = int8_t((bmp280.temperature+((bmp280.temperature > 0) - (bmp280.temperature < 0))*50)/100);
-                        tm_radio.motion_tilt = uint8_t((motion.tilt+50)/100);
-                        tm_radio.motion_g = uint8_t((motion.g+50)/100);  
-                        tm_radio.motion_a = int8_t((motion.a+((motion.a > 0) - (motion.a < 0))*50)/100);
-                        tm_radio.motion_rpm = int8_t((motion.rpm+((motion.rpm > 0) - (motion.rpm < 0))*50)/100); 
+                        tm_radio.separation_sts = tm_esp32.separation_sts;
+                        tm_radio.time_set = tm_esp32.time_set;
                         tm_radio.gps_satellites = tm_gps.satellites;
-                        tm_radio.gps_velocity_v = int8_t(-(neo6mv2.v_down+((neo6mv2.v_down > 0) - (neo6mv2.v_down < 0))*50)/100);
-                        tm_radio.gps_velocity = uint8_t(sqrt (neo6mv2.v_north*neo6mv2.v_north + neo6mv2.v_east*neo6mv2.v_east + neo6mv2.v_down*neo6mv2.v_down) / 1000000);   
-                        tm_radio.gps_height = max(0, min(255, (neo6mv2.z+50)/100));
-                        tm_radio.camera_image_ctr = tm_camera.packet_ctr;
-                        tm_radio.esp32_buffer_active = esp32.buffer_active;
-                        tm_radio.separation_sts = esp32.separation_sts;
-                        tm_radio.esp32cam_buffer_active = esp32cam.buffer_active; */
+                        tm_radio.gps_latitude = tm_gps.latitude;
+                        tm_radio.gps_longitude = tm_gps.longitude;
+                        tm_radio.gps_altitude = uint16_t(tm_gps.altitude/100);
+                        tm_radio.accel_x = int8_t((tm_motion.accel_x+((tm_motion.accel_x > 0) - (tm_motion.accel_x < 0))*50)/100);
+                        tm_radio.accel_y = int8_t((tm_motion.accel_y+((tm_motion.accel_y > 0) - (tm_motion.accel_y < 0))*50)/100);
+                        tm_radio.accel_z = int8_t((tm_motion.accel_z+((tm_motion.accel_z > 0) - (tm_motion.accel_z < 0))*50)/100);   
+                        tm_radio.gyro_x = int8_t((tm_motion.gyro_x+((tm_motion.gyro_x > 0) - (tm_motion.gyro_x < 0))*50)/100);
+                        tm_radio.gyro_y = int8_t((tm_motion.gyro_y+((tm_motion.gyro_y > 0) - (tm_motion.gyro_y < 0))*50)/100);
+                        tm_radio.gyro_z = int8_t((tm_motion.gyro_z+((tm_motion.gyro_z > 0) - (tm_motion.gyro_z < 0))*50)/100);
+                        tm_radio.magn_x = int8_t((tm_motion.magn_x+((tm_motion.magn_x > 0) - (tm_motion.magn_x < 0))*50)/100);
+                        tm_radio.magn_y = int8_t((tm_motion.magn_y+((tm_motion.magn_y > 0) - (tm_motion.magn_y < 0))*50)/100);
+                        tm_radio.magn_z = int8_t((tm_motion.magn_z+((tm_motion.magn_z > 0) - (tm_motion.magn_z < 0))*50)/100);
+                        tm_radio.pressure_internal = uint8_t(tm_pressure.pressure/2);
+                        tm_radio.pressure_external = uint8_t(tm_pressure.pressure2/2);
+                        tm_radio.temperature_external = uint8_t(tm_pressure.temperature2/2);
                         break;                          
     case TM_ESP32CAM:   tm_esp32cam.millis = millis();
                         tm_esp32cam.packet_ctr++;

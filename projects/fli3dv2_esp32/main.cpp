@@ -2,18 +2,31 @@
  *  Fli3dv2 - core system functionality
  *  
  *  To compile in Visual Studio with PlatformIO, with ESP32 core v3.3.x, for ESP32 MH-ET LIVE MiniKit.
- *  Use partition scheme "Default with spiffs" or custom partition scheme "Fli3d ESP32 (OTA/maximized SPIFFS)".
+ *  Use partition scheme "Default with spiffs" or custom partition scheme "fli3d_esp32.csv".
  */
 
 // Set versioning
-#define SW_VERSION "Fli3d ESP32 v1.99.0 (20260807)"
+#define SW_VERSION "1.99.0"
+#define SW_DATE "20260902"
+#ifndef FW_GIT_HASH
+#define FW_GIT_HASH "unknown"
+#endif
+#ifndef GIT_COMMIT_HASH
+#define GIT_COMMIT_HASH "unknown"
+#endif
 
 // Set functionality to compile
-#define RADIO
+//#define RADIO
+//#define RS41
+//#define COREMESH
+//#define GPRS
+//#define SEPARATION
+//#define BATTERY
 #define PRESSURE
+#define PRESSURE2
 #define MOTION
 #define GPS
-//#define CAMERA
+#define CAMERA
 
 // Libraries
 #include <Arduino.h>
@@ -23,7 +36,12 @@
 #include "esp_timer.h"
 
 // Global variables used in this file
-bool reset_gps_timer, separation_sts_changed; // TODO: keep?
+#ifdef GPS
+bool reset_gps_timer; // TODO: keep?
+#endif
+#ifdef SEPARATION
+bool separation_sts_changed; // TODO: keep?
+#endif
 extern char buffer[BUFFER_MAX_SIZE];
 extern tm_esp32_t   tm_esp32;
 extern cfg_packet_t cfg_esp32;
@@ -59,9 +77,9 @@ cfg_packet_t        *cfg_this = &cfg_esp32;
 //                                              |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  J: CFG_GNDCTRL
 //                                              0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F  G  H  I  J
 bool default_routing_espnow[NUMBER_OF_PID] =  { 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0 };
-bool default_routing_serial[NUMBER_OF_PID] =  { 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0 };
-bool default_routing_radio[NUMBER_OF_PID] =   { 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0 };
-bool default_routing_archive[NUMBER_OF_PID] = { 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1, 1, 0 };
+bool default_routing_serial[NUMBER_OF_PID] =  { 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0 };
+bool default_routing_radio[NUMBER_OF_PID] =   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+bool default_routing_archive[NUMBER_OF_PID] = { 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 0 };
 
 void sendTM(void *arg) {
     publish_packet((ccsds_t*)tm_this);
@@ -76,19 +94,25 @@ void setup() {
     init_config();
 
     Serial.begin(cfg_this->serial_baud); // debug output
+    #ifdef GPS
     if(cfg_esp32.gps_enable) {
         Serial1.begin(cfg_this->serial_baud, SERIAL_8N1, GPS_RX_PIN, GPS_TX_PIN); // communication with GPS
     }
+    #endif
+    #ifdef CAMERA
     if (cfg_esp32.serial_rx_enable or cfg_esp32.serial_tx_enable) {
         Serial2.begin(cfg_this->serial_baud, SERIAL_8N1, ESP32CAM_RX_PIN, ESP32CAM_TX_PIN); // communication with ESP32CAM
         setup_serialtransfer(Serial2);
     }
+    #endif
     init_ccsds();
-    sprintf (buffer, "%s started on %s", SW_VERSION, subsystem[SS_THIS].name); 
+    sprintf (buffer, "Fli3d ESP32 v%s [%s:%s:%s] started for %s [%u]", SW_VERSION, FW_GIT_HASH, GIT_COMMIT_HASH, SW_DATE, cfg_this->rocket_name, esp_reset_reason()); 
     publish_event (STS_THIS, SS_THIS, EVENT_INIT, buffer);  
     publish_packet((ccsds_t*)tm_this);
     publish_packet((ccsds_t*)cfg_this);
+    #ifdef BATTERY
     setup_power();
+    #endif
 
     // Start sending tm packets every second
     esp_timer_create_args_t timer_argsTM = {
@@ -128,7 +152,9 @@ void setup() {
     setup_espnow();
 
     // Set up radio
+    #ifdef RADIO
     setup_radio();
+    #endif
 
     // Set up file system
     setup_fs();
@@ -136,12 +162,14 @@ void setup() {
     setup_archive();
 
     //
+    #ifdef SEPARATION
     setup_separation();
+    #endif
     setup_buzzer();
 
     #ifdef CAMERA
     if (cfg_esp32.camera_enable) { 
-        esp32.camera_enabled = true;
+        tm_esp32.camera_enabled = true;
     }
     #endif // CAMERA 
 
@@ -169,6 +197,14 @@ void setup() {
         }
     }
     #endif // PRESSURE
+    
+    #ifdef PRESSURE2
+    if (cfg_esp32.pressure2_enable) {
+        if ((tm_esp32.pressure2_enabled = setup_bmp280())) {
+            //bmp388_calibrate();
+        }
+    }
+    #endif // PRESSURE2
 
     // Initialisation complete
     setup_timer();
@@ -180,7 +216,9 @@ void loop() {
     static uint32_t start_millis;
   
     check_serialtransfer_rx();
+    #ifdef RADIO
     check_radio_rx();
+    #endif
     process_rx_queue();
     tmr_esp32.millis = millis();
 
@@ -195,17 +233,22 @@ void loop() {
         }
     }
     else { 
+        if(false) {
+            // dummy to allow all else if below
+        }
         // separation status (monitored via interrupt)
-        if (separation_sts_changed) {
+        #ifdef SEPARATION
+        else if (separation_sts_changed) {
             separation_publish();
             separation_sts_changed = false;
         }
+        #endif
     
         // BMP388 pressure sensor
         #ifdef PRESSURE
         else if (tmr_esp32.millis >= var.next_pressure_time and tm_esp32.pressure_enabled) {
             start_millis = millis();
-            if (tm_esp32.pressure_active = acquire_BMP()) {
+            if (tm_esp32.pressure_active = acquire_bmp388()) {
                 publish_packet ((ccsds_t*)&tm_pressure);
             }
             //else {
@@ -217,11 +260,27 @@ void loop() {
         } 
         #endif // PRESSURE
 
+        // BMP280 pressure sensor
+        #ifdef PRESSURE2
+        else if (tmr_esp32.millis >= var.next_pressure_time and tm_esp32.pressure_enabled) {
+            start_millis = millis();
+            if (tm_esp32.pressure2_active = acquire_bmp280()) {
+                publish_packet ((ccsds_t*)&tm_pressure);
+            }
+            //else {
+                // will try to reset pressure sensor once, and then give up
+                //esp32.pressure_enabled = setup_icm20948();
+            //}
+            var.next_pressure_time = tmr_esp32.millis + var.pressure_interval;
+            tmr_esp32.pressure_duration += millis() - start_millis;
+        } 
+        #endif // PRESSURE2
+
         // ICM-20948 accelerometer/gyroscope/magnetometer
         #ifdef MOTION
         else if (tmr_esp32.millis >= var.next_motion_time and tm_esp32.motion_enabled) {
             start_millis = millis();
-            if (tm_esp32.motion_active = acquire_IMU()) {
+            if (tm_esp32.motion_active = acquire_icm20948()) {
                 publish_packet ((ccsds_t*)&tm_motion);
             }
             //else {

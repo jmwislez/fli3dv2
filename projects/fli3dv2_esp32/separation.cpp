@@ -3,6 +3,8 @@
  * Fli3d - separation detection functionality
  */
 
+#ifdef SEPARATION
+
  #include <Arduino.h>
  #include <fli3dv2.h>
  #include "fli3dv2_esp32.h"
@@ -31,3 +33,5 @@ void separation_detectChange() {
   tm_esp32.separation_sts = digitalRead (SEP_STS_PIN);
   separation_sts_changed = true;
 }
+
+#endif

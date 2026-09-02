@@ -23,18 +23,25 @@ bool acquire_gps() {
         gps.encode(Serial1.read());
     }
     if (gps.location.isUpdated()) {
-        tm_gps.location_valid = gps.location.isValid();
-        tm_gps.latitude = int32_t(gps.location.lat()*10000000); // convert deg to microdegrees
-        tm_gps.longitude = int32_t(gps.location.lng()*10000000); // convert deg to microdegrees
-        tm_gps.altitude = int32_t(gps.altitude.value()); // cm
-        tm_gps.altitude_valid = gps.altitude.isValid();
-        tm_gps.time_valid = gps.time.isValid();
-        tm_gps.hours = gps.time.hour();
-        tm_gps.minutes = gps.time.minute();
-        tm_gps.seconds = gps.time.second();
-        tm_gps.centiseconds = gps.time.centisecond();
-
-
+        if(tm_gps.location_valid = gps.location.isValid()) {
+            tm_gps.latitude = int32_t(gps.location.lat()*10000000); // convert deg to microdegrees
+            tm_gps.longitude = int32_t(gps.location.lng()*10000000); // convert deg to microdegrees
+        }
+        if(tm_gps.altitude_valid = gps.altitude.isValid()) {
+            tm_gps.altitude = int32_t(gps.altitude.value()); // cm
+        }
+        if(tm_gps.time_valid = gps.time.isValid()) {
+            tm_gps.hours = gps.time.hour();
+            tm_gps.minutes = gps.time.minute();
+            tm_gps.seconds = gps.time.second();
+            tm_gps.centiseconds = gps.time.centisecond();
+            if(tm_this->time_set == false and gps.date.isValid()) {
+                setTime(gps.time.hour(), gps.time.minute(), gps.time.second(), gps.date.day(), gps.date.month(), gps.date.year());
+                sprintf(buffer, "Time set through GPS: %04u-%02u-%02u %02u:%02u:%02u", year(), month(), day(), hour(), minute(), second());
+                publish_event (STS_THIS, SS_THIS, EVENT_INIT, buffer);
+                tm_this->time_set = true;
+            }
+        }
         tm_gps.satellites = gps.satellites.value();
         tm_gps.milli_hdop = gps.hdop.value();
         return true;

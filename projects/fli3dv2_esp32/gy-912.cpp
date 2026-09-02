@@ -8,17 +8,17 @@
 #define ICM20948_ADDR 0x69
 #define BMP388_ADDR 0x77
 
-ICM20948_WE myIMU = ICM20948_WE(ICM20948_ADDR);
-BMP388_DEV myBMP(I2C_SDA_PIN, I2C_SCL_PIN);
+ICM20948_WE icm20948 = ICM20948_WE(ICM20948_ADDR);
+BMP388_DEV bmp388(I2C_SDA_PIN, I2C_SCL_PIN);
 
 bool setup_icm20948() {
     Wire.begin();
 
-    myBMP.begin();                                 // Default initialisation, place the BMP388 into SLEEP_MODE 
-    myBMP.setTimeStandby(TIME_STANDBY_1280MS);     // Set the standby time to 1.2 seconds
-    myBMP.startNormalConversion();  
+    bmp388.begin();                                 // Default initialisation, place the BMP388 into SLEEP_MODE 
+    bmp388.setTimeStandby(TIME_STANDBY_1280MS);     // Set the standby time to 1.2 seconds
+    bmp388.startNormalConversion();  
 
-    if(!myIMU.init()){
+    if(!icm20948.init()){
         sprintf(buffer, "Motion unit ICM20948 does not respond on I2C address 0x%02X", ICM20948_ADDR);
         publish_event(STS_THIS, SS_THIS, EVENT_ERROR, buffer);
         return false;
@@ -31,7 +31,7 @@ bool setup_icm20948() {
         *  The calibration changes the slope / ratio of raw acceleration vs g. The zero point is 
         *  set as (min + max)/2.
         */
-        //myIMU.setAccOffsets(-16330.0, 16450.0, -16600.0, 16180.0, -16520.0, 16690.0);
+        //icm20948.setAccOffsets(-16330.0, 16450.0, -16600.0, 16180.0, -16520.0, 16690.0);
 
         /* The starting point, if you position the ICM20948 flat, is not necessarily 0g/0g/1g for x/y/z. 
         * The autoOffset function measures offset. It assumes your ICM20948 is positioned flat with its 
@@ -48,7 +48,7 @@ bool setup_icm20948() {
         */
         //  Serial.println("Position your ICM20948 flat and don't move it - calibrating...");
         //  delay(1000);
-        //  myIMU.autoOffsets();
+        //  icm20948.autoOffsets();
         //  Serial.println("Done!"); 
 
         /*  The gyroscope data is not zero, even if you don't move the ICM20948. 
@@ -56,14 +56,14 @@ bool setup_icm20948() {
         *  using the +/- 250 degrees/s range. 
         *  Use either autoOffset or setGyrOffsets, not both.
         */
-        //myIMU.setGyrOffsets(-115.0, 130.0, 105.0);
+        //icm20948.setGyrOffsets(-115.0, 130.0, 105.0);
 
         /*  ICM20948_ACC_RANGE_2G      2 g   (default)
         *  ICM20948_ACC_RANGE_4G      4 g
         *  ICM20948_ACC_RANGE_8G      8 g   
         *  ICM20948_ACC_RANGE_16G    16 g
         */
-        myIMU.setAccRange(ICM20948_ACC_RANGE_2G);
+        icm20948.setAccRange(ICM20948_ACC_RANGE_2G);
 
         /*  Choose a level for the Digital Low Pass Filter or switch it off.  
         *  ICM20948_DLPF_0, ICM20948_DLPF_2, ...... ICM20948_DLPF_7, ICM20948_DLPF_OFF 
@@ -84,7 +84,7 @@ bool setup_icm20948() {
         *    ASRD = Accelerometer Sample Rate Divider (0...4095)
         *    You achieve lowest noise using level 6  
         */
-        myIMU.setAccDLPF(ICM20948_DLPF_6);    
+        icm20948.setAccDLPF(ICM20948_DLPF_6);    
 
         /*  Acceleration sample rate divider divides the output rate of the accelerometer.
         *  Sample rate = Basic sample rate / (1 + divider) 
@@ -93,14 +93,14 @@ bool setup_icm20948() {
         *  If sample rates are set for the accelerometer and the gyroscope, the gyroscope
         *  sample rate has priority.
         */
-        //myIMU.setAccSampleRateDivider(10);
+        //icm20948.setAccSampleRateDivider(10);
 
         /*  ICM20948_GYRO_RANGE_250       250 degrees per second (default)
         *  ICM20948_GYRO_RANGE_500       500 degrees per second
         *  ICM20948_GYRO_RANGE_1000     1000 degrees per second
         *  ICM20948_GYRO_RANGE_2000     2000 degrees per second
         */
-        //myIMU.setGyrRange(ICM20948_GYRO_RANGE_250);
+        //icm20948.setGyrRange(ICM20948_GYRO_RANGE_250);
 
         /*  Choose a level for the Digital Low Pass Filter or switch it off. 
         *  ICM20948_DLPF_0, ICM20948_DLPF_2, ...... ICM20948_DLPF_7, ICM20948_DLPF_OFF 
@@ -119,7 +119,7 @@ bool setup_icm20948() {
         *    GSRD = Gyroscope Sample Rate Divider (0...255)
         *    You achieve lowest noise using level 6  
         */
-        myIMU.setGyrDLPF(ICM20948_DLPF_6);  
+        icm20948.setGyrDLPF(ICM20948_DLPF_6);  
 
         /*  Gyroscope sample rate divider divides the output rate of the gyroscope.
         *  Sample rate = Basic sample rate / (1 + divider) 
@@ -128,7 +128,7 @@ bool setup_icm20948() {
         *  If sample rates are set for the accelerometer and the gyroscope, the gyroscope
         *  sample rate has priority.
         */
-        //myIMU.setGyrSampleRateDivider(10);
+        //icm20948.setGyrSampleRateDivider(10);
 
         /*  Choose a level for the Digital Low Pass Filter. 
         *  ICM20948_DLPF_0, ICM20948_DLPF_2, ...... ICM20948_DLPF_7, ICM20948_DLPF_OFF 
@@ -147,12 +147,12 @@ bool setup_icm20948() {
         *    GSRD = Gyroscope Sample Rate Divider (0...255)
         *    You achieve lowest noise using level 6  
         */
-        myIMU.setTempDLPF(ICM20948_DLPF_6);
+        icm20948.setTempDLPF(ICM20948_DLPF_6);
         sprintf(buffer, "Motion unit ICM20948 initialized on I2C address 0x%02X", ICM20948_ADDR);
         publish_event(STS_THIS, SS_THIS, EVENT_INIT, buffer);
     }
 
-    if(!myIMU.initMagnetometer()){
+    if(!icm20948.initMagnetometer()){
         sprintf(buffer, "Magnetometer ICM20948 does not respond on I2C address 0x%02X", ICM20948_ADDR);
         publish_event(STS_THIS, SS_THIS, EVENT_WARNING, buffer);
     }
@@ -166,26 +166,26 @@ bool setup_icm20948() {
         * AK09916_CONT_MODE_50HZ    Continuous measurements, 50 Hz rate
         * AK09916_CONT_MODE_100HZ   Continuous measurements, 100 Hz rate (default)
         */
-        myIMU.setMagOpMode(AK09916_CONT_MODE_20HZ);
+        icm20948.setMagOpMode(AK09916_CONT_MODE_20HZ);
         // delay(50); // add a delay of 1000/magRate to avoid first mag value being zero 
         sprintf(buffer, "Magnetometer ICM20948 initialized on I2C address 0x%02X", ICM20948_ADDR);
         publish_event(STS_THIS, SS_THIS, EVENT_INIT, buffer);
     }
-    //tm_motion.accel_range = myIMU.getAccRange();
-    //tm_motion.gyro_range = myIMU.getGyrRange();
+    //tm_motion.accel_range = icm20948.getAccRange();
+    //tm_motion.gyro_range = icm20948.getGyrRange();
     return true;
 }
 
 bool setup_bmp388() {
     Wire.begin();
-    if(!myBMP.begin()){
+    if(!bmp388.begin()){
         sprintf(buffer, "Pressure unit BMP388 does not respond on I2C address 0x%02X", BMP388_ADDR);
         publish_event(STS_THIS, SS_THIS, EVENT_ERROR, buffer);
         return false;
     }
     else {
-        myBMP.setTimeStandby(TIME_STANDBY_80MS);     // Set the standby time to 1.2 seconds
-        myBMP.startNormalConversion();  
+        bmp388.setTimeStandby(TIME_STANDBY_80MS);     // Set the standby time to 1.2 seconds
+        bmp388.startNormalConversion();  
         tm_esp32.pressure_enabled = true;
         sprintf(buffer, "Pressure unit BMP388 initialized on I2C address 0x%02X", BMP388_ADDR);
         publish_event(STS_THIS, SS_THIS, EVENT_INIT, buffer);
@@ -193,16 +193,16 @@ bool setup_bmp388() {
     return true;
 }
 
-bool acquire_IMU() {
+bool acquire_icm20948() {
     xyzFloat gValue;
     xyzFloat gyr;
     xyzFloat magValue;
 
-    myIMU.readSensor();
-    myIMU.getGValues(&gValue);
-    myIMU.getGyrValues(&gyr);
-    myIMU.getMagValues(&magValue);
-    float temp = myIMU.getTemperature();
+    icm20948.readSensor();
+    icm20948.getGValues(&gValue);
+    icm20948.getGyrValues(&gyr);
+    icm20948.getMagValues(&magValue);
+    float temp = icm20948.getTemperature();
     Serial.printf("ICM20948: Accel: %.2f, %.2f, %.2f g; Gyro: %.2f, %.2f, %.2f deg/s; Mag: %.2f, %.2f, %.2f uT; Temp: %.2f C\n", gValue.x, gValue.y, gValue.z, gyr.x, gyr.y, gyr.z, magValue.x, magValue.y, magValue.z, temp);
     tm_motion.accel_x = int16_t(gValue.x * 100); // convert to cm/s2
     tm_motion.accel_y = int16_t(gValue.y * 100);
@@ -214,16 +214,16 @@ bool acquire_IMU() {
     tm_motion.magn_y = int16_t(magValue.y);
     tm_motion.magn_z = int16_t(magValue.z);
 
-    tm_motion.tilt = int16_t(myIMU.getPitch()*100); // convert to cdeg
-    tm_motion.g = myIMU.getResultantG(&gValue);
-    //tm_motion.a = myIMU.getA();
-    //tm_motion.rpm = myIMU.getRPM();
+    tm_motion.tilt = int16_t(icm20948.getPitch()*100); // convert to cdeg
+    tm_motion.g = icm20948.getResultantG(&gValue);
+    //tm_motion.a = icm20948.getA();
+    //tm_motion.rpm = icm20948.getRPM();
     return true;
 }
 
-bool acquire_BMP() {
+bool acquire_bmp388() {
     float pressure, temperature, height;
-    myBMP.getMeasurements(temperature, pressure, height);
+    bmp388.getMeasurements(temperature, pressure, height);
     Serial.printf("BMP388: Pressure: %.2f Pa, Temperature: %.2f C, Height: %.2f m\n", pressure, temperature, height);
     tm_pressure.temperature = int16_t(temperature * 100); // convert to cdegC
     tm_pressure.pressure = uint32_t(pressure * 100); // convert to Pa

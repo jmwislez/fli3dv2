@@ -1133,7 +1133,7 @@
             <Parameter name="CFG_ESP32_fs_enable" parameterTypeRef="bool_t" />
             <Parameter name="CFG_ESP32_sd_enable" parameterTypeRef="bool_t" />
             <Parameter name="CFG_ESP32_flush_fs_enable" parameterTypeRef="bool_t" />
-            <Parameter name="CFG_ESP32_free_11" parameterTypeRef="bool_t" />
+            <Parameter name="CFG_ESP32_write_fs_enable" parameterTypeRef="bool_t" />
             <Parameter name="CFG_ESP32_free_10" parameterTypeRef="bool_t" />
             <Parameter name="CFG_ESP32_espnow_buffer_enable" parameterTypeRef="bool_t" />
             <Parameter name="CFG_ESP32_serial_buffer_enable" parameterTypeRef="bool_t" />
@@ -1141,8 +1141,8 @@
             <Parameter name="CFG_ESP32_archive_buffer_enable" parameterTypeRef="bool_t" />
             <Parameter name="CFG_ESP32_free_23" parameterTypeRef="bool_t" />
             <Parameter name="CFG_ESP32_free_22" parameterTypeRef="bool_t" />
-            <Parameter name="CFG_ESP32_free_21" parameterTypeRef="bool_t" />
-            <Parameter name="CFG_ESP32_free_20" parameterTypeRef="bool_t" />
+            <Parameter name="CFG_ESP32_camera_force_acquire" parameterTypeRef="bool_t" />
+            <Parameter name="CFG_ESP32_camera_enable" parameterTypeRef="bool_t" />
             <Parameter name="CFG_ESP32_dip_set1" parameterTypeRef="bool_t" />
             <Parameter name="CFG_ESP32_dip_set2" parameterTypeRef="bool_t" />
             <Parameter name="CFG_ESP32_dip_set3" parameterTypeRef="bool_t" />
@@ -1305,7 +1305,7 @@
             <Parameter name="CFG_GNDCTRL_fs_enable" parameterTypeRef="bool_t" />
             <Parameter name="CFG_GNDCTRL_sd_enable" parameterTypeRef="bool_t" />
             <Parameter name="CFG_GNDCTRL_flush_fs_enable" parameterTypeRef="bool_t" />
-            <Parameter name="CFG_GNDCTRL_free_11" parameterTypeRef="bool_t" />
+            <Parameter name="CFG_GNDCTRL_write_fs_enable" parameterTypeRef="bool_t" />
             <Parameter name="CFG_GNDCTRL_free_10" parameterTypeRef="bool_t" />
             <Parameter name="CFG_GNDCTRL_espnow_buffer_enable" parameterTypeRef="bool_t" />
             <Parameter name="CFG_GNDCTRL_serial_buffer_enable" parameterTypeRef="bool_t" />
@@ -1477,7 +1477,7 @@
             <Parameter name="CFG_ESP32CAM_fs_enable" parameterTypeRef="bool_t" />
             <Parameter name="CFG_ESP32CAM_sd_enable" parameterTypeRef="bool_t" />
             <Parameter name="CFG_ESP32CAM_flush_fs_enable" parameterTypeRef="bool_t" />
-            <Parameter name="CFG_ESP32CAM_free_11" parameterTypeRef="bool_t" />
+            <Parameter name="CFG_ESP32CAM_write_fs_enable" parameterTypeRef="bool_t" />
             <Parameter name="CFG_ESP32CAM_free_10" parameterTypeRef="bool_t" />
             <Parameter name="CFG_ESP32CAM_espnow_buffer_enable" parameterTypeRef="bool_t" />
             <Parameter name="CFG_ESP32CAM_serial_buffer_enable" parameterTypeRef="bool_t" />
@@ -1485,7 +1485,7 @@
             <Parameter name="CFG_ESP32CAM_archive_buffer_enable" parameterTypeRef="bool_t" />
             <Parameter name="CFG_ESP32CAM_free_23" parameterTypeRef="bool_t" />
             <Parameter name="CFG_ESP32CAM_free_22" parameterTypeRef="bool_t" />
-            <Parameter name="CFG_ESP32CAM_free_21" parameterTypeRef="bool_t" />
+            <Parameter name="CFG_ESP32CAM_camera_force_acquire" parameterTypeRef="bool_t" />
             <Parameter name="CFG_ESP32CAM_camera_enable" parameterTypeRef="bool_t" />            
             <Parameter name="CFG_ESP32CAM_dip_set1" parameterTypeRef="bool_t" />
             <Parameter name="CFG_ESP32CAM_dip_set2" parameterTypeRef="bool_t" />
@@ -2189,15 +2189,15 @@
                     <ParameterRefEntry parameterRef="CFG_ESP32_espnow_tx_enable" />
                     <ParameterRefEntry parameterRef="CFG_ESP32_espnow_rx_enable" />
                     <ParameterRefEntry parameterRef="CFG_ESP32_free_10" />
-                    <ParameterRefEntry parameterRef="CFG_ESP32_free_11" />
+                    <ParameterRefEntry parameterRef="CFG_ESP32_write_fs_enable" />
                     <ParameterRefEntry parameterRef="CFG_ESP32_flush_fs_enable" />
                     <ParameterRefEntry parameterRef="CFG_ESP32_sd_enable" />
                     <ParameterRefEntry parameterRef="CFG_ESP32_fs_enable" />
                     <ParameterRefEntry parameterRef="CFG_ESP32_archive_enable" />
                     <ParameterRefEntry parameterRef="CFG_ESP32_ota_enable" />
                     <ParameterRefEntry parameterRef="CFG_ESP32_ftp_enable" />
-                    <ParameterRefEntry parameterRef="CFG_ESP32_free_20" />
-                    <ParameterRefEntry parameterRef="CFG_ESP32_free_21" />
+                    <ParameterRefEntry parameterRef="CFG_ESP32_camera_enable" />
+                    <ParameterRefEntry parameterRef="CFG_ESP32_camera_force_acquire" />
                     <ParameterRefEntry parameterRef="CFG_ESP32_free_22" />
                     <ParameterRefEntry parameterRef="CFG_ESP32_free_23" />
                     <ParameterRefEntry parameterRef="CFG_ESP32_archive_buffer_enable" />
@@ -2378,7 +2378,7 @@
                     <ParameterRefEntry parameterRef="CFG_GNDCTRL_espnow_tx_enable" />
                     <ParameterRefEntry parameterRef="CFG_GNDCTRL_espnow_rx_enable" />
                     <ParameterRefEntry parameterRef="CFG_GNDCTRL_free_10" />
-                    <ParameterRefEntry parameterRef="CFG_GNDCTRL_free_11" />
+                    <ParameterRefEntry parameterRef="CFG_GNDCTRL_write_fs_enable" />
                     <ParameterRefEntry parameterRef="CFG_GNDCTRL_flush_fs_enable" />
                     <ParameterRefEntry parameterRef="CFG_GNDCTRL_sd_enable" />
                     <ParameterRefEntry parameterRef="CFG_GNDCTRL_fs_enable" />
@@ -2567,7 +2567,7 @@
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_espnow_tx_enable" />
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_espnow_rx_enable" />
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_free_10" />
-                    <ParameterRefEntry parameterRef="CFG_ESP32CAM_free_11" />
+                    <ParameterRefEntry parameterRef="CFG_ESP32CAM_write_fs_enable" />
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_flush_fs_enable" />
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_sd_enable" />
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_fs_enable" />
@@ -2575,7 +2575,7 @@
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_ota_enable" />
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_ftp_enable" />      
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_camera_enable" />
-                    <ParameterRefEntry parameterRef="CFG_ESP32CAM_free_21" />
+                    <ParameterRefEntry parameterRef="CFG_ESP32CAM_camera_force_acquire" />
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_free_22" />
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_free_23" />
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_archive_buffer_enable" />

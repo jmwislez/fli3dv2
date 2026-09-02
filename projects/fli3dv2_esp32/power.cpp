@@ -2,6 +2,8 @@
  * Fli3d - power monitoring functionality
  */
 
+#ifdef BATTERY
+
  #include <Arduino.h>
  #include <fli3dv2.h>
  #include "fli3dv2_esp32.h"
@@ -14,3 +16,4 @@ void setup_power()
   tm_this->battery_voltage = 2*analogReadMilliVolts(BAT_V_PIN);
 }
 
+#endif
