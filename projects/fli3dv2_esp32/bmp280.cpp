@@ -17,8 +17,9 @@
 Adafruit_BMP280 bmp280; // I2C Interface
 
 bool setup_bmp280()  {
+    Wire.begin(15, 36);  
     if(!bmp280.begin()) {
-        sprintf(buffer, "BMP280 sensor does not respond on I2C address 0x%02X", BMP280_I2C_Address);
+        sprintf(buffer, "Pressure unit BMP280 does not respond on I2C address 0x%02X", BMP280_I2C_Address);
         publish_event(STS_THIS, SS_THIS, EVENT_ERROR, buffer);
         return false;
     }
@@ -29,16 +30,24 @@ bool setup_bmp280()  {
                   Adafruit_BMP280::FILTER_X16,      /* Filtering. */
                   Adafruit_BMP280::STANDBY_MS_500);  /* Standby time. */
                   
-        sprintf(buffer, "BMP280 sensor initializedon I2C address 0x%02X", BMP280_I2C_Address);
-        publish_event(STS_THIS, SS_THIS, EVENT_ERROR, buffer);
+        sprintf(buffer, "Pressure unit BMP280 initialized on I2C address 0x%02X", BMP280_I2C_Address);
+        publish_event(STS_THIS, SS_THIS, EVENT_INIT, buffer);
         return true;
     }
 }
 
 bool acquire_bmp280() {
-    tm_pressure.temperature = int16_t(bmp280.readTemperature() * 100); // convert to cdegC
-    tm_pressure.pressure = uint32_t(bmp280.readPressure()); // convert to Pa
-    tm_pressure.height = int16_t(bmp280 .readAltitude(1013) * 100); // convert to cm
+    tm_pressure.temperature2 = int16_t(bmp280.readTemperature() * 100); // convert to cdegC
+    tm_pressure.pressure2 = uint32_t(bmp280.readPressure()); // convert to Pa
+    tm_pressure.height2 = int16_t(bmp280.readAltitude(tm_pressure.pressure2_zero) * 100); // convert to cm
+    Serial.printf("BMP280: Pressure: %.2f Pa, Temperature: %.2f C, Height: %.2f m\n", tm_pressure.pressure2, tm_pressure.temperature2, tm_pressure.height2);
+    tm_esp32.pressure_active = true;
+    return true;
+}
+
+bool zero_bmp280() {
+    delay(100); // sleep 100 ms to allow sensor to settle
+    tm_pressure.pressure2_zero = uint32_t(bmp280.readPressure()); // convert to Pa
     return true;
 }
 

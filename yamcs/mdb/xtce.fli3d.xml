@@ -799,11 +799,11 @@
             <Parameter name="ESP32_motion_enabled" parameterTypeRef="bool_t" />
             <Parameter name="ESP32_gps_enabled" parameterTypeRef="bool_t" />
             <Parameter name="ESP32_buzzer_enabled" parameterTypeRef="bool_t" />
-            <Parameter name="ESP32_wifi_connected" parameterTypeRef="bool_t" />
-            <Parameter name="ESP32_ftp_connected" parameterTypeRef="bool_t" />
-            <Parameter name="ESP32_espnow_connected" parameterTypeRef="bool_t" />
-            <Parameter name="ESP32_serial_connected" parameterTypeRef="bool_t" />
-            <Parameter name="ESP32_radio_connected" parameterTypeRef="bool_t" />
+            <Parameter name="ESP32_camera_enabled" parameterTypeRef="bool_t" />
+            <Parameter name="ESP32_pressure2_enabled" parameterTypeRef="bool_t" />
+            <Parameter name="ESP32_pressure2_active" parameterTypeRef="bool_t" />
+            <Parameter name="ESP32_free03" parameterTypeRef="bool_t" />
+            <Parameter name="ESP32_free02" parameterTypeRef="bool_t" />
             <Parameter name="ESP32_separation_sts" parameterTypeRef="bool_t" />            
             <Parameter name="ESP32_time_set" parameterTypeRef="bool_t" />
             <Parameter name="ESP32_ftp_active" parameterTypeRef="bool_t" />            
@@ -895,19 +895,14 @@
 
             <Parameter name="PRESSURE_millis" parameterTypeRef="uint24_t" />
             <Parameter name="PRESSURE_packet_ctr" parameterTypeRef="uint16_t" />
+            <Parameter name="PRESSURE_pressure_zero" parameterTypeRef="uint32_hPa_from_Pa_t" />
+            <Parameter name="PRESSURE_pressure2_zero" parameterTypeRef="uint32_hPa_from_Pa_t" />
             <Parameter name="PRESSURE_pressure" parameterTypeRef="uint32_hPa_from_Pa_t" />
-            <Parameter name="PRESSURE_zero_level_pressure" parameterTypeRef="uint32_hPa_from_Pa_t" />
-            <Parameter name="PRESSURE_height" parameterTypeRef="int16_m_from_cm_t" />
-            <Parameter name="PRESSURE_velocity_v" parameterTypeRef="int16_mps_from_cmps_t" />
+            <Parameter name="PRESSURE_pressure2" parameterTypeRef="uint32_hPa_from_Pa_t" />
             <Parameter name="PRESSURE_temperature" parameterTypeRef="int16_degC_from_cdegC_t" />
-            <Parameter name="PRESSURE_height_valid" parameterTypeRef="bool_t" />
-            <Parameter name="PRESSURE_free_06" parameterTypeRef="bool_t" />
-            <Parameter name="PRESSURE_free_05" parameterTypeRef="bool_t" />
-            <Parameter name="PRESSURE_free_04" parameterTypeRef="bool_t" />
-            <Parameter name="PRESSURE_free_03" parameterTypeRef="bool_t" />
-            <Parameter name="PRESSURE_free_02" parameterTypeRef="bool_t" />
-            <Parameter name="PRESSURE_free_01" parameterTypeRef="bool_t" />
-            <Parameter name="PRESSURE_free_00" parameterTypeRef="bool_t" />
+            <Parameter name="PRESSURE_temperature2" parameterTypeRef="int16_degC_from_cdegC_t" />
+            <Parameter name="PRESSURE_height" parameterTypeRef="int16_m_from_cm_t" />
+            <Parameter name="PRESSURE_height2" parameterTypeRef="int16_m_from_cm_t" />
 
             <Parameter name="MOTION_millis" parameterTypeRef="uint24_t" />
             <Parameter name="MOTION_packet_ctr" parameterTypeRef="uint16_t" />
@@ -1140,7 +1135,7 @@
             <Parameter name="CFG_ESP32_radio_buffer_enable" parameterTypeRef="bool_t" />
             <Parameter name="CFG_ESP32_archive_buffer_enable" parameterTypeRef="bool_t" />
             <Parameter name="CFG_ESP32_free_23" parameterTypeRef="bool_t" />
-            <Parameter name="CFG_ESP32_free_22" parameterTypeRef="bool_t" />
+            <Parameter name="CFG_ESP32_pressure2_enable" parameterTypeRef="bool_t" />
             <Parameter name="CFG_ESP32_camera_force_acquire" parameterTypeRef="bool_t" />
             <Parameter name="CFG_ESP32_camera_enable" parameterTypeRef="bool_t" />
             <Parameter name="CFG_ESP32_dip_set1" parameterTypeRef="bool_t" />
@@ -1768,11 +1763,11 @@
                     <ParameterRefEntry parameterRef="ESP32_ftp_enabled" />
                     <ParameterRefEntry parameterRef="ESP32_time_set" />
                     <ParameterRefEntry parameterRef="ESP32_separation_sts" />
-                    <ParameterRefEntry parameterRef="ESP32_radio_connected" />
-                    <ParameterRefEntry parameterRef="ESP32_serial_connected" />
-                    <ParameterRefEntry parameterRef="ESP32_espnow_connected" />
-                    <ParameterRefEntry parameterRef="ESP32_ftp_connected" />
-                    <ParameterRefEntry parameterRef="ESP32_wifi_connected" />
+                    <ParameterRefEntry parameterRef="ESP32_free03" />
+                    <ParameterRefEntry parameterRef="ESP32_free02" />
+                    <ParameterRefEntry parameterRef="ESP32_pressure2_active" />
+                    <ParameterRefEntry parameterRef="ESP32_pressure2_enabled" />
+                    <ParameterRefEntry parameterRef="ESP32_camera_enabled" />
                     <ParameterRefEntry parameterRef="ESP32_buzzer_enabled" />
                     <ParameterRefEntry parameterRef="ESP32_gps_active" />
                     <ParameterRefEntry parameterRef="ESP32_motion_active" />
@@ -1891,19 +1886,14 @@
                 <EntryList>
                     <ParameterRefEntry parameterRef="PRESSURE_millis" />
                     <ParameterRefEntry parameterRef="PRESSURE_packet_ctr" />
+                    <ParameterRefEntry parameterRef="PRESSURE_pressure_zero" />
+                    <ParameterRefEntry parameterRef="PRESSURE_pressure2_zero" />
                     <ParameterRefEntry parameterRef="PRESSURE_pressure" />
-                    <ParameterRefEntry parameterRef="PRESSURE_zero_level_pressure" />
-                    <ParameterRefEntry parameterRef="PRESSURE_height" />
-                    <ParameterRefEntry parameterRef="PRESSURE_velocity_v" />
+                    <ParameterRefEntry parameterRef="PRESSURE_pressure2" />
                     <ParameterRefEntry parameterRef="PRESSURE_temperature" />
-                    <ParameterRefEntry parameterRef="PRESSURE_free_00" />
-                    <ParameterRefEntry parameterRef="PRESSURE_free_01" />
-                    <ParameterRefEntry parameterRef="PRESSURE_free_02" />
-                    <ParameterRefEntry parameterRef="PRESSURE_free_03" />
-                    <ParameterRefEntry parameterRef="PRESSURE_free_04" />
-                    <ParameterRefEntry parameterRef="PRESSURE_free_05" />
-                    <ParameterRefEntry parameterRef="PRESSURE_free_06" />
-                    <ParameterRefEntry parameterRef="PRESSURE_height_valid" />
+                    <ParameterRefEntry parameterRef="PRESSURE_temperature2" />
+                    <ParameterRefEntry parameterRef="PRESSURE_height" />
+                    <ParameterRefEntry parameterRef="PRESSURE_height2" />
                 </EntryList>
             </SequenceContainer>
             <SequenceContainer name="Fli3d tm_radio">
@@ -2198,7 +2188,7 @@
                     <ParameterRefEntry parameterRef="CFG_ESP32_ftp_enable" />
                     <ParameterRefEntry parameterRef="CFG_ESP32_camera_enable" />
                     <ParameterRefEntry parameterRef="CFG_ESP32_camera_force_acquire" />
-                    <ParameterRefEntry parameterRef="CFG_ESP32_free_22" />
+                    <ParameterRefEntry parameterRef="CFG_ESP32_pressure2_enable" />
                     <ParameterRefEntry parameterRef="CFG_ESP32_free_23" />
                     <ParameterRefEntry parameterRef="CFG_ESP32_archive_buffer_enable" />
                     <ParameterRefEntry parameterRef="CFG_ESP32_radio_buffer_enable" />

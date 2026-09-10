@@ -48,7 +48,9 @@
 #define RADIO_MISO_PIN            19
 #define RADIO_MOSI_PIN            23 
 #define RADIO_GDO0_PIN            27 
-#define RADIO_GDO2_PIN            35         
+#define RADIO_GDO2_PIN            35
+#define RS41_RX_PIN               2
+#define RS41_TX_PIN               33         
 
 //  MDB DEFINITION
 
@@ -326,8 +328,8 @@ struct __attribute__ ((packed)) tm_esp32_t {     // APID: 48 (30)
     bool        camera_enabled:1;      //  6      
     bool        pressure2_enabled:1;   //   5 
     bool        pressure2_active:1;    //    4
-    bool        free03:1;    //     3    TODO: keep or not?
-    bool        free02:1;     //      2   TODO: keep or not?
+    bool        free03:1;              //     3    
+    bool        free02:1;              //      2  
     bool        separation_sts:1;      //       1
     bool        time_set:1;            //        0
     
@@ -428,7 +430,8 @@ struct __attribute__ ((packed)) tm_pressure_t {  // APID: 51 (33)
     ccsds_sec_hdr_t ccsds_sec_hdr;
     uint32_t    millis:24;
     uint16_t    packet_ctr;
-    uint32_t    pressure_0;                // Pa
+    uint32_t    pressure_zero;           // Pa
+    uint32_t    pressure2_zero;          // Pa
     uint32_t    pressure;                // Pa
     uint32_t    pressure2;               // Pa
     int16_t     temperature;             // cdegC
@@ -894,6 +897,7 @@ extern cfg_packet_t*    cfg_this;
 extern char buffer[BUFFER_MAX_SIZE];
 //extern packet_properties_t packet[];
 extern name_t subsystem[];
+extern name_t reset_reason[];
 //extern name_t command[];
 //extern name_t event[];
 //extern name_t comms[];

@@ -9,7 +9,8 @@
  */
 
 // Set versioning
-#define SW_VERSION "Fli3d gndctrl v0.1.0 (20260805)"
+#define SW_VERSION "0.1.0"
+#define SW_DATE "20260805"
 
 // Libraries
 #include <Arduino.h>
@@ -71,20 +72,39 @@ void set_esp32_time() {
     publish_cmd(TC_ESP32, CMD_SET_PARAMETER, (byte*)buffer, len + 1);
 }
 
+void sendTM(void *arg) {
+    publish_packet((ccsds_t*)tm_this);
+    if (tm_this->time_set and tm_esp32.packet_ctr>0 and !tm_esp32.time_set) {
+        set_esp32_time();
+    }
+}
+
 void setup() {
     // Initial settings configuration
     init_config();
-    
+
     // Serial port to Yamcs
     Serial.begin(cfg_this->serial_baud);
     setup_serialtransfer(Serial);
 
     // Startup telemetry
     init_ccsds();
-    sprintf (buffer, "%s started on %s", SW_VERSION, subsystem[SS_THIS].name); 
+    sprintf (buffer, "Fli3d gndctrl v%s [%s] started for %s [%s]", SW_VERSION, SW_DATE, cfg_this->rocket_name, reset_reason[esp_reset_reason()].name); 
     publish_event (STS_THIS, SS_THIS, EVENT_INIT, buffer); 
     publish_packet((ccsds_t*)tm_this);
     publish_packet((ccsds_t*)cfg_this);
+
+     // Start sending tm packets every second
+    esp_timer_create_args_t timer_argsTM = {
+        .callback = &sendTM,
+        .arg = NULL,
+        .dispatch_method = ESP_TIMER_TASK,
+        .name = "BackgroundTaskTimer0"
+    };
+
+    esp_timer_handle_t timer_handleTM;
+    esp_timer_create(&timer_argsTM, &timer_handleTM);
+    esp_timer_start_periodic(timer_handleTM, 1000000);
 
     // Load stored configuration
     if(init_boot_config()) {
@@ -124,13 +144,6 @@ void loop() {
     if (millis()>=var.next_tx_time) {
         process_tx_queue();
         var.next_tx_time += 20;
-    }
-    if (millis()>=var.next_second) {
-        if (tm_this->time_set and tm_esp32.packet_ctr>0 and !tm_esp32.time_set) {
-            set_esp32_time();
-        }
-        publish_packet((ccsds_t*)tm_this);
-        var.next_second+=1000;
     }
     if (tm_this->opsmode == MODE_MAINTENANCE) {
         // In maintenance mode, we can check for OTA and FTP

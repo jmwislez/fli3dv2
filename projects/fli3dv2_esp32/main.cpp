@@ -8,12 +8,6 @@
 // Set versioning
 #define SW_VERSION "1.99.0"
 #define SW_DATE "20260902"
-#ifndef FW_GIT_HASH
-#define FW_GIT_HASH "unknown"
-#endif
-#ifndef GIT_COMMIT_HASH
-#define GIT_COMMIT_HASH "unknown"
-#endif
 
 // Set functionality to compile
 //#define RADIO
@@ -34,6 +28,7 @@
 #include "fli3dv2_esp32.h"
 #include <ArduinoOTA.h>
 #include "esp_timer.h"
+#include "Wire.h" // for debug_i2c_scanner only
 
 // Global variables used in this file
 #ifdef GPS
@@ -89,24 +84,76 @@ void checkTX(void *arg) {
     process_tx_queue();
 }
 
+/*
+void debug_i2c_scanner() {
+    byte error, address;
+    int nDevices;
+  
+    Wire.begin(36,2);  
+    Wire.setClock(100000); // 100 kHz
+    Serial.println("Scanning I2C bus...");
+    nDevices = 0;
+    for(address = 1; address < 127; address++ ) {
+        Wire.beginTransmission(address);
+        error = Wire.endTransmission();
+  
+        if (error == 0) {
+            Serial.print("I2C device found at address 0x");
+            if (address<16) 
+                Serial.print("0");
+            Serial.print(address,HEX);
+            Serial.println(" !");
+            Wire.requestFrom(address, 1);
+            if (Wire.available())          {
+                uint8_t who = Wire.read();
+                Serial.print("WHO_AM_I = 0x");
+                Serial.println(who, HEX);
+            }
+            else {
+                Serial.println("No data returned");
+            }
+            nDevices++;
+        }
+        else if (error==4) {
+            Serial.print("Unknown error at address 0x");
+            if (address<16) 
+                Serial.print("0");
+            Serial.println(address,HEX);
+        }    
+    }
+    if (nDevices == 0)
+        Serial.println("No I2C devices found\n");
+    else
+        Serial.println("done\n");
+} */
+
 void setup() {
     // Initial configuration
     init_config();
 
-    Serial.begin(cfg_this->serial_baud); // debug output
+    Serial.begin(115200); // debug output
     #ifdef GPS
     if(cfg_esp32.gps_enable) {
-        Serial1.begin(cfg_this->serial_baud, SERIAL_8N1, GPS_RX_PIN, GPS_TX_PIN); // communication with GPS
+        Serial1.begin(9600, SERIAL_8N1, GPS_RX_PIN, GPS_TX_PIN); // communication with GPS
     }
     #endif
     #ifdef CAMERA
     if (cfg_esp32.serial_rx_enable or cfg_esp32.serial_tx_enable) {
-        Serial2.begin(cfg_this->serial_baud, SERIAL_8N1, ESP32CAM_RX_PIN, ESP32CAM_TX_PIN); // communication with ESP32CAM
+        Serial2.begin(115200, SERIAL_8N1, ESP32CAM_RX_PIN, ESP32CAM_TX_PIN); // communication with ESP32CAM
         setup_serialtransfer(Serial2);
+        tm_esp32.serial_rx_enabled = cfg_esp32.serial_rx_enable;
+        tm_esp32.serial_tx_enabled = cfg_esp32.serial_tx_enable;
     }
     #endif
+    #ifdef RS41
+    if(cfg_esp32.radio_enable) {
+        SoftwareSerial Serial3(RS41_RX_PIN, RS41_TX_PIN); // RX, TX
+        Serial3.begin(9600, SWSERIAL_8N1); // communication with RS41
+    }
+    #endif
+
     init_ccsds();
-    sprintf (buffer, "Fli3d ESP32 v%s [%s:%s:%s] started for %s [%u]", SW_VERSION, FW_GIT_HASH, GIT_COMMIT_HASH, SW_DATE, cfg_this->rocket_name, esp_reset_reason()); 
+    sprintf (buffer, "Fli3d ESP32 v%s [%s] started for %s [%s]", SW_VERSION, SW_DATE, cfg_this->rocket_name, reset_reason[esp_reset_reason()].name); 
     publish_event (STS_THIS, SS_THIS, EVENT_INIT, buffer);  
     publish_packet((ccsds_t*)tm_this);
     publish_packet((ccsds_t*)cfg_this);
@@ -166,6 +213,7 @@ void setup() {
     setup_separation();
     #endif
     setup_buzzer();
+    process_rx_queue();
 
     #ifdef CAMERA
     if (cfg_esp32.camera_enable) { 
@@ -175,10 +223,27 @@ void setup() {
 
     #ifdef GPS
     if (cfg_esp32.gps_enable) {
-        if((tm_esp32.gps_enabled = setup_neo6mv2())) {
-        }
+        tm_esp32.gps_enabled = setup_neo6mv2();
     }
     #endif // GPS
+
+    //debug_i2c_scanner();
+
+    #ifdef PRESSURE
+    if (cfg_esp32.pressure_enable) {
+        if ((tm_esp32.pressure_enabled = setup_bmp388())) {
+            zero_bmp388();
+        }
+    }
+    #endif // PRESSURE
+    
+    #ifdef PRESSURE2
+    if (cfg_esp32.pressure2_enable) {
+        if ((tm_esp32.pressure2_enabled = setup_bmp280())) {
+            zero_bmp280();
+        }
+    }
+    #endif // PRESSURE2
 
     #ifdef MOTION
     if (cfg_esp32.motion_enable) {
@@ -189,22 +254,6 @@ void setup() {
         }
     }
     #endif // MOTION
-
-    #ifdef PRESSURE
-    if (cfg_esp32.pressure_enable) {
-        if ((tm_esp32.pressure_enabled = setup_bmp388())) {
-            //bmp388_calibrate();
-        }
-    }
-    #endif // PRESSURE
-    
-    #ifdef PRESSURE2
-    if (cfg_esp32.pressure2_enable) {
-        if ((tm_esp32.pressure2_enabled = setup_bmp280())) {
-            //bmp388_calibrate();
-        }
-    }
-    #endif // PRESSURE2
 
     // Initialisation complete
     setup_timer();
@@ -294,27 +343,14 @@ void loop() {
         
         // NEO6MV2 GPS
         #ifdef GPS
-        else if (tmr_esp32.millis >= var.next_gps_time and tm_esp32.gps_enabled) {
-            start_millis = millis();
-            /*if (check_gps()) {
-                publish_packet ((ccsds_t*)&tm_gps);
-                reset_gps_timer = true;
-                var.next_gps_time = tmr_esp32.millis + 1000;  // 1Hz as long as no data 
-            }
-            if (var.do_gps) {
-                publish_packet ((ccsds_t*)&tm_gps);
-                var.do_gps = false;
-            } */
-            if (tm_esp32.gps_active = acquire_gps()) {
-                publish_packet ((ccsds_t*)&tm_gps);
-                var.next_gps_time = tmr_esp32.millis + var.gps_interval;
+        else if (tm_esp32.gps_enabled and millis() >= var.next_gps_time) {
+            if (tm_esp32.gps_active = acquire_neo6mv2()) {
+                var.next_gps_time = millis() + var.gps_interval;
             }
             else {
-                publish_packet ((ccsds_t*)&tm_gps);
-                var.next_gps_time = tmr_esp32.millis + 1000;  // 1Hz as long as no data
+                var.next_gps_time = millis() + 1000;  // 1Hz as long as no data 
             }
-            
-            tmr_esp32.gps_duration += millis() - start_millis;
+            publish_packet ((ccsds_t*)&tm_gps);
         }
         #endif // GPS
     }  

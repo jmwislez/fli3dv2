@@ -5,7 +5,8 @@
 #include <BMP388_DEV.h>
 #include "fli3dv2.h"
 
-#define ICM20948_ADDR 0x69
+#define ICM20948_ADDR 0x68
+//#define ICM20948_ADDR 0x69
 #define BMP388_ADDR 0x77
 
 ICM20948_WE icm20948 = ICM20948_WE(ICM20948_ADDR);
@@ -14,9 +15,9 @@ BMP388_DEV bmp388(I2C_SDA_PIN, I2C_SCL_PIN);
 bool setup_icm20948() {
     Wire.begin();
 
-    bmp388.begin();                                 // Default initialisation, place the BMP388 into SLEEP_MODE 
-    bmp388.setTimeStandby(TIME_STANDBY_1280MS);     // Set the standby time to 1.2 seconds
-    bmp388.startNormalConversion();  
+    //bmp388.begin();                                 // Default initialisation, place the BMP388 into SLEEP_MODE 
+    //bmp388.setTimeStandby(TIME_STANDBY_1280MS);     // Set the standby time to 1.2 seconds
+    //bmp388.startNormalConversion();  
 
     if(!icm20948.init()){
         sprintf(buffer, "Motion unit ICM20948 does not respond on I2C address 0x%02X", ICM20948_ADDR);
@@ -224,9 +225,21 @@ bool acquire_icm20948() {
 bool acquire_bmp388() {
     float pressure, temperature, height;
     bmp388.getMeasurements(temperature, pressure, height);
-    Serial.printf("BMP388: Pressure: %.2f Pa, Temperature: %.2f C, Height: %.2f m\n", pressure, temperature, height);
-    tm_pressure.temperature = int16_t(temperature * 100); // convert to cdegC
+    //Serial.printf("BMP388: Pressure: %.2f hPa, Temperature: %.2f C, Height: %.2f m\n", pressure, temperature, height);
     tm_pressure.pressure = uint32_t(pressure * 100); // convert to Pa
+    tm_pressure.temperature = int16_t(temperature * 100); // convert to cdegC
     tm_pressure.height = int16_t(height * 100); // convert to cm
+    tm_esp32.pressure_active = true;
+    return true;
+}
+
+bool zero_bmp388() {
+    float pressure, temperature, height;
+    delay(100); // sleep 100 ms to allow sensor to settle
+    bmp388.getMeasurements(temperature, pressure, height);
+    tm_pressure.pressure_zero = uint32_t(pressure * 100);
+    bmp388.setSeaLevelPressure(pressure);
+    sprintf(buffer, "BMP388 zero level pressure set to %.2f hPa", pressure);
+    publish_event(STS_THIS, SS_THIS, EVENT_INIT, buffer);
     return true;
 }

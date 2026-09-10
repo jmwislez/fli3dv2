@@ -10,7 +10,8 @@
  */
 
 // Set versioning
-#define SW_VERSION "Fli3d ESP32CAM v0.1.0 (20260809)"
+#define SW_VERSION "0.1.0"
+#define SW_DATE "20260809"
 
 // Libraries
 #include <Arduino.h>
@@ -65,17 +66,23 @@ void setup_timer() {
     var.next_tx_time = millis();
 }
 
+void sendTM(void *arg) {
+    publish_packet((ccsds_t*)tm_this);
+}
+
 void setup() {
     // Initial settings configuration
     WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 0);
     init_config();
     
     // Serial port to Fli3dv2 ESP32
-    Serial.begin(cfg_this->serial_baud);
+    Serial.begin(115200);
     setup_serialtransfer(Serial);
 
     // Startup telemetry
     init_ccsds();
+    sprintf (buffer, "Fli3d ESP32CAM v%s [%s] started for %s [%s]", SW_VERSION, SW_DATE, cfg_this->rocket_name, reset_reason[esp_reset_reason()].name); 
+
     sprintf (buffer, "%s started on %s", SW_VERSION, subsystem[SS_THIS].name); 
     publish_event (STS_THIS, SS_THIS, EVENT_INIT, buffer); 
     publish_packet((ccsds_t*)tm_this);

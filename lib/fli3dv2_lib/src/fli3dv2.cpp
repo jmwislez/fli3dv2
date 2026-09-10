@@ -21,6 +21,7 @@ LinkedList<buffer_t*> *ccsds_tx_fifo = new LinkedList<buffer_t*>();
 LinkedList<index_t*> *ccsds_fs_archive = new LinkedList<index_t*>();
 index_t archive;
 SmartRC_CC1101 radio;
+SemaphoreHandle_t fifoMutex = xSemaphoreCreateMutex();
 //FtpServer wifiTCP_FTP;
 
 // Functions not exposed in fli3dv2.h
@@ -185,6 +186,19 @@ name_t filesystem[] = { // also update #define in fli3dv2.h and xtce.fli3d.xml
     { FS_EEPROM,   "EEPROM" } // ID: 3
 };
 
+name_t reset_reason[] = { 
+    { ESP_RST_UNKNOWN, "unknown" },            // ID: 0
+    { ESP_RST_POWERON, "power_on" },           // ID: 1
+    { ESP_RST_EXT, "external_reset" },         // ID: 2
+    { ESP_RST_SW, "software_reset" },          // ID: 3
+    { ESP_RST_PANIC, "panic_reset" },          // ID: 4
+    { ESP_RST_INT_WDT, "int_wdt_reset" },      // ID: 5
+    { ESP_RST_TASK_WDT, "task_wdt_reset" },    // ID: 6
+    { ESP_RST_WDT, "wdt_reset" },              // ID: 7
+    { ESP_RST_DEEPSLEEP, "deep_sleep_reset" }, // ID: 8
+    { ESP_RST_BROWNOUT, "brownout_reset" },    // ID: 9
+    { ESP_RST_SDIO, "sdio_reset" },            // ID: 10
+};
 
 //const char stateName[4][10] =             
 //			{ "static", "thrust", "freefall", "parachute" };
@@ -195,6 +209,9 @@ name_t filesystem[] = { // also update #define in fli3dv2.h and xtce.fli3d.xml
 //const char gpsStatusName[9][11] =         
 //			{ "none", "est", "time_only", "std", "dgps", "rtk_float", "rtk_fixed", "status_pps", "waiting" }; 
 
+// define functions defined elsewhere
+bool zero_bmp280();
+bool zero_bmp388();
 
 // Configuration Functionality
 
@@ -226,10 +243,10 @@ void init_config () {
         cfg_this->espnow_broadcast = false;
         cfg_this->archive_enable = true;
         cfg_this->espnow_buffer_enable = true;
-        cfg_this->serial_buffer_enable = false;
+        cfg_this->serial_buffer_enable = true;
         cfg_this->radio_buffer_enable = false;
         cfg_this->archive_buffer_enable = true;
-        cfg_this->fs_enable = false;
+        cfg_this->fs_enable = true;
         cfg_this->flush_fs_enable = true;
         cfg_this->sd_enable = false;
         cfg_this->ftp_enable = true;
@@ -243,6 +260,7 @@ void init_config () {
         cfg_esp32.mpu_accel_offset_y = 0;
         cfg_esp32.mpu_accel_offset_z = 0;
         cfg_esp32.pressure_enable = true;
+        cfg_esp32.pressure2_enable = true;
         cfg_esp32.motion_enable = true;
         cfg_esp32.gps_enable = true;
         tm_motion.accel_range = 3;
@@ -508,6 +526,14 @@ bool set_opsmode (const uint8_t mode) {
            tm_this->espnow_tx_enabled = false;
            sprintf (buffer, "Enabling WiFi services and disabling ESPNOW");
            publish_event (STS_THIS, SS_THIS, EVENT_INFO, buffer);
+        }
+        if (mode == MODE_NOMINAL and SS_THIS == SS_ESP32) {
+            if (tm_esp32.pressure_enabled) {
+                zero_bmp388();
+            }
+            if (tm_esp32.pressure2_enabled) {
+                zero_bmp280();
+            }
         }
         tm_this->opsmode = mode;
     }
@@ -927,35 +953,36 @@ bool setup_wifi_sta () {
     // Connect to WiFi network, as defined in fli3d_secrets.h
     const unsigned long timeout_ms = 10000;
     const unsigned long start_ms = millis();
-    uint8_t networks=0, i=0, j=0;
+    uint8_t networks_found=0, network_found=0;
+    uint8_t network_known=0, network=0;
     if (cfg_this->wifi_sta_enable) {
-        networks = WiFi.scanNetworks();
-        for (i=0; i<networks; i++) {
-            for (j=0; j<sizeof(wifi_ssid)/sizeof(wifi_ssid[0]); j++) {
-                if (!strcmp(WiFi.SSID(i).c_str(), wifi_ssid[j])) {
-                    sprintf (buffer, "Found WiFi network %s with RSSI %d dBm", wifi_ssid[j], WiFi.RSSI(i));
-                    publish_event (STS_THIS, SS_THIS, EVENT_INIT, buffer);
-                    break;
+        networks_found = WiFi.scanNetworks();
+        for (network_known=0; network_known<sizeof(wifi_ssid)/sizeof(wifi_ssid[0]); network_known++) {
+            for (network_found=0; network_found<networks_found; network_found++) {
+                if (!strcmp(WiFi.SSID(network_found).c_str(), wifi_ssid[network_known])) {
+                    WiFi.begin(wifi_ssid[network_known], wifi_password[network_known]);
+                    while (WiFi.status() != WL_CONNECTED && (millis() - start_ms) < timeout_ms) {
+                        delay(500);
+                    }
+                    if (WiFi.status() == WL_CONNECTED) {
+                        sprintf (buffer, "Connected to WiFi network %s with IP %s", wifi_ssid[network_known], WiFi.localIP().toString().c_str());
+                        publish_event (STS_THIS, SS_THIS, EVENT_INIT, buffer);
+                        tm_this->wifi_sta_enabled = true;
+                        cfg_this->wifi_my_ip[0] = WiFi.localIP()[0];
+                        cfg_this->wifi_my_ip[1] = WiFi.localIP()[1];
+                        cfg_this->wifi_my_ip[2] = WiFi.localIP()[2];
+                        cfg_this->wifi_my_ip[3] = WiFi.localIP()[3];
+                        publish_packet((ccsds_t*)cfg_this);
+                        return true;
+                    }
+                    else {  
+                        sprintf (buffer, "Failed to connect to WiFi network %s", wifi_ssid[network_known]);
+                        publish_event (STS_THIS, SS_THIS, EVENT_WARNING, buffer);
+                    }
                 }
             }
         }
-        WiFi.begin(wifi_ssid[j], wifi_password[j]);
-        while (WiFi.status() != WL_CONNECTED && (millis() - start_ms) < timeout_ms) {
-            delay(500);
-        }
-
-        if (WiFi.status() == WL_CONNECTED) {
-            sprintf (buffer, "Connected to WiFi network %s with IP %s", wifi_ssid[j], WiFi.localIP().toString().c_str());
-            publish_event (STS_THIS, SS_THIS, EVENT_INIT, buffer);
-            tm_this->wifi_sta_enabled = true;
-            cfg_this->wifi_my_ip[0] = WiFi.localIP()[0];
-            cfg_this->wifi_my_ip[1] = WiFi.localIP()[1];
-            cfg_this->wifi_my_ip[2] = WiFi.localIP()[2];
-            cfg_this->wifi_my_ip[3] = WiFi.localIP()[3];
-            publish_packet((ccsds_t*)cfg_this);
-            return true;
-        }
-
+        
         sprintf (buffer, "Failed to connect to any available WiFi network");
         publish_event (STS_THIS, SS_THIS, EVENT_WARNING, buffer);
         tm_this->wifi_sta_enabled = false;
@@ -1001,10 +1028,10 @@ void disable_wifi_services () {
 
 void OnDataSent_espnow(const esp_now_peer_info_t *info, esp_now_send_status_t status) {
     if (status != ESP_NOW_SEND_SUCCESS) {
-  	    sprintf(buffer, "ESP-NOW packet sent from %s to %s but not delivered", 
+  	    /*sprintf(buffer, "ESP-NOW packet sent from %s to %s but not delivered", 
   	  	                 subsystem[SS_THIS].name,
                          subsystem[SS_ESPNOW_PEER].name);
-  	  	publish_event(STS_THIS, SS_ESPNOW, EVENT_WARNING, buffer);
+  	  	publish_event(STS_THIS, SS_ESPNOW, EVENT_WARNING, buffer); */
     }
 }
 
@@ -1225,7 +1252,7 @@ bool setup_serialtransfer (Stream &serialport) {
 
 bool check_serialtransfer_rx () {
     static byte serial_rx_buffer[BUFFER_MAX_SIZE];
-    if (cfg_this->serial_rx_enable) {
+    if (tm_this->serial_rx_enabled) {
         if(serialtransfer.available()) {        
             tm_this->serial_rx_active = true;    
             serialtransfer.rxObj(serial_rx_buffer);
@@ -1261,6 +1288,20 @@ bool send_packet_through_serial (ccsds_t* ccsds_ptr) {
 	}
 	return false;
 }
+
+#ifdef RS41
+bool_send_packet_to_rs41 (ccsds_t* ccsds_ptr) {
+    if (tm_this->rs41_tx_enabled) {
+        tm_this->rs41_tx_pktrate++;
+  	    tm_this->rs41_tx_active = true;
+  	    Serial3.print("xdata=");
+  	    Serial3.println(gethexstr(ccsds_ptr, get_ccsds_packet_len(ccsds_ptr)));
+        Serial.print("r");
+  	    return true;
+    }
+    return false;
+}
+#endif
 
 #if defined(PLATFORM_ESP32) || defined(PLATFORM_GNDCTRL)
 // Radio Functionality
@@ -1488,20 +1529,30 @@ bool setup_archive () {
     if(cfg_this->write_fs_enable && cfg_this->archive_enable) {
         switch (cfg_this->archive_fs) {
         case FS_LITTLEFS: 
-            do {
-                set_next_archive_path(tm_this->archive_path);
+            if(tm_this->fs_enabled) {
+                do {
+                    set_next_archive_path(tm_this->archive_path);
+                }
+                while(LittleFS.exists(tm_this->archive_path));
+                var.archive_file = LittleFS.open(tm_this->archive_path, "a+");
+                tm_this->fs_active = true;
             }
-            while(LittleFS.exists(tm_this->archive_path));
-            var.archive_file = LittleFS.open(tm_this->archive_path, "a+");
-            tm_this->fs_active = true;
+            else {
+                return false;
+            }
             break;
         case FS_SD_MMC:
-            do {
-                set_next_archive_path(tm_this->archive_path);
+            if(tm_this->sd_enabled) {
+                do {
+                    set_next_archive_path(tm_this->archive_path);
+                }
+                while(SD_MMC.exists(tm_this->archive_path));
+                var.archive_file = SD_MMC.open(tm_this->archive_path, "a+");
+                tm_this->sd_active = true;
             }
-            while(SD_MMC.exists(tm_this->archive_path));
-            var.archive_file = SD_MMC.open(tm_this->archive_path, "a+");
-            tm_this->sd_active = true;
+            else {
+                return false;
+            }
             break;
         }
         if (!var.archive_file) {
@@ -1610,37 +1661,64 @@ bool save_packet_to_archive (ccsds_t* ccsds_ptr) {
 // Packet Buffering Functionality
 
 bool add_packet_to_memory_buffer (LinkedList<buffer_t*> *ccsds_fifo_ptr, ccsds_t* ccsds_ptr, uint8_t source, uint8_t comms) {
-    // copy ccsds packet to memory
-    uint16_t ccsds_len = get_ccsds_packet_len(ccsds_ptr);
-    ccsds_t* ccsds_copy = (ccsds_t*)malloc(ccsds_len);
-    memcpy(ccsds_copy, ccsds_ptr, ccsds_len);
-    // create a linked list entry for the ccsds packet
-    buffer_t* ccsds_buffer = (buffer_t*)malloc(sizeof(buffer_t));
-    ccsds_buffer->ccsds_ptr = ccsds_copy;
-    ccsds_buffer->packet_source = source;
-    ccsds_buffer->packet_comms = comms;
-    ccsds_fifo_ptr->add(ccsds_buffer);
-    return true;
-}
-
-buffer_t* get_packet_from_memory_buffer (LinkedList<buffer_t*> *ccsds_fifo_ptr, uint16_t index) {
-    if (ccsds_fifo_ptr->size() > index) {
-        return ccsds_fifo_ptr->get(index);
-    }
-    else {
-        return NULL;
-    }   
-}
-
-bool delete_packet0_from_memory_buffer (LinkedList<buffer_t*> *ccsds_fifo_ptr) {
-    if (ccsds_fifo_ptr->size()) {
-        buffer_t* ccsds_buffer = ccsds_fifo_ptr->shift();
-        free(ccsds_buffer->ccsds_ptr);
+    if(valid_ccsds_hdr(ccsds_ptr, PKT_TM) or valid_ccsds_hdr(ccsds_ptr, PKT_TC)) {
+        // copy ccsds packet to memory
+        uint16_t ccsds_len = get_ccsds_packet_len(ccsds_ptr);
+        if (ccsds_len == 0 or ccsds_len > BUFFER_MAX_SIZE) {
+            //tm_this->packet_dropped++;
+            return false;
+        }
+        ccsds_t* ccsds_copy = (ccsds_t*)malloc(ccsds_len);
+        if (ccsds_copy == NULL) {
+            //tm_this->malloc_failed++;
+            //tm_this->packet_dropped++;
+            return false;
+        }
+        memcpy(ccsds_copy, ccsds_ptr, ccsds_len);
+        // create a linked list entry for the ccsds packet
+        buffer_t* ccsds_buffer = (buffer_t*)malloc(sizeof(buffer_t));
+        if (ccsds_buffer == NULL) {
+            free(ccsds_copy);
+            //tm_this->malloc_failed++;
+            //tm_this->packet_dropped++;
+            return false;
+        }
+        ccsds_buffer->ccsds_ptr = ccsds_copy;
+        ccsds_buffer->packet_source = source;
+        ccsds_buffer->packet_comms = comms;
+        xSemaphoreTake(fifoMutex, portMAX_DELAY);
+        ccsds_fifo_ptr->add(ccsds_buffer);
+        xSemaphoreGive(fifoMutex);
         return true;
     }
     else {
+        //tm_this->packet_dropped++;
         return false;
     }
+}
+
+buffer_t* get_packet_from_memory_buffer(LinkedList<buffer_t*> *ccsds_fifo_ptr, uint16_t index) {
+    buffer_t* result = NULL;
+
+    xSemaphoreTake(fifoMutex, portMAX_DELAY);
+    if (ccsds_fifo_ptr->size() > index) {
+        result = ccsds_fifo_ptr->get(index);
+    }
+    xSemaphoreGive(fifoMutex);
+    return result;
+}
+
+bool delete_packet0_from_memory_buffer(LinkedList<buffer_t*> *ccsds_fifo_ptr) {
+    xSemaphoreTake(fifoMutex, portMAX_DELAY);
+    if (!ccsds_fifo_ptr->size()) {
+        xSemaphoreGive(fifoMutex);
+        return false;
+    }
+    buffer_t* ccsds_buffer = ccsds_fifo_ptr->shift();
+    xSemaphoreGive(fifoMutex);
+    free(ccsds_buffer->ccsds_ptr);
+    free(ccsds_buffer);
+    return true;
 }
 
 // TM/TC Functionality
@@ -1762,9 +1840,15 @@ void process_tx_queue () {
                 var.radio_buffer_index++;
                 if (get_routing(&cfg_this->routing_radio, PID)) {
                     Serial.print("R");
+                    #ifdef RS41
+                    if (!send_packet_to_rs41(ccsds_tx_buffer->ccsds_ptr) and cfg_this->radio_buffer_enable) {
+                        var.radio_buffer_index--;
+                    }
+                    #else
                     if (!send_packet_through_radio(ccsds_tx_buffer->ccsds_ptr) and cfg_this->radio_buffer_enable) {
                         var.radio_buffer_index--;
                     }
+                    #endif
                 }
             }
             else if(!cfg_this->radio_buffer_enable) {

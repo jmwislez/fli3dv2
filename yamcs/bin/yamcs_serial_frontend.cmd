@@ -1,1 +1,1 @@
-python bin\yamcs_serial_frontend.py
+python3.13 bin\yamcs_serial_frontend.py
