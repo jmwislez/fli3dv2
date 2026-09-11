@@ -241,3 +241,12 @@ bool acquire_neo6mv2() {
     }
     return false;
 }
+
+void zero_gps() {
+    tm_gps.latitude_zero = tm_gps.latitude;
+    tm_gps.longitude_zero = tm_gps.longitude;
+    tm_gps.altitude_zero = tm_gps.altitude;
+    tm_gps.offset_valid = true;
+    sprintf(buffer, "GPS zero level position set");
+    publish_event(STS_THIS, SS_GPS, EVENT_INIT, buffer);
+}

@@ -210,8 +210,9 @@ name_t reset_reason[] = {
 //			{ "none", "est", "time_only", "std", "dgps", "rtk_float", "rtk_fixed", "status_pps", "waiting" }; 
 
 // define functions defined elsewhere
-bool zero_bmp280();
-bool zero_bmp388();
+void zero_bmp280();
+void zero_bmp388();
+void zero_gps();
 
 // Configuration Functionality
 
@@ -533,6 +534,9 @@ bool set_opsmode (const uint8_t mode) {
             }
             if (tm_esp32.pressure2_enabled) {
                 zero_bmp280();
+            }
+            if (tm_esp32.gps_enabled) {
+                zero_gps();
             }
         }
         tm_this->opsmode = mode;
@@ -1782,11 +1786,18 @@ void process_rx_queue () {
 }
 
 void process_tx_queue () {
+    // Prevent recursive calls through publish_event() -> publish_packet()
+    static bool processing = false;
+    if (processing) {
+        return;
+    }
+    processing = true;
+
     static buffer_t* ccsds_tx_buffer;
     
     tm_this->buffer_size = ccsds_tx_fifo->size();
       
-    if(tm_this->buffer_size > var.espnow_buffer_index) {   // there's packets to be considered
+        if(tm_this->buffer_size > var.espnow_buffer_index) {   // there's packets to be considered
         if(cfg_this->espnow_tx_enable) {                        // this interface is relevant as it may come up if not already active
             if(tm_this->espnow_tx_enabled) {                    // this interface is active, so we'll want to send
                 ccsds_tx_buffer = get_packet_from_memory_buffer(ccsds_tx_fifo, var.espnow_buffer_index);
@@ -1831,7 +1842,7 @@ void process_tx_queue () {
         }
     }
 
- #if defined(PLATFORM_ESP32) || defined(PLATFORM_GNDCTRL)
+    #if defined(PLATFORM_ESP32) || defined(PLATFORM_GNDCTRL)
     if(tm_this->buffer_size > var.radio_buffer_index) {
         if(cfg_this->radio_tx_enable) {
             if(tm_this->radio_tx_enabled) {
@@ -1859,7 +1870,7 @@ void process_tx_queue () {
             var.radio_buffer_index++; 
         }
     }
- #endif
+    #endif
 
     if(tm_this->buffer_size > var.archive_buffer_index) {
         if(cfg_this->archive_enable) {
@@ -1891,6 +1902,8 @@ void process_tx_queue () {
         if(var.archive_buffer_index) { var.archive_buffer_index--; }
         tm_this->buffer_size = ccsds_tx_fifo->size();
     }
+
+    processing = false; 
 }
 
 void publish_packet (ccsds_t* ccsds_ptr) {
@@ -1960,10 +1973,10 @@ void update_packet (ccsds_t* ccsds_ptr) {
                         tm_esp32.mem_free = ESP.getFreeHeap()/1024;
                         tm_esp32.fs_free = fs_free();
                         tm_esp32.buffer_size = ccsds_tx_fifo->size();
-                        tm_esp32.espnow_buffer_queue = tm_esp32.buffer_size - var.espnow_buffer_index;
-                        tm_esp32.serial_buffer_queue = tm_esp32.buffer_size - var.serial_buffer_index;
-                        tm_esp32.radio_buffer_queue = tm_esp32.buffer_size - var.radio_buffer_index;
-                        tm_esp32.archive_buffer_queue = tm_esp32.buffer_size - var.archive_buffer_index;
+                        if(tm_esp32.espnow_rx_enabled) { tm_esp32.espnow_buffer_queue = tm_esp32.buffer_size - var.espnow_buffer_index; }
+                        if(tm_esp32.serial_rx_enabled) { tm_esp32.serial_buffer_queue = tm_esp32.buffer_size - var.serial_buffer_index; }
+                        if(tm_esp32.radio_rx_enabled) { tm_esp32.radio_buffer_queue = tm_esp32.buffer_size - var.radio_buffer_index; }
+                        if(tm_esp32.archive_enabled) { tm_esp32.archive_buffer_queue = tm_esp32.buffer_size - var.archive_buffer_index; }
                         tm_esp32.battery_voltage = 0.9*tm_esp32.battery_voltage + 0.1*2*analogReadMilliVolts(BAT_V_PIN);
                         tm_esp32.battery_percentage = min(100, max(0, (tm_esp32.battery_voltage - cfg_esp32.battery_voltage_min) * 100 / (cfg_esp32.battery_voltage_max - cfg_esp32.battery_voltage_min)));
                         /*if (get_routing(&cfg_esp32->routing_espnow, TM_ESP32) and tm_esp32->espnow_tx_enabled) {

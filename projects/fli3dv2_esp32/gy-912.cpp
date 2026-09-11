@@ -233,13 +233,12 @@ bool acquire_bmp388() {
     return true;
 }
 
-bool zero_bmp388() {
+void zero_bmp388() {
     float pressure, temperature, height;
     delay(100); // sleep 100 ms to allow sensor to settle
     bmp388.getMeasurements(temperature, pressure, height);
     tm_pressure.pressure_zero = uint32_t(pressure * 100);
     bmp388.setSeaLevelPressure(pressure);
     sprintf(buffer, "BMP388 zero level pressure set to %.2f hPa", pressure);
-    publish_event(STS_THIS, SS_THIS, EVENT_INIT, buffer);
-    return true;
+    publish_event(STS_THIS, SS_PRESSURE, EVENT_INIT, buffer);
 }

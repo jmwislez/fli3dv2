@@ -45,10 +45,11 @@ bool acquire_bmp280() {
     return true;
 }
 
-bool zero_bmp280() {
+void zero_bmp280() {
     delay(100); // sleep 100 ms to allow sensor to settle
     tm_pressure.pressure2_zero = uint32_t(bmp280.readPressure()); // convert to Pa
-    return true;
+    sprintf(buffer, "BMP280 zero level pressure set to %.2f hPa", tm_pressure.pressure2_zero);
+    publish_event(STS_THIS, SS_PRESSURE, EVENT_INIT, buffer);
 }
 
 #ifdef UNDEFINED

@@ -30094,59 +30094,6 @@ $(pv_value)</tooltip>
     <x>1296</x>
     <y>532</y>
   </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <actions hook="false" hook_all="false" />
-    <alarm_pulsing>false</alarm_pulsing>
-    <auto_size>false</auto_size>
-    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
-    <background_color>
-      <color red="255" green="255" blue="255" />
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_color>
-      <color red="0" green="128" blue="255" />
-    </border_color>
-    <border_style>0</border_style>
-    <border_width>1</border_width>
-    <enabled>true</enabled>
-    <font>
-      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
-    </font>
-    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
-    <foreground_color>
-      <color red="0" green="0" blue="0" />
-    </foreground_color>
-    <format_type>0</format_type>
-    <height>20</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>Text Update_35</name>
-    <precision>0</precision>
-    <precision_from_pv>true</precision_from_pv>
-    <pv_name>/fli3d/CFG_ESP32_serial_baud</pv_name>
-    <pv_value />
-    <rotation_angle>0.0</rotation_angle>
-    <rules />
-    <scale_options>
-      <width_scalable>true</width_scalable>
-      <height_scalable>true</height_scalable>
-      <keep_wh_ratio>false</keep_wh_ratio>
-    </scale_options>
-    <scripts />
-    <show_lohi>true</show_lohi>
-    <show_units>true</show_units>
-    <text>######</text>
-    <tooltip>$(pv_name)
-$(pv_value)</tooltip>
-    <transparent>false</transparent>
-    <vertical_alignment>1</vertical_alignment>
-    <visible>true</visible>
-    <widget_type>Text Update</widget_type>
-    <width>78</width>
-    <wrap_words>false</wrap_words>
-    <wuid>682968c1:19f9fb7dc25:-66e4</wuid>
-    <x>766</x>
-    <y>473</y>
-  </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
     <actions hook="false" hook_all="false" />
     <alarm_pulsing>false</alarm_pulsing>
@@ -30374,59 +30321,6 @@ $(pv_value)</tooltip>
     <wuid>682968c1:19f9fb7dc25:-66e0</wuid>
     <x>798</x>
     <y>492</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <actions hook="false" hook_all="false" />
-    <alarm_pulsing>false</alarm_pulsing>
-    <auto_size>false</auto_size>
-    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
-    <background_color>
-      <color red="255" green="255" blue="255" />
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_color>
-      <color red="0" green="128" blue="255" />
-    </border_color>
-    <border_style>0</border_style>
-    <border_width>1</border_width>
-    <enabled>true</enabled>
-    <font>
-      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
-    </font>
-    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
-    <foreground_color>
-      <color red="0" green="0" blue="0" />
-    </foreground_color>
-    <format_type>0</format_type>
-    <height>20</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>Text Update_36</name>
-    <precision>0</precision>
-    <precision_from_pv>true</precision_from_pv>
-    <pv_name>/fli3d/CFG_GNDCTRL_serial_baud</pv_name>
-    <pv_value />
-    <rotation_angle>0.0</rotation_angle>
-    <rules />
-    <scale_options>
-      <width_scalable>true</width_scalable>
-      <height_scalable>true</height_scalable>
-      <keep_wh_ratio>false</keep_wh_ratio>
-    </scale_options>
-    <scripts />
-    <show_lohi>true</show_lohi>
-    <show_units>true</show_units>
-    <text>######</text>
-    <tooltip>$(pv_name)
-$(pv_value)</tooltip>
-    <transparent>false</transparent>
-    <vertical_alignment>1</vertical_alignment>
-    <visible>true</visible>
-    <widget_type>Text Update</widget_type>
-    <width>80</width>
-    <wrap_words>false</wrap_words>
-    <wuid>682968c1:19f9fb7dc25:-66df</wuid>
-    <x>1339</x>
-    <y>473</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -30772,59 +30666,6 @@ $(pv_value)</tooltip>
     <x>1374</x>
     <y>530</y>
   </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <actions hook="false" hook_all="false" />
-    <alarm_pulsing>false</alarm_pulsing>
-    <auto_size>false</auto_size>
-    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
-    <background_color>
-      <color red="255" green="255" blue="255" />
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_color>
-      <color red="0" green="128" blue="255" />
-    </border_color>
-    <border_style>0</border_style>
-    <border_width>1</border_width>
-    <enabled>true</enabled>
-    <font>
-      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
-    </font>
-    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
-    <foreground_color>
-      <color red="0" green="0" blue="0" />
-    </foreground_color>
-    <format_type>0</format_type>
-    <height>20</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>Text Update_37</name>
-    <precision>0</precision>
-    <precision_from_pv>true</precision_from_pv>
-    <pv_name>/fli3d/CFG_ESP32_radio_baud</pv_name>
-    <pv_value />
-    <rotation_angle>0.0</rotation_angle>
-    <rules />
-    <scale_options>
-      <width_scalable>true</width_scalable>
-      <height_scalable>true</height_scalable>
-      <keep_wh_ratio>false</keep_wh_ratio>
-    </scale_options>
-    <scripts />
-    <show_lohi>true</show_lohi>
-    <show_units>true</show_units>
-    <text>######</text>
-    <tooltip>$(pv_name)
-$(pv_value)</tooltip>
-    <transparent>false</transparent>
-    <vertical_alignment>1</vertical_alignment>
-    <visible>true</visible>
-    <widget_type>Text Update</widget_type>
-    <width>78</width>
-    <wrap_words>false</wrap_words>
-    <wuid>682968c1:19f9fb7dc25:-66aa</wuid>
-    <x>846</x>
-    <y>473</y>
-  </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
     <actions hook="false" hook_all="false" />
     <alarm_pulsing>false</alarm_pulsing>
@@ -31052,59 +30893,6 @@ $(pv_value)</tooltip>
     <wuid>682968c1:19f9fb7dc25:-66a6</wuid>
     <x>878</x>
     <y>491</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <actions hook="false" hook_all="false" />
-    <alarm_pulsing>false</alarm_pulsing>
-    <auto_size>false</auto_size>
-    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
-    <background_color>
-      <color red="255" green="255" blue="255" />
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_color>
-      <color red="0" green="128" blue="255" />
-    </border_color>
-    <border_style>0</border_style>
-    <border_width>1</border_width>
-    <enabled>true</enabled>
-    <font>
-      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
-    </font>
-    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
-    <foreground_color>
-      <color red="0" green="0" blue="0" />
-    </foreground_color>
-    <format_type>0</format_type>
-    <height>20</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>Text Update_38</name>
-    <precision>0</precision>
-    <precision_from_pv>true</precision_from_pv>
-    <pv_name>/fli3d/CFG_GNDCTRL_radio_baud</pv_name>
-    <pv_value />
-    <rotation_angle>0.0</rotation_angle>
-    <rules />
-    <scale_options>
-      <width_scalable>true</width_scalable>
-      <height_scalable>true</height_scalable>
-      <keep_wh_ratio>false</keep_wh_ratio>
-    </scale_options>
-    <scripts />
-    <show_lohi>true</show_lohi>
-    <show_units>true</show_units>
-    <text>######</text>
-    <tooltip>$(pv_name)
-$(pv_value)</tooltip>
-    <transparent>false</transparent>
-    <vertical_alignment>1</vertical_alignment>
-    <visible>true</visible>
-    <widget_type>Text Update</widget_type>
-    <width>82</width>
-    <wrap_words>false</wrap_words>
-    <wuid>682968c1:19f9fb7dc25:-66a5</wuid>
-    <x>1419</x>
-    <y>473</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -31561,46 +31349,6 @@ $(pv_value)</tooltip>
     <wuid>682968c1:19f9fb7dc25:-669d</wuid>
     <x>1456</x>
     <y>532</y>
-  </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
-    <actions hook="false" hook_all="false" />
-    <auto_size>false</auto_size>
-    <background_color>
-      <color red="255" green="255" blue="255" />
-    </background_color>
-    <border_color>
-      <color red="0" green="128" blue="255" />
-    </border_color>
-    <border_style>0</border_style>
-    <border_width>1</border_width>
-    <enabled>true</enabled>
-    <font>
-      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
-    </font>
-    <foreground_color>
-      <color red="0" green="0" blue="0" />
-    </foreground_color>
-    <height>20</height>
-    <horizontal_alignment>0</horizontal_alignment>
-    <name>Label_163</name>
-    <rules />
-    <scale_options>
-      <width_scalable>true</width_scalable>
-      <height_scalable>true</height_scalable>
-      <keep_wh_ratio>false</keep_wh_ratio>
-    </scale_options>
-    <scripts />
-    <text>Speed (baud)</text>
-    <tooltip />
-    <transparent>true</transparent>
-    <vertical_alignment>1</vertical_alignment>
-    <visible>true</visible>
-    <widget_type>Label</widget_type>
-    <width>127</width>
-    <wrap_words>false</wrap_words>
-    <wuid>682968c1:19f9fb7dc25:-6695</wuid>
-    <x>571</x>
-    <y>473</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -36113,59 +35861,6 @@ $(pv_value)</tooltip>
     <x>1051</x>
     <y>531</y>
   </widget>
-  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
-    <actions hook="false" hook_all="false" />
-    <alarm_pulsing>false</alarm_pulsing>
-    <auto_size>false</auto_size>
-    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
-    <background_color>
-      <color red="255" green="255" blue="255" />
-    </background_color>
-    <border_alarm_sensitive>true</border_alarm_sensitive>
-    <border_color>
-      <color red="0" green="128" blue="255" />
-    </border_color>
-    <border_style>0</border_style>
-    <border_width>1</border_width>
-    <enabled>true</enabled>
-    <font>
-      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
-    </font>
-    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
-    <foreground_color>
-      <color red="0" green="0" blue="0" />
-    </foreground_color>
-    <format_type>0</format_type>
-    <height>20</height>
-    <horizontal_alignment>2</horizontal_alignment>
-    <name>Text Update_51</name>
-    <precision>0</precision>
-    <precision_from_pv>true</precision_from_pv>
-    <pv_name>/fli3d/CFG_ESP32CAM_serial_baud</pv_name>
-    <pv_value />
-    <rotation_angle>0.0</rotation_angle>
-    <rules />
-    <scale_options>
-      <width_scalable>true</width_scalable>
-      <height_scalable>true</height_scalable>
-      <keep_wh_ratio>false</keep_wh_ratio>
-    </scale_options>
-    <scripts />
-    <show_lohi>true</show_lohi>
-    <show_units>true</show_units>
-    <text>######</text>
-    <tooltip>$(pv_name)
-$(pv_value)</tooltip>
-    <transparent>false</transparent>
-    <vertical_alignment>1</vertical_alignment>
-    <visible>true</visible>
-    <widget_type>Text Update</widget_type>
-    <width>78</width>
-    <wrap_words>false</wrap_words>
-    <wuid>-150b93bc:19fe56f7187:-459d</wuid>
-    <x>1099</x>
-    <y>473</y>
-  </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
     <actions hook="false" hook_all="false" />
     <alarm_pulsing>false</alarm_pulsing>
@@ -38985,5 +38680,747 @@ $(pv_value)</tooltip>
     <wuid>839b82a:19ff69348c3:-5182</wuid>
     <x>1030</x>
     <y>148</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <actions hook="false" hook_all="false" />
+    <alarm_pulsing>false</alarm_pulsing>
+    <auto_size>false</auto_size>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color red="255" green="255" blue="255" />
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <enabled>true</enabled>
+    <font>
+      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="0" green="0" blue="0" />
+    </foreground_color>
+    <format_type>0</format_type>
+    <height>20</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>Text Update_277</name>
+    <precision>0</precision>
+    <precision_from_pv>false</precision_from_pv>
+    <pv_name>/fli3d/GNDCTRL_espnow_buffer_queue</pv_name>
+    <pv_value />
+    <rotation_angle>0.0</rotation_angle>
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <show_lohi>true</show_lohi>
+    <show_units>true</show_units>
+    <text>######</text>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <transparent>false</transparent>
+    <vertical_alignment>1</vertical_alignment>
+    <visible>true</visible>
+    <widget_type>Text Update</widget_type>
+    <width>53</width>
+    <wrap_words>false</wrap_words>
+    <wuid>743e29d9:1a091a6d930:-7705</wuid>
+    <x>1292</x>
+    <y>568</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <actions hook="false" hook_all="false" />
+    <alarm_pulsing>false</alarm_pulsing>
+    <auto_size>false</auto_size>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color red="255" green="255" blue="255" />
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <enabled>true</enabled>
+    <font>
+      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="0" green="0" blue="0" />
+    </foreground_color>
+    <format_type>0</format_type>
+    <height>20</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>Text Update_278</name>
+    <precision>0</precision>
+    <precision_from_pv>false</precision_from_pv>
+    <pv_name>/fli3d/GNDCTRL_serial_buffer_queue</pv_name>
+    <pv_value />
+    <rotation_angle>0.0</rotation_angle>
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <show_lohi>true</show_lohi>
+    <show_units>true</show_units>
+    <text>######</text>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <transparent>false</transparent>
+    <vertical_alignment>1</vertical_alignment>
+    <visible>true</visible>
+    <widget_type>Text Update</widget_type>
+    <width>53</width>
+    <wrap_words>false</wrap_words>
+    <wuid>743e29d9:1a091a6d930:-7704</wuid>
+    <x>1370</x>
+    <y>568</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <actions hook="false" hook_all="false" />
+    <alarm_pulsing>false</alarm_pulsing>
+    <auto_size>false</auto_size>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color red="255" green="255" blue="255" />
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <enabled>true</enabled>
+    <font>
+      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="0" green="0" blue="0" />
+    </foreground_color>
+    <format_type>0</format_type>
+    <height>20</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>Text Update_279</name>
+    <precision>0</precision>
+    <precision_from_pv>false</precision_from_pv>
+    <pv_name>/fli3d/GNDCTRL_radio_buffer_queue</pv_name>
+    <pv_value />
+    <rotation_angle>0.0</rotation_angle>
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <show_lohi>true</show_lohi>
+    <show_units>true</show_units>
+    <text>######</text>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <transparent>false</transparent>
+    <vertical_alignment>1</vertical_alignment>
+    <visible>true</visible>
+    <widget_type>Text Update</widget_type>
+    <width>53</width>
+    <wrap_words>false</wrap_words>
+    <wuid>743e29d9:1a091a6d930:-7703</wuid>
+    <x>1452</x>
+    <y>568</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <actions hook="false" hook_all="false" />
+    <alarm_pulsing>false</alarm_pulsing>
+    <auto_size>false</auto_size>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color red="255" green="255" blue="255" />
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <enabled>true</enabled>
+    <font>
+      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="0" green="0" blue="0" />
+    </foreground_color>
+    <format_type>0</format_type>
+    <height>20</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>Text Update_280</name>
+    <precision>0</precision>
+    <precision_from_pv>false</precision_from_pv>
+    <pv_name>/fli3d/GNDCTRL_archive_buffer_queue</pv_name>
+    <pv_value />
+    <rotation_angle>0.0</rotation_angle>
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <show_lohi>true</show_lohi>
+    <show_units>true</show_units>
+    <text>######</text>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <transparent>false</transparent>
+    <vertical_alignment>1</vertical_alignment>
+    <visible>true</visible>
+    <widget_type>Text Update</widget_type>
+    <width>53</width>
+    <wrap_words>false</wrap_words>
+    <wuid>743e29d9:1a091a6d930:-7702</wuid>
+    <x>1532</x>
+    <y>568</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <actions hook="false" hook_all="false" />
+    <alarm_pulsing>false</alarm_pulsing>
+    <auto_size>false</auto_size>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color red="255" green="255" blue="255" />
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <enabled>true</enabled>
+    <font>
+      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="0" green="0" blue="0" />
+    </foreground_color>
+    <format_type>0</format_type>
+    <height>20</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>Text Update_281</name>
+    <precision>0</precision>
+    <precision_from_pv>false</precision_from_pv>
+    <pv_name>/fli3d/GNDCTRL_buffer_size</pv_name>
+    <pv_value />
+    <rotation_angle>0.0</rotation_angle>
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <show_lohi>true</show_lohi>
+    <show_units>true</show_units>
+    <text>######</text>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <transparent>false</transparent>
+    <vertical_alignment>1</vertical_alignment>
+    <visible>true</visible>
+    <widget_type>Text Update</widget_type>
+    <width>53</width>
+    <wrap_words>false</wrap_words>
+    <wuid>743e29d9:1a091a6d930:-7701</wuid>
+    <x>1410</x>
+    <y>600</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <actions hook="false" hook_all="false" />
+    <alarm_pulsing>false</alarm_pulsing>
+    <auto_size>false</auto_size>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color red="255" green="255" blue="255" />
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <enabled>true</enabled>
+    <font>
+      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="0" green="0" blue="0" />
+    </foreground_color>
+    <format_type>0</format_type>
+    <height>20</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>Text Update_282</name>
+    <precision>0</precision>
+    <precision_from_pv>false</precision_from_pv>
+    <pv_name>/fli3d/ESP32_espnow_buffer_queue</pv_name>
+    <pv_value />
+    <rotation_angle>0.0</rotation_angle>
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <show_lohi>true</show_lohi>
+    <show_units>true</show_units>
+    <text>######</text>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <transparent>false</transparent>
+    <vertical_alignment>1</vertical_alignment>
+    <visible>true</visible>
+    <widget_type>Text Update</widget_type>
+    <width>53</width>
+    <wrap_words>false</wrap_words>
+    <wuid>743e29d9:1a091a6d930:-76db</wuid>
+    <x>714</x>
+    <y>569</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <actions hook="false" hook_all="false" />
+    <alarm_pulsing>false</alarm_pulsing>
+    <auto_size>false</auto_size>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color red="255" green="255" blue="255" />
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <enabled>true</enabled>
+    <font>
+      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="0" green="0" blue="0" />
+    </foreground_color>
+    <format_type>0</format_type>
+    <height>20</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>Text Update_283</name>
+    <precision>0</precision>
+    <precision_from_pv>false</precision_from_pv>
+    <pv_name>/fli3d/ESP32_serial_buffer_queue</pv_name>
+    <pv_value />
+    <rotation_angle>0.0</rotation_angle>
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <show_lohi>true</show_lohi>
+    <show_units>true</show_units>
+    <text>######</text>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <transparent>false</transparent>
+    <vertical_alignment>1</vertical_alignment>
+    <visible>true</visible>
+    <widget_type>Text Update</widget_type>
+    <width>53</width>
+    <wrap_words>false</wrap_words>
+    <wuid>743e29d9:1a091a6d930:-76da</wuid>
+    <x>792</x>
+    <y>569</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <actions hook="false" hook_all="false" />
+    <alarm_pulsing>false</alarm_pulsing>
+    <auto_size>false</auto_size>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color red="255" green="255" blue="255" />
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <enabled>true</enabled>
+    <font>
+      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="0" green="0" blue="0" />
+    </foreground_color>
+    <format_type>0</format_type>
+    <height>20</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>Text Update_284</name>
+    <precision>0</precision>
+    <precision_from_pv>false</precision_from_pv>
+    <pv_name>/fli3d/ESP32_radio_buffer_queue</pv_name>
+    <pv_value />
+    <rotation_angle>0.0</rotation_angle>
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <show_lohi>true</show_lohi>
+    <show_units>true</show_units>
+    <text>######</text>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <transparent>false</transparent>
+    <vertical_alignment>1</vertical_alignment>
+    <visible>true</visible>
+    <widget_type>Text Update</widget_type>
+    <width>53</width>
+    <wrap_words>false</wrap_words>
+    <wuid>743e29d9:1a091a6d930:-76d9</wuid>
+    <x>874</x>
+    <y>569</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <actions hook="false" hook_all="false" />
+    <alarm_pulsing>false</alarm_pulsing>
+    <auto_size>false</auto_size>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color red="255" green="255" blue="255" />
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <enabled>true</enabled>
+    <font>
+      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="0" green="0" blue="0" />
+    </foreground_color>
+    <format_type>0</format_type>
+    <height>20</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>Text Update_285</name>
+    <precision>0</precision>
+    <precision_from_pv>false</precision_from_pv>
+    <pv_name>/fli3d/ESP32_archive_buffer_queue</pv_name>
+    <pv_value />
+    <rotation_angle>0.0</rotation_angle>
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <show_lohi>true</show_lohi>
+    <show_units>true</show_units>
+    <text>######</text>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <transparent>false</transparent>
+    <vertical_alignment>1</vertical_alignment>
+    <visible>true</visible>
+    <widget_type>Text Update</widget_type>
+    <width>53</width>
+    <wrap_words>false</wrap_words>
+    <wuid>743e29d9:1a091a6d930:-76d8</wuid>
+    <x>954</x>
+    <y>569</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <actions hook="false" hook_all="false" />
+    <alarm_pulsing>false</alarm_pulsing>
+    <auto_size>false</auto_size>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color red="255" green="255" blue="255" />
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <enabled>true</enabled>
+    <font>
+      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="0" green="0" blue="0" />
+    </foreground_color>
+    <format_type>0</format_type>
+    <height>20</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>Text Update_286</name>
+    <precision>0</precision>
+    <precision_from_pv>false</precision_from_pv>
+    <pv_name>/fli3d/ESP32_buffer_size</pv_name>
+    <pv_value />
+    <rotation_angle>0.0</rotation_angle>
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <show_lohi>true</show_lohi>
+    <show_units>true</show_units>
+    <text>######</text>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <transparent>false</transparent>
+    <vertical_alignment>1</vertical_alignment>
+    <visible>true</visible>
+    <widget_type>Text Update</widget_type>
+    <width>53</width>
+    <wrap_words>false</wrap_words>
+    <wuid>743e29d9:1a091a6d930:-76d7</wuid>
+    <x>832</x>
+    <y>601</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <actions hook="false" hook_all="false" />
+    <alarm_pulsing>false</alarm_pulsing>
+    <auto_size>false</auto_size>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color red="255" green="255" blue="255" />
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <enabled>true</enabled>
+    <font>
+      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="0" green="0" blue="0" />
+    </foreground_color>
+    <format_type>0</format_type>
+    <height>20</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>Text Update_287</name>
+    <precision>0</precision>
+    <precision_from_pv>false</precision_from_pv>
+    <pv_name>/fli3d/ESP32CAM_espnow_buffer_queue</pv_name>
+    <pv_value />
+    <rotation_angle>0.0</rotation_angle>
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <show_lohi>true</show_lohi>
+    <show_units>true</show_units>
+    <text>######</text>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <transparent>false</transparent>
+    <vertical_alignment>1</vertical_alignment>
+    <visible>true</visible>
+    <widget_type>Text Update</widget_type>
+    <width>53</width>
+    <wrap_words>false</wrap_words>
+    <wuid>743e29d9:1a091a6d930:-76ab</wuid>
+    <x>1045</x>
+    <y>570</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <actions hook="false" hook_all="false" />
+    <alarm_pulsing>false</alarm_pulsing>
+    <auto_size>false</auto_size>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color red="255" green="255" blue="255" />
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <enabled>true</enabled>
+    <font>
+      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="0" green="0" blue="0" />
+    </foreground_color>
+    <format_type>0</format_type>
+    <height>20</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>Text Update_288</name>
+    <precision>0</precision>
+    <precision_from_pv>false</precision_from_pv>
+    <pv_name>/fli3d/ESP32CAM_serial_buffer_queue</pv_name>
+    <pv_value />
+    <rotation_angle>0.0</rotation_angle>
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <show_lohi>true</show_lohi>
+    <show_units>true</show_units>
+    <text>######</text>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <transparent>false</transparent>
+    <vertical_alignment>1</vertical_alignment>
+    <visible>true</visible>
+    <widget_type>Text Update</widget_type>
+    <width>53</width>
+    <wrap_words>false</wrap_words>
+    <wuid>743e29d9:1a091a6d930:-76aa</wuid>
+    <x>1123</x>
+    <y>570</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <actions hook="false" hook_all="false" />
+    <alarm_pulsing>false</alarm_pulsing>
+    <auto_size>false</auto_size>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color red="255" green="255" blue="255" />
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <enabled>true</enabled>
+    <font>
+      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="0" green="0" blue="0" />
+    </foreground_color>
+    <format_type>0</format_type>
+    <height>20</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>Text Update_289</name>
+    <precision>0</precision>
+    <precision_from_pv>false</precision_from_pv>
+    <pv_name>/fli3d/ESP32CAM_buffer_size</pv_name>
+    <pv_value />
+    <rotation_angle>0.0</rotation_angle>
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <show_lohi>true</show_lohi>
+    <show_units>true</show_units>
+    <text>######</text>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <transparent>false</transparent>
+    <vertical_alignment>1</vertical_alignment>
+    <visible>true</visible>
+    <widget_type>Text Update</widget_type>
+    <width>53</width>
+    <wrap_words>false</wrap_words>
+    <wuid>743e29d9:1a091a6d930:-76a9</wuid>
+    <x>1123</x>
+    <y>601</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <actions hook="false" hook_all="false" />
+    <alarm_pulsing>false</alarm_pulsing>
+    <auto_size>false</auto_size>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color red="255" green="255" blue="255" />
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <enabled>true</enabled>
+    <font>
+      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="0" green="0" blue="0" />
+    </foreground_color>
+    <format_type>0</format_type>
+    <height>20</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>Text Update_290</name>
+    <precision>0</precision>
+    <precision_from_pv>false</precision_from_pv>
+    <pv_name>/fli3d/ESP32CAM_archive_buffer_queue</pv_name>
+    <pv_value />
+    <rotation_angle>0.0</rotation_angle>
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <show_lohi>true</show_lohi>
+    <show_units>true</show_units>
+    <text>######</text>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <transparent>false</transparent>
+    <vertical_alignment>1</vertical_alignment>
+    <visible>true</visible>
+    <widget_type>Text Update</widget_type>
+    <width>53</width>
+    <wrap_words>false</wrap_words>
+    <wuid>743e29d9:1a091a6d930:-76a1</wuid>
+    <x>1202</x>
+    <y>570</y>
   </widget>
 </display>

@@ -213,7 +213,6 @@ void setup() {
     setup_separation();
     #endif
     setup_buzzer();
-    process_rx_queue();
 
     #ifdef CAMERA
     if (cfg_esp32.camera_enable) { 
