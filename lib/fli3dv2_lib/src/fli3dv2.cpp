@@ -264,8 +264,6 @@ void init_config () {
         cfg_esp32.pressure2_enable = true;
         cfg_esp32.motion_enable = true;
         cfg_esp32.gps_enable = true;
-        tm_motion.accel_range = 3;
-        tm_motion.gyro_range = 3;
         break;
     case SS_ESP32CAM:
         cfg_esp32cam.magic_number = 'c';

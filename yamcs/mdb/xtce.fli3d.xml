@@ -919,12 +919,7 @@
             <Parameter name="MOTION_g" parameterTypeRef="int16_G_from_mG_t" />
             <Parameter name="MOTION_a" parameterTypeRef="int16_cmps2_from_mps2_t" />
             <Parameter name="MOTION_rpm" parameterTypeRef="int16_rpm_from_crpm_t" />
-            <Parameter name="MOTION_accel_range" parameterTypeRef="uint2_accel_t" />
-            <Parameter name="MOTION_gyro_range" parameterTypeRef="uint2_gyro_t" />
-            <Parameter name="MOTION_accel_valid" parameterTypeRef="bool_t" />
-            <Parameter name="MOTION_gyro_valid" parameterTypeRef="bool_t" />
-            <Parameter name="MOTION_free_01" parameterTypeRef="bool_t" />
-            <Parameter name="MOTION_free_00" parameterTypeRef="bool_t" />
+            <Parameter name="MOTION_temperature" parameterTypeRef="int16_degC_from_cdegC_t" />
             
             <Parameter name="GPS_millis" parameterTypeRef="uint24_t" />
             <Parameter name="GPS_packet_ctr" parameterTypeRef="uint16_t" />
@@ -1866,12 +1861,7 @@
                     <ParameterRefEntry parameterRef="MOTION_g" />
                     <ParameterRefEntry parameterRef="MOTION_a" />
                     <ParameterRefEntry parameterRef="MOTION_rpm" />
-                    <ParameterRefEntry parameterRef="MOTION_free_00" />
-                    <ParameterRefEntry parameterRef="MOTION_free_01" />
-                    <ParameterRefEntry parameterRef="MOTION_gyro_valid" />
-                    <ParameterRefEntry parameterRef="MOTION_accel_valid" />
-                    <ParameterRefEntry parameterRef="MOTION_gyro_range" />
-                    <ParameterRefEntry parameterRef="MOTION_accel_range" />
+                    <ParameterRefEntry parameterRef="MOTION_temperature" />
                 </EntryList>
             </SequenceContainer>        
             <SequenceContainer name="Fli3d tm_pressure">

@@ -169,11 +169,7 @@ bool setup_icm20948() {
         */
         icm20948.setMagOpMode(AK09916_CONT_MODE_20HZ);
         // delay(50); // add a delay of 1000/magRate to avoid first mag value being zero 
-        sprintf(buffer, "Magnetometer ICM20948 initialized on I2C address 0x%02X", ICM20948_ADDR);
-        publish_event(STS_THIS, SS_THIS, EVENT_INIT, buffer);
     }
-    //tm_motion.accel_range = icm20948.getAccRange();
-    //tm_motion.gyro_range = icm20948.getGyrRange();
     return true;
 }
 
@@ -203,22 +199,25 @@ bool acquire_icm20948() {
     icm20948.getGValues(&gValue);
     icm20948.getGyrValues(&gyr);
     icm20948.getMagValues(&magValue);
-    float temp = icm20948.getTemperature();
-    Serial.printf("ICM20948: Accel: %.2f, %.2f, %.2f g; Gyro: %.2f, %.2f, %.2f deg/s; Mag: %.2f, %.2f, %.2f uT; Temp: %.2f C\n", gValue.x, gValue.y, gValue.z, gyr.x, gyr.y, gyr.z, magValue.x, magValue.y, magValue.z, temp);
-    tm_motion.accel_x = int16_t(gValue.x * 100); // convert to cm/s2
-    tm_motion.accel_y = int16_t(gValue.y * 100);
-    tm_motion.accel_z = int16_t(gValue.z * 100);
+    float temperature = icm20948.getTemperature();
+    // TODO: check units, why multiply by 9.81 needed?
+    tm_motion.accel_x = int16_t(gValue.x * 9.81 * 100); // convert to cm/s2
+    tm_motion.accel_y = int16_t(gValue.y * 9.81 * 100);
+    tm_motion.accel_z = int16_t(gValue.z * 9.81 * 100);
     tm_motion.gyro_x = int16_t(gyr.x * 100); // convert to cdeg/s    
     tm_motion.gyro_y = int16_t(gyr.y * 100);
     tm_motion.gyro_z = int16_t(gyr.z * 100);
+    // TODO: derive orientation of camera
     tm_motion.magn_x = int16_t(magValue.x);  
     tm_motion.magn_y = int16_t(magValue.y);
     tm_motion.magn_z = int16_t(magValue.z);
+    tm_motion.temperature = int16_t(temperature * 100); // convert to cdegC
 
-    tm_motion.tilt = int16_t(icm20948.getPitch()*100); // convert to cdeg
-    tm_motion.g = icm20948.getResultantG(&gValue);
-    //tm_motion.a = icm20948.getA();
-    //tm_motion.rpm = icm20948.getRPM();
+    tm_motion.tilt = int16_t((90+atan2(-gValue.y, sqrt(gValue.x*gValue.x + gValue.z*gValue.z))*180.0f/M_PI)*100); // cdeg
+    tm_motion.g = int16_t(icm20948.getResultantG(&gValue) * 9.81 * 100);
+    // TODO: redo calculation of a, subtracting gravity vector
+    tm_motion.a = int16_t(sqrt(gValue.x*gValue.x+gValue.y*gValue.y+gValue.z*gValue.z) * 9.81 * 100);
+    tm_motion.rpm = int16_t(gyr.y / 6 * 100);
     return true;
 }
 

@@ -417,12 +417,7 @@ struct __attribute__ ((packed)) tm_motion_t {    // APID: 50 (32)
     uint16_t    g;                       // mG
     int16_t     a;                       // cm/s2
     int16_t     rpm;                     // crpm
-    uint8_t     accel_range:2;           //  6-7
-    uint8_t     gyro_range:2;            //   4-5
-    bool        accel_valid:1;           //    3
-    bool        gyro_valid:1;            //     2
-    bool        free_01:1;               //      1 - free to assign
-    bool        free_00:1;               //       0 - free to assign
+    int16_t     temperature;             // cdegC
 }; 
 
 struct __attribute__ ((packed)) tm_pressure_t {  // APID: 51 (33)
