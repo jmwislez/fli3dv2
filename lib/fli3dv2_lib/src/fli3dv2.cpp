@@ -200,14 +200,33 @@ name_t reset_reason[] = {
     { ESP_RST_SDIO, "sdio_reset" },            // ID: 10
 };
 
-//const char stateName[4][10] =             
-//			{ "static", "thrust", "freefall", "parachute" };
-//const char cameraModeName[4][7] =         
-//			{ "init", "idle", "single", "stream" };
-//const char cameraResolutionName[11][10] = 
-//			{ "160x120", "invalid1", "invalid2", "240x176", "320x240", "400x300", "640x480", "800x600", "1024x768", "1280x1024", "1600x1200" };
-//const char gpsStatusName[9][11] =         
-//			{ "none", "est", "time_only", "std", "dgps", "rtk_float", "rtk_fixed", "status_pps", "waiting" }; 
+name_t cameraMode[] = {
+    { CAM_NONE, "none" },
+    { CAM_INIT, "init" },
+    { CAM_SINGLE, "single" },
+    { CAM_CONTINUOUS, "continuous" }
+};
+
+name_t cameraResolution[] = {
+    { RES_160x120, "160x120" },
+    { RES_INVALID1, "invalid1" }, 
+    { RES_INVALID2, "invalid2" }, 
+    { RES_240x176, "240x176" }, 
+    { RES_320x240, "320x240" }, 
+    { RES_400x300, "400x300" }, 
+    { RES_640x480, "640x480" }, 
+    { RES_800x600, "800x600" }, 
+    { RES_1024x768, "1024x768" }, 
+    { RES_1280x1024,"1280x1024" },
+    { RES_1600x1200, "1600x1200" }
+};
+
+name_t flightState[] = {
+    { FLIGHT_STATIC, "static" },
+    { FLIGHT_THRUST, "thrust" }, 
+    { FLIGHT_FREEFALL, "freefall" }, 
+    { FLIGHT_PARACHUTE, "parachute" }
+};
 
 // define functions defined elsewhere
 void zero_bmp280();
@@ -955,10 +974,18 @@ bool setup_wifi_sta () {
     // Connect to WiFi network, as defined in fli3d_secrets.h
     const unsigned long timeout_ms = 10000;
     const unsigned long start_ms = millis();
-    uint8_t networks_found=0, network_found=0;
+    int16_t networks_found = 0;
+    int16_t network_found = 0;
     uint8_t network_known=0, network=0;
     if (cfg_this->wifi_sta_enable) {
+        WiFi.scanDelete();
         networks_found = WiFi.scanNetworks();
+        if (networks_found < 0) {
+            sprintf(buffer, "WiFi scan failed (%d)", networks_found);
+            publish_event(STS_THIS, SS_THIS, EVENT_WARNING, buffer);
+            tm_this->wifi_sta_enabled = false;
+            return false;
+        }
         for (network_known=0; network_known<sizeof(wifi_ssid)/sizeof(wifi_ssid[0]); network_known++) {
             for (network_found=0; network_found<networks_found; network_found++) {
                 if (!strcmp(WiFi.SSID(network_found).c_str(), wifi_ssid[network_known])) {
@@ -975,6 +1002,7 @@ bool setup_wifi_sta () {
                         cfg_this->wifi_my_ip[2] = WiFi.localIP()[2];
                         cfg_this->wifi_my_ip[3] = WiFi.localIP()[3];
                         publish_packet((ccsds_t*)cfg_this);
+                        WiFi.scanDelete();
                         return true;
                     }
                     else {  
@@ -984,7 +1012,7 @@ bool setup_wifi_sta () {
                 }
             }
         }
-        
+        WiFi.scanDelete();
         sprintf (buffer, "Failed to connect to any available WiFi network");
         publish_event (STS_THIS, SS_THIS, EVENT_WARNING, buffer);
         tm_this->wifi_sta_enabled = false;
@@ -2150,11 +2178,12 @@ void reset_packet (ccsds_t* ccsds_ptr) {
                         tm_esp32cam.serial_tx_active = false;
                         //tm_esp32cam.rtsp_active = false;
                         break;
-    case TM_CAMERA:     strcpy (tm_camera.filename, "");
-                        tm_camera.filesize = 0;
-                        tm_camera.wifi_ms = 0;
-                        tm_camera.sd_ms = 0;
-                        tm_camera.exposure_ms = 0;
+    case TM_CAMERA:     tm_camera.http_server_active = false;
+                        tm_camera.wifi_images_active = false;
+                        tm_camera.sd_images_active = false;
+                        tm_camera.wifi_video_active = false;
+                        tm_camera.sd_video_active = false;
+
                         break;
 	case TM_GNDCTRL:    tm_gndctrl.espnow_rx_pktrate = 0;
 						tm_gndctrl.espnow_tx_pktrate = 0;

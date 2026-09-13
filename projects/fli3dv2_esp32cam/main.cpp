@@ -10,8 +10,8 @@
  */
 
 // Set versioning
-#define SW_VERSION "0.1.0"
-#define SW_DATE "20260809"
+#define SW_VERSION "0.2.0"
+#define SW_DATE "20260913"
 
 // Libraries
 #include <Arduino.h>
@@ -19,6 +19,8 @@
 #include <fli3dv2.h>
 #include "soc/soc.h"
 #include "soc/rtc_cntl_reg.h"
+#include "CameraController.h"
+#include "WebInterface.h"
 
 // Global variables used in this file
 extern tm_esp32cam_t    tm_esp32cam;
@@ -59,7 +61,8 @@ bool default_routing_radio[NUMBER_OF_PID] =   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 bool default_routing_serial[NUMBER_OF_PID] =  { 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0 };
 bool default_routing_archive[NUMBER_OF_PID] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-extern bool setup_ov2640();
+CameraController cameraController;
+WebInterface webInterface;
 
 void setup_timer() {
     var.next_second = 1000*(millis()/1000) + 1000;
@@ -106,8 +109,15 @@ void setup() {
     setup_sd();
     setup_archive();
 
-    // Start camera
-    setup_ov2640();
+    // Initialize camera
+    if (cfg_esp32cam.camera_enable) {
+        tm_esp32cam.camera_enabled = cameraController.begin();    
+    }
+
+    // Initialize web interface
+    if (tm_esp32cam.wifi_sta_enabled) {
+        tm_esp32cam.webserver_enabled = webInterface.begin(&cameraController);
+    }
 
     // Initialisation complete
     setup_timer();
@@ -126,6 +136,7 @@ void loop() {
         publish_packet((ccsds_t*)tm_this);
         var.next_second+=1000;
     }
+
     if (tm_this->opsmode == MODE_MAINTENANCE) {
         // In maintenance mode, we can check for OTA and FTP
         if (cfg_this->ota_enable) {
@@ -134,6 +145,14 @@ void loop() {
         }
         if (tm_this->ftp_enabled) {
             //ftp_check(cfg_this->buffer_fs);
+        }
+    }
+    else {
+        if(tm_esp32cam.camera_enabled) {
+            cameraController.process();
+        }
+        if(tm_esp32cam.webserver_enabled) {
+            webInterface.process();   
         }
     }
 }

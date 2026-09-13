@@ -189,20 +189,11 @@
 #define FS_SD_MMC              2
 #define FS_EEPROM              3
 
-/*
-// state
-#define STATE_STATIC           0
-#define STATE_THRUST           1
-#define STATE_FREEFALL         2
-#define STATE_PARACHUTE        3
-extern const char stateName[4][10];
-
 // cammode
-#define CAM_INIT               0
-#define CAM_IDLE               1
+#define CAM_NONE               0
+#define CAM_INIT               1
 #define CAM_SINGLE             2
-#define CAM_STREAM             3
-extern const char cameraModeName[4][7];
+#define CAM_CONTINUOUS         3
 
 // cam resolutions
 #define RES_160x120            0
@@ -216,9 +207,12 @@ extern const char cameraModeName[4][7];
 #define RES_1024x768           8
 #define RES_1280x1024          9
 #define RES_1600x1200          10           
-extern const char cameraResolutionName[11][10];
 
-extern const char gpsStatusName[9][11]; */
+// flight state
+#define FLIGHT_STATIC          0
+#define FLIGHT_THRUST          1
+#define FLIGHT_FREEFALL        2
+#define FLIGHT_PARACHUTE       3
 
 
 struct __attribute__ ((packed)) cfg_boot_t {
@@ -516,8 +510,8 @@ struct __attribute__ ((packed)) tm_esp32cam_t {  // APID: 53 (35)
     bool        espnow_tx_enabled:1;   //  6
     bool        serial_rx_enabled:1;   //   5
     bool        serial_tx_enabled:1;   //    4
-    bool        free03:1;              //     3
-    bool        wifi_rtsp_enabled:1;   //      2
+    bool        webserver_enabled:1;   //     3
+    bool        free02:1;              //      2
     bool        wifi_ap_enabled:1;     //       1
     bool        wifi_sta_enabled:1;    //        0
     
@@ -534,8 +528,8 @@ struct __attribute__ ((packed)) tm_esp32cam_t {  // APID: 53 (35)
     bool        espnow_tx_active:1;    //  6
     bool        serial_rx_active:1;    //   5
     bool        serial_tx_active:1;    //    4
-    bool        free23:1;              //     3
-    bool        wifi_rtsp_active:1;    //      2
+    bool        webserver_active:1;    //     3
+    bool        free22:1;              //      2
     bool        wifi_active:1;         //       1  TODO: keep or not?
     bool        free20:1;              //        0
 
@@ -555,14 +549,19 @@ struct __attribute__ ((packed)) tm_camera_t {    // APID: 54 (36)
     uint32_t    millis:24;
     uint16_t    packet_ctr;
     uint8_t     camera_mode:2;           // 6-7
-    uint8_t     resolution:4;            //  2-5
-    bool        auto_res:1;              //   1
-    bool        free_00:1;               //    0 - free to assign
-    uint32_t    filesize:24; 
-    uint8_t     wifi_ms; 
-    uint8_t     sd_ms;
-    uint8_t     exposure_ms;
-    char        filename[36]; 
+    uint8_t     resolution:4;            //    2-5
+    bool        http_server_enabled:1;   //       1
+    bool        http_server_active:1;    //        0
+    bool        wifi_images_enabled:1;   // 7
+    bool        sd_images_enabled:1;     //  6 
+    bool        wifi_video_enabled:1;    //   5
+    bool        sd_video_enabled:1;      //    4
+    bool        wifi_images_active:1;    //     3
+    bool        sd_images_active:1;      //      2 
+    bool        wifi_video_active:1;     //       1
+    bool        sd_video_active:1;       //        0
+    uint8_t     framerate;
+    uint16_t    framecount;
 };
 
 struct __attribute__ ((packed)) tm_gndctrl_t {   // APID: 55 (37)
