@@ -13,6 +13,7 @@
 #include <fli3d_secrets.h>
 #include "soc/soc.h"
 #include "soc/rtc_cntl_reg.h"
+#include "CameraController.h"
 
 char buffer[BUFFER_MAX_SIZE];
 SerialTransfer serialtransfer;
@@ -21,7 +22,9 @@ LinkedList<buffer_t*> *ccsds_tx_fifo = new LinkedList<buffer_t*>();
 LinkedList<index_t*> *ccsds_fs_archive = new LinkedList<index_t*>();
 index_t archive;
 SmartRC_CC1101 radio;
+SoftwareSerial Serial3;
 SemaphoreHandle_t fifoMutex = xSemaphoreCreateMutex();
+bool SerialDebug = true;
 //FtpServer wifiTCP_FTP;
 
 // Functions not exposed in fli3dv2.h
@@ -36,7 +39,6 @@ extern void register_espnow_peer (esp_now_peer_info_t peerInfo);
 extern bool send_packet_through_espnow (ccsds_t* ccsds_ptr);
 extern bool send_packet_through_serial (ccsds_t* ccsds_ptr);
 extern bool flush_fs ();
-extern void sync_archive_file ();
 extern void move_archive_file ();
 extern void set_next_archive_path (char* archive_path);
 extern bool save_packet_to_archive (ccsds_t* ccsds_ptr);
@@ -59,7 +61,7 @@ extern uint16_t get_ccsds_subseconds (ccsds_t* ccsds_ptr);
 extern void set_ccsds_payload_len (ccsds_t* ccsds_ptr, uint16_t len);
 extern uint8_t get_ccsds_pid (ccsds_t* ccsds_ptr);
 extern bool execute_tc ();
-extern bool cmd_reboot (const uint8_t system);
+extern void cmd_reboot ();
 extern bool cmd_set_opsmode (const uint8_t opsmode);
 extern bool cmd_set_parameter (const char* parameter, const char* value);
 extern bool cmd_load_config (const uint8_t bank);
@@ -67,6 +69,9 @@ extern bool cmd_save_config (const uint8_t bank, const char* tag);
 extern bool cmd_flush_fs ();
 extern bool cmd_list_fs ();
 extern void print_ccsds_data (ccsds_t* ccsds_ptr);
+#ifdef PLATFORM_ESP32CAM
+extern CameraController cameraController;
+#endif
 
 tc_packet_t         tc_esp32;
 tc_packet_t         tc_esp32cam;
@@ -82,9 +87,9 @@ tm_radio_t          tm_radio;
 tm_esp32cam_t       tm_esp32cam;
 tm_camera_t         tm_camera;
 tm_gndctrl_t        tm_gndctrl;
-tmr_esp32_t         tmr_esp32;
-tmr_esp32cam_t      tmr_esp32cam;
-tmr_gndctrl_t       tmr_gndctrl;
+tmr_packet_t        tmr_esp32;
+tmr_packet_t        tmr_esp32cam;
+tmr_packet_t        tmr_gndctrl;
 cfg_packet_t        cfg_esp32;
 cfg_packet_t        cfg_esp32cam;
 cfg_packet_t        cfg_gndctrl;
@@ -92,7 +97,7 @@ var_t               var;
 
 
 packet_properties_t packet[] = { // also update #define in fli3dv2.h and xtce.fli3d.xml
-    // PID           APID  ccdsd_ptr                   size                       name               source       destination  type    subtype
+    // PID           APID   ccsds_ptr                  size                       name               source       destination  type    subtype
     { TC_ESP32,        42, (ccsds_t*)&tc_esp32,        sizeof(tc_packet_t),       "tc_esp32",        SS_ANY,      SS_ESP32,    PKT_TC, PKT_TC },   // PID: 0
     { TC_ESP32CAM,     43, (ccsds_t*)&tc_esp32cam,     sizeof(tc_packet_t),       "tc_esp32cam",     SS_ANY,      SS_ESP32CAM, PKT_TC, PKT_TC },   // PID: 1 
     { TC_GNDCTRL,      44, (ccsds_t*)&tc_gndctrl,      sizeof(tc_packet_t),       "tc_gndctrl",      SS_ANY,      SS_GNDCTRL,  PKT_TC, PKT_TC },   // PID: 2
@@ -107,9 +112,9 @@ packet_properties_t packet[] = { // also update #define in fli3dv2.h and xtce.fl
     { TM_ESP32CAM,     53, (ccsds_t*)&tm_esp32cam,     sizeof(tm_esp32cam_t),     "tm_esp32cam",     SS_ESP32CAM, SS_ANY,      PKT_TM, PKT_TM },   // PID: 11
     { TM_CAMERA,       54, (ccsds_t*)&tm_camera,       sizeof(tm_camera_t),       "tm_camera",       SS_ESP32CAM, SS_ANY,      PKT_TM, PKT_TM },   // PID: 12
     { TM_GNDCTRL,      55, (ccsds_t*)&tm_gndctrl,      sizeof(tm_gndctrl_t),      "tm_gndctrl",      SS_GNDCTRL,  SS_ANY,      PKT_TM, PKT_TM },   // PID: 13
-    { TIMER_ESP32,     56, (ccsds_t*)&tmr_esp32,       sizeof(tmr_esp32_t),       "tmr_esp32",       SS_ESP32,    SS_ANY,      PKT_TM, PKT_TIMER },   // PID: 14
-    { TIMER_ESP32CAM,  57, (ccsds_t*)&tmr_esp32cam,    sizeof(tmr_esp32cam_t),    "tmr_esp32cam",    SS_ESP32CAM, SS_ANY,      PKT_TM, PKT_TIMER },   // PID: 15
-    { TIMER_GNDCTRL,   58, (ccsds_t*)&tmr_gndctrl,     sizeof(tmr_gndctrl_t),     "tmr_gndctrl",     SS_GNDCTRL,  SS_ANY,      PKT_TM, PKT_TIMER },   // PID: 16
+    { TIMER_ESP32,     56, (ccsds_t*)&tmr_esp32,       sizeof(tmr_packet_t),      "tmr_esp32",       SS_ESP32,    SS_ANY,      PKT_TM, PKT_TIMER },   // PID: 14
+    { TIMER_ESP32CAM,  57, (ccsds_t*)&tmr_esp32cam,    sizeof(tmr_packet_t),      "tmr_esp32cam",    SS_ESP32CAM, SS_ANY,      PKT_TM, PKT_TIMER },   // PID: 15
+    { TIMER_GNDCTRL,   58, (ccsds_t*)&tmr_gndctrl,     sizeof(tmr_packet_t),      "tmr_gndctrl",     SS_GNDCTRL,  SS_ANY,      PKT_TM, PKT_TIMER },   // PID: 16
     { CONFIG_ESP32,    59, (ccsds_t*)&cfg_esp32,       sizeof(cfg_packet_t),      "cfg_esp32",       SS_ESP32,    SS_ANY,      PKT_TM, PKT_CONFIG },   // PID: 17
     { CONFIG_ESP32CAM, 60, (ccsds_t*)&cfg_esp32cam,    sizeof(cfg_packet_t),      "cfg_esp32cam",    SS_ESP32CAM, SS_ANY,      PKT_TM, PKT_CONFIG },   // PID: 18
     { CONFIG_GNDCTRL,  61, (ccsds_t*)&cfg_gndctrl,     sizeof(cfg_packet_t),      "cfg_gndctrl",     SS_GNDCTRL,  SS_ANY,      PKT_TM, PKT_CONFIG }    // PID: 19
@@ -201,24 +206,23 @@ name_t reset_reason[] = {
 };
 
 name_t cameraMode[] = {
-    { CAM_NONE, "none" },
     { CAM_INIT, "init" },
+    { CAM_IDLE, "idle" },
+    { CAM_FAIL, "fail" },
     { CAM_SINGLE, "single" },
-    { CAM_CONTINUOUS, "continuous" }
+    { CAM_IMAGES, "images" },
+    { CAM_VIDEO, "video" }
 };
 
 name_t cameraResolution[] = {
-    { RES_160x120, "160x120" },
-    { RES_INVALID1, "invalid1" }, 
-    { RES_INVALID2, "invalid2" }, 
-    { RES_240x176, "240x176" }, 
-    { RES_320x240, "320x240" }, 
-    { RES_400x300, "400x300" }, 
-    { RES_640x480, "640x480" }, 
-    { RES_800x600, "800x600" }, 
-    { RES_1024x768, "1024x768" }, 
-    { RES_1280x1024,"1280x1024" },
-    { RES_1600x1200, "1600x1200" }
+    { QQVGA_160x120, "160x120 (QQVGA)" },
+    { QVGA_320x240, "320x240 (QVGA)" }, 
+    { HVGA_480x320, "480x320 (HVGA)" }, 
+    { VGA_640x480, "640x480 (VGA)" }, 
+    { SVGA_800x600, "800x600 (SVGA)" }, 
+    { XGA_1024x768, "1024x768 (XGA)" }, 
+    { SXGA_1280x1024,"1280x1024 (SXGA)" },
+    { UXGA_1600x1200, "1600x1200 (UXGA)" }
 };
 
 name_t flightState[] = {
@@ -240,8 +244,8 @@ void init_config () {
     cfg_this->wifi_channel = default_wifi_channel;
     strcpy(cfg_this->rocket_name, default_rocket_name[0]); 
     strcpy(cfg_this->password, default_password[0]); 
-    cfg_this->radio_baud = 2000;
-    cfg_this->serial_baud = 115200;
+    cfg_this->radio_baud = 2000; // unused
+    cfg_this->serial_baud = 115200; // unused?
     cfg_this->ota_enable = true;
     cfg_this->espnow_longrange = false;   
     cfg_this->battery_voltage_min = 3300; // mV
@@ -259,7 +263,7 @@ void init_config () {
         cfg_this->serial_rx_enable = true;
         cfg_this->serial_tx_enable = true;
         cfg_this->radio_rx_enable = false;
-        cfg_this->radio_tx_enable = false;
+        cfg_this->radio_tx_enable = true; // for RS41
         cfg_this->espnow_broadcast = false;
         cfg_this->archive_enable = true;
         cfg_this->espnow_buffer_enable = true;
@@ -267,6 +271,7 @@ void init_config () {
         cfg_this->radio_buffer_enable = false;
         cfg_this->archive_buffer_enable = true;
         cfg_this->fs_enable = true;
+        cfg_this->write_fs_enable = true;
         cfg_this->flush_fs_enable = true;
         cfg_this->sd_enable = false;
         cfg_this->ftp_enable = true;
@@ -296,17 +301,25 @@ void init_config () {
         cfg_esp32cam.serial_rx_enable = true;
         cfg_esp32cam.serial_tx_enable = true;
         cfg_esp32cam.espnow_broadcast = false;
-        cfg_esp32cam.archive_enable = true;
+        cfg_esp32cam.archive_enable = false;
         cfg_esp32cam.espnow_buffer_enable = false;
         cfg_esp32cam.serial_buffer_enable = true;
         cfg_esp32cam.archive_buffer_enable = false;
         cfg_esp32cam.fs_enable = false;
+        cfg_esp32cam.write_fs_enable = true;
         cfg_esp32cam.flush_fs_enable = false;
         cfg_esp32cam.sd_enable = true;
         cfg_esp32cam.ftp_enable = true;
         cfg_esp32cam.ftp_fs = FS_SD_MMC;
         cfg_esp32cam.archive_fs = FS_SD_MMC;
         cfg_esp32cam.camera_enable = true;
+        cfg_esp32cam.camera_image_rate = 1; // Hz
+        cfg_esp32cam.wifi_images_enable = true;
+        cfg_esp32cam.wifi_video_enable = true;
+        cfg_esp32cam.sd_images_enable = true;
+        cfg_esp32cam.sd_video_enable = true;
+        tm_camera.resolution = XGA_1024x768;
+        cfg_esp32cam.camera_mode = CAM_IMAGES;
         break;
     case SS_GNDCTRL:
         cfg_this->magic_number = 'g';
@@ -525,38 +538,65 @@ bool save_config_bank (const uint8_t bank, const char* tag, const cfg_packet_t* 
 
 
 bool set_opsmode (const uint8_t mode) {
-    
+ 
     if (mode == MODE_CHECKOUT or mode == MODE_NOMINAL or mode == MODE_MAINTENANCE) {
         if (tm_this->opsmode == MODE_MAINTENANCE and mode != MODE_MAINTENANCE) {
-           // leaving maintenance mode, deactivate wifi and use ESPNOW again
-           disable_wifi_services();
-           tm_this->espnow_rx_enabled = true;
-           tm_this->espnow_tx_enabled = true;
-           sprintf (buffer, "Disabling WiFi services and reenabling ESPNOW");
-           publish_event (STS_THIS, SS_THIS, EVENT_INFO, buffer);
+            // Leaving maintenance mode
+            // ESP32 deactivate wifi and use ESPNOW again
+            if (SS_THIS == SS_ESP32) {
+                disable_wifi_services();
+                tm_this->espnow_rx_enabled = true;
+                tm_this->espnow_tx_enabled = true;
+                sprintf (buffer, "Disabling WiFi services and reenabling ESPNOW");
+                publish_event (STS_THIS, SS_THIS, EVENT_INFO, buffer);
+            }
+            // ESP32CAM camera becomes available again
+            if (tm_esp32cam.wifi_sta_enabled or tm_esp32cam.wifi_ap_enabled) {
+                tm_camera.wifi_images_enabled = cfg_esp32cam.wifi_images_enable;
+                tm_camera.wifi_video_enabled = cfg_esp32cam.wifi_video_enable;
+            }
+            if (tm_esp32cam.sd_enabled) {
+                tm_camera.sd_images_enabled = cfg_esp32cam.sd_images_enable;
+                tm_camera.sd_video_enabled = cfg_esp32cam.sd_video_enable;
+            }
         }
-        sprintf (buffer, "Setting %s opsmode to '%s'", subsystem[SS_THIS].name, opsmode[mode].name);
-        publish_event (STS_THIS, SS_THIS, EVENT_INFO, buffer);
         if (mode == MODE_MAINTENANCE and tm_this->opsmode != MODE_MAINTENANCE) {
-           // entering maintenance mode, activate wifi and do not use ESPNOW
-           enable_wifi_services();
-           tm_this->espnow_rx_enabled = false;
-           tm_this->espnow_tx_enabled = false;
-           sprintf (buffer, "Enabling WiFi services and disabling ESPNOW");
-           publish_event (STS_THIS, SS_THIS, EVENT_INFO, buffer);
+            // Entering maintenance mode
+            // ESP32 activate wifi and do not use ESPNOW
+            if (SS_THIS == SS_ESP32) {
+                enable_wifi_services();
+                tm_this->espnow_rx_enabled = false;
+                tm_this->espnow_tx_enabled = false;
+                sprintf (buffer, "Enabling WiFi services and disabling ESPNOW");
+                publish_event (STS_THIS, SS_THIS, EVENT_INFO, buffer);
+            }
+            // ESP32CAM disable camera
+            tm_camera.wifi_images_enabled = false;
+            tm_camera.wifi_video_enabled = false;
+            tm_camera.sd_images_enabled = false;
+            tm_camera.sd_video_enabled = false;
         }
-        if (mode == MODE_NOMINAL and SS_THIS == SS_ESP32) {
-            if (tm_esp32.pressure_enabled) {
-                zero_bmp388();
+        if (mode == MODE_NOMINAL) {
+            // Entering Nominal mode
+            // ESP32 sets position indicators to zero
+            if (SS_THIS == SS_ESP32) {
+                if (tm_esp32.pressure_enabled) {
+                    zero_bmp388();
+                }
+                if (tm_esp32.pressure2_enabled) {
+                    zero_bmp280();
+                }
+                if (tm_esp32.gps_enabled) {
+                    zero_gps();
+                }
             }
-            if (tm_esp32.pressure2_enabled) {
-                zero_bmp280();
-            }
-            if (tm_esp32.gps_enabled) {
-                zero_gps();
-            }
+            // ESP32CAM activates camera
+            tm_camera.mode = cfg_esp32cam.camera_mode;
         }
         tm_this->opsmode = mode;
+        sprintf (buffer, "Setting %s opsmode to '%s'", subsystem[SS_THIS].name, opsmode[mode].name);
+        publish_event (STS_THIS, SS_THIS, EVENT_INFO, buffer);
+        sync_archive_file();
     }
     else {
         sprintf (buffer, "Opsmode '%s' not known or not allowed", opsmode[mode].name);
@@ -567,7 +607,8 @@ bool set_opsmode (const uint8_t mode) {
 
 bool set_parameter (const char* parameter, const char* value) {
     bool success = false;
-    char value_str[10];
+    #define VALUE_LEN 25
+    char value_str[VALUE_LEN];
     if (!strcmp(parameter, "boot_bank")) {
         if(atoi(value)>=0 and atoi(value)<4) {
             set_boot_bank(atoi(value)); 
@@ -585,7 +626,7 @@ bool set_parameter (const char* parameter, const char* value) {
     else if (!strcmp(parameter, "target_opsmode")) {
         if(atoi(value)>=0 and atoi(value)<4) {
             cfg_this->target_opsmode = atoi(value);
-            strcpy(value_str, opsmode[atoi(value)].name);
+            sprintf(value_str, "%s", opsmode[atoi(value)].name);
             success = true;
         }
     }
@@ -606,14 +647,14 @@ bool set_parameter (const char* parameter, const char* value) {
     else if (!strcmp(parameter, "ftp_fs")) {
         if(atoi(value)>=0 and atoi(value)<4) {
             cfg_this->ftp_fs = atoi(value);
-            strcpy(value_str, filesystem[atoi(value)].name);
+            sprintf(value_str, "%s", filesystem[atoi(value)].name);
             success = true;
         }
     }
     else if (!strcmp(parameter, "archive_fs")) {
         if(atoi(value)>=0 and atoi(value)<4) {
             cfg_this->archive_fs = atoi(value);
-            strcpy(value_str, filesystem[atoi(value)].name);
+            sprintf(value_str, "%s", filesystem[atoi(value)].name);
             success = true;
         }
     }
@@ -762,6 +803,14 @@ bool set_parameter (const char* parameter, const char* value) {
             success = true;
         }
     }
+    else if (!strcmp(parameter, "write_fs_enable")) {
+        if(atoi(value)==-1) { value=cfg_this->write_fs_enable?"0":"1"; }
+        if(atoi(value)==0 or atoi(value)==1) {
+            cfg_this->write_fs_enable = atoi(value);
+            sprintf(value_str, "%s", (atoi(value)==1)?"true":"false");
+            success = true;
+        }
+    }
     else if (!strcmp(parameter, "flush_fs_enable")) {
         if(atoi(value)==-1) { value=cfg_this->flush_fs_enable?"0":"1"; }
         if(atoi(value)==0 or atoi(value)==1) {
@@ -790,9 +839,10 @@ bool set_parameter (const char* parameter, const char* value) {
         setTime(atoi(value));
         tm_this->time_set = true;
         var.delta_millis = millis()%1000;
-        sprintf(value_str, "%04u-%02u-%02u %02u:%02u:%02u.%03u", year(atoi(value)), month(atoi(value)), day(atoi(value)), hour(atoi(value)), minute(atoi(value)), second(atoi(value)), var.delta_millis);
+        snprintf(value_str, VALUE_LEN, "%04u-%02u-%02u %02u:%02u:%02u.%03u", year(atoi(value)), month(atoi(value)), day(atoi(value)), hour(atoi(value)), minute(atoi(value)), second(atoi(value)), var.delta_millis);
         success = true;
     }
+    #ifdef PLATFORM_ESP32
     else if (!strcmp(parameter, "pressure_enable")) {
         if(atoi(value)==-1) { value=cfg_this->pressure_enable?"0":"1"; }
         if(atoi(value)==0 or atoi(value)==1) {
@@ -837,33 +887,200 @@ bool set_parameter (const char* parameter, const char* value) {
         }
     }  
     else if (!strcmp(parameter, "gps_tm_rate")) {
-        //if(atoi(value)==1 or atoi(value)==5 or atoi(value)==10 or atoi(value)==16) {
-        if(atoi(value)>=0 and atoi(value)<=255) {
+        if(atoi(value)==1 or atoi(value)==5 or atoi(value)==10 or atoi(value)==16) {
+        //if(atoi(value)>=0 and atoi(value)<=255) {
             cfg_this->gps_tm_rate = atoi(value);
             sprintf(value_str, "%u", atoi(value));
             var.gps_interval = (1000 / cfg_esp32.gps_tm_rate);
             success = true;
         }
     }  
+    #endif
+    #ifdef PLATFORM_ESP32CAM
+    // TODO: trhoughout, standardize on "snapshot" and "stream" terminology
+    else if (!strcmp(parameter, "wifi_images_enable")) {
+        if(atoi(value)==-1) { value=cfg_esp32cam.wifi_images_enable?"0":"1"; }
+        if(atoi(value)==0 or atoi(value)==1) {
+            cfg_esp32cam.wifi_images_enable = atoi(value);
+            sprintf(value_str, "%s", (atoi(value)==1)?"true":"false");
+            if (tm_camera.mode == CAM_IMAGES) {
+                tm_camera.wifi_images_enabled = atoi(value);
+            }
+            success = true;
+        }
+    }
+    else if (!strcmp(parameter, "sd_images_enable")) {
+        if(atoi(value)==-1) { value=cfg_esp32cam.sd_images_enable?"0":"1"; }
+        if(atoi(value)==0 or atoi(value)==1) {
+            cfg_esp32cam.sd_images_enable = atoi(value);
+            sprintf(value_str, "%s", (atoi(value)==1)?"true":"false");
+            if (tm_camera.mode == CAM_IMAGES) {
+                tm_camera.sd_images_enabled = atoi(value);
+            }
+            success = true;
+        }
+    }
+    else if (!strcmp(parameter, "wifi_video_enable")) {
+        if(atoi(value)==-1) { value=cfg_esp32cam.wifi_video_enable?"0":"1"; }
+        if(atoi(value)==0 or atoi(value)==1) {
+            cfg_esp32cam.wifi_video_enable = atoi(value);
+            sprintf(value_str, "%s", (atoi(value)==1)?"true":"false");
+            if (tm_camera.mode == CAM_VIDEO) {
+                tm_camera.wifi_video_enabled = atoi(value);
+            }
+            success = true;
+        }
+    }
+    else if (!strcmp(parameter, "sd_video_enable")) {
+        if(atoi(value)==-1) { value=cfg_esp32cam.sd_video_enable?"0":"1"; }
+        if(atoi(value)==0 or atoi(value)==1) {
+            cfg_esp32cam.sd_video_enable = atoi(value);
+            sprintf(value_str, "%s", (atoi(value)==1)?"true":"false");
+            if(cfg_esp32cam.sd_video_enable) {
+                cameraController.startRecording();
+                tm_camera.sd_video_enabled = true;
+            }
+            else {
+                cameraController.stopRecording();
+                tm_camera.sd_video_enabled = false;
+            }
+            success = true;
+        }
+    }
+    else if (!strcmp(parameter, "set_camera_frame_rate")) {
+        if(atoi(value)>=0 and atoi(value)<=255) {
+            sprintf(value_str, "%u", atoi(value));
+            cfg_esp32cam.camera_image_rate = atoi(value);
+            var.camera_interval = (uint16_t)(1000.0f / cfg_esp32cam.camera_image_rate);
+            success = true;
+        }
+    }  
+    else if (!strcmp(parameter, "set_camera_mode")) {
+        cameraController.stopRecording();
+        if(!strcmp(value, "idle")) {
+            tm_camera.mode = CAM_IDLE;
+            sprintf(value_str, "%s", cameraMode[CAM_IDLE].name);
+            success = true;
+        }
+        else if(!strcmp(value, "single")) {
+            tm_camera.mode = CAM_SINGLE;
+            cfg_esp32cam.camera_mode = CAM_SINGLE;
+            sprintf(value_str, "%s", cameraMode[CAM_SINGLE].name);
+            success = true;
+        }
+        else if(!strcmp(value, "images")) {
+            tm_camera.mode = CAM_IMAGES;
+            cfg_esp32cam.camera_mode = CAM_IMAGES;
+            sprintf(value_str, "%s", cameraMode[CAM_IMAGES].name);
+            success = true;
+        }
+        else if(!strcmp(value, "video")) {
+            tm_camera.mode = CAM_VIDEO;
+            cfg_esp32cam.camera_mode = CAM_VIDEO;
+            sprintf(value_str, "%s", cameraMode[CAM_VIDEO].name);
+            if(tm_esp32cam.sd_enabled and cfg_esp32cam.sd_video_enable) {
+                cameraController.startRecording();
+            }
+            success = true;
+        }
+        if(tm_camera.http_server_enabled) {
+            switch (tm_camera.mode) {
+                case CAM_IMAGES:
+                case CAM_SINGLE:
+                    tm_camera.wifi_images_enabled = cfg_esp32cam.wifi_images_enable;
+                    tm_camera.wifi_video_enabled = false;
+                    break;
+                case CAM_VIDEO:
+                    tm_camera.wifi_images_enabled = false;
+                    tm_camera.wifi_video_enabled = cfg_esp32cam.wifi_video_enable;
+                    break;
+            }
+        }
+        if(tm_esp32cam.sd_enabled) {
+            switch (tm_camera.mode) {
+                case CAM_IMAGES:
+                case CAM_SINGLE:
+                    tm_camera.sd_images_enabled = cfg_esp32cam.sd_images_enable;
+                    tm_camera.sd_video_enabled = false;
+                    break;
+                case CAM_VIDEO:
+                    tm_camera.sd_images_enabled = false;
+                    tm_camera.sd_video_enabled = cfg_esp32cam.sd_video_enable;
+                    break;
+            }
+        }
+            
+    }
+    else if (!strcmp(parameter, "set_camera_resolution")) {
+        if(!strcmp(value, "160x120")) {
+            tm_camera.resolution = QQVGA_160x120;
+            sprintf(value_str, "%s", cameraResolution[QQVGA_160x120].name);
+            camera.resolution.qqvga();
+            success = true;
+        }
+        if(!strcmp(value, "320x240")) {
+            tm_camera.resolution = QVGA_320x240;
+            sprintf(value_str, "%s", cameraResolution[QVGA_320x240].name);
+            camera.resolution.qvga();
+            success = true;
+        }
+        if(!strcmp(value, "480x320")) {
+            tm_camera.resolution = HVGA_480x320;
+            sprintf(value_str, "%s", cameraResolution[HVGA_480x320].name);
+            camera.resolution.hvga();
+            success = true;
+        }
+        if(!strcmp(value, "640x480")) {
+            tm_camera.resolution = VGA_640x480;
+            sprintf(value_str, "%s", cameraResolution[VGA_640x480].name);
+            camera.resolution.vga();
+            success = true;
+        }
+        if(!strcmp(value, "800x600")) {
+            tm_camera.resolution = SVGA_800x600;
+            sprintf(value_str, "%s", cameraResolution[SVGA_800x600].name);
+            camera.resolution.svga();
+            success = true;
+        }
+        if(!strcmp(value, "1024x768")) {
+            tm_camera.resolution = XGA_1024x768;
+            sprintf(value_str, "%s", cameraResolution[XGA_1024x768].name);
+            camera.resolution.xga();
+            success = true;
+        }
+        if(!strcmp(value, "1280x1024")) {
+            tm_camera.resolution = SXGA_1280x1024;
+            sprintf(value_str, "%s", cameraResolution[SXGA_1280x1024].name);
+            camera.resolution.sxga();
+            success = true;
+        }
+        if(!strcmp(value, "1600x1200")) {
+            tm_camera.resolution = UXGA_1600x1200;
+            sprintf(value_str, "%s", cameraResolution[UXGA_1600x1200].name);
+            camera.resolution.uxga();
+            success = true;
+        }
+    }  
+    #endif
     else if (!strncmp(parameter, "routing_espnow", 14)) {
         const char* packet_name = &parameter[15];
         uint8_t PID=0;
         while(strcmp(packet[PID].name, packet_name) and PID<NUMBER_OF_PID) {
             PID++;
         }
-        Serial.println(get_hex_str((byte*)&cfg_this->routing_espnow,4));
-        Serial.print(PID);
-        Serial.print(":");
-        Serial.print(get_routing(&cfg_this->routing_espnow, PID));
-        Serial.print("->");
+        //Serial.println(get_hex_str((byte*)&cfg_this->routing_espnow,4));
+        //Serial.print(PID);
+        //Serial.print(":");
+        //Serial.print(get_routing(&cfg_this->routing_espnow, PID));
+        //Serial.print("->");
         if(atoi(value)==-1) { value=get_routing(&cfg_this->routing_espnow, PID)?"0":"1"; }
         if(atoi(value)==0 or atoi(value)==1) {
             set_routing(&cfg_this->routing_espnow, PID, atoi(value));
             sprintf(value_str, "%u", atoi(value));
             success = true;
         }
-        Serial.println(value);
-        Serial.println(get_hex_str((byte*)&cfg_this->routing_espnow,4));
+        //Serial.println(value);
+        //Serial.println(get_hex_str((byte*)&cfg_this->routing_espnow,4));
     }  
     else if (!strncmp(parameter, "routing_serial", 14)) {
         const char* packet_name = &parameter[15];
@@ -871,19 +1088,19 @@ bool set_parameter (const char* parameter, const char* value) {
         while(strcmp(packet[PID].name, packet_name) and PID<NUMBER_OF_PID) {
             PID++;
         }
-        Serial.println(get_hex_str((byte*)&cfg_this->routing_serial,4));
-        Serial.print(PID);
-        Serial.print(":");
-        Serial.print(get_routing(&cfg_this->routing_serial, PID));
-        Serial.print("->");
+        //Serial.println(get_hex_str((byte*)&cfg_this->routing_serial,4));
+        //Serial.print(PID);
+        //Serial.print(":");
+        //Serial.print(get_routing(&cfg_this->routing_serial, PID));
+        //Serial.print("->");
         if(atoi(value)==-1) { value=get_routing(&cfg_this->routing_serial, PID)?"0":"1"; }
         if(atoi(value)==0 or atoi(value)==1) {
             set_routing(&cfg_this->routing_serial, PID, atoi(value));
             sprintf(value_str, "%u", atoi(value));
             success = true;
         }
-        Serial.println(value);
-        Serial.println(get_hex_str((byte*)&cfg_this->routing_serial,4));
+        //Serial.println(value);
+        //Serial.println(get_hex_str((byte*)&cfg_this->routing_serial,4));
     }  
     else if (!strncmp(parameter, "routing_radio", 13)) {
         const char* packet_name = &parameter[14];
@@ -891,19 +1108,19 @@ bool set_parameter (const char* parameter, const char* value) {
         while(strcmp(packet[PID].name, packet_name) and PID<NUMBER_OF_PID) {
             PID++;
         }
-        Serial.println(get_hex_str((byte*)&cfg_this->routing_radio,4));
-        Serial.print(PID);
-        Serial.print(":");
-        Serial.print(get_routing(&cfg_this->routing_radio, PID));
-        Serial.print("->");
+        //Serial.println(get_hex_str((byte*)&cfg_this->routing_radio,4));
+        //Serial.print(PID);
+        //Serial.print(":");
+        //Serial.print(get_routing(&cfg_this->routing_radio, PID));
+        //Serial.print("->");
         if(atoi(value)==-1) { value=get_routing(&cfg_this->routing_radio, PID)?"0":"1"; }
         if(atoi(value)==0 or atoi(value)==1) {
             set_routing(&cfg_this->routing_radio, PID, atoi(value));
             sprintf(value_str, "%u", atoi(value));
             success = true;
         }
-        Serial.println(value);
-        Serial.println(get_hex_str((byte*)&cfg_this->routing_radio,4));
+        //Serial.println(value);
+        //Serial.println(get_hex_str((byte*)&cfg_this->routing_radio,4));
     }  
     else if (!strncmp(parameter, "routing_archive", 15)) {
         const char* packet_name = &parameter[16];
@@ -911,19 +1128,19 @@ bool set_parameter (const char* parameter, const char* value) {
         while(strcmp(packet[PID].name, packet_name) and PID<NUMBER_OF_PID) {
             PID++;
         }
-        Serial.println(get_hex_str((byte*)&cfg_this->routing_archive,4));
-        Serial.print(PID);
-        Serial.print(":");
-        Serial.print(get_routing(&cfg_this->routing_archive, PID));
-        Serial.print("->");
+        //Serial.println(get_hex_str((byte*)&cfg_this->routing_archive,4));
+        //Serial.print(PID);
+        //Serial.print(":");
+        //Serial.print(get_routing(&cfg_this->routing_archive, PID));
+        //Serial.print("->");
         if(atoi(value)==-1) { value=get_routing(&cfg_this->routing_archive, PID)?"0":"1"; }
         if(atoi(value)==0 or atoi(value)==1) {
             set_routing(&cfg_this->routing_archive, PID, atoi(value));
             sprintf(value_str, "%u", atoi(value));
             success = true;
         }
-        Serial.println(value);
-        Serial.println(get_hex_str((byte*)&cfg_this->routing_archive,4));
+        //Serial.println(value);
+        //Serial.println(get_hex_str((byte*)&cfg_this->routing_archive,4));
     }  
     if(success) {
         publish_packet((ccsds_t*)cfg_this);
@@ -1256,7 +1473,7 @@ bool send_packet_through_espnow (ccsds_t* ccsds_ptr) {
 	    tm_this->espnow_tx_pktrate++;
   	    tm_this->espnow_tx_active = true;
 		esp_err_t result = esp_now_send(cfg_this->peer_mac, (uint8_t*)ccsds_ptr, get_ccsds_packet_len (ccsds_ptr));
-        Serial.print("e");
+        if(SerialDebug) { Serial.print("e"); }
 		if (result == ESP_OK) {
 			return true;
 		}
@@ -1313,20 +1530,28 @@ bool send_packet_through_serial (ccsds_t* ccsds_ptr) {
 	    tm_this->serial_tx_pktrate++;
   	    tm_this->serial_tx_active = true;
   	    serialtransfer.sendDatum(*ccsds_ptr, get_ccsds_packet_len(ccsds_ptr));
-        Serial.print("s");
+        if(SerialDebug) { Serial.print("s"); }
   	    return true;
 	}
 	return false;
 }
 
 #ifdef RS41
-bool_send_packet_to_rs41 (ccsds_t* ccsds_ptr) {
-    if (tm_this->rs41_tx_enabled) {
-        tm_this->rs41_tx_pktrate++;
-  	    tm_this->rs41_tx_active = true;
+bool setup_rs41 () {
+    SoftwareSerial Serial3(RS41_RX_PIN, RS41_TX_PIN); // RX, TX
+    Serial3.begin(9600); // communication with RS41
+    return true;
+}
+
+bool send_radio_packet_to_rs41 () {
+    if (tm_this->radio_tx_enabled) {
+        update_packet((ccsds_t*)&tm_radio);
+        tm_this->radio_tx_pktrate++;
+  	    tm_this->radio_tx_active = true;
   	    Serial3.print("xdata=");
-  	    Serial3.println(gethexstr(ccsds_ptr, get_ccsds_packet_len(ccsds_ptr)));
-        Serial.print("r");
+  	    Serial3.println(get_hex_str((byte*)&tm_radio, get_ccsds_packet_len((ccsds_t*)&tm_radio)));
+        if(SerialDebug) { Serial.print("r"); }
+        reset_packet((ccsds_t*)&tm_radio);
   	    return true;
     }
     return false;
@@ -1421,7 +1646,7 @@ bool send_packet_through_radio (ccsds_t* ccsds_ptr) {
 	    tm_this->radio_tx_pktrate++;
   	    tm_this->radio_tx_active = true;
 		radio.SendData((uint8_t*)ccsds_ptr, get_ccsds_packet_len (ccsds_ptr), 100);
-        Serial.print("r");
+        if(SerialDebug) { Serial.print("r"); }
         return true;
 	}
 	return false;
@@ -1440,6 +1665,7 @@ bool setup_fs () {
             }
             tm_this->fs_enabled = true;
             tm_this->fs_active = true;
+            tm_this->archive_fs = FS_LITTLEFS;
             return true;
         }
         else {
@@ -1449,6 +1675,7 @@ bool setup_fs () {
                     publish_event(STS_THIS, SS_FS, EVENT_WARNING, buffer);
                     tm_this->fs_enabled = true;
                     tm_this->fs_active = true;
+                    tm_this->archive_fs = FS_LITTLEFS;
                     return true;
                 }
                 else {
@@ -1479,10 +1706,12 @@ bool setup_sd () {
             tm_this->sd_enabled = false;
             return false;
         }
-        sprintf (buffer, "Card reader initialised and SD card mounted: size: %llu MB; space: %llu MB; used: %llu MB; %s", SD_MMC.cardSize() / (1024 * 1024), SD_MMC.totalBytes() / (1024 * 1024), SD_MMC.usedBytes() / (1024 * 1024), cfg_this->write_fs_enable?"(write enabled)":"(read only)");
+        sprintf (buffer, "Card reader initialised and SD card mounted: size: %llu MB; space: %llu MB; used: %llu MB %s", SD_MMC.cardSize() / (1024 * 1024), SD_MMC.totalBytes() / (1024 * 1024), SD_MMC.usedBytes() / (1024 * 1024), cfg_this->write_fs_enable?"(write enabled)":"(read only)");
         publish_event (STS_THIS, SS_SD, EVENT_INIT, buffer);       
         tm_this->sd_enabled = true;
         tm_this->sd_active = true;
+        tm_this->archive_fs = FS_SD_MMC;
+
     }
     return true;
 }
@@ -1492,6 +1721,8 @@ uint16_t fs_free () {
         sync_archive_file();
         if (LittleFS.totalBytes()-LittleFS.usedBytes() <= 8192) {
             tm_this->fs_enabled = false;
+            cfg_this->archive_enable = false;
+            tm_this->archive_enabled = false;
             sprintf (buffer, "Disabling further write access to FS because it is full");
             publish_event (STS_THIS, SS_FS, EVENT_ERROR, buffer);
         }
@@ -1504,7 +1735,7 @@ uint16_t fs_free () {
 
 uint32_t sd_free () {
     if (tm_this->sd_enabled) {
-        return ((SD_MMC.totalBytes() - SD_MMC.usedBytes())/1024);
+        return ((SD_MMC.totalBytes() - SD_MMC.usedBytes())/(1024*1024));
     }
     return 0;
 }
@@ -1517,12 +1748,12 @@ bool flush_fs () {
         while ((file = root.openNextFile())) {
             sprintf(file_path, "/%s", file.name());
             if (strcmp(file_path, tm_this->archive_path)) {
-                Serial.printf("Deleting file: %s (%u bytes)\n", file.name(), file.size());
+                //Serial.printf("Deleting file: %s (%u bytes)\n", file.name(), file.size());
                 file.close();
                 LittleFS.remove(file_path);
             }
             else {
-                Serial.printf("Keeping file: %s (%u bytes)\n", file.name(), file.size());
+                //Serial.printf("Keeping file: %s (%u bytes)\n", file.name(), file.size());
             }
         }
         tm_this->fs_active = true;
@@ -1533,71 +1764,92 @@ bool flush_fs () {
     return false;
 }
 
-/*void create_today_dir () {
+void create_today_directory () {
     if(tm_this->time_set) {
-        sprintf (cfg_this->today_dir, "/%02u%02u%02u", year(), month(), day());
+        sprintf (var.today_directory, "/%02u%02u%02u", year(), month(), day());
         switch(tm_this->archive_fs) {
         case FS_LITTLEFS:   
-            if(!LittleFS.exists(cfg_this->today_dir)) {
-                LittleFS.mkdir(cfg_this->today_dir);
+            if(!LittleFS.exists(var.today_directory)) {
+                LittleFS.mkdir(var.today_directory);
                 tm_this->fs_active = true;
             }
             break;
         case FS_SD_MMC:
-            if(!SD_MMC.exists(cfg_this->today_dir)) {
-                SD_MMC.mkdir(cfg_this->today_dir);
+            if(!SD_MMC.exists(var.today_directory)) {
+                SD_MMC.mkdir(var.today_directory);
                 tm_this->sd_active = true;
             }
             break;
         }
     }
-}*/
+}
 
 // Packet Archive Functionality
 
 bool setup_archive () {
-    if(cfg_this->write_fs_enable && cfg_this->archive_enable) {
-        switch (cfg_this->archive_fs) {
-        case FS_LITTLEFS: 
-            if(tm_this->fs_enabled) {
-                do {
-                    set_next_archive_path(tm_this->archive_path);
+    if(cfg_this->archive_enable) {
+        if ((cfg_this->archive_fs == FS_LITTLEFS && tm_this->fs_enabled) ||
+            (cfg_this->archive_fs == FS_SD_MMC && tm_this->sd_enabled)) {
+            if (cfg_this->write_fs_enable) {
+                switch (cfg_this->archive_fs) {
+                case FS_LITTLEFS: 
+                    if(tm_this->fs_enabled) {
+                        do {
+                            set_next_archive_path(tm_this->archive_path);
+                        }
+                        while(LittleFS.exists(tm_this->archive_path));
+                        var.archive_file = LittleFS.open(tm_this->archive_path, "a+");
+                        tm_this->fs_active = true;
+                    }
+                    else {
+                        return false;
+                    }
+                    break;
+                case FS_SD_MMC:
+                    if(tm_this->sd_enabled) {
+                        do {
+                            set_next_archive_path(tm_this->archive_path);
+                        }
+                        while(SD_MMC.exists(tm_this->archive_path));
+                        char archive_dir[20];
+                        strcpy(archive_dir, tm_this->archive_path);
+                        char *separator = strrchr(archive_dir, '/');
+                        if (separator != archive_dir) {
+                            *separator = '\0';
+                            if (!SD_MMC.exists(archive_dir)) {
+                                SD_MMC.mkdir(archive_dir);
+                            }
+                        }
+                        var.archive_file = SD_MMC.open(tm_this->archive_path, "a+");
+                        tm_this->sd_active = true;
+                    }
+                    else {
+                        return false;
+                    }
+                    break;
                 }
-                while(LittleFS.exists(tm_this->archive_path));
-                var.archive_file = LittleFS.open(tm_this->archive_path, "a+");
-                tm_this->fs_active = true;
+                if (!var.archive_file) {
+                    sprintf (buffer, "Failed to open '%s' on %s in append/read mode", tm_this->archive_path, filesystem[cfg_this->archive_fs].name);
+                    publish_event (STS_THIS, SS_ARCHIVE, EVENT_ERROR, buffer);
+                    tm_this->archive_fs = FS_NONE;
+                    tm_this->archive_enabled = false;
+                    tm_this->archive_active = true;
+                    return false;
+                }
+                tm_this->archive_fs = cfg_this->archive_fs;
+                tm_this->archive_enabled = true;
+                tm_this->archive_active = true;
+                return true;
             }
             else {
-                return false;
+                sprintf (buffer, "Archive not initialize as '%s' filesystem is read-only", filesystem[cfg_this->archive_fs].name);
+                publish_event (STS_THIS, SS_ARCHIVE, EVENT_ERROR, buffer);
             }
-            break;
-        case FS_SD_MMC:
-            if(tm_this->sd_enabled) {
-                do {
-                    set_next_archive_path(tm_this->archive_path);
-                }
-                while(SD_MMC.exists(tm_this->archive_path));
-                var.archive_file = SD_MMC.open(tm_this->archive_path, "a+");
-                tm_this->sd_active = true;
-            }
-            else {
-                return false;
-            }
-            break;
         }
-        if (!var.archive_file) {
-            sprintf (buffer, "Failed to open '%s' on %s in append/read mode", tm_this->archive_path, filesystem[cfg_this->archive_fs].name);
-            publish_event (STS_THIS, SS_ARCHIVE, EVENT_ERROR, buffer);
-            tm_this->archive_fs = FS_NONE;
-            tm_this->archive_enabled = false;
-            tm_this->archive_active = true;
-            return false;
-        }
-        tm_this->archive_fs = cfg_this->archive_fs;
-        tm_this->archive_enabled = true;
-        tm_this->archive_active = true;
-        return true;
+        sprintf (buffer, "Archive not initialize as '%s' filesystem is not available", filesystem[cfg_this->archive_fs].name);
+        publish_event (STS_THIS, SS_ARCHIVE, EVENT_ERROR, buffer);
     }
+
     return false;
 }
 
@@ -1650,7 +1902,7 @@ void set_next_archive_path (char* archive_path) {
 }
 
 bool save_packet_to_archive (ccsds_t* ccsds_ptr) {
-    if (tm_this->archive_enabled) {
+    if (tm_this->archive_enabled and tm_this->opsmode != MODE_MAINTENANCE) {
         tm_this->archive_pktrate++;
         tm_this->archive_active = true;
         uint8_t packet_len = get_ccsds_packet_len(ccsds_ptr);
@@ -1665,13 +1917,22 @@ bool save_packet_to_archive (ccsds_t* ccsds_ptr) {
                 archive.packet_offset = var.archive_file.position() - packet_len;
                 tm_this->fs_active = true;
                 tm_this->archive_active = true;
-                Serial.print("a");
+                if(SerialDebug) { Serial.print("a"); }
                 return true;
             }
             break;
         case FS_SD_MMC:
             if (tm_this->sd_enabled and tm_this->archive_enabled) {
                 if(!var.archive_file) {
+                    char archive_dir[20];
+                    strcpy(archive_dir, tm_this->archive_path);
+                    char *separator = strrchr(archive_dir, '/');
+                    if (separator != archive_dir) {
+                        *separator = '\0';
+                        if (!SD_MMC.exists(archive_dir)) {
+                            SD_MMC.mkdir(archive_dir);
+                        }
+                    }
                     var.archive_file = SD_MMC.open(tm_this->archive_path, "a+");
                 }
                 var.archive_file.write((const uint8_t*)ccsds_ptr, packet_len);
@@ -1679,7 +1940,7 @@ bool save_packet_to_archive (ccsds_t* ccsds_ptr) {
                 archive.packet_offset = var.archive_file.position() - packet_len;
                 tm_this->sd_active = true;
                 tm_this->archive_active = true;
-                Serial.print("a");
+                if(SerialDebug) { Serial.print("a"); }
                 return true;
             }
             break;
@@ -1830,7 +2091,7 @@ void process_tx_queue () {
                 uint8_t PID = get_ccsds_pid(ccsds_tx_buffer->ccsds_ptr);
                 var.espnow_buffer_index++;
                 if (get_routing(&cfg_this->routing_espnow, PID)) {
-                    Serial.print("E");
+                    if(SerialDebug) { Serial.print("E"); }
                     if (!send_packet_through_espnow(ccsds_tx_buffer->ccsds_ptr) and cfg_this->espnow_buffer_enable) {
                         // sending failed so if we are interested in buffering we want to attempt resend
                         var.espnow_buffer_index--;
@@ -1853,7 +2114,7 @@ void process_tx_queue () {
                 uint8_t PID = get_ccsds_pid(ccsds_tx_buffer->ccsds_ptr);
                 var.serial_buffer_index++;
                 if (get_routing(&cfg_this->routing_serial, PID)) {
-                    Serial.print("S");
+                    if(SerialDebug) { Serial.print("S"); }
                     if (!send_packet_through_serial(ccsds_tx_buffer->ccsds_ptr) and cfg_this->serial_buffer_enable) {
                         var.serial_buffer_index--;
                     }
@@ -1876,16 +2137,10 @@ void process_tx_queue () {
                 uint8_t PID = get_ccsds_pid(ccsds_tx_buffer->ccsds_ptr);
                 var.radio_buffer_index++;
                 if (get_routing(&cfg_this->routing_radio, PID)) {
-                    Serial.print("R");
-                    #ifdef RS41
-                    if (!send_packet_to_rs41(ccsds_tx_buffer->ccsds_ptr) and cfg_this->radio_buffer_enable) {
-                        var.radio_buffer_index--;
-                    }
-                    #else
+                    if(SerialDebug) { Serial.print("R"); }
                     if (!send_packet_through_radio(ccsds_tx_buffer->ccsds_ptr) and cfg_this->radio_buffer_enable) {
                         var.radio_buffer_index--;
                     }
-                    #endif
                 }
             }
             else if(!cfg_this->radio_buffer_enable) {
@@ -1905,7 +2160,7 @@ void process_tx_queue () {
                 uint8_t PID = get_ccsds_pid(ccsds_tx_buffer->ccsds_ptr);
                 var.archive_buffer_index++;
                 if (get_routing(&cfg_this->routing_archive, PID)) {
-                    Serial.print("A");
+                    if(SerialDebug) { Serial.print("A"); }
                     if (!save_packet_to_archive(ccsds_tx_buffer->ccsds_ptr) and cfg_this->archive_buffer_enable) {
                         var.archive_buffer_index--;
                     }
@@ -2049,6 +2304,7 @@ void update_packet (ccsds_t* ccsds_ptr) {
                         tm_radio.magn_z = int8_t((tm_motion.magn_z+((tm_motion.magn_z > 0) - (tm_motion.magn_z < 0))*50)/100);
                         tm_radio.pressure_internal = uint8_t(tm_pressure.pressure/2);
                         tm_radio.pressure_external = uint8_t(tm_pressure.pressure2/2);
+                        tm_radio.temperature_internal = uint8_t(tm_pressure.temperature/2);
                         tm_radio.temperature_external = uint8_t(tm_pressure.temperature2/2);
                         break;                          
     case TM_ESP32CAM:   tm_esp32cam.millis = millis();
@@ -2076,6 +2332,8 @@ void update_packet (ccsds_t* ccsds_ptr) {
                         break;   
     case TM_CAMERA:     tm_camera.millis = millis();
                         tm_camera.packet_ctr++;
+                        tm_esp32cam.camera_pktrate++;
+                        tm_esp32cam.camera_active = true;
                         break;
     case TM_GNDCTRL:    tm_gndctrl.millis = millis();
                         tm_gndctrl.packet_ctr++;
@@ -2101,10 +2359,8 @@ void update_packet (ccsds_t* ccsds_ptr) {
                             tm_this->archive_pktrate++;
                         }     */                  
                         break;                        
-    case TIMER_ESP32:   tmr_esp32.idle_duration = max(0, 1000 - tmr_esp32.radio_duration - tmr_esp32.pressure_duration - tmr_esp32.motion_duration - tmr_esp32.gps_duration - tmr_esp32.esp32cam_duration - tmr_esp32.ota_duration - tmr_esp32.ftp_duration - tmr_esp32.wifi_duration - tmr_esp32.tc_duration);
-                        break;
-    case TIMER_ESP32CAM:tmr_esp32cam.idle_duration = max(0, 1000 - tmr_esp32cam.sd_duration - tmr_esp32cam.camera_duration - tmr_esp32cam.ftp_duration - tmr_esp32cam.wifi_duration - tmr_esp32cam.tc_duration);
-                        break;
+    case TIMER_ESP32:   break;
+    case TIMER_ESP32CAM:break;
     }
 }
 
@@ -2176,13 +2432,13 @@ void reset_packet (ccsds_t* ccsds_ptr) {
                         tm_esp32cam.espnow_tx_active = false;
                         tm_esp32cam.serial_rx_active = false;
                         tm_esp32cam.serial_tx_active = false;
-                        //tm_esp32cam.rtsp_active = false;
                         break;
     case TM_CAMERA:     tm_camera.http_server_active = false;
                         tm_camera.wifi_images_active = false;
                         tm_camera.sd_images_active = false;
                         tm_camera.wifi_video_active = false;
                         tm_camera.sd_video_active = false;
+                        tm_camera.frame_rate = 0;
 
                         break;
 	case TM_GNDCTRL:    tm_gndctrl.espnow_rx_pktrate = 0;
@@ -2205,28 +2461,9 @@ void reset_packet (ccsds_t* ccsds_ptr) {
 						tm_gndctrl.radio_tx_active = false;
                         tm_gndctrl.buzzer_active=false;
 						break;                        
-    case TIMER_ESP32:   tmr_esp32.radio_duration = 0;
-                        tmr_esp32.pressure_duration = 0;
-                        tmr_esp32.motion_duration = 0;
-                        tmr_esp32.gps_duration = 0;
-                        tmr_esp32.esp32cam_duration = 0;
-                        tmr_esp32.ota_duration = 0;
-                        tmr_esp32.ftp_duration = 0;
-                        tmr_esp32.wifi_duration = 0;
-                        tmr_esp32.tc_duration = 0;
-                        tmr_esp32.idle_duration = 0;
-                        tmr_esp32.publish_fs_duration = 0;
-                        tmr_esp32.publish_espnow_duration = 0;
+    case TIMER_ESP32:   
                         break;                            
-    case TIMER_ESP32CAM:tmr_esp32cam.camera_duration = 0;
-                        tmr_esp32cam.tc_duration = 0;
-                        tmr_esp32cam.sd_duration = 0;
-                        tmr_esp32cam.ftp_duration = 0;
-                        tmr_esp32cam.wifi_duration = 0;
-                        tmr_esp32cam.idle_duration = 0;
-                        tmr_esp32cam.publish_sd_duration = 0;
-                        tmr_esp32cam.publish_fs_duration = 0;
-                        tmr_esp32cam.publish_espnow_duration = 0;
+    case TIMER_ESP32CAM:
                         break;
     }
 }
@@ -2238,11 +2475,11 @@ bool get_routing(uint32_t *routing, uint8_t PID) {
 void set_routing(uint32_t *routing, uint8_t PID, bool status) {
     if (status) {
         *routing |= (1U << PID);
-        Serial.println("activating");
+        //Serial.println("activating");
     }
     else {
         *routing &= ~(1U << PID);
-        Serial.println("deactivating");
+        //Serial.println("deactivating");
     }
 }
 
@@ -2329,7 +2566,7 @@ uint8_t get_ccsds_pid (ccsds_t* ccsds_ptr) {
 
 bool execute_tc () { 
     switch (tc_this->cmd_id) {
-    case CMD_REBOOT:        return cmd_reboot((uint8_t)tc_this->parameter[0]);
+    case CMD_REBOOT:        cmd_reboot();
                             break;
     case CMD_SET_OPSMODE:   return cmd_set_opsmode((uint8_t)tc_this->parameter[0]);
                             break;
@@ -2358,35 +2595,13 @@ bool execute_tc () {
     }
 }
 
-bool cmd_reboot (const uint8_t system) {
-    switch(system) {
-    case SS_THIS: // this
-        sprintf(buffer, "Rebooting %s subsystem", subsystem[SS_THIS].name);
-        publish_event(STS_THIS, SS_THIS, EVENT_CMD_RESP, buffer);
-        sync_archive_file();
-        delay(1000);
-        ESP.restart();
-    break;
-    case SS_OTHER: // other
-        sprintf(buffer, "Sending reboot command to %s subsystem", subsystem[SS_OTHER].name);
-        publish_event(STS_THIS, SS_THIS, EVENT_CMD_RESP, buffer);
-        tc_other->cmd_id = CMD_REBOOT;
-        tc_other->parameter[0] = SS_OTHER;
-        set_ccsds_payload_len((ccsds_t*)tc_other, 7); 
-        publish_packet((ccsds_t*)tc_other);
-    break;
-    case SS_ANY: // both
-        tc_other->cmd_id = CMD_REBOOT;
-        tc_other->parameter[0] = SS_OTHER;
-        set_ccsds_payload_len((ccsds_t*)tc_other, 7); 
-        publish_packet((ccsds_t*)tc_other);
-        sprintf(buffer, "Sending reboot command to %s and rebooting %s subsystem", subsystem[SS_OTHER].name, subsystem[SS_THIS].name);
-        publish_event(STS_THIS, SS_THIS, EVENT_CMD_RESP, buffer);
-        sync_archive_file();
-        delay(1000);
-        ESP.restart();
-    }     
-    return true;
+void cmd_reboot () {
+    sprintf(buffer, "Rebooting %s subsystem", subsystem[SS_THIS].name);
+    publish_event(STS_THIS, SS_THIS, EVENT_CMD_RESP, buffer);
+    sync_archive_file();
+    cfg_this->write_fs_enable = false;
+    delay(1000);
+    ESP.restart();
 }
 
 bool cmd_set_opsmode (const uint8_t opsmode) {
@@ -2500,10 +2715,10 @@ void setup_ota() {
     ArduinoOTA.begin();
     
     if(tm_this->wifi_ap_enabled or tm_this->wifi_sta_enabled) {
-        publish_event (STS_THIS, SS_THIS, EVENT_INIT, "OTA capability initialized");
+        publish_event (STS_THIS, SS_THIS, EVENT_INIT, "OTA capability initialized (maintenance only)");
     }
     else {
-        publish_event (STS_THIS, SS_THIS, EVENT_INIT, "OTA capability initialized but no wifi enabled");
+        publish_event (STS_THIS, SS_THIS, EVENT_INIT, "OTA capability initialized (maintenance only) but no wifi enabled");
     }
 }
 
@@ -2516,12 +2731,23 @@ bool get_ntp_time() {
         sprintf(buffer, "Time set through NTP: %04u-%02u-%02u %02u:%02u:%02u", year(), month(), day(), hour(), minute(), second());
         publish_event (STS_THIS, SS_THIS, EVENT_INIT, buffer);
         tm_this->time_set = true;
+        create_today_directory();
         return true;
     }
     else {
         publish_event (STS_THIS, SS_THIS, EVENT_ERROR, "Failed to obtain NTP time");
         return false;
     }
+}
+
+void switch_timer (uint8_t new_timer) {
+    static uint8_t current_timer;
+    static uint32_t last_switch;
+    static uint32_t now;
+    now = millis();
+    tmr_this->timer[current_timer].ms += (now - last_switch);
+    current_timer = new_timer;
+    last_switch = now;
 }
 
 // Support Functions

@@ -11,7 +11,7 @@
 
 // Set versioning
 #define SW_VERSION "0.2.0"
-#define SW_DATE "20260913"
+#define SW_DATE "20260923"
 
 // Libraries
 #include <Arduino.h>
@@ -21,17 +21,19 @@
 #include "soc/rtc_cntl_reg.h"
 #include "CameraController.h"
 #include "WebInterface.h"
+#include "esp_timer.h"
 
 // Global variables used in this file
 extern tm_esp32cam_t    tm_esp32cam;
 extern cfg_packet_t     cfg_esp32cam;
+extern tmr_packet_t     tmr_esp32cam;
 extern var_t            var;
 
-tm_esp32cam_t        *tm_this = &tm_esp32cam;
+tm_esp32cam_t       *tm_this = &tm_esp32cam;
 tc_packet_t         *tc_this = &tc_esp32cam;
 tc_packet_t         *tc_other = &tc_esp32;
 sts_packet_t        *sts_this = &sts_esp32cam;
-tmr_esp32cam_t       *tmr_this = &tmr_esp32cam;
+tmr_packet_t        *tmr_this = &tmr_esp32cam;
 cfg_packet_t        *cfg_this = &cfg_esp32cam;
 
 // ROUTING (PID)
@@ -59,50 +61,115 @@ cfg_packet_t        *cfg_this = &cfg_esp32cam;
 bool default_routing_espnow[NUMBER_OF_PID] =  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 bool default_routing_radio[NUMBER_OF_PID] =   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 bool default_routing_serial[NUMBER_OF_PID] =  { 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0 };
-bool default_routing_archive[NUMBER_OF_PID] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+bool default_routing_archive[NUMBER_OF_PID] = { 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 0 };
 
 CameraController cameraController;
 WebInterface webInterface;
 
-void setup_timer() {
-    var.next_second = 1000*(millis()/1000) + 1000;
-    var.next_tx_time = millis();
-}
-
 void sendTM(void *arg) {
     publish_packet((ccsds_t*)tm_this);
+    if (tm_esp32cam.camera_enabled) {
+        publish_packet((ccsds_t*)&tm_camera);
+    }
 }
+
+void checkTX(void *arg) {
+    process_tx_queue();
+}
+
+void checkRX(void *arg) {
+    // Process incoming packets
+    check_serialtransfer_rx();
+    process_rx_queue();
+}
+
+void SyncArchive(void *arg) {
+    // Ensure storage of archive data
+    sync_archive_file();
+}
+    
 
 void setup() {
     // Initial settings configuration
-    WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 0);
+    //WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 0);
     init_config();
     
     // Serial port to Fli3dv2 ESP32
-    Serial.begin(115200);
-    setup_serialtransfer(Serial);
+    if (cfg_esp32cam.serial_rx_enable or cfg_esp32cam.serial_tx_enable) {
+        Serial.begin(115200);
+        setup_serialtransfer(Serial);
+        tm_esp32cam.serial_rx_enabled = cfg_esp32cam.serial_rx_enable;
+        tm_esp32cam.serial_tx_enabled = cfg_esp32cam.serial_tx_enable;
+    }
 
     // Startup telemetry
     init_ccsds();
     sprintf (buffer, "Fli3d ESP32CAM v%s [%s] started for %s [%s]", SW_VERSION, SW_DATE, cfg_this->rocket_name, reset_reason[esp_reset_reason()].name); 
-
-    sprintf (buffer, "%s started on %s", SW_VERSION, subsystem[SS_THIS].name); 
     publish_event (STS_THIS, SS_THIS, EVENT_INIT, buffer); 
     publish_packet((ccsds_t*)tm_this);
     publish_packet((ccsds_t*)cfg_this);
+
+    // Start sending tm packets every second
+    esp_timer_create_args_t timer_argsTM = {
+        .callback = &sendTM,
+        .arg = NULL,
+        .dispatch_method = ESP_TIMER_TASK,
+        .name = "BackgroundTaskTimer0"
+    };
+
+    esp_timer_handle_t timer_handleTM;
+    esp_timer_create(&timer_argsTM, &timer_handleTM);
+    esp_timer_start_periodic(timer_handleTM, 1000000);
+    sleep(10);
+
+    // Start checking the send queue every 100 ms
+    esp_timer_create_args_t timer_argsTX = {
+        .callback = &checkTX,
+        .arg = NULL,
+        .dispatch_method = ESP_TIMER_TASK,
+        .name = "BackgroundTaskTimer1"
+    };
+
+    esp_timer_handle_t timer_handleTX;
+    esp_timer_create(&timer_argsTX, &timer_handleTX);
+    esp_timer_start_periodic(timer_handleTX, 100000);
+    sleep(10);
+
+    // Start checking the receive queue every 500 ms
+    esp_timer_create_args_t timer_argsRX = {
+        .callback = &checkRX,
+        .arg = NULL,
+        .dispatch_method = ESP_TIMER_TASK,
+        .name = "BackgroundTaskTimer2"
+    };
+
+    esp_timer_handle_t timer_handleRX;
+    esp_timer_create(&timer_argsRX, &timer_handleRX);
+    esp_timer_start_periodic(timer_handleRX, 500000);
+    sleep(10);
+
+    // Sync the archive file every minute
+    esp_timer_create_args_t timer_argsArchive = {
+        .callback = &SyncArchive,
+        .arg = NULL,
+        .dispatch_method = ESP_TIMER_TASK,
+        .name = "BackgroundTaskTimer3"
+    };
+
+    esp_timer_handle_t timer_handleArchive;
+    esp_timer_create(&timer_argsArchive, &timer_handleArchive);
+    esp_timer_start_periodic(timer_handleArchive, 60000000);
 
     // Load stored configuration
     if(init_boot_config()) {
         load_config_bank(cfg_this->cfg_boot.boot_bank);
     }
-    publish_packet((ccsds_t*)tm_this);
     publish_packet((ccsds_t*)cfg_this);
 
     // Connect to wifi
     setup_wifi();
     enable_wifi_services();
     get_ntp_time();
-    publish_packet((ccsds_t*)tm_this);
 
     // Set up file system for local storage of telemetry data
     setup_fs();
@@ -115,44 +182,36 @@ void setup() {
     }
 
     // Initialize web interface
-    if (tm_esp32cam.wifi_sta_enabled) {
+    if (tm_esp32cam.wifi_sta_enabled or tm_esp32cam.wifi_ap_enabled) {
         tm_esp32cam.webserver_enabled = webInterface.begin(&cameraController);
     }
 
     // Initialisation complete
-    setup_timer();
-    publish_event (STS_THIS, SS_THIS, EVENT_INIT, "Initialisation complete");  
+    publish_event (STS_THIS, SS_THIS, EVENT_INIT, "ESP32CAM initialisation complete");  
     set_opsmode(cfg_this->target_opsmode);
 }
- 
-void loop() {
-    check_serialtransfer_rx();
-    process_rx_queue();
-    if (millis()>=var.next_tx_time) {
-        process_tx_queue();
-        var.next_tx_time += 20;
-    }
-    if (millis()>=var.next_second) {
-        publish_packet((ccsds_t*)tm_this);
-        var.next_second+=1000;
-    }
 
-    if (tm_this->opsmode == MODE_MAINTENANCE) {
-        // In maintenance mode, we can check for OTA and FTP
+
+void loop() {
+    switch (tm_this->opsmode) {
+    case MODE_CHECKOUT:
+    case MODE_NOMINAL:
+        // Camera operations
+        if(tm_esp32cam.camera_enabled) {
+            cameraController.process();
+        }
+        if(tm_esp32cam.webserver_enabled) {
+            webInterface.process();   
+        } 
+        break;
+    case MODE_MAINTENANCE:
+        // OTA and FTP
         if (cfg_this->ota_enable) {
             ArduinoOTA.handle();
             tm_this->ota_enabled = true;
         }
         if (tm_this->ftp_enabled) {
             //ftp_check(cfg_this->buffer_fs);
-        }
-    }
-    else {
-        if(tm_esp32cam.camera_enabled) {
-            cameraController.process();
-        }
-        if(tm_esp32cam.webserver_enabled) {
-            webInterface.process();   
         }
     }
 }

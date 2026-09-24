@@ -1,4 +1,7 @@
+/* Vibe coded using Copilot */
+
 #include "VideoRecorder.h"
+#include "fli3dv2.h"
 
 VideoRecorder::VideoRecorder() :
     _width(0),
@@ -50,6 +53,8 @@ bool VideoRecorder::begin(
     writeAviHeader();
 
     _recording = true;
+
+    strcpy(tm_camera.filename, filename.c_str());
 
     return true;
 }
@@ -113,6 +118,8 @@ void VideoRecorder::stop() {
     SD_MMC.remove(_idxFilename);
 
     _recording = false;
+
+    strcpy (tm_camera.filename, "");
 }
 
 bool VideoRecorder::isRecording() const {

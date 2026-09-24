@@ -1,10 +1,11 @@
+/* Based on vibecoded coding by Copilot */
+
 #ifndef WEB_INTERFACE_H
 #define WEB_INTERFACE_H
 
 #include <Arduino.h>
 #include <WiFi.h>
 #include <WebServer.h>
-
 #include "CameraController.h"
 
 class WebInterface {
@@ -21,7 +22,6 @@ private:
     WebServer _server;
 
     void handleSnapshot();
-    void handleStatus();
     void handleStream();
 };
 

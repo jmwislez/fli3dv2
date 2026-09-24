@@ -7,11 +7,11 @@
 
 // Set versioning
 #define SW_VERSION "1.99.0"
-#define SW_DATE "20260902"
+#define SW_DATE "20260924"
 
 // Set functionality to compile
 //#define RADIO
-//#define RS41
+#define RS41
 //#define COREMESH
 //#define GPRS
 //#define SEPARATION
@@ -21,6 +21,7 @@
 #define MOTION
 #define GPS
 #define CAMERA
+#define TIMER
 
 // Libraries
 #include <Arduino.h>
@@ -40,13 +41,14 @@ bool separation_sts_changed; // TODO: keep?
 extern char buffer[BUFFER_MAX_SIZE];
 extern tm_esp32_t   tm_esp32;
 extern cfg_packet_t cfg_esp32;
+extern tmr_packet_t tmr_esp32;
 extern var_t        var;
 
 tm_esp32_t          *tm_this = &tm_esp32;
 tc_packet_t         *tc_this = &tc_esp32;
 tc_packet_t         *tc_other = &tc_esp32cam;
 sts_packet_t        *sts_this = &sts_esp32;
-tmr_esp32_t         *tmr_this = &tmr_esp32;
+tmr_packet_t        *tmr_this = &tmr_esp32;
 cfg_packet_t        *cfg_this = &cfg_esp32;
 
 // ROUTING (PID)
@@ -72,60 +74,28 @@ cfg_packet_t        *cfg_this = &cfg_esp32;
 //                                              |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  J: CFG_GNDCTRL
 //                                              0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F  G  H  I  J
 bool default_routing_espnow[NUMBER_OF_PID] =  { 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0 };
-bool default_routing_serial[NUMBER_OF_PID] =  { 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0 };
-bool default_routing_radio[NUMBER_OF_PID] =   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+bool default_routing_serial[NUMBER_OF_PID] =  { 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+bool default_routing_radio[NUMBER_OF_PID] =   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 bool default_routing_archive[NUMBER_OF_PID] = { 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 0 };
+
+void set_esp32cam_time() {
+    sprintf(buffer, "Sending time sync TC to ESP32CAM (%lu)", now());
+    publish_event(STS_THIS, SS_TCTM, EVENT_INFO, buffer);
+    uint8_t len = snprintf(NULL, 0, "timestamp%c%lu%c", '\0', now(), '\0');
+    snprintf(buffer, len + 1, "timestamp%c%lu%c", '\0', now(), '\0');
+    publish_cmd(TC_ESP32CAM, CMD_SET_PARAMETER, (byte*)buffer, len + 1);
+}
 
 void sendTM(void *arg) {
     publish_packet((ccsds_t*)tm_this);
+    if (tm_this->time_set and tm_esp32cam.opsmode!=MODE_INIT and !tm_esp32cam.time_set) {
+        set_esp32cam_time();
+    }
 }
 
 void checkTX(void *arg) {
     process_tx_queue();
 }
-
-/*
-void debug_i2c_scanner() {
-    byte error, address;
-    int nDevices;
-  
-    Wire.begin(36,2);  
-    Wire.setClock(100000); // 100 kHz
-    Serial.println("Scanning I2C bus...");
-    nDevices = 0;
-    for(address = 1; address < 127; address++ ) {
-        Wire.beginTransmission(address);
-        error = Wire.endTransmission();
-  
-        if (error == 0) {
-            Serial.print("I2C device found at address 0x");
-            if (address<16) 
-                Serial.print("0");
-            Serial.print(address,HEX);
-            Serial.println(" !");
-            Wire.requestFrom(address, 1);
-            if (Wire.available())          {
-                uint8_t who = Wire.read();
-                Serial.print("WHO_AM_I = 0x");
-                Serial.println(who, HEX);
-            }
-            else {
-                Serial.println("No data returned");
-            }
-            nDevices++;
-        }
-        else if (error==4) {
-            Serial.print("Unknown error at address 0x");
-            if (address<16) 
-                Serial.print("0");
-            Serial.println(address,HEX);
-        }    
-    }
-    if (nDevices == 0)
-        Serial.println("No I2C devices found\n");
-    else
-        Serial.println("done\n");
-} */
 
 void setup() {
     // Initial configuration
@@ -146,9 +116,8 @@ void setup() {
     }
     #endif
     #ifdef RS41
-    if(cfg_esp32.radio_enable) {
-        SoftwareSerial Serial3(RS41_RX_PIN, RS41_TX_PIN); // RX, TX
-        Serial3.begin(9600, SWSERIAL_8N1); // communication with RS41
+    if(cfg_esp32.radio_tx_enable) {
+        tm_esp32.radio_tx_enabled = setup_rs41();
     }
     #endif
 
@@ -172,6 +141,7 @@ void setup() {
     esp_timer_handle_t timer_handleTM;
     esp_timer_create(&timer_argsTM, &timer_handleTM);
     esp_timer_start_periodic(timer_handleTM, 1000000);
+    sleep(10);
 
     // Start checking the send queue every 100 ms
     esp_timer_create_args_t timer_argsTX = {
@@ -184,6 +154,7 @@ void setup() {
     esp_timer_handle_t timer_handleTX;
     esp_timer_create(&timer_argsTX, &timer_handleTX);
     esp_timer_start_periodic(timer_handleTX, 100000);
+    sleep(10);
 
     // Load configuration
     setup_gpio();
@@ -226,8 +197,6 @@ void setup() {
     }
     #endif // GPS
 
-    //debug_i2c_scanner();
-
     #ifdef PRESSURE
     if (cfg_esp32.pressure_enable) {
         if ((tm_esp32.pressure_enabled = setup_bmp388())) {
@@ -261,14 +230,14 @@ void setup() {
 }
 
 void loop() {
-    static uint32_t start_millis;
-  
+
     check_serialtransfer_rx();
     #ifdef RADIO
     check_radio_rx();
     #endif
     process_rx_queue();
-    tmr_esp32.millis = millis();
+
+    var.now = millis();
 
     if (tm_this->opsmode == MODE_MAINTENANCE) {
         // In maintenance mode, we can check for OTA and FTP
@@ -294,8 +263,7 @@ void loop() {
     
         // BMP388 pressure sensor
         #ifdef PRESSURE
-        else if (tmr_esp32.millis >= var.next_pressure_time and tm_esp32.pressure_enabled) {
-            start_millis = millis();
+        else if (var.now >= var.next_pressure_time and tm_esp32.pressure_enabled) {
             if (tm_esp32.pressure_active = acquire_bmp388()) {
                 publish_packet ((ccsds_t*)&tm_pressure);
             }
@@ -303,15 +271,13 @@ void loop() {
                 // will try to reset pressure sensor once, and then give up
                 //esp32.pressure_enabled = setup_icm20948();
             //}
-            var.next_pressure_time = tmr_esp32.millis + var.pressure_interval;
-            tmr_esp32.pressure_duration += millis() - start_millis;
+            var.next_pressure_time = var.now + var.pressure_interval;
         } 
         #endif // PRESSURE
 
         // BMP280 pressure sensor
         #ifdef PRESSURE2
-        else if (tmr_esp32.millis >= var.next_pressure_time and tm_esp32.pressure_enabled) {
-            start_millis = millis();
+        else if (var.now >= var.next_pressure_time and tm_esp32.pressure_enabled) {
             if (tm_esp32.pressure2_active = acquire_bmp280()) {
                 publish_packet ((ccsds_t*)&tm_pressure);
             }
@@ -319,38 +285,44 @@ void loop() {
                 // will try to reset pressure sensor once, and then give up
                 //esp32.pressure_enabled = setup_icm20948();
             //}
-            var.next_pressure_time = tmr_esp32.millis + var.pressure_interval;
-            tmr_esp32.pressure_duration += millis() - start_millis;
+            var.next_pressure_time = var.now + var.pressure_interval;
         } 
         #endif // PRESSURE2
 
         // ICM-20948 accelerometer/gyroscope/magnetometer
         #ifdef MOTION
-        else if (tmr_esp32.millis >= var.next_motion_time and tm_esp32.motion_enabled) {
-            start_millis = millis();
+        else if (var.now >= var.next_motion_time and tm_esp32.motion_enabled) {
             if (tm_esp32.motion_active = acquire_icm20948()) {
                 publish_packet ((ccsds_t*)&tm_motion);
+                publish_packet ((ccsds_t*)&tm_radio); //TODO: remove (is test)
             }
             //else {
                 // will try to reset accelerometer once, and then give up
                 //esp32.motion_enabled = setup_icm20948();
             //}
-            var.next_motion_time = tmr_esp32.millis + var.motion_interval;
-            tmr_esp32.motion_duration += millis() - start_millis;
+            var.next_motion_time = var.now + var.motion_interval;
         } 
         #endif // MOTION
         
         // NEO6MV2 GPS
         #ifdef GPS
-        else if (tm_esp32.gps_enabled and millis() >= var.next_gps_time) {
+        else if (tm_esp32.gps_enabled and var.now >= var.next_gps_time) {
             if (tm_esp32.gps_active = acquire_neo6mv2()) {
-                var.next_gps_time = millis() + var.gps_interval;
+                var.next_gps_time = var.now + var.gps_interval;
             }
             else {
-                var.next_gps_time = millis() + 1000;  // 1Hz as long as no data 
+                var.next_gps_time = var.now + 1000;  // 1Hz as long as no data 
             }
             publish_packet ((ccsds_t*)&tm_gps);
         }
         #endif // GPS
+
+        //RS41
+        #ifdef RS41
+        else if (tm_esp32.radio_tx_enabled and var.now >= var.next_rs41_time) {
+            send_radio_packet_to_rs41();
+            var.next_rs41_time = var.now + 1000;
+        }
+        #endif
     }  
 }

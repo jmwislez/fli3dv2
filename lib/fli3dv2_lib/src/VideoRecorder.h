@@ -1,3 +1,5 @@
+/* Vibe coded using Copilot */
+
 #ifndef VIDEO_RECORDER_H
 #define VIDEO_RECORDER_H
 

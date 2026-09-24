@@ -293,7 +293,7 @@ $(pv_value)</tooltip>
     <wrap_words>false</wrap_words>
     <wuid>-2fccbd24:194db345a5e:-783e</wuid>
     <x>6</x>
-    <y>368</y>
+    <y>388</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -346,7 +346,7 @@ $(pv_value)</tooltip>
     <wrap_words>false</wrap_words>
     <wuid>-2fccbd24:194db345a5e:-783d</wuid>
     <x>143</x>
-    <y>368</y>
+    <y>388</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -1527,7 +1527,7 @@ $(pv_value)</tooltip>
     <wrap_words>false</wrap_words>
     <wuid>-2fccbd24:194db345a5e:-765c</wuid>
     <x>6</x>
-    <y>328</y>
+    <y>348</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -1585,7 +1585,7 @@ $(pv_value)</tooltip>
     <width>20</width>
     <wuid>-2fccbd24:194db345a5e:-765b</wuid>
     <x>143</x>
-    <y>328</y>
+    <y>348</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -1625,7 +1625,7 @@ $(pv_value)</tooltip>
     <wrap_words>false</wrap_words>
     <wuid>-2fccbd24:194db345a5e:-7633</wuid>
     <x>6</x>
-    <y>347</y>
+    <y>367</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -1683,7 +1683,7 @@ $(pv_value)</tooltip>
     <width>20</width>
     <wuid>-2fccbd24:194db345a5e:-7632</wuid>
     <x>143</x>
-    <y>347</y>
+    <y>367</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -1723,7 +1723,7 @@ $(pv_value)</tooltip>
     <wrap_words>false</wrap_words>
     <wuid>-2fccbd24:194db345a5e:-75f8</wuid>
     <x>6</x>
-    <y>458</y>
+    <y>478</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -1776,7 +1776,7 @@ $(pv_value)</tooltip>
     <wrap_words>false</wrap_words>
     <wuid>-2fccbd24:194db345a5e:-75f7</wuid>
     <x>144</x>
-    <y>458</y>
+    <y>478</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
     <actions hook="false" hook_all="true">
@@ -2168,7 +2168,7 @@ $(pv_value)</tooltip>
     <width>46</width>
     <wuid>-2fccbd24:194db345a5e:-6eb2</wuid>
     <x>197</x>
-    <y>349</y>
+    <y>369</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
     <actions hook="false" hook_all="true">
@@ -2224,7 +2224,7 @@ $(pv_value)</tooltip>
     <width>46</width>
     <wuid>-2fccbd24:194db345a5e:-6eb1</wuid>
     <x>197</x>
-    <y>329</y>
+    <y>349</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -2330,7 +2330,7 @@ $(pv_value)</tooltip>
     <wrap_words>false</wrap_words>
     <wuid>-2b8d8eaa:194db79ac8e:-7e79</wuid>
     <x>426</x>
-    <y>368</y>
+    <y>388</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -3009,7 +3009,7 @@ $(pv_value)</tooltip>
     <width>20</width>
     <wuid>-2b8d8eaa:194db79ac8e:-7e51</wuid>
     <x>426</x>
-    <y>328</y>
+    <y>348</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -3067,7 +3067,7 @@ $(pv_value)</tooltip>
     <width>20</width>
     <wuid>-2b8d8eaa:194db79ac8e:-7e4f</wuid>
     <x>426</x>
-    <y>347</y>
+    <y>367</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -3120,7 +3120,7 @@ $(pv_value)</tooltip>
     <wrap_words>false</wrap_words>
     <wuid>-2b8d8eaa:194db79ac8e:-7e49</wuid>
     <x>425</x>
-    <y>458</y>
+    <y>478</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
     <actions hook="false" hook_all="true">
@@ -3512,7 +3512,7 @@ $(pv_value)</tooltip>
     <width>46</width>
     <wuid>-2b8d8eaa:194db79ac8e:-7e3b</wuid>
     <x>480</x>
-    <y>349</y>
+    <y>369</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
     <actions hook="false" hook_all="true">
@@ -3568,7 +3568,7 @@ $(pv_value)</tooltip>
     <width>46</width>
     <wuid>-2b8d8eaa:194db79ac8e:-7e3a</wuid>
     <x>480</x>
-    <y>329</y>
+    <y>349</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -5830,7 +5830,7 @@ $(pv_value)</tooltip>
     <width>100</width>
     <wuid>-2f8663c0:194e7254e9a:-6069</wuid>
     <x>144</x>
-    <y>482</y>
+    <y>502</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.MenuButton" version="1.0.0">
     <actions hook="false" hook_all="false">
@@ -5900,7 +5900,7 @@ $(pv_value)</tooltip>
     <width>100</width>
     <wuid>-2f8663c0:194e7254e9a:-5c97</wuid>
     <x>425</x>
-    <y>482</y>
+    <y>502</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -5940,7 +5940,7 @@ $(pv_value)</tooltip>
     <wrap_words>false</wrap_words>
     <wuid>-59b51a4e:194ef1ccf65:-7ce7</wuid>
     <x>6</x>
-    <y>522</y>
+    <y>542</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -5998,7 +5998,7 @@ $(pv_value)</tooltip>
     <width>20</width>
     <wuid>-59b51a4e:194ef1ccf65:-7ce6</wuid>
     <x>143</x>
-    <y>522</y>
+    <y>542</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
     <actions hook="false" hook_all="true">
@@ -6054,7 +6054,7 @@ $(pv_value)</tooltip>
     <width>46</width>
     <wuid>-59b51a4e:194ef1ccf65:-7ce5</wuid>
     <x>197</x>
-    <y>521</y>
+    <y>541</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -6112,7 +6112,7 @@ $(pv_value)</tooltip>
     <width>20</width>
     <wuid>-59b51a4e:194ef1ccf65:-7ce4</wuid>
     <x>426</x>
-    <y>522</y>
+    <y>542</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
     <actions hook="false" hook_all="true">
@@ -6168,7 +6168,7 @@ $(pv_value)</tooltip>
     <width>46</width>
     <wuid>-59b51a4e:194ef1ccf65:-7ce3</wuid>
     <x>480</x>
-    <y>521</y>
+    <y>541</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -6208,7 +6208,7 @@ $(pv_value)</tooltip>
     <wrap_words>false</wrap_words>
     <wuid>-59b51a4e:194ef1ccf65:-7ca5</wuid>
     <x>6</x>
-    <y>551</y>
+    <y>571</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -6266,7 +6266,7 @@ $(pv_value)</tooltip>
     <width>20</width>
     <wuid>-59b51a4e:194ef1ccf65:-7ca4</wuid>
     <x>143</x>
-    <y>551</y>
+    <y>571</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -6306,7 +6306,7 @@ $(pv_value)</tooltip>
     <wrap_words>false</wrap_words>
     <wuid>-59b51a4e:194ef1ccf65:-7ca3</wuid>
     <x>6</x>
-    <y>570</y>
+    <y>590</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -6364,7 +6364,7 @@ $(pv_value)</tooltip>
     <width>20</width>
     <wuid>-59b51a4e:194ef1ccf65:-7ca2</wuid>
     <x>143</x>
-    <y>570</y>
+    <y>590</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
     <actions hook="false" hook_all="true">
@@ -6420,7 +6420,7 @@ $(pv_value)</tooltip>
     <width>46</width>
     <wuid>-59b51a4e:194ef1ccf65:-7ca1</wuid>
     <x>197</x>
-    <y>553</y>
+    <y>573</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
     <actions hook="false" hook_all="true">
@@ -6476,7 +6476,7 @@ $(pv_value)</tooltip>
     <width>46</width>
     <wuid>-59b51a4e:194ef1ccf65:-7ca0</wuid>
     <x>197</x>
-    <y>569</y>
+    <y>589</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -6516,7 +6516,7 @@ $(pv_value)</tooltip>
     <wrap_words>false</wrap_words>
     <wuid>-59b51a4e:194ef1ccf65:-7c9f</wuid>
     <x>6</x>
-    <y>589</y>
+    <y>609</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -6574,7 +6574,7 @@ $(pv_value)</tooltip>
     <width>20</width>
     <wuid>-59b51a4e:194ef1ccf65:-7c9e</wuid>
     <x>143</x>
-    <y>589</y>
+    <y>609</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
     <actions hook="false" hook_all="true">
@@ -6630,7 +6630,7 @@ $(pv_value)</tooltip>
     <width>46</width>
     <wuid>-59b51a4e:194ef1ccf65:-7c9d</wuid>
     <x>197</x>
-    <y>588</y>
+    <y>608</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -6670,7 +6670,7 @@ $(pv_value)</tooltip>
     <wrap_words>false</wrap_words>
     <wuid>-59b51a4e:194ef1ccf65:-7c38</wuid>
     <x>6</x>
-    <y>612</y>
+    <y>632</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -6728,7 +6728,7 @@ $(pv_value)</tooltip>
     <width>20</width>
     <wuid>-59b51a4e:194ef1ccf65:-7c37</wuid>
     <x>164</x>
-    <y>612</y>
+    <y>632</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -6786,7 +6786,7 @@ $(pv_value)</tooltip>
     <width>20</width>
     <wuid>-59b51a4e:194ef1ccf65:-7c29</wuid>
     <x>183</x>
-    <y>612</y>
+    <y>632</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -6844,7 +6844,7 @@ $(pv_value)</tooltip>
     <width>20</width>
     <wuid>-59b51a4e:194ef1ccf65:-7c24</wuid>
     <x>223</x>
-    <y>612</y>
+    <y>632</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -6902,7 +6902,7 @@ $(pv_value)</tooltip>
     <width>20</width>
     <wuid>-59b51a4e:194ef1ccf65:-7c1f</wuid>
     <x>204</x>
-    <y>612</y>
+    <y>632</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
     <actions hook="false" hook_all="true">
@@ -7929,7 +7929,7 @@ $(pv_value)</tooltip>
     <wrap_words>false</wrap_words>
     <wuid>-59b51a4e:194ef1ccf65:-77a4</wuid>
     <x>144</x>
-    <y>396</y>
+    <y>416</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -7982,7 +7982,7 @@ $(pv_value)</tooltip>
     <wrap_words>false</wrap_words>
     <wuid>-59b51a4e:194ef1ccf65:-779a</wuid>
     <x>144</x>
-    <y>415</y>
+    <y>435</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -8035,7 +8035,7 @@ $(pv_value)</tooltip>
     <wrap_words>false</wrap_words>
     <wuid>-59b51a4e:194ef1ccf65:-7795</wuid>
     <x>143</x>
-    <y>434</y>
+    <y>454</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -8075,7 +8075,7 @@ $(pv_value)</tooltip>
     <wrap_words>false</wrap_words>
     <wuid>-59b51a4e:194ef1ccf65:-7780</wuid>
     <x>6</x>
-    <y>396</y>
+    <y>416</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -8115,7 +8115,7 @@ $(pv_value)</tooltip>
     <wrap_words>false</wrap_words>
     <wuid>-59b51a4e:194ef1ccf65:-777f</wuid>
     <x>6</x>
-    <y>415</y>
+    <y>435</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -8155,7 +8155,7 @@ $(pv_value)</tooltip>
     <wrap_words>false</wrap_words>
     <wuid>-59b51a4e:194ef1ccf65:-777e</wuid>
     <x>6</x>
-    <y>434</y>
+    <y>454</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -8219,7 +8219,7 @@ $(pv_value)</tooltip>
     <width>20</width>
     <wuid>-59b51a4e:194ef1ccf65:-7766</wuid>
     <x>124</x>
-    <y>396</y>
+    <y>416</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -8283,7 +8283,7 @@ $(pv_value)</tooltip>
     <width>20</width>
     <wuid>-59b51a4e:194ef1ccf65:-7756</wuid>
     <x>124</x>
-    <y>415</y>
+    <y>435</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -8347,7 +8347,7 @@ $(pv_value)</tooltip>
     <width>20</width>
     <wuid>-59b51a4e:194ef1ccf65:-7751</wuid>
     <x>124</x>
-    <y>434</y>
+    <y>454</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -8400,7 +8400,7 @@ $(pv_value)</tooltip>
     <wrap_words>false</wrap_words>
     <wuid>-59b51a4e:194ef1ccf65:-7736</wuid>
     <x>425</x>
-    <y>396</y>
+    <y>416</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -8453,7 +8453,7 @@ $(pv_value)</tooltip>
     <wrap_words>false</wrap_words>
     <wuid>-59b51a4e:194ef1ccf65:-7735</wuid>
     <x>425</x>
-    <y>415</y>
+    <y>435</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -8506,7 +8506,7 @@ $(pv_value)</tooltip>
     <wrap_words>false</wrap_words>
     <wuid>-59b51a4e:194ef1ccf65:-7734</wuid>
     <x>426</x>
-    <y>434</y>
+    <y>454</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -8570,7 +8570,7 @@ $(pv_value)</tooltip>
     <width>20</width>
     <wuid>-59b51a4e:194ef1ccf65:-7733</wuid>
     <x>405</x>
-    <y>396</y>
+    <y>416</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -8634,7 +8634,7 @@ $(pv_value)</tooltip>
     <width>20</width>
     <wuid>-59b51a4e:194ef1ccf65:-7732</wuid>
     <x>405</x>
-    <y>415</y>
+    <y>435</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -8698,7 +8698,7 @@ $(pv_value)</tooltip>
     <width>20</width>
     <wuid>-59b51a4e:194ef1ccf65:-7731</wuid>
     <x>405</x>
-    <y>434</y>
+    <y>454</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
     <actions hook="false" hook_all="true">
@@ -31862,7 +31862,7 @@ $(pv_value)</tooltip>
     <width>20</width>
     <wuid>-4e161c2c:19fcd858392:-64d4</wuid>
     <x>443</x>
-    <y>612</y>
+    <y>632</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -31920,7 +31920,7 @@ $(pv_value)</tooltip>
     <width>20</width>
     <wuid>-4e161c2c:19fcd858392:-64d3</wuid>
     <x>462</x>
-    <y>612</y>
+    <y>632</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -31978,7 +31978,7 @@ $(pv_value)</tooltip>
     <width>20</width>
     <wuid>-4e161c2c:19fcd858392:-64d2</wuid>
     <x>502</x>
-    <y>612</y>
+    <y>632</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -32036,7 +32036,7 @@ $(pv_value)</tooltip>
     <width>20</width>
     <wuid>-4e161c2c:19fcd858392:-64d1</wuid>
     <x>483</x>
-    <y>612</y>
+    <y>632</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -32142,7 +32142,7 @@ $(pv_value)</tooltip>
     <wrap_words>false</wrap_words>
     <wuid>-150b93bc:19fe56f7187:-4fe9</wuid>
     <x>282</x>
-    <y>368</y>
+    <y>388</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -32821,7 +32821,7 @@ $(pv_value)</tooltip>
     <width>20</width>
     <wuid>-150b93bc:19fe56f7187:-4fdd</wuid>
     <x>282</x>
-    <y>328</y>
+    <y>348</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -32879,7 +32879,7 @@ $(pv_value)</tooltip>
     <width>20</width>
     <wuid>-150b93bc:19fe56f7187:-4fdc</wuid>
     <x>282</x>
-    <y>347</y>
+    <y>367</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -32932,7 +32932,7 @@ $(pv_value)</tooltip>
     <wrap_words>false</wrap_words>
     <wuid>-150b93bc:19fe56f7187:-4fdb</wuid>
     <x>281</x>
-    <y>458</y>
+    <y>478</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
     <actions hook="false" hook_all="true">
@@ -33324,7 +33324,7 @@ $(pv_value)</tooltip>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4fd4</wuid>
     <x>336</x>
-    <y>349</y>
+    <y>369</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
     <actions hook="false" hook_all="true">
@@ -33380,7 +33380,7 @@ $(pv_value)</tooltip>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4fd3</wuid>
     <x>336</x>
-    <y>329</y>
+    <y>349</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -33516,7 +33516,7 @@ $(pv_value)</tooltip>
     <width>100</width>
     <wuid>-150b93bc:19fe56f7187:-4fd1</wuid>
     <x>281</x>
-    <y>482</y>
+    <y>502</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -33574,7 +33574,7 @@ $(pv_value)</tooltip>
     <width>20</width>
     <wuid>-150b93bc:19fe56f7187:-4fd0</wuid>
     <x>282</x>
-    <y>522</y>
+    <y>542</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
     <actions hook="false" hook_all="true">
@@ -33630,7 +33630,7 @@ $(pv_value)</tooltip>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-4fcf</wuid>
     <x>336</x>
-    <y>521</y>
+    <y>541</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -33683,7 +33683,7 @@ $(pv_value)</tooltip>
     <wrap_words>false</wrap_words>
     <wuid>-150b93bc:19fe56f7187:-4fce</wuid>
     <x>281</x>
-    <y>396</y>
+    <y>416</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -33736,7 +33736,7 @@ $(pv_value)</tooltip>
     <wrap_words>false</wrap_words>
     <wuid>-150b93bc:19fe56f7187:-4fcd</wuid>
     <x>281</x>
-    <y>415</y>
+    <y>435</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -33789,7 +33789,7 @@ $(pv_value)</tooltip>
     <wrap_words>false</wrap_words>
     <wuid>-150b93bc:19fe56f7187:-4fcc</wuid>
     <x>282</x>
-    <y>434</y>
+    <y>454</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -33853,7 +33853,7 @@ $(pv_value)</tooltip>
     <width>20</width>
     <wuid>-150b93bc:19fe56f7187:-4fcb</wuid>
     <x>261</x>
-    <y>396</y>
+    <y>416</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -33917,7 +33917,7 @@ $(pv_value)</tooltip>
     <width>20</width>
     <wuid>-150b93bc:19fe56f7187:-4fca</wuid>
     <x>261</x>
-    <y>415</y>
+    <y>435</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -33981,7 +33981,7 @@ $(pv_value)</tooltip>
     <width>20</width>
     <wuid>-150b93bc:19fe56f7187:-4fc9</wuid>
     <x>261</x>
-    <y>434</y>
+    <y>454</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -34021,7 +34021,7 @@ $(pv_value)</tooltip>
     <wrap_words>false</wrap_words>
     <wuid>-150b93bc:19fe56f7187:-48f4</wuid>
     <x>280</x>
-    <y>551</y>
+    <y>571</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -34079,7 +34079,7 @@ $(pv_value)</tooltip>
     <width>20</width>
     <wuid>-150b93bc:19fe56f7187:-48f3</wuid>
     <x>281</x>
-    <y>568</y>
+    <y>588</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
     <actions hook="false" hook_all="true">
@@ -34135,7 +34135,7 @@ $(pv_value)</tooltip>
     <width>46</width>
     <wuid>-150b93bc:19fe56f7187:-48f2</wuid>
     <x>335</x>
-    <y>570</y>
+    <y>590</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -37489,7 +37489,7 @@ $(pv_value)</tooltip>
       <path pathString="EmbeddedJs" checkConnect="true" seoe="false">
         <scriptName>EmbeddedScript</scriptName>
         <scriptText><![CDATA[if (pvs[0].getValue() == "nominal") { widget.setValue(1); } else { widget.setValue(0); }]]></scriptText>
-        <pv trig="true">/fli3d/ESP32_opsmode</pv>
+        <pv trig="true">/fli3d/ESP32CAM_opsmode</pv>
       </path>
     </scripts>
     <show_boolean_label>false</show_boolean_label>
@@ -39422,5 +39422,546 @@ $(pv_value)</tooltip>
     <wuid>743e29d9:1a091a6d930:-76a1</wuid>
     <x>1202</x>
     <y>570</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
+    <actions hook="false" hook_all="false" />
+    <auto_size>false</auto_size>
+    <background_color>
+      <color red="255" green="255" blue="255" />
+    </background_color>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <enabled>true</enabled>
+    <font>
+      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
+    </font>
+    <foreground_color>
+      <color red="0" green="0" blue="0" />
+    </foreground_color>
+    <height>20</height>
+    <horizontal_alignment>0</horizontal_alignment>
+    <name>Label_165</name>
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <text>write fs enable</text>
+    <tooltip />
+    <transparent>true</transparent>
+    <vertical_alignment>1</vertical_alignment>
+    <visible>true</visible>
+    <widget_type>Label</widget_type>
+    <width>127</width>
+    <wrap_words>false</wrap_words>
+    <wuid>-27321d34:1a0be0020cc:-70bd</wuid>
+    <x>6</x>
+    <y>328</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
+    <actions hook="false" hook_all="false" />
+    <alarm_pulsing>false</alarm_pulsing>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color red="240" green="240" blue="240" />
+    </background_color>
+    <bit>-1</bit>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <bulb_border>3</bulb_border>
+    <bulb_border_color>
+      <color red="150" green="150" blue="150" />
+    </bulb_border_color>
+    <data_type>0</data_type>
+    <effect_3d>true</effect_3d>
+    <enabled>true</enabled>
+    <font>
+      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="192" green="192" blue="192" />
+    </foreground_color>
+    <height>20</height>
+    <name>LED_594</name>
+    <off_color>
+      <color red="0" green="100" blue="0" />
+    </off_color>
+    <off_label>OFF</off_label>
+    <on_color>
+      <color red="0" green="255" blue="0" />
+    </on_color>
+    <on_label>ON</on_label>
+    <pv_name>/fli3d/CFG_ESP32_write_fs_enable</pv_name>
+    <pv_value />
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>true</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <show_boolean_label>false</show_boolean_label>
+    <square_led>false</square_led>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <visible>true</visible>
+    <widget_type>LED</widget_type>
+    <width>20</width>
+    <wuid>-27321d34:1a0be0020cc:-70bc</wuid>
+    <x>143</x>
+    <y>328</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
+    <actions hook="false" hook_all="true">
+      <action type="RUN_COMMAND">
+        <command>/fli3d/ESP32_set_parameter</command>
+        <args>
+          <parameter>write_fs_enable</parameter>
+          <value>-1</value>
+        </args>
+        <confirm_message />
+        <description />
+      </action>
+    </actions>
+    <alarm_pulsing>false</alarm_pulsing>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color red="240" green="240" blue="240" />
+    </background_color>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <enabled>true</enabled>
+    <font>
+      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="0" green="0" blue="0" />
+    </foreground_color>
+    <height>20</height>
+    <image />
+    <name>Action Button_541</name>
+    <push_action_index>0</push_action_index>
+    <pv_name />
+    <pv_value />
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <style>0</style>
+    <text>on/off</text>
+    <toggle_button>false</toggle_button>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <visible>true</visible>
+    <widget_type>Action Button</widget_type>
+    <width>46</width>
+    <wuid>-27321d34:1a0be0020cc:-70bb</wuid>
+    <x>197</x>
+    <y>328</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
+    <actions hook="false" hook_all="false" />
+    <alarm_pulsing>false</alarm_pulsing>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color red="240" green="240" blue="240" />
+    </background_color>
+    <bit>-1</bit>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <bulb_border>3</bulb_border>
+    <bulb_border_color>
+      <color red="150" green="150" blue="150" />
+    </bulb_border_color>
+    <data_type>0</data_type>
+    <effect_3d>true</effect_3d>
+    <enabled>true</enabled>
+    <font>
+      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="192" green="192" blue="192" />
+    </foreground_color>
+    <height>20</height>
+    <name>LED_595</name>
+    <off_color>
+      <color red="0" green="100" blue="0" />
+    </off_color>
+    <off_label>OFF</off_label>
+    <on_color>
+      <color red="0" green="255" blue="0" />
+    </on_color>
+    <on_label>ON</on_label>
+    <pv_name>/fli3d/CFG_GNDCTRL_write_fs_enable</pv_name>
+    <pv_value />
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>true</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <show_boolean_label>false</show_boolean_label>
+    <square_led>false</square_led>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <visible>true</visible>
+    <widget_type>LED</widget_type>
+    <width>20</width>
+    <wuid>-27321d34:1a0be0020cc:-70ba</wuid>
+    <x>426</x>
+    <y>328</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
+    <actions hook="false" hook_all="true">
+      <action type="RUN_COMMAND">
+        <command>/fli3d/GNDCTRL_set_parameter</command>
+        <args>
+          <parameter>write_fs_enable</parameter>
+          <value>-1</value>
+        </args>
+        <confirm_message />
+        <description />
+      </action>
+    </actions>
+    <alarm_pulsing>false</alarm_pulsing>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color red="240" green="240" blue="240" />
+    </background_color>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <enabled>true</enabled>
+    <font>
+      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="0" green="0" blue="0" />
+    </foreground_color>
+    <height>20</height>
+    <image />
+    <name>Action Button_542</name>
+    <push_action_index>0</push_action_index>
+    <pv_name />
+    <pv_value />
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <style>0</style>
+    <text>on/off</text>
+    <toggle_button>false</toggle_button>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <visible>true</visible>
+    <widget_type>Action Button</widget_type>
+    <width>46</width>
+    <wuid>-27321d34:1a0be0020cc:-70b9</wuid>
+    <x>480</x>
+    <y>328</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.LED" version="1.0.0">
+    <actions hook="false" hook_all="false" />
+    <alarm_pulsing>false</alarm_pulsing>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color red="240" green="240" blue="240" />
+    </background_color>
+    <bit>-1</bit>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <bulb_border>3</bulb_border>
+    <bulb_border_color>
+      <color red="150" green="150" blue="150" />
+    </bulb_border_color>
+    <data_type>0</data_type>
+    <effect_3d>true</effect_3d>
+    <enabled>true</enabled>
+    <font>
+      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="192" green="192" blue="192" />
+    </foreground_color>
+    <height>20</height>
+    <name>LED_596</name>
+    <off_color>
+      <color red="0" green="100" blue="0" />
+    </off_color>
+    <off_label>OFF</off_label>
+    <on_color>
+      <color red="0" green="255" blue="0" />
+    </on_color>
+    <on_label>ON</on_label>
+    <pv_name>/fli3d/CFG_ESP32CAM_write_fs_enable</pv_name>
+    <pv_value />
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>true</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <show_boolean_label>false</show_boolean_label>
+    <square_led>false</square_led>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <visible>true</visible>
+    <widget_type>LED</widget_type>
+    <width>20</width>
+    <wuid>-27321d34:1a0be0020cc:-70b8</wuid>
+    <x>282</x>
+    <y>328</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
+    <actions hook="false" hook_all="true">
+      <action type="RUN_COMMAND">
+        <command>/fli3d/ESP32CAM_set_parameter</command>
+        <args>
+          <parameter>write_fs_enable</parameter>
+          <value>-1</value>
+        </args>
+        <confirm_message />
+        <description />
+      </action>
+    </actions>
+    <alarm_pulsing>false</alarm_pulsing>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color red="240" green="240" blue="240" />
+    </background_color>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <enabled>true</enabled>
+    <font>
+      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="0" green="0" blue="0" />
+    </foreground_color>
+    <height>20</height>
+    <image />
+    <name>Action Button_543</name>
+    <push_action_index>0</push_action_index>
+    <pv_name />
+    <pv_value />
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <style>0</style>
+    <text>on/off</text>
+    <toggle_button>false</toggle_button>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <visible>true</visible>
+    <widget_type>Action Button</widget_type>
+    <width>46</width>
+    <wuid>-27321d34:1a0be0020cc:-70b7</wuid>
+    <x>336</x>
+    <y>328</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
+    <actions hook="false" hook_all="true">
+      <action type="RUN_COMMAND">
+        <command>/fli3d/GNDCTRL_reboot</command>
+        <args />
+        <confirm_message />
+        <description />
+      </action>
+    </actions>
+    <alarm_pulsing>false</alarm_pulsing>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color red="240" green="240" blue="240" />
+    </background_color>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <enabled>true</enabled>
+    <font>
+      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="0" green="0" blue="0" />
+    </foreground_color>
+    <height>22</height>
+    <image />
+    <name>Action Button_544</name>
+    <push_action_index>0</push_action_index>
+    <pv_name />
+    <pv_value />
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <style>0</style>
+    <text>Reboot</text>
+    <toggle_button>false</toggle_button>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <visible>true</visible>
+    <widget_type>Action Button</widget_type>
+    <width>84</width>
+    <wuid>-27321d34:1a0be0020cc:-6da8</wuid>
+    <x>443</x>
+    <y>651</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
+    <actions hook="false" hook_all="true">
+      <action type="RUN_COMMAND">
+        <command>/fli3d/ESP32CAM_reboot</command>
+        <args />
+        <confirm_message />
+        <description />
+      </action>
+    </actions>
+    <alarm_pulsing>false</alarm_pulsing>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color red="240" green="240" blue="240" />
+    </background_color>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <enabled>true</enabled>
+    <font>
+      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="0" green="0" blue="0" />
+    </foreground_color>
+    <height>22</height>
+    <image />
+    <name>Action Button_545</name>
+    <push_action_index>0</push_action_index>
+    <pv_name />
+    <pv_value />
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <style>0</style>
+    <text>Reboot</text>
+    <toggle_button>false</toggle_button>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <visible>true</visible>
+    <widget_type>Action Button</widget_type>
+    <width>84</width>
+    <wuid>-27321d34:1a0be0020cc:-6d9c</wuid>
+    <x>301</x>
+    <y>651</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
+    <actions hook="false" hook_all="true">
+      <action type="RUN_COMMAND">
+        <command>/fli3d/ESP32_reboot</command>
+        <args />
+        <confirm_message />
+        <description />
+      </action>
+    </actions>
+    <alarm_pulsing>false</alarm_pulsing>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color red="240" green="240" blue="240" />
+    </background_color>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <enabled>true</enabled>
+    <font>
+      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="0" green="0" blue="0" />
+    </foreground_color>
+    <height>22</height>
+    <image />
+    <name>Action Button_546</name>
+    <push_action_index>0</push_action_index>
+    <pv_name />
+    <pv_value />
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <style>0</style>
+    <text>Reboot</text>
+    <toggle_button>false</toggle_button>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <visible>true</visible>
+    <widget_type>Action Button</widget_type>
+    <width>84</width>
+    <wuid>-27321d34:1a0be0020cc:-6d90</wuid>
+    <x>162</x>
+    <y>651</y>
   </widget>
 </display>

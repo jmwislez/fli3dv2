@@ -1,3 +1,5 @@
+/* Based on vibe coded code using Copilot */
+
 #ifndef CAMERA_CONTROLLER_H
 #define CAMERA_CONTROLLER_H
 
@@ -17,62 +19,22 @@ using eloq::camera;
 class CameraController {
 public:
 
-    enum CaptureMode {
-        MODE_SINGLE,
-        MODE_CONTINUOUS
-    };
-
     CameraController();
 
     bool begin();
 
     void process();
 
-    void printStatus();
+    void startRecording();
 
-    void setMode(CaptureMode mode);
-
-    void setRate(float hz);
-
-    void enableWifiImages(bool enable);
-
-    void enableSdImages(bool enable);
-
-    void enableVideoStreaming(bool enable);
-
-    void enableVideoRecording(bool enable);
-
-    bool isStreamingEnabled() const;
-
-    bool isRecordingEnabled() const;
-
-    bool isWifiImagesEnabled() const;
-
-    bool isSdImagesEnabled() const;
-
-    float getCaptureRate() const;
+    void stopRecording();
 
 private:
 
     struct FrameData {
         uint8_t* data;
         size_t size;
-    };
-
-    CaptureMode _captureMode;
-
-    bool _wifiImagesEnabled;
-    bool _sdImagesEnabled;
-    bool _videoStreamingEnabled;
-    bool _videoRecordingEnabled;
-
-    bool _singleShotPending;
-
-    float _captureRateHz;
-
-    uint32_t _captureIntervalMs;
-
-    uint32_t _lastCaptureMs;
+    }; 
 
     WebServer _server;
 
@@ -80,8 +42,6 @@ private:
 
     uint16_t _frameWidth;
     uint16_t _frameHeight;
-
-    bool _cameraReady;
 
 private:
 
@@ -95,19 +55,9 @@ private:
 
     void processFrame(const FrameData& frame);
 
-    void saveSnapshotToSd(
-        const uint8_t* jpegData,
-        size_t jpegSize
-    );
+    void saveSnapshotToSd(const uint8_t* jpegData, size_t jpegSize);
 
-    void uploadImageWifi(
-        const uint8_t* jpegData,
-        size_t jpegSize
-    );
-
-    void startRecording();
-
-    void stopRecording();
+    void uploadImageWifi(const uint8_t* jpegData, size_t jpegSize);
 
     String generateAviFilename() const;
 

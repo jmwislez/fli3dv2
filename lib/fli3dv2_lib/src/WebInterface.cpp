@@ -1,6 +1,8 @@
-#include "WebInterface.h"
+/* Based on vibecoded coding by Copilot */
 
+#include "WebInterface.h"
 #include <eloquent_esp32cam.h>
+#include "fli3dv2.h"
 
 using eloq::camera;
 
@@ -9,13 +11,11 @@ WebInterface::WebInterface() :
     _server(80) {
 }
 
-bool WebInterface::begin(
-    CameraController* cameraController
-) {
+bool WebInterface::begin(CameraController* cameraController) {
     _cameraController = cameraController;
 
     _server.on(
-        "/snapshot",
+        "/image",
         HTTP_GET,
         [this]() {
             handleSnapshot();
@@ -23,15 +23,7 @@ bool WebInterface::begin(
     );
 
     _server.on(
-        "/status",
-        HTTP_GET,
-        [this]() {
-            handleStatus();
-        }
-    );
-
-    _server.on(
-        "/stream",
+        "/video",
         HTTP_GET,
         [this]() {
             handleStream();
@@ -40,27 +32,27 @@ bool WebInterface::begin(
 
     _server.begin();
 
-    Serial.println("Web server started");
-
     return true;
 }
 
 void WebInterface::process() {
     _server.handleClient();
+
 }
 
 void WebInterface::handleSnapshot() {
 
+    // Triggers frame acquisition
     if (!camera.capture().isOk()) {
-
         _server.send(
             500,
             "text/plain",
             "Capture failed"
         );
-
         return;
     }
+    tm_camera.frame_rate++;
+    tm_camera.frame_ctr++;
 
     _server.send_P(
         200,
@@ -68,52 +60,19 @@ void WebInterface::handleSnapshot() {
         (const char*)camera.frame->buf,
         camera.frame->len
     );
-}
-
-void WebInterface::handleStatus() {
-
-    String json;
-
-    json += "{";
-
-    json += "\"captureRate\":";
-    json += String(
-        _cameraController->getCaptureRate()
-    );
-
-    json += ",";
-
-    json += "\"streaming\":";
-    json += _cameraController->isStreamingEnabled()
-                ? "true"
-                : "false";
-
-    json += ",";
-
-    json += "\"recording\":";
-    json += _cameraController->isRecordingEnabled()
-                ? "true"
-                : "false";
-
-    json += "}";
-
-    _server.send(
-        200,
-        "application/json",
-        json
-    );
+    tm_esp32cam.wifi_active = true;
+    tm_camera.wifi_images_active = true;
 }
 
 void WebInterface::handleStream() {
+    // TODO: is blocking for main loop!
 
-    if (!_cameraController->isStreamingEnabled()) {
-
+    if (tm_camera.wifi_video_enabled == false) {
         _server.send(
             503,
             "text/plain",
             "Streaming disabled"
         );
-
         return;
     }
 
@@ -125,15 +84,14 @@ void WebInterface::handleStream() {
         "Content-Type: multipart/x-mixed-replace; boundary=frame\r\n\r\n"
     );
 
-    while (
-        client.connected() &&
-        _cameraController->isStreamingEnabled()
-    ) {
+    while (client.connected() && tm_camera.wifi_video_enabled) {
 
         if (!camera.capture().isOk()) {
             delay(10);
             continue;
         }
+        tm_camera.frame_rate++;
+        tm_camera.frame_ctr++;
 
         client.printf(
             "--frame\r\n"
@@ -147,7 +105,8 @@ void WebInterface::handleStream() {
             camera.frame->len
         );
 
-        client.print("\r\n");
+        tm_esp32cam.wifi_active = true;
+        tm_camera.wifi_video_active = true;
 
         delay(30);
     }

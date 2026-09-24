@@ -23,13 +23,14 @@
 extern tm_esp32_t   tm_esp32;
 extern tm_gndctrl_t tm_gndctrl;
 extern cfg_packet_t cfg_gndctrl;
+extern tmr_packet_t tmr_gndctrl;
 extern var_t        var;
 
 tm_gndctrl_t        *tm_this = &tm_gndctrl;
 tc_packet_t         *tc_this = &tc_gndctrl;
 tc_packet_t         *tc_other = &tc_esp32;
 sts_packet_t        *sts_this = &sts_gndctrl;
-tmr_gndctrl_t       *tmr_this = &tmr_gndctrl;
+tmr_packet_t        *tmr_this = &tmr_gndctrl;
 cfg_packet_t        *cfg_this = &cfg_gndctrl;
 
 // ROUTING (PID)
@@ -74,7 +75,7 @@ void set_esp32_time() {
 
 void sendTM(void *arg) {
     publish_packet((ccsds_t*)tm_this);
-    if (tm_this->time_set and tm_esp32.packet_ctr>0 and !tm_esp32.time_set) {
+    if (tm_this->time_set and tm_esp32.opsmode!=MODE_INIT and !tm_esp32.time_set) {
         set_esp32_time();
     }
 }

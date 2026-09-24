@@ -89,6 +89,15 @@
                     </SizeInBits>
                 </StringDataEncoding>
             </StringParameterType>
+            <StringParameterType name="string_25_t" characterWidth="8">
+                <StringDataEncoding encoding="UTF-8">
+                    <SizeInBits>
+                        <Fixed>
+                            <FixedValue>200</FixedValue>
+                        </Fixed>
+                    </SizeInBits>
+                </StringDataEncoding>
+            </StringParameterType>
             <FloatParameterType name="float_t">
                 <UnitSet />
                 <FloatDataEncoding sizeInBits="32" byteOrder="leastSignificantByteFirst" />
@@ -493,31 +502,30 @@
                 <UnitSet/>
                 <IntegerDataEncoding encoding="unsigned" sizeInBits="2" />
             </IntegerParameterType>
-            <EnumeratedParameterType name="uint2_cammode_t">
+            <EnumeratedParameterType name="uint3_cammode_t">
                 <UnitSet/>
-                <IntegerDataEncoding sizeInBits="2" />
+                <IntegerDataEncoding sizeInBits="3" />
                 <EnumerationList>
                     <Enumeration value="0" label="init" />
                     <Enumeration value="1" label="idle" />
-                    <Enumeration value="2" label="single" />
-                    <Enumeration value="3" label="stream" />
+                    <Enumeration value="2" label="fail" />
+                    <Enumeration value="3" label="single" />
+                    <Enumeration value="4" label="images" />
+                    <Enumeration value="5" label="video" />
                 </EnumerationList>
             </EnumeratedParameterType>
-            <EnumeratedParameterType name="uint4_resolution_t">
+            <EnumeratedParameterType name="uint3_resolution_t">
                 <UnitSet/>
-                <IntegerDataEncoding sizeInBits="4" />
+                <IntegerDataEncoding sizeInBits="3" />
                 <EnumerationList>
                     <Enumeration value="0" label="160x120" />
-                    <Enumeration value="1" label="invalid1" />
-                    <Enumeration value="2" label="invalid2" />
-                    <Enumeration value="3" label="240x176" />
-                    <Enumeration value="4" label="320x240" />
-                    <Enumeration value="5" label="400x300" />
-                    <Enumeration value="6" label="640x480" />
-                    <Enumeration value="7" label="800x600" />
-                    <Enumeration value="8" label="1024x768" />
-                    <Enumeration value="9" label="1280x1024" />
-                    <Enumeration value="10" label="1600x1200" />
+                    <Enumeration value="1" label="320x240" />
+                    <Enumeration value="2" label="480x320" />
+                    <Enumeration value="3" label="640x480" />
+                    <Enumeration value="4" label="800x600" />
+                    <Enumeration value="5" label="1024x768" />
+                    <Enumeration value="6" label="1280x1024" />
+                    <Enumeration value="7" label="1600x1200" />
                 </EnumerationList>
             </EnumeratedParameterType>
             <EnumeratedParameterType name="uint4_gpsstatus_t">
@@ -883,15 +891,21 @@
 
             <Parameter name="CAMERA_millis" parameterTypeRef="uint24_t" />
             <Parameter name="CAMERA_packet_ctr" parameterTypeRef="uint16_t" />
-            <Parameter name="CAMERA_camera_mode" parameterTypeRef="uint2_cammode_t" />
-            <Parameter name="CAMERA_resolution" parameterTypeRef="uint4_resolution_t" />
-            <Parameter name="CAMERA_auto_res" parameterTypeRef="bool_t" />
-            <Parameter name="CAMERA_free_00" parameterTypeRef="bool_t" />
-            <Parameter name="CAMERA_filesize" parameterTypeRef="uint24_t" />
-            <Parameter name="CAMERA_wifi_ms" parameterTypeRef="uint8_duration_t" />
-            <Parameter name="CAMERA_sd_ms" parameterTypeRef="uint8_duration_t" />
-            <Parameter name="CAMERA_exposure_ms" parameterTypeRef="uint8_duration_t" />
-            <Parameter name="CAMERA_filename" parameterTypeRef="string_t" />
+            <Parameter name="CAMERA_mode" parameterTypeRef="uint3_cammode_t" />
+            <Parameter name="CAMERA_resolution" parameterTypeRef="uint3_resolution_t" />
+            <Parameter name="CAMERA_http_server_enabled" parameterTypeRef="bool_t" />
+            <Parameter name="CAMERA_http_server_active" parameterTypeRef="bool_t" />
+            <Parameter name="CAMERA_wifi_images_enabled" parameterTypeRef="bool_t" />
+            <Parameter name="CAMERA_sd_images_enabled" parameterTypeRef="bool_t" />
+            <Parameter name="CAMERA_wifi_video_enabled" parameterTypeRef="bool_t" />
+            <Parameter name="CAMERA_sd_video_enabled" parameterTypeRef="bool_t" />
+            <Parameter name="CAMERA_wifi_images_active" parameterTypeRef="bool_t" />
+            <Parameter name="CAMERA_sd_images_active" parameterTypeRef="bool_t" />
+            <Parameter name="CAMERA_wifi_video_active" parameterTypeRef="bool_t" />
+            <Parameter name="CAMERA_sd_video_active" parameterTypeRef="bool_t" />
+            <Parameter name="CAMERA_frame_rate" parameterTypeRef="uint8_rate_t" />
+            <Parameter name="CAMERA_frame_ctr" parameterTypeRef="uint16_t" />
+            <Parameter name="CAMERA_filename" parameterTypeRef="string_25_t" />
 
             <Parameter name="PRESSURE_millis" parameterTypeRef="uint24_t" />
             <Parameter name="PRESSURE_packet_ctr" parameterTypeRef="uint16_t" />
@@ -964,48 +978,44 @@
             <Parameter name="GPS_free_11" parameterTypeRef="bool_t" />
             <Parameter name="GPS_free_10" parameterTypeRef="bool_t" />
 
-            <Parameter name="RADIO_millis" parameterTypeRef="uint24_t" />
             <Parameter name="RADIO_packet_ctr" parameterTypeRef="uint16_t" />
+            <Parameter name="RADIO_battery_percentage" parameterTypeRef="uint8_percent_t" />
             <Parameter name="RADIO_opsmode" parameterTypeRef="uint2_opsmode_t" />
-            <Parameter name="RADIO_state" parameterTypeRef="uint2_state_t" />
+            <Parameter name="RADIO_separation_sts" parameterTypeRef="bool_t" />
+            <Parameter name="RADIO_time_set" parameterTypeRef="bool_t" />
+            <Parameter name="RADIO_wifi_active" parameterTypeRef="bool_t" />
+            <Parameter name="RADIO_rs41_active" parameterTypeRef="bool_t" />
+            <Parameter name="RADIO_lora_active" parameterTypeRef="bool_t" />
+            <Parameter name="RADIO_gprs_active" parameterTypeRef="bool_t" />
+            <Parameter name="RADIO_espnow_rx_active" parameterTypeRef="bool_t" />
+            <Parameter name="RADIO_espnow_tx_active" parameterTypeRef="bool_t" />            
+            <Parameter name="RADIO_serial_rx_active" parameterTypeRef="bool_t" />
+            <Parameter name="RADIO_serial_tx_active" parameterTypeRef="bool_t" />
+            <Parameter name="RADIO_radio_rx_active" parameterTypeRef="bool_t" />
+            <Parameter name="RADIO_radio_tx_active" parameterTypeRef="bool_t" />
+            <Parameter name="RADIO_pressure2_active" parameterTypeRef="bool_t" />
             <Parameter name="RADIO_pressure_active" parameterTypeRef="bool_t" />
             <Parameter name="RADIO_motion_active" parameterTypeRef="bool_t" />
             <Parameter name="RADIO_gps_active" parameterTypeRef="bool_t" />
             <Parameter name="RADIO_camera_active" parameterTypeRef="bool_t" />
-            <Parameter name="RADIO_error_ctr" parameterTypeRef="uint8_t" />
-            <Parameter name="RADIO_warning_ctr" parameterTypeRef="uint8_t" /> 
-            <Parameter name="RADIO_pressure_height" parameterTypeRef="uint8_distance_t" />
-            <Parameter name="RADIO_pressure_velocity_v" parameterTypeRef="int8_velocity_t" />
-            <Parameter name="RADIO_temperature" parameterTypeRef="int8_temperature_t" />
-            <Parameter name="RADIO_motion_tilt" parameterTypeRef="uint8_angle_t" />
-            <Parameter name="RADIO_motion_g" parameterTypeRef="uint8_G_t" />
-            <Parameter name="RADIO_motion_a" parameterTypeRef="int8_accel_t" />
-            <Parameter name="RADIO_motion_rpm" parameterTypeRef="int8_rpm_t" />
-            <Parameter name="RADIO_esp32cam_wifi_image_enabled" parameterTypeRef="bool_t" />
-            <Parameter name="RADIO_esp32cam_sd_image_enabled" parameterTypeRef="bool_t" />
-            <Parameter name="RADIO_esp32cam_buffer_active" parameterTypeRef="bool_t" />
-            <Parameter name="RADIO_esp32_buffer_active" parameterTypeRef="bool_t" />
+            <Parameter name="RADIO_buzzer_active" parameterTypeRef="bool_t" />
             <Parameter name="RADIO_gps_satellites" parameterTypeRef="uint4_t" />
-            <Parameter name="RADIO_gps_velocity_v" parameterTypeRef="int8_velocity_t" />
-            <Parameter name="RADIO_gps_velocity" parameterTypeRef="uint8_velocity_t" />
-            <Parameter name="RADIO_gps_height" parameterTypeRef="uint8_distance_t" />
-            <Parameter name="RADIO_camera_image_ctr" parameterTypeRef="uint16_t" />    
-            <Parameter name="RADIO_esp32_serial_connected" parameterTypeRef="bool_t" />
-            <Parameter name="RADIO_esp32_wifi_connected" parameterTypeRef="bool_t" />
-            <Parameter name="RADIO_esp32_warn_serial_connloss" parameterTypeRef="bool_t" />
-            <Parameter name="RADIO_esp32_warn_wifi_connloss" parameterTypeRef="bool_t" />
-            <Parameter name="RADIO_esp32_err_serial_dataloss" parameterTypeRef="bool_t" />
-            <Parameter name="RADIO_esp32_err_yamcs_dataloss" parameterTypeRef="bool_t" />
-            <Parameter name="RADIO_esp32_err_fs_dataloss" parameterTypeRef="bool_t" />
-            <Parameter name="RADIO_separation_sts" parameterTypeRef="bool_t" />
-            <Parameter name="RADIO_esp32cam_serial_connected" parameterTypeRef="bool_t" />
-            <Parameter name="RADIO_esp32cam_wifi_connected" parameterTypeRef="bool_t" />
-            <Parameter name="RADIO_esp32cam_warn_serial_connloss" parameterTypeRef="bool_t" />
-            <Parameter name="RADIO_esp32cam_warn_wifi_connloss" parameterTypeRef="bool_t" />
-            <Parameter name="RADIO_esp32cam_err_serial_dataloss" parameterTypeRef="bool_t" />
-            <Parameter name="RADIO_esp32cam_err_yamcs_dataloss" parameterTypeRef="bool_t" />
-            <Parameter name="RADIO_esp32cam_err_fs_dataloss" parameterTypeRef="bool_t" />
-            <Parameter name="RADIO_esp32cam_err_sd_dataloss" parameterTypeRef="bool_t" />
+            <Parameter name="RADIO_gps_latitude" parameterTypeRef="int32_1E7deg_t" />
+            <Parameter name="RADIO_gps_longitude" parameterTypeRef="int32_1E7deg_t" />
+            <Parameter name="RADIO_gps_altitude" parameterTypeRef="int16_t" />
+            <Parameter name="RADIO_accel_x" parameterTypeRef="int8_t" />
+            <Parameter name="RADIO_accel_y" parameterTypeRef="int8_t" />
+            <Parameter name="RADIO_accel_z" parameterTypeRef="int8_t" />
+            <Parameter name="RADIO_gyro_x" parameterTypeRef="int8_t" />
+            <Parameter name="RADIO_gyro_y" parameterTypeRef="int8_t" />
+            <Parameter name="RADIO_gyro_z" parameterTypeRef="int8_t" />
+            <Parameter name="RADIO_magn_x" parameterTypeRef="int8_t" />
+            <Parameter name="RADIO_magn_y" parameterTypeRef="int8_t" />
+            <Parameter name="RADIO_magn_z" parameterTypeRef="int8_t" />
+            <Parameter name="RADIO_temperature_internal" parameterTypeRef="int8_t" />
+            <Parameter name="RADIO_temperature_external" parameterTypeRef="int8_t" />
+            <Parameter name="RADIO_pressure_internal" parameterTypeRef="uint16_t" />
+            <Parameter name="RADIO_pressure_external" parameterTypeRef="uint16_t" />
                      
             <Parameter name="GNDCTRL_millis" parameterTypeRef="uint24_t" />
             <Parameter name="GNDCTRL_packet_ctr" parameterTypeRef="uint16_t" />
@@ -1450,9 +1460,9 @@
             <Parameter name="CFG_ESP32CAM_serial_baud" parameterTypeRef="uint32_t" />
             <Parameter name="CFG_ESP32CAM_radio_baud" parameterTypeRef="uint32_t" />
             <Parameter name="CFG_ESP32CAM_rocket_name" parameterTypeRef="string_10_t" />
-            <Parameter name="CFG_ESP32CAM_password" parameterTypeRef="string_10_t" />     
+            <Parameter name="CFG_ESP32CAM_password" parameterTypeRef="string_10_t" />      
             <Parameter name="CFG_ESP32CAM_battery_voltage_min" parameterTypeRef="uint16_mV_t" />      
-            <Parameter name="CFG_ESP32CAM_battery_voltage_max" parameterTypeRef="uint16_mV_t" />        
+            <Parameter name="CFG_ESP32CAM_battery_voltage_max" parameterTypeRef="uint16_mV_t" />      
             <Parameter name="CFG_ESP32CAM_espnow_rx_enable" parameterTypeRef="bool_t" />
             <Parameter name="CFG_ESP32CAM_espnow_tx_enable" parameterTypeRef="bool_t" />
             <Parameter name="CFG_ESP32CAM_serial_rx_enable" parameterTypeRef="bool_t" />
@@ -1474,9 +1484,9 @@
             <Parameter name="CFG_ESP32CAM_radio_buffer_enable" parameterTypeRef="bool_t" />
             <Parameter name="CFG_ESP32CAM_archive_buffer_enable" parameterTypeRef="bool_t" />
             <Parameter name="CFG_ESP32CAM_free_23" parameterTypeRef="bool_t" />
-            <Parameter name="CFG_ESP32CAM_free_22" parameterTypeRef="bool_t" />
+            <Parameter name="CFG_ESP32CAM_pressure2_enable" parameterTypeRef="bool_t" />
             <Parameter name="CFG_ESP32CAM_camera_force_acquire" parameterTypeRef="bool_t" />
-            <Parameter name="CFG_ESP32CAM_camera_enable" parameterTypeRef="bool_t" />            
+            <Parameter name="CFG_ESP32CAM_camera_enable" parameterTypeRef="bool_t" />
             <Parameter name="CFG_ESP32CAM_dip_set1" parameterTypeRef="bool_t" />
             <Parameter name="CFG_ESP32CAM_dip_set2" parameterTypeRef="bool_t" />
             <Parameter name="CFG_ESP32CAM_dip_set3" parameterTypeRef="bool_t" />
@@ -1896,48 +1906,48 @@
                     </RestrictionCriteria>
                 </BaseContainer>
                 <EntryList>
-                    <ParameterRefEntry parameterRef="RADIO_millis" />
                     <ParameterRefEntry parameterRef="RADIO_packet_ctr" />
+                    <ParameterRefEntry parameterRef="RADIO_battery_percentage" />
+                    
+                    <ParameterRefEntry parameterRef="RADIO_gprs_active" />
+                    <ParameterRefEntry parameterRef="RADIO_lora_active" />
+                    <ParameterRefEntry parameterRef="RADIO_rs41_active" />
+                    <ParameterRefEntry parameterRef="RADIO_wifi_active" />
+                    <ParameterRefEntry parameterRef="RADIO_time_set" />
+                    <ParameterRefEntry parameterRef="RADIO_separation_sts" />
+                    <ParameterRefEntry parameterRef="RADIO_opsmode" />
+
+                    <ParameterRefEntry parameterRef="RADIO_pressure_active" />
+                    <ParameterRefEntry parameterRef="RADIO_pressure2_active" />
+                    <ParameterRefEntry parameterRef="RADIO_radio_tx_active" />
+                    <ParameterRefEntry parameterRef="RADIO_radio_rx_active" />
+                    <ParameterRefEntry parameterRef="RADIO_serial_tx_active" />
+                    <ParameterRefEntry parameterRef="RADIO_serial_rx_active" />
+                    <ParameterRefEntry parameterRef="RADIO_espnow_tx_active" />
+                    <ParameterRefEntry parameterRef="RADIO_espnow_rx_active" />
+
+                    <ParameterRefEntry parameterRef="RADIO_gps_satellites" />
+                    <ParameterRefEntry parameterRef="RADIO_buzzer_active" />
                     <ParameterRefEntry parameterRef="RADIO_camera_active" />
                     <ParameterRefEntry parameterRef="RADIO_gps_active" />
                     <ParameterRefEntry parameterRef="RADIO_motion_active" />
-                    <ParameterRefEntry parameterRef="RADIO_pressure_active" />
-                    <ParameterRefEntry parameterRef="RADIO_state" />
-                    <ParameterRefEntry parameterRef="RADIO_opsmode" />
-                    <ParameterRefEntry parameterRef="RADIO_error_ctr" />
-                    <ParameterRefEntry parameterRef="RADIO_warning_ctr" />
-                    <ParameterRefEntry parameterRef="RADIO_pressure_height" />
-                    <ParameterRefEntry parameterRef="RADIO_pressure_velocity_v" />
-                    <ParameterRefEntry parameterRef="RADIO_temperature" />
-                    <ParameterRefEntry parameterRef="RADIO_motion_tilt" />
-                    <ParameterRefEntry parameterRef="RADIO_motion_g" />
-                    <ParameterRefEntry parameterRef="RADIO_motion_a" />
-                    <ParameterRefEntry parameterRef="RADIO_motion_rpm" />
-                    <ParameterRefEntry parameterRef="RADIO_esp32cam_wifi_image_enabled" />
-                    <ParameterRefEntry parameterRef="RADIO_esp32cam_sd_image_enabled" />
-                    <ParameterRefEntry parameterRef="RADIO_esp32cam_buffer_active" />
-                    <ParameterRefEntry parameterRef="RADIO_esp32_buffer_active" />
-                    <ParameterRefEntry parameterRef="RADIO_gps_satellites" />
-                    <ParameterRefEntry parameterRef="RADIO_gps_velocity_v" />
-                    <ParameterRefEntry parameterRef="RADIO_gps_velocity" />
-                    <ParameterRefEntry parameterRef="RADIO_gps_height" />
-                    <ParameterRefEntry parameterRef="RADIO_camera_image_ctr" />
-                    <ParameterRefEntry parameterRef="RADIO_separation_sts" />
-                    <ParameterRefEntry parameterRef="RADIO_esp32_err_fs_dataloss" />
-                    <ParameterRefEntry parameterRef="RADIO_esp32_err_yamcs_dataloss" />
-                    <ParameterRefEntry parameterRef="RADIO_esp32_err_serial_dataloss" />
-                    <ParameterRefEntry parameterRef="RADIO_esp32_warn_wifi_connloss" />
-                    <ParameterRefEntry parameterRef="RADIO_esp32_warn_serial_connloss" />
-                    <ParameterRefEntry parameterRef="RADIO_esp32_wifi_connected" />
-                    <ParameterRefEntry parameterRef="RADIO_esp32_serial_connected" />
-                    <ParameterRefEntry parameterRef="RADIO_esp32cam_err_sd_dataloss" />
-                    <ParameterRefEntry parameterRef="RADIO_esp32cam_err_fs_dataloss" />
-                    <ParameterRefEntry parameterRef="RADIO_esp32cam_err_yamcs_dataloss" />
-                    <ParameterRefEntry parameterRef="RADIO_esp32cam_err_serial_dataloss" />
-                    <ParameterRefEntry parameterRef="RADIO_esp32cam_warn_wifi_connloss" />
-                    <ParameterRefEntry parameterRef="RADIO_esp32cam_warn_serial_connloss" />
-                    <ParameterRefEntry parameterRef="RADIO_esp32cam_wifi_connected" />
-                    <ParameterRefEntry parameterRef="RADIO_esp32cam_serial_connected" />
+
+                    <ParameterRefEntry parameterRef="RADIO_gps_latitude" />
+                    <ParameterRefEntry parameterRef="RADIO_gps_longitude" />
+                    <ParameterRefEntry parameterRef="RADIO_gps_altitude" />
+                    <ParameterRefEntry parameterRef="RADIO_accel_x" />
+                    <ParameterRefEntry parameterRef="RADIO_accel_y" />
+                    <ParameterRefEntry parameterRef="RADIO_accel_z" />
+                    <ParameterRefEntry parameterRef="RADIO_gyro_x" />
+                    <ParameterRefEntry parameterRef="RADIO_gyro_y" />
+                    <ParameterRefEntry parameterRef="RADIO_gyro_z" />                    
+                    <ParameterRefEntry parameterRef="RADIO_magn_x" />
+                    <ParameterRefEntry parameterRef="RADIO_magn_y" />
+                    <ParameterRefEntry parameterRef="RADIO_magn_z" />
+                    <ParameterRefEntry parameterRef="RADIO_temperature_internal" />
+                    <ParameterRefEntry parameterRef="RADIO_temperature_external" />
+                    <ParameterRefEntry parameterRef="RADIO_pressure_internal" />
+                    <ParameterRefEntry parameterRef="RADIO_pressure_external" />
                 </EntryList>
             </SequenceContainer>
             <SequenceContainer name="Fli3d tm_esp32cam">
@@ -2025,14 +2035,20 @@
                 <EntryList>
                     <ParameterRefEntry parameterRef="CAMERA_millis" />
                     <ParameterRefEntry parameterRef="CAMERA_packet_ctr" />
-                    <ParameterRefEntry parameterRef="CAMERA_free_00" />
-                    <ParameterRefEntry parameterRef="CAMERA_auto_res" />
+                    <ParameterRefEntry parameterRef="CAMERA_http_server_active" />
+                    <ParameterRefEntry parameterRef="CAMERA_http_server_enabled" />
                     <ParameterRefEntry parameterRef="CAMERA_resolution" />
-                    <ParameterRefEntry parameterRef="CAMERA_camera_mode" />
-                    <ParameterRefEntry parameterRef="CAMERA_filesize" />
-                    <ParameterRefEntry parameterRef="CAMERA_wifi_ms" />
-                    <ParameterRefEntry parameterRef="CAMERA_sd_ms" />
-                    <ParameterRefEntry parameterRef="CAMERA_exposure_ms" />
+                    <ParameterRefEntry parameterRef="CAMERA_mode" />
+                    <ParameterRefEntry parameterRef="CAMERA_sd_video_active" />
+                    <ParameterRefEntry parameterRef="CAMERA_wifi_video_active" />
+                    <ParameterRefEntry parameterRef="CAMERA_sd_images_active" />
+                    <ParameterRefEntry parameterRef="CAMERA_wifi_images_active" />
+                    <ParameterRefEntry parameterRef="CAMERA_sd_video_enabled" />
+                    <ParameterRefEntry parameterRef="CAMERA_wifi_video_enabled" />
+                    <ParameterRefEntry parameterRef="CAMERA_sd_images_enabled" />
+                    <ParameterRefEntry parameterRef="CAMERA_wifi_images_enabled" />
+                    <ParameterRefEntry parameterRef="CAMERA_frame_rate" />
+                    <ParameterRefEntry parameterRef="CAMERA_frame_ctr" />
                     <ParameterRefEntry parameterRef="CAMERA_filename" />
                 </EntryList>
             </SequenceContainer>     
@@ -2553,10 +2569,10 @@
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_fs_enable" />
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_archive_enable" />
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_ota_enable" />
-                    <ParameterRefEntry parameterRef="CFG_ESP32CAM_ftp_enable" />      
+                    <ParameterRefEntry parameterRef="CFG_ESP32CAM_ftp_enable" />
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_camera_enable" />
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_camera_force_acquire" />
-                    <ParameterRefEntry parameterRef="CFG_ESP32CAM_free_22" />
+                    <ParameterRefEntry parameterRef="CFG_ESP32CAM_pressure2_enable" />
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_free_23" />
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_archive_buffer_enable" />
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_radio_buffer_enable" />
@@ -2672,9 +2688,7 @@
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_routing_archive_config_gndctrl" />
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_routing_archive_config_esp32cam" />
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_routing_archive_config_esp32" />
-                    <ParameterRefEntry parameterRef="CFG_ESP32CAM_routing_archive_timer_esp32cam" />
-                    <ParameterRefEntry parameterRef="CFG_ESP32CAM_routing_archive_timer_esp32" />
-                    <ParameterRefEntry parameterRef="CFG_ESP32CAM_routing_archive_timer_gndctrl" />
+                    <ParameterRefEntry parameterRef="CFG_ESP32CAM_routing_archive_timer_gndctrl" />                    
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_routing_archive_filler" />
 
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_config_boot_magic_number" />
@@ -2685,7 +2699,6 @@
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_config_boot_bank1_name" />
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_config_boot_bank2_name" />
                     <ParameterRefEntry parameterRef="CFG_ESP32CAM_config_boot_bank3_name" />
-
                 </EntryList>
             </SequenceContainer>
             <SequenceContainer name="Fli3d timer_esp32">
@@ -2818,19 +2831,15 @@
                 
             <MetaCommand name="reboot" abstract="true">
                 <BaseMetaCommand metaCommandRef="CCSDS_TC"/>
-                <ArgumentList>
-                    <Argument name="system" argumentTypeRef="uint8_system_t"/>
-                </ArgumentList>
                 <CommandContainer name="reboot">
                     <EntryList>
                         <FixedValueEntry binaryValue="0" sizeInBits="8"/> <!-- cmdId: 0 -->
-                        <ArgumentRefEntry argumentRef="system"/>
                     </EntryList>        
                     <BaseContainer containerRef="CCSDS_TC_container"/>
                 </CommandContainer>
             </MetaCommand>
             <MetaCommand name="ESP32_reboot">
-                <LongDescription>Reboot Fli3d ESP32, ESP32CAM, or both</LongDescription>
+                <LongDescription>Reboot Fli3d ESP32</LongDescription>
                 <BaseMetaCommand metaCommandRef="reboot">
                     <ArgumentAssignmentList>
                         <ArgumentAssignment argumentName="CCSDS_APID" argumentValue="42"/> 
@@ -2842,7 +2851,7 @@
                 </CommandContainer>
             </MetaCommand>            
             <MetaCommand name="ESP32CAM_reboot">
-                <LongDescription>Reboot Fli3d ESP32CAM, ESP32, or both</LongDescription>
+                <LongDescription>Reboot Fli3d ESP32CAM</LongDescription>
                 <BaseMetaCommand metaCommandRef="reboot">
                     <ArgumentAssignmentList>
                         <ArgumentAssignment argumentName="CCSDS_APID" argumentValue="43"/> 
@@ -2853,7 +2862,7 @@
                 </CommandContainer>
             </MetaCommand>
             <MetaCommand name="GNDCTRL_reboot">
-                <LongDescription>Reboot GNDCTRL, Fli3d, or both</LongDescription>
+                <LongDescription>Reboot Fli3d GNDCTRL</LongDescription>
                 <BaseMetaCommand metaCommandRef="reboot">
                     <ArgumentAssignmentList>
                         <ArgumentAssignment argumentName="CCSDS_APID" argumentValue="44"/> 
