@@ -38,30 +38,31 @@ void setup_gpio()
     // SET2
     cfg_this->flush_fs_enable=cfg_this->dip_set2;
     if (cfg_this->dip_set2) {
-        sprintf (buffer, "Enabled FS flushing at boot based on DIP switch 2 (on)");
+        sprintf (buffer, "Enabled LittleFS flushing at boot based on DIP switch 2 (on)");
     }
     else {
-        sprintf (buffer, "Disabled FS flushing at boot based on DIP switch 2 (off)");
+        sprintf (buffer, "Disabled LittleFS flushing at boot based on DIP switch 2 (off)");
     }
     publish_event (STS_THIS, SS_THIS, EVENT_INIT, buffer);
 
     // SET3
     cfg_this->write_fs_enable=cfg_this->dip_set3; // TODO: IMPLEMENT!
     if (cfg_this->dip_set3) {
-        sprintf (buffer, "Made FS writable based on DIP switch 3 (on)");
+        sprintf (buffer, "Made LittleFS writable based on DIP switch 3 (on)");
     }
     else {
-        sprintf (buffer, "Made FS read-only based on DIP switch 3 (off)");
+        sprintf (buffer, "Made LittleFS read-only based on DIP switch 3 (off)");
     }
     publish_event (STS_THIS, SS_THIS, EVENT_INIT, buffer);
     
     // SET4
-    cfg_this->camera_force_acquire=cfg_this->dip_set4; // TODO: IMPLEMENT!
+    cfg_this->force_esp32cam_nominal=cfg_this->dip_set4;
     if (cfg_this->dip_set4) {
-        sprintf (buffer, "Force camera acquisition based on DIP switch 4 (on)");
+        sprintf (buffer, "Start ESP32 and ESP32CAM in Nominal mode based on DIP switch 4 (on)");
+        cfg_this->target_opsmode = MODE_NOMINAL;
     }
     else {
-        sprintf (buffer, "No camera acquisition forced by DIP switch 4 (off)");
+        sprintf (buffer, "Start ESP32 and ESP32CAM in default mode based on DIP switch 4 (off)");
     }
     publish_event (STS_THIS, SS_THIS, EVENT_INIT, buffer);
 

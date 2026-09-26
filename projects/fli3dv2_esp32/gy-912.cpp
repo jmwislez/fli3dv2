@@ -200,7 +200,7 @@ bool acquire_icm20948() {
     icm20948.getGyrValues(&gyr);
     icm20948.getMagValues(&magValue);
     float temperature = icm20948.getTemperature();
-    // TODO: check units, why multiply by 9.81 needed?
+    // TODO: check units, why conversion to m/s2 needed?
     tm_motion.accel_x = int16_t(gValue.x * 9.81 * 100); // convert to cm/s2
     tm_motion.accel_y = int16_t(gValue.y * 9.81 * 100);
     tm_motion.accel_z = int16_t(gValue.z * 9.81 * 100);
@@ -218,6 +218,8 @@ bool acquire_icm20948() {
     // TODO: redo calculation of a, subtracting gravity vector
     tm_motion.a = int16_t(sqrt(gValue.x*gValue.x+gValue.y*gValue.y+gValue.z*gValue.z) * 9.81 * 100);
     tm_motion.rpm = int16_t(gyr.y / 6 * 100);
+    tm_esp32.motion_active = true;
+    tm_summary.motion_active = true;
     return true;
 }
 
@@ -229,6 +231,7 @@ bool acquire_bmp388() {
     tm_pressure.temperature = int16_t(temperature * 100); // convert to cdegC
     tm_pressure.height = int16_t(height * 100); // convert to cm
     tm_esp32.pressure_active = true;
+    tm_summary.pressure_active = true;
     return true;
 }
 

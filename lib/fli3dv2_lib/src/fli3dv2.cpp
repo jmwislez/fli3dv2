@@ -13,7 +13,9 @@
 #include <fli3d_secrets.h>
 #include "soc/soc.h"
 #include "soc/rtc_cntl_reg.h"
+#ifdef PLATFORM_ESP32CAM
 #include "CameraController.h"
+#endif
 
 char buffer[BUFFER_MAX_SIZE];
 SerialTransfer serialtransfer;
@@ -22,10 +24,10 @@ LinkedList<buffer_t*> *ccsds_tx_fifo = new LinkedList<buffer_t*>();
 LinkedList<index_t*> *ccsds_fs_archive = new LinkedList<index_t*>();
 index_t archive;
 SmartRC_CC1101 radio;
-SoftwareSerial Serial3;
+SoftwareSerial Serial3(RS41_RX_PIN, RS41_TX_PIN);
 SemaphoreHandle_t fifoMutex = xSemaphoreCreateMutex();
 bool SerialDebug = true;
-//FtpServer wifiTCP_FTP;
+FtpServer ftpSrv;
 
 // Functions not exposed in fli3dv2.h
 extern bool save_config_bank (const uint8_t bank, const char* tag, const cfg_packet_t *cfg_ptr);
@@ -83,7 +85,7 @@ tm_esp32_t          tm_esp32;
 tm_gps_t            tm_gps;
 tm_motion_t         tm_motion;
 tm_pressure_t       tm_pressure;
-tm_radio_t          tm_radio;
+tm_summary_t          tm_summary;
 tm_esp32cam_t       tm_esp32cam;
 tm_camera_t         tm_camera;
 tm_gndctrl_t        tm_gndctrl;
@@ -108,7 +110,7 @@ packet_properties_t packet[] = { // also update #define in fli3dv2.h and xtce.fl
     { TM_GPS,          49, (ccsds_t*)&tm_gps,          sizeof(tm_gps_t),          "tm_gps",          SS_ESP32,    SS_ANY,      PKT_TM, PKT_TM },   // PID: 7
     { TM_MOTION,       50, (ccsds_t*)&tm_motion,       sizeof(tm_motion_t),       "tm_motion",       SS_ESP32,    SS_ANY,      PKT_TM, PKT_TM },   // PID: 8
     { TM_PRESSURE,     51, (ccsds_t*)&tm_pressure,     sizeof(tm_pressure_t),     "tm_pressure",     SS_ESP32,    SS_ANY,      PKT_TM, PKT_TM },   // PID: 9
-    { TM_RADIO,        52, (ccsds_t*)&tm_radio,        sizeof(tm_radio_t),        "tm_radio",        SS_ESP32,    SS_ANY,      PKT_TM, PKT_TM },   // PID: 10
+    { TM_SUMMARY,      52, (ccsds_t*)&tm_summary,      sizeof(tm_summary_t),      "tm_summary",      SS_ESP32,    SS_ANY,      PKT_TM, PKT_TM },   // PID: 10
     { TM_ESP32CAM,     53, (ccsds_t*)&tm_esp32cam,     sizeof(tm_esp32cam_t),     "tm_esp32cam",     SS_ESP32CAM, SS_ANY,      PKT_TM, PKT_TM },   // PID: 11
     { TM_CAMERA,       54, (ccsds_t*)&tm_camera,       sizeof(tm_camera_t),       "tm_camera",       SS_ESP32CAM, SS_ANY,      PKT_TM, PKT_TM },   // PID: 12
     { TM_GNDCTRL,      55, (ccsds_t*)&tm_gndctrl,      sizeof(tm_gndctrl_t),      "tm_gndctrl",      SS_GNDCTRL,  SS_ANY,      PKT_TM, PKT_TM },   // PID: 13
@@ -253,11 +255,11 @@ void init_config () {
     switch(SS_THIS) {
     case SS_ESP32:
         cfg_this->magic_number = 'e';
-        cfg_this->target_opsmode = MODE_CHECKOUT;
+        cfg_this->target_opsmode = MODE_NOMINAL;
         memcpy(&cfg_this->my_mac, &default_mac_esp32, 6);
         memcpy(&cfg_this->peer_mac, &default_mac_gndctrl, 6);  
         cfg_this->wifi_ap_enable = false;
-        cfg_this->wifi_sta_enable = true;
+        cfg_this->wifi_sta_enable = false;
         cfg_this->espnow_rx_enable = true;
         cfg_this->espnow_tx_enable = true;
         cfg_this->serial_rx_enable = true;
@@ -272,26 +274,23 @@ void init_config () {
         cfg_this->archive_buffer_enable = true;
         cfg_this->fs_enable = true;
         cfg_this->write_fs_enable = true;
-        cfg_this->flush_fs_enable = true;
+        cfg_this->flush_fs_enable = false;
         cfg_this->sd_enable = false;
-        cfg_this->ftp_enable = true;
+        cfg_this->ftp_enable = false;
         cfg_this->ftp_fs = FS_LITTLEFS;
         cfg_this->archive_fs = FS_LITTLEFS;
         cfg_esp32.pressure_tm_rate = 1;
         cfg_esp32.motion_tm_rate = 1;
         cfg_esp32.gps_tm_rate = 1;
-        cfg_esp32.mpu_accel_sensitivity = 595;
-        cfg_esp32.mpu_accel_offset_x = 0;
-        cfg_esp32.mpu_accel_offset_y = 0;
-        cfg_esp32.mpu_accel_offset_z = 0;
         cfg_esp32.pressure_enable = true;
         cfg_esp32.pressure2_enable = true;
         cfg_esp32.motion_enable = true;
         cfg_esp32.gps_enable = true;
+        cfg_esp32.camera_enable = true;
         break;
     case SS_ESP32CAM:
         cfg_esp32cam.magic_number = 'c';
-        cfg_esp32cam.target_opsmode = MODE_CHECKOUT;
+        cfg_esp32cam.target_opsmode = MODE_NOMINAL;
         memcpy(&cfg_esp32cam.my_mac, &default_mac_esp32cam, 6);
         memcpy(&cfg_esp32cam.peer_mac, &default_mac_gndctrl, 6);  
         cfg_esp32cam.wifi_ap_enable = false;
@@ -301,8 +300,8 @@ void init_config () {
         cfg_esp32cam.serial_rx_enable = true;
         cfg_esp32cam.serial_tx_enable = true;
         cfg_esp32cam.espnow_broadcast = false;
-        cfg_esp32cam.archive_enable = false;
-        cfg_esp32cam.espnow_buffer_enable = false;
+        cfg_esp32cam.archive_enable = true;
+        cfg_esp32cam.espnow_buffer_enable = true;
         cfg_esp32cam.serial_buffer_enable = true;
         cfg_esp32cam.archive_buffer_enable = false;
         cfg_esp32cam.fs_enable = false;
@@ -313,13 +312,13 @@ void init_config () {
         cfg_esp32cam.ftp_fs = FS_SD_MMC;
         cfg_esp32cam.archive_fs = FS_SD_MMC;
         cfg_esp32cam.camera_enable = true;
-        cfg_esp32cam.camera_image_rate = 1; // Hz
+        cfg_esp32cam.camera_image_rate = 5; // Hz
         cfg_esp32cam.wifi_images_enable = true;
         cfg_esp32cam.wifi_video_enable = true;
         cfg_esp32cam.sd_images_enable = true;
         cfg_esp32cam.sd_video_enable = true;
         tm_camera.resolution = XGA_1024x768;
-        cfg_esp32cam.camera_mode = CAM_IMAGES;
+        cfg_esp32cam.camera_mode = CAM_VIDEO;
         break;
     case SS_GNDCTRL:
         cfg_this->magic_number = 'g';
@@ -542,6 +541,8 @@ bool set_opsmode (const uint8_t mode) {
     if (mode == MODE_CHECKOUT or mode == MODE_NOMINAL or mode == MODE_MAINTENANCE) {
         if (tm_this->opsmode == MODE_MAINTENANCE and mode != MODE_MAINTENANCE) {
             // Leaving maintenance mode
+            tm_this->ota_enabled=false;
+            tm_this->ftp_enabled=false;
             // ESP32 deactivate wifi and use ESPNOW again
             if (SS_THIS == SS_ESP32) {
                 disable_wifi_services();
@@ -549,15 +550,6 @@ bool set_opsmode (const uint8_t mode) {
                 tm_this->espnow_tx_enabled = true;
                 sprintf (buffer, "Disabling WiFi services and reenabling ESPNOW");
                 publish_event (STS_THIS, SS_THIS, EVENT_INFO, buffer);
-            }
-            // ESP32CAM camera becomes available again
-            if (tm_esp32cam.wifi_sta_enabled or tm_esp32cam.wifi_ap_enabled) {
-                tm_camera.wifi_images_enabled = cfg_esp32cam.wifi_images_enable;
-                tm_camera.wifi_video_enabled = cfg_esp32cam.wifi_video_enable;
-            }
-            if (tm_esp32cam.sd_enabled) {
-                tm_camera.sd_images_enabled = cfg_esp32cam.sd_images_enable;
-                tm_camera.sd_video_enabled = cfg_esp32cam.sd_video_enable;
             }
         }
         if (mode == MODE_MAINTENANCE and tm_this->opsmode != MODE_MAINTENANCE) {
@@ -571,10 +563,10 @@ bool set_opsmode (const uint8_t mode) {
                 publish_event (STS_THIS, SS_THIS, EVENT_INFO, buffer);
             }
             // ESP32CAM disable camera
-            tm_camera.wifi_images_enabled = false;
-            tm_camera.wifi_video_enabled = false;
-            tm_camera.sd_images_enabled = false;
-            tm_camera.sd_video_enabled = false;
+            if (tm_esp32cam.camera_enabled) {
+                cfg_esp32cam.camera_mode = tm_camera.mode;
+                set_camera_mode(CAM_IDLE);
+            }
         }
         if (mode == MODE_NOMINAL) {
             // Entering Nominal mode
@@ -591,7 +583,15 @@ bool set_opsmode (const uint8_t mode) {
                 }
             }
             // ESP32CAM activates camera
-            tm_camera.mode = cfg_esp32cam.camera_mode;
+            if (tm_esp32cam.camera_enabled) {
+                set_camera_mode(cfg_esp32cam.camera_mode);
+            }
+        }
+        if (mode == MODE_CHECKOUT) {
+            // ESP32CAM deactivates camera
+            if (tm_esp32cam.camera_enabled) {
+                set_camera_mode(CAM_IDLE);
+            }
         }
         tm_this->opsmode = mode;
         sprintf (buffer, "Setting %s opsmode to '%s'", subsystem[SS_THIS].name, opsmode[mode].name);
@@ -840,6 +840,7 @@ bool set_parameter (const char* parameter, const char* value) {
         tm_this->time_set = true;
         var.delta_millis = millis()%1000;
         snprintf(value_str, VALUE_LEN, "%04u-%02u-%02u %02u:%02u:%02u.%03u", year(atoi(value)), month(atoi(value)), day(atoi(value)), hour(atoi(value)), minute(atoi(value)), second(atoi(value)), var.delta_millis);
+        create_today_directory();
         success = true;
     }
     #ifdef PLATFORM_ESP32
@@ -897,15 +898,12 @@ bool set_parameter (const char* parameter, const char* value) {
     }  
     #endif
     #ifdef PLATFORM_ESP32CAM
-    // TODO: trhoughout, standardize on "snapshot" and "stream" terminology
     else if (!strcmp(parameter, "wifi_images_enable")) {
         if(atoi(value)==-1) { value=cfg_esp32cam.wifi_images_enable?"0":"1"; }
         if(atoi(value)==0 or atoi(value)==1) {
             cfg_esp32cam.wifi_images_enable = atoi(value);
             sprintf(value_str, "%s", (atoi(value)==1)?"true":"false");
-            if (tm_camera.mode == CAM_IMAGES) {
-                tm_camera.wifi_images_enabled = atoi(value);
-            }
+            set_camera_mode(tm_camera.mode);
             success = true;
         }
     }
@@ -914,9 +912,7 @@ bool set_parameter (const char* parameter, const char* value) {
         if(atoi(value)==0 or atoi(value)==1) {
             cfg_esp32cam.sd_images_enable = atoi(value);
             sprintf(value_str, "%s", (atoi(value)==1)?"true":"false");
-            if (tm_camera.mode == CAM_IMAGES) {
-                tm_camera.sd_images_enabled = atoi(value);
-            }
+            set_camera_mode(tm_camera.mode);
             success = true;
         }
     }
@@ -925,9 +921,7 @@ bool set_parameter (const char* parameter, const char* value) {
         if(atoi(value)==0 or atoi(value)==1) {
             cfg_esp32cam.wifi_video_enable = atoi(value);
             sprintf(value_str, "%s", (atoi(value)==1)?"true":"false");
-            if (tm_camera.mode == CAM_VIDEO) {
-                tm_camera.wifi_video_enabled = atoi(value);
-            }
+            set_camera_mode(tm_camera.mode);
             success = true;
         }
     }
@@ -936,18 +930,11 @@ bool set_parameter (const char* parameter, const char* value) {
         if(atoi(value)==0 or atoi(value)==1) {
             cfg_esp32cam.sd_video_enable = atoi(value);
             sprintf(value_str, "%s", (atoi(value)==1)?"true":"false");
-            if(cfg_esp32cam.sd_video_enable) {
-                cameraController.startRecording();
-                tm_camera.sd_video_enabled = true;
-            }
-            else {
-                cameraController.stopRecording();
-                tm_camera.sd_video_enabled = false;
-            }
+            set_camera_mode(tm_camera.mode);
             success = true;
         }
     }
-    else if (!strcmp(parameter, "set_camera_frame_rate")) {
+    else if (!strcmp(parameter, "camera_frame_rate")) {
         if(atoi(value)>=0 and atoi(value)<=255) {
             sprintf(value_str, "%u", atoi(value));
             cfg_esp32cam.camera_image_rate = atoi(value);
@@ -955,111 +942,58 @@ bool set_parameter (const char* parameter, const char* value) {
             success = true;
         }
     }  
-    else if (!strcmp(parameter, "set_camera_mode")) {
-        cameraController.stopRecording();
+    else if (!strcmp(parameter, "camera_mode")) {
+        success = true;
         if(!strcmp(value, "idle")) {
-            tm_camera.mode = CAM_IDLE;
+            set_camera_mode(CAM_IDLE);
             sprintf(value_str, "%s", cameraMode[CAM_IDLE].name);
-            success = true;
         }
-        else if(!strcmp(value, "single")) {
-            tm_camera.mode = CAM_SINGLE;
-            cfg_esp32cam.camera_mode = CAM_SINGLE;
+        else if (!strcmp(value, "single")) {
+            set_camera_mode(CAM_SINGLE);
             sprintf(value_str, "%s", cameraMode[CAM_SINGLE].name);
-            success = true;
         }
-        else if(!strcmp(value, "images")) {
-            tm_camera.mode = CAM_IMAGES;
-            cfg_esp32cam.camera_mode = CAM_IMAGES;
+        else if (!strcmp(value, "images")) {
+            set_camera_mode(CAM_IMAGES);
             sprintf(value_str, "%s", cameraMode[CAM_IMAGES].name);
-            success = true;
         }
-        else if(!strcmp(value, "video")) {
-            tm_camera.mode = CAM_VIDEO;
-            cfg_esp32cam.camera_mode = CAM_VIDEO;
+        else if (!strcmp(value, "video")) {
+            set_camera_mode(CAM_VIDEO);
             sprintf(value_str, "%s", cameraMode[CAM_VIDEO].name);
-            if(tm_esp32cam.sd_enabled and cfg_esp32cam.sd_video_enable) {
-                cameraController.startRecording();
-            }
-            success = true;
         }
-        if(tm_camera.http_server_enabled) {
-            switch (tm_camera.mode) {
-                case CAM_IMAGES:
-                case CAM_SINGLE:
-                    tm_camera.wifi_images_enabled = cfg_esp32cam.wifi_images_enable;
-                    tm_camera.wifi_video_enabled = false;
-                    break;
-                case CAM_VIDEO:
-                    tm_camera.wifi_images_enabled = false;
-                    tm_camera.wifi_video_enabled = cfg_esp32cam.wifi_video_enable;
-                    break;
-            }
+        else {
+            success = false;
         }
-        if(tm_esp32cam.sd_enabled) {
-            switch (tm_camera.mode) {
-                case CAM_IMAGES:
-                case CAM_SINGLE:
-                    tm_camera.sd_images_enabled = cfg_esp32cam.sd_images_enable;
-                    tm_camera.sd_video_enabled = false;
-                    break;
-                case CAM_VIDEO:
-                    tm_camera.sd_images_enabled = false;
-                    tm_camera.sd_video_enabled = cfg_esp32cam.sd_video_enable;
-                    break;
-            }
-        }
-            
     }
-    else if (!strcmp(parameter, "set_camera_resolution")) {
-        if(!strcmp(value, "160x120")) {
-            tm_camera.resolution = QQVGA_160x120;
-            sprintf(value_str, "%s", cameraResolution[QQVGA_160x120].name);
-            camera.resolution.qqvga();
-            success = true;
+    else if (!strcmp(parameter, "camera_resolution")) {
+        success = true;
+        if (!strcmp(value, "160x120")) { 
+            set_camera_resolution(QQVGA_160x120);
         }
-        if(!strcmp(value, "320x240")) {
-            tm_camera.resolution = QVGA_320x240;
-            sprintf(value_str, "%s", cameraResolution[QVGA_320x240].name);
-            camera.resolution.qvga();
-            success = true;
+        else if (!strcmp(value, "320x240")) { 
+            set_camera_resolution(QVGA_320x240);
         }
-        if(!strcmp(value, "480x320")) {
-            tm_camera.resolution = HVGA_480x320;
-            sprintf(value_str, "%s", cameraResolution[HVGA_480x320].name);
-            camera.resolution.hvga();
-            success = true;
+        else if (!strcmp(value, "480x320")) { 
+            set_camera_resolution(HVGA_480x320);
         }
-        if(!strcmp(value, "640x480")) {
-            tm_camera.resolution = VGA_640x480;
-            sprintf(value_str, "%s", cameraResolution[VGA_640x480].name);
-            camera.resolution.vga();
-            success = true;
+        else if (!strcmp(value, "640x480")) { 
+            set_camera_resolution(VGA_640x480);
         }
-        if(!strcmp(value, "800x600")) {
-            tm_camera.resolution = SVGA_800x600;
-            sprintf(value_str, "%s", cameraResolution[SVGA_800x600].name);
-            camera.resolution.svga();
-            success = true;
+        else if (!strcmp(value, "800x600")) { 
+            set_camera_resolution(SVGA_800x600);
         }
-        if(!strcmp(value, "1024x768")) {
-            tm_camera.resolution = XGA_1024x768;
-            sprintf(value_str, "%s", cameraResolution[XGA_1024x768].name);
-            camera.resolution.xga();
-            success = true;
+        else if (!strcmp(value, "1024x768")) { 
+            set_camera_resolution(XGA_1024x768);
         }
-        if(!strcmp(value, "1280x1024")) {
-            tm_camera.resolution = SXGA_1280x1024;
-            sprintf(value_str, "%s", cameraResolution[SXGA_1280x1024].name);
-            camera.resolution.sxga();
-            success = true;
+        else if (!strcmp(value, "1280x1024")) { 
+            set_camera_resolution(SXGA_1280x1024);
         }
-        if(!strcmp(value, "1600x1200")) {
-            tm_camera.resolution = UXGA_1600x1200;
-            sprintf(value_str, "%s", cameraResolution[UXGA_1600x1200].name);
-            camera.resolution.uxga();
-            success = true;
+        else if (!strcmp(value, "1600x1200")) { 
+            set_camera_resolution(UXGA_1600x1200);
         }
+        else {
+            success = false;
+        }
+        sprintf(value_str, "%s", cameraResolution[tm_camera.resolution].name);
     }  
     #endif
     else if (!strncmp(parameter, "routing_espnow", 14)) {
@@ -1243,15 +1177,25 @@ void enable_wifi_services () {
     setup_wifi_ap();
     setup_wifi_sta(); 
 
-    // Initialize FTP server
-    if (cfg_this->ftp_enable) {
-        //tm_this->ftp_enabled = ftp_setup();
-    }
-
     // Initialize OTA
     if (cfg_this->ota_enable) {
         setup_ota();
     }
+}
+
+void setup_ftp () {
+    ftpSrv.begin(cfg_this->rocket_name, cfg_this->password);
+    tm_this->ftp_enabled=true;
+    if(tm_this->wifi_ap_enabled or tm_this->wifi_sta_enabled) {
+        publish_event (STS_THIS, SS_THIS, EVENT_INIT, "FTP capability initialized (maintenance mode only)");
+    }
+    else {
+        publish_event (STS_THIS, SS_THIS, EVENT_INIT, "FTP capability initialized (maintenance mode only) but no wifi enabled");
+    }
+}
+
+void handle_ftp () {
+    ftpSrv.handleFTP();
 }
 
 void disable_wifi_services () {
@@ -1285,6 +1229,7 @@ void OnDataSent_espnow(const esp_now_peer_info_t *info, esp_now_send_status_t st
 void OnDataRecv_espnow(const esp_now_peer_info_t *info, const uint8_t *espnow_rx_buffer, int len) {
     if (cfg_this->espnow_rx_enable) {
 		tm_this->espnow_rx_active = true;
+		tm_summary.espnow_rx_active = true;
         if(valid_ccsds_hdr((ccsds_t*)espnow_rx_buffer, PKT_TM) or valid_ccsds_hdr((ccsds_t*)espnow_rx_buffer, PKT_TC)) {
             tm_this->espnow_rx_pktrate++;
 		    add_packet_to_memory_buffer(ccsds_rx_fifo, (ccsds_t*)espnow_rx_buffer, SS_ESPNOW_PEER, COMMS_ESPNOW);
@@ -1415,6 +1360,15 @@ bool setup_espnow () {
         //}
         peerInfo.encrypt = false;
         register_espnow_peer(peerInfo);
+/*
+        if (SS_THIS == SS_ESP32) {
+            memcpy(peerInfo.peer_addr, default_mac_esp32cam, 6);
+        }
+        if (SS_THIS == SS_ESP32CAM) {
+            memcpy(peerInfo.peer_addr, default_mac_esp32, 6);
+        }
+        register_espnow_peer(peerInfo); */
+
         //if (!cfg_this->espnow_broadcast) {
         //    peerInfo.peer_addr[5] = cfg_this->peer_mac[5]+1;
         //    register_espnow_peer(peerInfo);
@@ -1472,6 +1426,7 @@ bool send_packet_through_espnow (ccsds_t* ccsds_ptr) {
     if (tm_this->espnow_tx_enabled) {
 	    tm_this->espnow_tx_pktrate++;
   	    tm_this->espnow_tx_active = true;
+  	    tm_summary.espnow_tx_active = true;
 		esp_err_t result = esp_now_send(cfg_this->peer_mac, (uint8_t*)ccsds_ptr, get_ccsds_packet_len (ccsds_ptr));
         if(SerialDebug) { Serial.print("e"); }
 		if (result == ESP_OK) {
@@ -1502,6 +1457,7 @@ bool check_serialtransfer_rx () {
     if (tm_this->serial_rx_enabled) {
         if(serialtransfer.available()) {        
             tm_this->serial_rx_active = true;    
+            tm_summary.serial_rx_active = true;    
             serialtransfer.rxObj(serial_rx_buffer);
             if(valid_ccsds_hdr((ccsds_t*)&(serial_rx_buffer), PKT_TM) or valid_ccsds_hdr((ccsds_t*)&(serial_rx_buffer), PKT_TC)) {
                 tm_this->serial_rx_pktrate++;
@@ -1529,6 +1485,7 @@ bool send_packet_through_serial (ccsds_t* ccsds_ptr) {
     if (tm_this->serial_tx_enabled) {
 	    tm_this->serial_tx_pktrate++;
   	    tm_this->serial_tx_active = true;
+  	    tm_summary.serial_tx_active = true;
   	    serialtransfer.sendDatum(*ccsds_ptr, get_ccsds_packet_len(ccsds_ptr));
         if(SerialDebug) { Serial.print("s"); }
   	    return true;
@@ -1538,22 +1495,30 @@ bool send_packet_through_serial (ccsds_t* ccsds_ptr) {
 
 #ifdef RS41
 bool setup_rs41 () {
-    SoftwareSerial Serial3(RS41_RX_PIN, RS41_TX_PIN); // RX, TX
-    Serial3.begin(9600); // communication with RS41
+    Serial3.begin(9600, SWSERIAL_8N1); // communication with RS41 on a software serial port
+    sprintf(buffer, "Initialized RS41 serial interface (TX pin %u)", RS41_TX_PIN);
+    publish_event(STS_THIS, SS_SERIAL, EVENT_INIT, buffer);
     return true;
 }
 
+
 bool send_radio_packet_to_rs41 () {
+    #ifdef PLATFORM_ESP32
     if (tm_this->radio_tx_enabled) {
-        update_packet((ccsds_t*)&tm_radio);
+        update_packet((ccsds_t*)&tm_summary);
         tm_this->radio_tx_pktrate++;
   	    tm_this->radio_tx_active = true;
-  	    Serial3.print("xdata=");
-  	    Serial3.println(get_hex_str((byte*)&tm_radio, get_ccsds_packet_len((ccsds_t*)&tm_radio)));
+  	    //tm_summary.radio_tx_active = true;
+  	    tm_summary.rs41_active = true;
+  	    Serial3.print("xdata=4B01");
+  	    Serial3.println(get_hex_str((byte*)&tm_summary, get_ccsds_packet_len((ccsds_t*)&tm_summary)));
+  	    //Serial3.println("xdata=050108CA186A0750B637");  // Ozone sensor
+  	    //Serial3.println("xdata=4B02FF00FF00FF00FF00");  // Dummy "free" sensor
         if(SerialDebug) { Serial.print("r"); }
-        reset_packet((ccsds_t*)&tm_radio);
+        reset_packet((ccsds_t*)&tm_summary);
   	    return true;
     }
+    #endif
     return false;
 }
 #endif
@@ -1619,6 +1584,7 @@ bool check_radio_rx () {
     if (cfg_this->radio_rx_enable) {
         if(radio.CheckRxFifo(20)) {        
             tm_this->radio_rx_active = true;    
+            tm_summary.radio_rx_active = true;    
             radio.ReceiveData(radio_rx_buffer);
             if(valid_ccsds_hdr((ccsds_t*)&(radio_rx_buffer), PKT_TM) or valid_ccsds_hdr((ccsds_t*)&(radio_rx_buffer), PKT_TC)) {
                 tm_this->radio_rx_pktrate++;
@@ -1645,6 +1611,7 @@ bool send_packet_through_radio (ccsds_t* ccsds_ptr) {
     if (tm_this->radio_tx_enabled) {
 	    tm_this->radio_tx_pktrate++;
   	    tm_this->radio_tx_active = true;
+  	    tm_summary.radio_tx_active = true;
 		radio.SendData((uint8_t*)ccsds_ptr, get_ccsds_packet_len (ccsds_ptr), 100);
         if(SerialDebug) { Serial.print("r"); }
         return true;
@@ -1833,7 +1800,7 @@ bool setup_archive () {
                     publish_event (STS_THIS, SS_ARCHIVE, EVENT_ERROR, buffer);
                     tm_this->archive_fs = FS_NONE;
                     tm_this->archive_enabled = false;
-                    tm_this->archive_active = true;
+                    tm_this->archive_active = false;
                     return false;
                 }
                 tm_this->archive_fs = cfg_this->archive_fs;
@@ -1904,7 +1871,6 @@ void set_next_archive_path (char* archive_path) {
 bool save_packet_to_archive (ccsds_t* ccsds_ptr) {
     if (tm_this->archive_enabled and tm_this->opsmode != MODE_MAINTENANCE) {
         tm_this->archive_pktrate++;
-        tm_this->archive_active = true;
         uint8_t packet_len = get_ccsds_packet_len(ccsds_ptr);
         switch(tm_this->archive_fs) {
         case FS_LITTLEFS:
@@ -1940,6 +1906,7 @@ bool save_packet_to_archive (ccsds_t* ccsds_ptr) {
                 archive.packet_offset = var.archive_file.position() - packet_len;
                 tm_this->sd_active = true;
                 tm_this->archive_active = true;
+                tm_summary.sd_archive_active = true;
                 if(SerialDebug) { Serial.print("a"); }
                 return true;
             }
@@ -2212,6 +2179,10 @@ void publish_event (uint8_t PID, uint8_t subsystem, uint8_t event_type, const ch
 }
 
 void publish_cmd (uint8_t PID, uint8_t command_id, const byte* cmd_payload, uint8_t payload_len) {
+    Serial.printf("payload_len=%u value=%u (0x%02X)\n",
+              payload_len,
+              cmd_payload[0],
+              cmd_payload[0]);
     switch(PID) {
         case TC_ESP32: 
             tc_esp32.cmd_id = command_id;
@@ -2283,29 +2254,29 @@ void update_packet (ccsds_t* ccsds_ptr) {
     case TM_PRESSURE:   tm_pressure.millis=millis();
                         tm_pressure.packet_ctr++;
                         break;                         
-    case TM_RADIO:      //tm_radio.millis=millis();
-                        tm_radio.packet_ctr++;
-                        tm_radio.battery_percentage = tm_esp32.battery_percentage; 
-                        tm_radio.opsmode = tm_esp32.opsmode;
-                        tm_radio.separation_sts = tm_esp32.separation_sts;
-                        tm_radio.time_set = tm_esp32.time_set;
-                        tm_radio.gps_satellites = tm_gps.satellites;
-                        tm_radio.gps_latitude = tm_gps.latitude;
-                        tm_radio.gps_longitude = tm_gps.longitude;
-                        tm_radio.gps_altitude = uint16_t(tm_gps.altitude/100);
-                        tm_radio.accel_x = int8_t((tm_motion.accel_x+((tm_motion.accel_x > 0) - (tm_motion.accel_x < 0))*50)/100);
-                        tm_radio.accel_y = int8_t((tm_motion.accel_y+((tm_motion.accel_y > 0) - (tm_motion.accel_y < 0))*50)/100);
-                        tm_radio.accel_z = int8_t((tm_motion.accel_z+((tm_motion.accel_z > 0) - (tm_motion.accel_z < 0))*50)/100);   
-                        tm_radio.gyro_x = int8_t((tm_motion.gyro_x+((tm_motion.gyro_x > 0) - (tm_motion.gyro_x < 0))*50)/100);
-                        tm_radio.gyro_y = int8_t((tm_motion.gyro_y+((tm_motion.gyro_y > 0) - (tm_motion.gyro_y < 0))*50)/100);
-                        tm_radio.gyro_z = int8_t((tm_motion.gyro_z+((tm_motion.gyro_z > 0) - (tm_motion.gyro_z < 0))*50)/100);
-                        tm_radio.magn_x = int8_t((tm_motion.magn_x+((tm_motion.magn_x > 0) - (tm_motion.magn_x < 0))*50)/100);
-                        tm_radio.magn_y = int8_t((tm_motion.magn_y+((tm_motion.magn_y > 0) - (tm_motion.magn_y < 0))*50)/100);
-                        tm_radio.magn_z = int8_t((tm_motion.magn_z+((tm_motion.magn_z > 0) - (tm_motion.magn_z < 0))*50)/100);
-                        tm_radio.pressure_internal = uint8_t(tm_pressure.pressure/2);
-                        tm_radio.pressure_external = uint8_t(tm_pressure.pressure2/2);
-                        tm_radio.temperature_internal = uint8_t(tm_pressure.temperature/2);
-                        tm_radio.temperature_external = uint8_t(tm_pressure.temperature2/2);
+    case TM_SUMMARY:    tm_summary.packet_ctr++;
+                        tm_summary.esp32_opsmode = tm_esp32.opsmode;
+                        tm_summary.esp32cam_opsmode = tm_esp32cam.opsmode;
+                        tm_summary.esp32_time_set = tm_esp32.time_set;
+                        tm_summary.esp32cam_time_set = tm_esp32cam.time_set;
+                        tm_summary.gps_satellites = tm_gps.satellites;
+                        tm_summary.gps_latitude = tm_gps.latitude;
+                        tm_summary.gps_longitude = tm_gps.longitude;
+                        tm_summary.gps_altitude = uint16_t(max(0,(tm_gps.altitude+50)/100)); // cm->m (OK)
+                        tm_summary.accel_x = int8_t((tm_motion.accel_x+((tm_motion.accel_x > 0) - (tm_motion.accel_x < 0))*5)/10); // dm/s2
+                        tm_summary.accel_y = int8_t((tm_motion.accel_y+((tm_motion.accel_y > 0) - (tm_motion.accel_y < 0))*5)/10); // dm/s2
+                        tm_summary.accel_z = int8_t((tm_motion.accel_z+((tm_motion.accel_z > 0) - (tm_motion.accel_z < 0))*5)/10); // dm/s2  
+                        tm_summary.gyro_x = int8_t((tm_motion.gyro_x+((tm_motion.gyro_x > 0) - (tm_motion.gyro_x < 0))*50)/100);
+                        tm_summary.gyro_y = int8_t((tm_motion.gyro_y+((tm_motion.gyro_y > 0) - (tm_motion.gyro_y < 0))*50)/100);
+                        tm_summary.gyro_z = int8_t((tm_motion.gyro_z+((tm_motion.gyro_z > 0) - (tm_motion.gyro_z < 0))*50)/100);
+                        tm_summary.magn_x = int8_t(tm_motion.magn_x);
+                        tm_summary.magn_y = int8_t(tm_motion.magn_y);
+                        tm_summary.magn_z = int8_t(tm_motion.magn_z);
+                        tm_summary.pressure = uint8_t(tm_pressure.pressure/2);  // ????
+                        tm_summary.temperature_internal = int8_t(tm_pressure.temperature/2);
+                        tm_summary.temperature_external = int8_t(tm_pressure.temperature2/2);
+                        tm_summary.camera_active = tm_summary.wifi_images_active || tm_summary.wifi_video_active || tm_summary.sd_images_active || tm_summary.sd_video_active;
+                        tm_summary.camera_frame_ctr = tm_camera.frame_ctr;
                         break;                          
     case TM_ESP32CAM:   tm_esp32cam.millis = millis();
                         tm_esp32cam.packet_ctr++;
@@ -2333,7 +2304,6 @@ void update_packet (ccsds_t* ccsds_ptr) {
     case TM_CAMERA:     tm_camera.millis = millis();
                         tm_camera.packet_ctr++;
                         tm_esp32cam.camera_pktrate++;
-                        tm_esp32cam.camera_active = true;
                         break;
     case TM_GNDCTRL:    tm_gndctrl.millis = millis();
                         tm_gndctrl.packet_ctr++;
@@ -2411,10 +2381,23 @@ void reset_packet (ccsds_t* ccsds_ptr) {
                         break;
     case TM_PRESSURE:   tm_esp32.pressure_pktrate++;
                         break;
-    case TM_RADIO:      tm_radio.pressure_active = false;
-                        tm_radio.motion_active = false;
-                        tm_radio.gps_active = false; 
-                        tm_radio.camera_active = false; 
+    case TM_SUMMARY:    tm_summary.rs41_active = false;
+                        tm_summary.espnow_rx_active = false;
+                        tm_summary.espnow_tx_active = false;
+                        tm_summary.serial_rx_active = false;
+                        tm_summary.serial_tx_active = false;
+                        tm_summary.radio_rx_active = false;
+                        tm_summary.radio_tx_active = false;
+                        tm_summary.pressure_active = false;
+                        tm_summary.pressure2_active = false;
+                        tm_summary.motion_active = false;
+                        tm_summary.gps_active = false; 
+                        tm_summary.camera_active = false;
+                        tm_summary.wifi_images_active = false; 
+                        tm_summary.wifi_video_active = false; 
+                        tm_summary.sd_images_active = false; 
+                        tm_summary.sd_video_active = false; 
+                        tm_summary.sd_archive_active = false; 
                         break;
     case TM_ESP32CAM:   tm_esp32cam.espnow_rx_pktrate = 0;
                         tm_esp32cam.espnow_tx_pktrate = 0;
@@ -2439,7 +2422,6 @@ void reset_packet (ccsds_t* ccsds_ptr) {
                         tm_camera.wifi_video_active = false;
                         tm_camera.sd_video_active = false;
                         tm_camera.frame_rate = 0;
-
                         break;
 	case TM_GNDCTRL:    tm_gndctrl.espnow_rx_pktrate = 0;
 						tm_gndctrl.espnow_tx_pktrate = 0;
@@ -2571,7 +2553,7 @@ bool execute_tc () {
     case CMD_SET_OPSMODE:   return cmd_set_opsmode((uint8_t)tc_this->parameter[0]);
                             break;
     }
-    if (tm_this->opsmode == MODE_CHECKOUT) {
+    if (tm_this->opsmode == MODE_CHECKOUT or tm_this->opsmode == MODE_NOMINAL) {
         switch (tc_this->cmd_id) { 
         case CMD_SET_PARAMETER: return cmd_set_parameter(tc_this->parameter, (char*)(tc_this->parameter + strlen(tc_this->parameter) + 1)); 
                                 break;
@@ -2724,20 +2706,22 @@ void setup_ota() {
 
 bool get_ntp_time() {
     tm timeinfo;
-    configTime(0, 0, "ntp.telenet.be", "pool.ntp.org");
-    if (getLocalTime(&timeinfo)) {
-        setTime(timeinfo.tm_hour, timeinfo.tm_min, timeinfo.tm_sec, timeinfo.tm_mday, timeinfo.tm_mon + 1, timeinfo.tm_year + 1900);
-//        sprintf(buffer, "Time set through NTP: %04u-%02u-%02u %02u:%02u:%02u", timeinfo.tm_year + 1900, timeinfo.tm_mon + 1, timeinfo.tm_mday, timeinfo.tm_hour, timeinfo.tm_min, timeinfo.tm_sec);
-        sprintf(buffer, "Time set through NTP: %04u-%02u-%02u %02u:%02u:%02u", year(), month(), day(), hour(), minute(), second());
-        publish_event (STS_THIS, SS_THIS, EVENT_INIT, buffer);
-        tm_this->time_set = true;
-        create_today_directory();
-        return true;
+    if(tm_this->wifi_sta_enabled) {
+        configTime(0, 0, "ntp.telenet.be", "pool.ntp.org");
+        if (tm_this->wifi_sta_enabled and getLocalTime(&timeinfo)) {
+            setTime(timeinfo.tm_hour, timeinfo.tm_min, timeinfo.tm_sec, timeinfo.tm_mday, timeinfo.tm_mon + 1, timeinfo.tm_year + 1900);
+            sprintf(buffer, "Time set through NTP: %04u-%02u-%02u %02u:%02u:%02u", year(), month(), day(), hour(), minute(), second());
+            publish_event (STS_THIS, SS_THIS, EVENT_INIT, buffer);
+            tm_this->time_set = true;
+            create_today_directory();
+            return true;
+        }
+        else {
+            publish_event (STS_THIS, SS_THIS, EVENT_ERROR, "Failed to obtain NTP time");
+            return false;
+        }
     }
-    else {
-        publish_event (STS_THIS, SS_THIS, EVENT_ERROR, "Failed to obtain NTP time");
-        return false;
-    }
+    return false;
 }
 
 void switch_timer (uint8_t new_timer) {
@@ -2748,6 +2732,106 @@ void switch_timer (uint8_t new_timer) {
     tmr_this->timer[current_timer].ms += (now - last_switch);
     current_timer = new_timer;
     last_switch = now;
+}
+
+// Camera function
+
+void set_camera_mode (uint8_t camera_mode) {
+    #ifdef PLATFORM_ESP32CAM
+    if(tm_camera.sd_video_enabled) {
+        cameraController.stopRecording();
+    }
+    tm_camera.wifi_images_enabled = false;
+    tm_camera.wifi_video_enabled = false;
+    tm_camera.sd_images_enabled = false;
+    tm_camera.sd_video_enabled = false;
+   /* if(!tm_camera.http_server_enabled) {
+        cfg_esp32cam.wifi_images_enable = false;
+        cfg_esp32cam.wifi_video_enable = false;
+    }
+    if(!tm_esp32cam.sd_enabled) {
+        cfg_esp32cam.sd_images_enable = false;
+        cfg_esp32cam.sd_video_enable = false;
+    } */
+
+    switch(camera_mode) {
+        case CAM_IDLE:
+            if(cfg_esp32cam.wifi_images_enable and tm_camera.http_server_enabled) {
+                tm_camera.wifi_images_enabled = true;
+            }
+            break;
+        case CAM_SINGLE:
+            if(cfg_esp32cam.wifi_images_enable and tm_camera.http_server_enabled) {
+                tm_camera.wifi_images_enabled = true;
+            }
+            if(tm_esp32cam.sd_enabled) {
+                tm_camera.sd_images_enabled = true;
+            }
+        case CAM_IMAGES:
+            if(cfg_esp32cam.wifi_images_enable and tm_camera.http_server_enabled) {
+                tm_camera.wifi_images_enabled = true;
+            }
+            if(tm_esp32cam.sd_enabled) {
+                tm_camera.sd_images_enabled = true;
+            }
+            break;
+        case CAM_VIDEO:
+            if(cfg_esp32cam.wifi_video_enable and tm_camera.http_server_enabled) {
+                tm_camera.wifi_video_enabled = true;
+            }
+            if(tm_esp32cam.sd_enabled) {
+                tm_camera.sd_video_enabled = true;
+                cameraController.startRecording();
+            }
+            break;
+    }
+    tm_camera.mode = camera_mode;
+    tm_summary.camera_mode = camera_mode;
+    publish_packet((ccsds_t*)cfg_this);
+    #endif
+}
+
+void set_camera_resolution (uint8_t camera_resolution) {
+    #ifdef PLATFORM_ESP32CAM
+    switch(camera_resolution) {
+        case QQVGA_160x120:
+            camera.resolution.qqvga();
+            break;
+        case QVGA_320x240:
+            camera.resolution.qvga();
+            break;
+        case HVGA_480x320:
+            camera.resolution.hvga();
+            break;
+        case VGA_640x480:
+            camera.resolution.vga();
+            break;
+        case SVGA_800x600:
+            camera.resolution.svga();
+            break;
+        case XGA_1024x768:
+            camera.resolution.xga();
+            break;
+        case SXGA_1280x1024:
+            camera.resolution.sxga();
+            break;
+        case UXGA_1600x1200:
+            camera.resolution.uxga();
+            break;
+    }
+    #endif
+}
+
+bool camera_sync_video() {
+    #ifdef PLATFORM_ESP32CAM
+    if(tm_camera.sd_video_enabled) {
+        cameraController.stopRecording();
+        delay(100);
+        cameraController.startRecording();
+        return true;
+    }
+    #endif
+    return false;
 }
 
 // Support Functions

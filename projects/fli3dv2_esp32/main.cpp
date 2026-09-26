@@ -6,8 +6,8 @@
  */
 
 // Set versioning
-#define SW_VERSION "1.99.0"
-#define SW_DATE "20260924"
+#define SW_VERSION "2.00.0"
+#define SW_DATE "20260926"
 
 // Set functionality to compile
 //#define RADIO
@@ -62,7 +62,7 @@ cfg_packet_t        *cfg_this = &cfg_esp32;
 //                                              |  |  |  |  |  |  |  7: TM_GPS 
 //                                              |  |  |  |  |  |  |  |  8: TM_MOTION 
 //                                              |  |  |  |  |  |  |  |  |  9: TM_PRESSURE
-//                                              |  |  |  |  |  |  |  |  |  |  A: TM_RADIO
+//                                              |  |  |  |  |  |  |  |  |  |  A: TM_SUMMARY
 //                                              |  |  |  |  |  |  |  |  |  |  |  B: TM_ESP32CAM
 //                                              |  |  |  |  |  |  |  |  |  |  |  |  C: TM_CAMERA
 //                                              |  |  |  |  |  |  |  |  |  |  |  |  |  D: TM_GNDCTRL
@@ -74,9 +74,10 @@ cfg_packet_t        *cfg_this = &cfg_esp32;
 //                                              |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  J: CFG_GNDCTRL
 //                                              0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F  G  H  I  J
 bool default_routing_espnow[NUMBER_OF_PID] =  { 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0 };
-bool default_routing_serial[NUMBER_OF_PID] =  { 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+bool default_routing_serial[NUMBER_OF_PID] =  { 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0 };
+//bool default_routing_serial[NUMBER_OF_PID] ={ 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 bool default_routing_radio[NUMBER_OF_PID] =   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-bool default_routing_archive[NUMBER_OF_PID] = { 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 0 };
+bool default_routing_archive[NUMBER_OF_PID] = { 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0 };
 
 void set_esp32cam_time() {
     sprintf(buffer, "Sending time sync TC to ESP32CAM (%lu)", now());
@@ -86,15 +87,28 @@ void set_esp32cam_time() {
     publish_cmd(TC_ESP32CAM, CMD_SET_PARAMETER, (byte*)buffer, len + 1);
 }
 
+void set_esp32cam_nominal() {
+    sprintf(buffer, "Setting ESP32CAM to Nominal");
+    publish_event(STS_THIS, SS_ESP32CAM, EVENT_INFO, buffer);
+    uint8_t opsmode = MODE_NOMINAL;
+    publish_cmd(TC_ESP32CAM, CMD_SET_OPSMODE, (byte*)&opsmode, 1);
+}
+
 void sendTM(void *arg) {
     publish_packet((ccsds_t*)tm_this);
-    if (tm_this->time_set and tm_esp32cam.opsmode!=MODE_INIT and !tm_esp32cam.time_set) {
-        set_esp32cam_time();
-    }
 }
 
 void checkTX(void *arg) {
     process_tx_queue();
+}
+
+void checkRX(void *arg) {
+    // Process incoming packets
+    check_serialtransfer_rx();
+    #ifdef RADIO
+    check_radio_rx();
+    #endif
+    process_rx_queue();
 }
 
 void setup() {
@@ -109,7 +123,7 @@ void setup() {
     #endif
     #ifdef CAMERA
     if (cfg_esp32.serial_rx_enable or cfg_esp32.serial_tx_enable) {
-        Serial2.begin(115200, SERIAL_8N1, ESP32CAM_RX_PIN, ESP32CAM_TX_PIN); // communication with ESP32CAM
+        Serial2.begin(57600, SERIAL_8N1, ESP32CAM_RX_PIN, ESP32CAM_TX_PIN); // communication with ESP32CAM
         setup_serialtransfer(Serial2);
         tm_esp32.serial_rx_enabled = cfg_esp32.serial_rx_enable;
         tm_esp32.serial_tx_enabled = cfg_esp32.serial_tx_enable;
@@ -156,6 +170,19 @@ void setup() {
     esp_timer_start_periodic(timer_handleTX, 100000);
     sleep(10);
 
+    // Start checking the receive queue every 100 ms
+    esp_timer_create_args_t timer_argsRX = {
+        .callback = &checkRX,
+        .arg = NULL,
+        .dispatch_method = ESP_TIMER_TASK,
+        .name = "BackgroundTaskTimer2"
+    };
+
+    esp_timer_handle_t timer_handleRX;
+    esp_timer_create(&timer_argsRX, &timer_handleRX);
+    esp_timer_start_periodic(timer_handleRX, 100000);
+    sleep(10);
+
     // Load configuration
     setup_gpio();
     if(cfg_this->cfg_boot.boot_bank != 255) {
@@ -178,6 +205,11 @@ void setup() {
     setup_fs();
     setup_sd();
     setup_archive();
+
+    // Initialize FTP server
+    if (cfg_this->ftp_enable) {
+        setup_ftp ();
+    }
 
     //
     #ifdef SEPARATION
@@ -231,12 +263,6 @@ void setup() {
 
 void loop() {
 
-    check_serialtransfer_rx();
-    #ifdef RADIO
-    check_radio_rx();
-    #endif
-    process_rx_queue();
-
     var.now = millis();
 
     if (tm_this->opsmode == MODE_MAINTENANCE) {
@@ -246,7 +272,7 @@ void loop() {
             tm_this->ota_enabled = true;
         }
         if (tm_this->ftp_enabled) {
-            //ftp_check (cfg_this->buffer_fs);
+            handle_ftp();
         }
     }
     else { 
@@ -264,7 +290,7 @@ void loop() {
         // BMP388 pressure sensor
         #ifdef PRESSURE
         else if (var.now >= var.next_pressure_time and tm_esp32.pressure_enabled) {
-            if (tm_esp32.pressure_active = acquire_bmp388()) {
+            if (acquire_bmp388()) {
                 publish_packet ((ccsds_t*)&tm_pressure);
             }
             //else {
@@ -278,7 +304,7 @@ void loop() {
         // BMP280 pressure sensor
         #ifdef PRESSURE2
         else if (var.now >= var.next_pressure_time and tm_esp32.pressure_enabled) {
-            if (tm_esp32.pressure2_active = acquire_bmp280()) {
+            if (acquire_bmp280()) {
                 publish_packet ((ccsds_t*)&tm_pressure);
             }
             //else {
@@ -292,9 +318,9 @@ void loop() {
         // ICM-20948 accelerometer/gyroscope/magnetometer
         #ifdef MOTION
         else if (var.now >= var.next_motion_time and tm_esp32.motion_enabled) {
-            if (tm_esp32.motion_active = acquire_icm20948()) {
+            if (acquire_icm20948()) {
                 publish_packet ((ccsds_t*)&tm_motion);
-                publish_packet ((ccsds_t*)&tm_radio); //TODO: remove (is test)
+                publish_packet ((ccsds_t*)&tm_summary); //TODO: remove (is test)
             }
             //else {
                 // will try to reset accelerometer once, and then give up
@@ -307,7 +333,7 @@ void loop() {
         // NEO6MV2 GPS
         #ifdef GPS
         else if (tm_esp32.gps_enabled and var.now >= var.next_gps_time) {
-            if (tm_esp32.gps_active = acquire_neo6mv2()) {
+            if (acquire_neo6mv2()) {
                 var.next_gps_time = var.now + var.gps_interval;
             }
             else {
@@ -321,8 +347,30 @@ void loop() {
         #ifdef RS41
         else if (tm_esp32.radio_tx_enabled and var.now >= var.next_rs41_time) {
             send_radio_packet_to_rs41();
-            var.next_rs41_time = var.now + 1000;
+            var.next_rs41_time = var.now + 15000;
         }
+        #endif
+
+        #ifdef CAMERA
+        /*else if (tm_esp32.camera_enabled and var.now >= var.next_camera_time) {
+            // Set ESP32CAM time after ESP32CAM initialization
+            if (tm_this->time_set and !tm_esp32cam.time_set and tm_esp32cam.opsmode!=MODE_INIT) {
+                set_esp32cam_time();
+            }
+            // ESP32CAM is rebooting, be sure we know whether we need to put it in nominal or not
+            if (tm_esp32cam.opsmode==MODE_INIT) {
+                    cfg_this->force_esp32cam_nominal=cfg_this->dip_set4;
+            }
+            // Put ESP32CAM in Nominal if this must be
+            if (tm_esp32cam.opsmode==MODE_CHECKOUT and cfg_this->force_esp32cam_nominal) {
+                set_esp32cam_nominal();
+            }
+            // If ESP32CAM is in nominal, allow the user to change the mode
+            if (tm_esp32cam.opsmode==MODE_NOMINAL && cfg_this->force_esp32cam_nominal) {
+                cfg_this->force_esp32cam_nominal = false;
+            }
+            var.next_camera_time = var.now + 1000;
+        } */
         #endif
     }  
 }

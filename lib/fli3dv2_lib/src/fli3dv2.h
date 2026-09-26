@@ -4,7 +4,7 @@
  
 #ifndef _FLI3DV2_H_
 #define _FLI3DV2_H_
-#define LIB_VERSION "Fli3dv2 lib 1.99.0/20260920"
+#define LIB_VERSION "Fli3dv2 lib 2.0.0/20260926"
 
 #include <Arduino.h>
 #include <EEPROM.h>
@@ -23,16 +23,17 @@
 #include <ESPmDNS.h>
 #include <ArduinoOTA.h>
 #include <SmartRC_CC1101.h>
-//#include <ESPFtpServer.h>
+#include <MultiFtpServer.h>
 #ifdef PLATFORM_ESP32CAM
 #include <eloquent_esp32cam.h>
 #include "CameraController.h"
 #endif
 
+#define RS41
+
+
 #define BUFFER_MAX_SIZE           512
 #define PARAMETER_MAX_SIZE        128
-
-#define RS41
 
 // Pin assignment for ESP32 MH-ET minikit board
 
@@ -56,8 +57,8 @@
 #define RADIO_MOSI_PIN            23 
 #define RADIO_GDO0_PIN            27 
 #define RADIO_GDO2_PIN            35
-#define RS41_RX_PIN               2
-#define RS41_TX_PIN               33         
+#define RS41_RX_PIN               36
+#define RS41_TX_PIN               15         
 
 //  MDB DEFINITION
 
@@ -112,7 +113,7 @@
 #define TM_GPS                 7  // APID 49 (31)
 #define TM_MOTION              8  // APID 50 (32)
 #define TM_PRESSURE            9  // APID 51 (33)
-#define TM_RADIO               10 // APID 52 (34) -> make TM_SUMMARY instead?
+#define TM_SUMMARY             10 // APID 52 (34)
 #define TM_ESP32CAM            11 // APID 53 (35)
 #define TM_CAMERA              12 // APID 54 (36)
 #define TM_GNDCTRL             13 // APID 55 (37)
@@ -450,36 +451,43 @@ struct __attribute__ ((packed)) tm_pressure_t {  // APID: 51 (33)
     int16_t     height2;                 // cm
 }; 
 
-struct __attribute__ ((packed)) tm_radio_t {     // APID: 52 (43 bytes)
+struct __attribute__ ((packed)) tm_summary_t {     // APID: 52 (43 bytes)
     ccsds_hdr_t ccsds_hdr;             // 6 bytes
     ccsds_sec_hdr_t ccsds_sec_hdr;     // 6 bytes
     uint16_t    packet_ctr;
-    uint8_t     battery_percentage;    // %     #15
     
-    uint8_t     opsmode:2;             // 7-6
-    bool        separation_sts:1;      //    5
-    bool        time_set:1;            //     4
-    bool        wifi_active:1;         //      3
-    bool        rs41_active:1;         //       2
-    bool        lora_active:1;         //        1
-    bool        gprs_active:1;         //         0  #16
+    uint8_t     esp32_opsmode:2;       // 7-6
+    uint8_t     esp32cam_opsmode:2;    //  5-4
+    bool        esp32_time_set:1;      //     3
+    bool        esp32cam_time_set:1;   //      2
+    bool        rs41_active:1;         //       1
+    bool        free_00:1;             //        0
+
     bool        espnow_rx_active:1;    // 7
     bool        espnow_tx_active:1;    //  6
     bool        serial_rx_active:1;    //   5
     bool        serial_tx_active:1;    //    4
     bool        radio_rx_active:1;     //     3
     bool        radio_tx_active:1;     //      2
-    bool        pressure2_active:1;    //       1
-    bool        pressure_active:1;     //        0   #17
+    bool        pressure_active:1;     //       1
+    bool        pressure2_active:1;    //        0
+
     bool        motion_active:1;       // 7
     bool        gps_active:1;          //  6
     bool        camera_active:1;       //   5
-    bool        buzzer_active:1;       //    4
-    uint8_t     gps_satellites:4;      //     0-3   *GGA  #18
+    bool        wifi_images_active:1;  //    4
+    bool        wifi_video_active:1;   //     3
+    bool        sd_images_active:1;    //      2
+    bool        sd_video_active:1;     //       1
+    bool        sd_archive_active:1;   //        0
 
-    int32_t     gps_latitude;          //        RMC,*GGA,GLL
-    int32_t     gps_longitude;         //        RMC,*GGA,GLL
-    uint16_t    gps_altitude;          // m     *GGA      #28
+    uint8_t     camera_mode:3;         // 7-5
+    uint8_t     gps_satellites:4;      //  1-4
+    bool        free_10:1;             //   0
+
+    int32_t     gps_latitude;
+    int32_t     gps_longitude;
+    uint16_t    gps_altitude;          // m
 
     int8_t      accel_x;               // cm/s2
     int8_t      accel_y;               // cm/s2
@@ -489,12 +497,11 @@ struct __attribute__ ((packed)) tm_radio_t {     // APID: 52 (43 bytes)
     int8_t      gyro_z;                // cdeg/s
     int8_t      magn_x;                // uT
     int8_t      magn_y;                // uT
-    int8_t      magn_z;                // uT               #43
-
+    int8_t      magn_z;                // uT
     int8_t      temperature_internal;  // 0.5 degC
     int8_t      temperature_external;  // 0.5 degC
-    uint16_t    pressure_internal;     // 2 Pa
-    uint16_t    pressure_external;     // 2 Pa             #49
+    uint16_t    pressure;              // 2 Pa   
+    uint16_t    camera_frame_ctr;
 }; 
 
 struct __attribute__ ((packed)) tm_esp32cam_t {  // APID: 53 (35)
@@ -541,7 +548,7 @@ struct __attribute__ ((packed)) tm_esp32cam_t {  // APID: 53 (35)
     bool        sd_enabled:1;          //    4
     bool        archive_enabled:1;     //     3
     bool        camera_enabled:1;      //      2
-    bool        free11:1;              //       1
+    bool        flashlight_enabled:1;  //       1
     bool        time_set:1;            //        0
 
     bool        espnow_rx_active:1;    // 7
@@ -559,7 +566,7 @@ struct __attribute__ ((packed)) tm_esp32cam_t {  // APID: 53 (35)
     bool        sd_active:1;           //    4
     bool        archive_active:1;      //     3
     bool        camera_active:1;       //      2
-    bool        free31:1;              //       1
+    bool        flashlight_active:1;   //       1
     bool        free30:1;              //        0
 };
 
@@ -723,7 +730,7 @@ struct __attribute__ ((packed)) cfg_packet_t {  // APID: 59/60/61 (3b/3d/3e)
     bool        archive_buffer_enable:1; //    4
     bool        free_23:1;               //     3
     bool        pressure2_enable:1;      //      2
-    bool        camera_force_acquire:1;  //       1
+    bool        force_esp32cam_nominal:1;//       1
     bool        camera_enable:1;         //        0
 
     bool        dip_set1:1;           // 7
@@ -734,7 +741,7 @@ struct __attribute__ ((packed)) cfg_packet_t {  // APID: 59/60/61 (3b/3d/3e)
     bool        pressure_enable:1;    //      2       
     bool        motion_enable:1;      //       1
     bool        gps_enable:1;         //        0
-    
+
     uint32_t    routing_espnow __attribute__((aligned(4)));
     uint32_t    routing_serial __attribute__((aligned(4)));
     uint32_t    routing_radio __attribute__((aligned(4)));
@@ -742,24 +749,18 @@ struct __attribute__ ((packed)) cfg_packet_t {  // APID: 59/60/61 (3b/3d/3e)
     
     cfg_boot_t  cfg_boot;  __attribute__((aligned(sizeof(cfg_boot_t))));
 
-    uint8_t     pressure_tm_rate;      // Hz (up to 157 Hz, highest resolution up to 23 Hz); reached 176 Hz on ESP8266
-    uint8_t     motion_tm_rate;        // Hz (up to 400) - 255 is highest set value
-    uint8_t     gps_tm_rate;           // Hz (valid: 1,5,10,16)
-    uint8_t     camera_image_rate;     // Hz (0..255)
-    int16_t     mpu_accel_sensitivity; // �m/s2 per LSB 
-    int16_t     mpu_accel_offset_x;    // y_sensor values // TODO: realign XYZ
-    int16_t     mpu_accel_offset_y;    // z_sensor values
-    int16_t     mpu_accel_offset_z;    // x_sensor values
-    int16_t     mpu_gyro_offset_x;     // y_sensor values
-    int16_t     mpu_gyro_offset_y;     // z_sensor values
-    int16_t     mpu_gyro_offset_z;     // x_sensor values 
-
     bool        wifi_images_enable:1;
     bool        wifi_video_enable:1;
     bool        sd_images_enable:1;
     bool        sd_video_enable:1;
     uint8_t     camera_mode:3;
-    bool        free40:1;
+    bool        free_40:1;
+
+    uint8_t     pressure_tm_rate;      // Hz (up to 157 Hz, highest resolution up to 23 Hz); reached 176 Hz on ESP8266
+    uint8_t     motion_tm_rate;        // Hz (up to 400) - 255 is highest set value
+    uint8_t     gps_tm_rate;           // Hz (valid: 1,5,10,16)
+    uint8_t     camera_image_rate;     // Hz (0..255)
+
 };
 
 struct var_t {
@@ -769,6 +770,7 @@ struct var_t {
     uint32_t    next_motion_time;
     uint32_t    next_gps_time;
     uint32_t    last_camera_time;
+    uint32_t    next_camera_time;
     uint32_t    next_tx_time;
     uint32_t    next_rs41_time;
     uint16_t    pressure_interval;
@@ -831,7 +833,7 @@ extern tm_esp32_t          tm_esp32;
 extern tm_gps_t            tm_gps;
 extern tm_motion_t         tm_motion;
 extern tm_pressure_t       tm_pressure;
-extern tm_radio_t          tm_radio;
+extern tm_summary_t        tm_summary;
 extern tm_esp32cam_t       tm_esp32cam;
 extern tm_camera_t         tm_camera;
 extern tm_gndctrl_t        tm_gndctrl;
@@ -886,8 +888,12 @@ extern name_t cameraMode[];
 //extern name_t command[];
 //extern name_t event[];
 //extern name_t comms[];
-//extern name_t opsmode[];
+extern name_t opsmode[];
 //extern name_t filesystem[];
+#ifdef PLATFORM_ESP32CAM
+extern CameraController cameraController;
+#endif
+
 
 // Configuration Functionality
 extern void init_config ();
@@ -922,6 +928,7 @@ extern bool setup_fs ();
 extern bool setup_sd ();
 extern uint16_t fs_free ();
 extern uint32_t sd_free ();
+extern void create_today_directory ();
 
 // Archive Functionality
 extern bool setup_archive ();
@@ -940,11 +947,20 @@ extern void init_ccsds ();
 // OTA Functionality
 extern void setup_ota ();
 
+// FTP Functionality
+extern void setup_ftp ();
+extern void handle_ftp ();
+
 // Time functionality
 extern bool get_ntp_time ();
 
 // Timer functionality
 extern void switch_timer (uint8_t timer);
+
+// Camera functionality
+extern void set_camera_mode (uint8_t camera_mode);
+extern void set_camera_resolution (uint8_t camera_resolution);
+extern bool camera_sync_video();
 
 // Support Functionality
 extern String get_hex_str (byte* blob, uint16_t length);

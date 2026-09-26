@@ -1,5 +1,7 @@
 /* Based on vibecoded coding by Copilot */
 
+#ifdef PLATFORM_ESP32CAM
+
 #include "WebInterface.h"
 #include <eloquent_esp32cam.h>
 #include "fli3dv2.h"
@@ -111,3 +113,5 @@ void WebInterface::handleStream() {
         delay(30);
     }
 }
+
+#endif

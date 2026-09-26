@@ -36,6 +36,15 @@ dataLinks:
 #          epochUTC: "1970-01-01T00:00:00Z"
 #          timeIncludesLeapSeconds: false
 
+  - name: sondehub-udp-in
+    class: org.yamcs.tctm.UdpTmDataLink
+    stream: tm_realtime
+    port: 10015
+    packetPreprocessorClassName: org.yamcs.tctm.GenericPacketPreprocessor
+    packetPreprocessorArgs:
+      timestampOffset: -1
+      seqCountOffset: -1
+
   - name: gndctrl-udp-out
     class: org.yamcs.tctm.UdpTcDataLink
     stream: tc_realtime

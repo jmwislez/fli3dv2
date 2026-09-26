@@ -188,6 +188,7 @@ bool acquire_neo6mv2() {
 
     while (gps.available(Serial1)) {
         tm_esp32.gps_active = true;
+        tm_summary.gps_active = true;
         fix = gps.read();
         tm_gps.status = fix.status;
         tm_gps.satellites = fix.satellites;

@@ -21,13 +21,23 @@ bool CameraController::begin() {
         tm_camera.mode = CAM_FAIL;
         return false;
     }
-    tm_camera.mode = CAM_IDLE;
+    set_camera_mode(CAM_IDLE);
     var.camera_interval = (uint16_t)(1000.0f / cfg_esp32cam.camera_image_rate);
 
     sprintf(buffer, "Camera OV2640 initialized");
     publish_event(STS_THIS, SS_CAMERA, EVENT_INIT, buffer);
 
     tm_camera.http_server_enabled = initializeHttpServer();
+
+    if(!tm_camera.http_server_enabled) {
+        cfg_esp32cam.wifi_images_enable = false;
+        cfg_esp32cam.wifi_video_enable = false;
+    }
+    if(!tm_esp32cam.sd_enabled) {
+        cfg_esp32cam.sd_images_enable = false;
+        cfg_esp32cam.sd_video_enable = false;
+    } 
+    
     return true;
 }
 
@@ -41,7 +51,7 @@ void CameraController::process() {
         case CAM_SINGLE:
             handleFrameCapture();
             tm_esp32cam.sd_active = true;
-            tm_camera.mode = CAM_IDLE;    
+            set_camera_mode(CAM_IDLE);    
             break;
         case CAM_IMAGES:
             if (now - var.last_camera_time >= var.camera_interval) {
@@ -111,11 +121,13 @@ bool CameraController::initializeCamera() {
     if (!camera.begin().isOk()) {
         return false;
     }
-
     return true;
 }
 
 bool CameraController::initializeHttpServer() {
+    sprintf(buffer, "DEBUG: entering initializeHttpServer %u %u %u %u", tm_esp32cam.wifi_sta_enabled, tm_esp32cam.wifi_ap_enabled, cfg_esp32cam.wifi_images_enable, cfg_esp32cam.wifi_video_enable);
+    publish_event(STS_THIS, SS_CAMERA, EVENT_INIT, buffer);
+
     if (tm_esp32cam.wifi_sta_enabled || tm_esp32cam.wifi_ap_enabled) {
 
         if(cfg_esp32cam.wifi_images_enable) {
@@ -128,7 +140,7 @@ bool CameraController::initializeHttpServer() {
             );
             sprintf(buffer, "Image server initialized: http://%s/images", WiFi.localIP().toString().c_str());
             publish_event(STS_THIS, SS_CAMERA, EVENT_INIT, buffer);   
-            tm_camera.wifi_images_enabled=true;
+            tm_camera.wifi_images_enabled = true;
         }
 
         if(cfg_esp32cam.wifi_video_enable) {
@@ -141,6 +153,7 @@ bool CameraController::initializeHttpServer() {
             );
             sprintf(buffer, "Video server initialized: http://%s/video (video mode needed)", WiFi.localIP().toString().c_str());
             publish_event(STS_THIS, SS_CAMERA, EVENT_INIT, buffer);
+            tm_camera.wifi_video_enabled = true;
         }
 
         _server.begin();
@@ -188,7 +201,6 @@ void CameraController::processFrame(
             frame.data,
             frame.size
         );
-        tm_camera.sd_images_active = true;
     }
 
     if (tm_camera.wifi_images_enabled || tm_camera.wifi_video_enabled) {
@@ -198,9 +210,11 @@ void CameraController::processFrame(
         );
         if(tm_camera.mode == CAM_VIDEO) {
             tm_camera.wifi_video_active = true;
+            tm_summary.wifi_video_active = true;
         }
         else {
             tm_camera.wifi_images_active = true;
+            tm_summary.wifi_images_active = true;
         }
     }
 
@@ -209,7 +223,6 @@ void CameraController::processFrame(
             frame.data,
             frame.size
         );
-        tm_camera.sd_video_active = true;
     }
 }
 
@@ -217,6 +230,7 @@ void CameraController::saveSnapshotToSd(
     const uint8_t* jpegData,
     size_t jpegSize
 ) {
+
     if (!tm_esp32cam.sd_enabled or !cfg_esp32cam.write_fs_enable)
         return;
 
@@ -229,8 +243,9 @@ void CameraController::saveSnapshotToSd(
             FILE_WRITE
         );
 
-    if (!file)
+    if (!file) {
         return;
+    }
 
     file.write(
         jpegData,
@@ -240,7 +255,10 @@ void CameraController::saveSnapshotToSd(
     file.close();
 
     tm_esp32cam.sd_active = true;
-    strcpy(tm_camera.filename, filename.c_str());
+    tm_camera.sd_images_active = true;
+    tm_summary.sd_images_active = true;
+
+    sprintf(tm_camera.filename, "%s", filename.c_str());
 }
 
 void CameraController::uploadImageWifi(
@@ -274,6 +292,7 @@ void CameraController::startRecording() {
         sprintf(buffer, "Recording video to %s on SD", filename.c_str());
         publish_event(STS_THIS, SS_CAMERA, EVENT_INFO, buffer);
         tm_esp32cam.sd_active = true;
+        strcpy(tm_camera.filename, filename.c_str());
     }
 }
 
@@ -360,6 +379,7 @@ void CameraController::handleHttpSnapshot() {
     );
 
     tm_camera.wifi_images_active = true;
+    tm_summary.wifi_images_active = true;
 }
 
 void CameraController::streamFrameToClient(
@@ -367,7 +387,6 @@ void CameraController::streamFrameToClient(
     const uint8_t* jpegData,
     size_t jpegSize
 ) {
-
     client.printf(
         "--frame\r\n"
         "Content-Type: image/jpeg\r\n"
@@ -420,6 +439,7 @@ void CameraController::handleHttpStream() {
         );
 
         tm_camera.wifi_video_active = true;
+        tm_summary.wifi_video_active = true;
 
         delay(30);
     }

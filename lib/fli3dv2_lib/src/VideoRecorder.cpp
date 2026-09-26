@@ -54,8 +54,6 @@ bool VideoRecorder::begin(
 
     _recording = true;
 
-    strcpy(tm_camera.filename, filename.c_str());
-
     return true;
 }
 
@@ -98,6 +96,9 @@ bool VideoRecorder::addFrame(
     );
 
     _frameCount++;
+    tm_camera.sd_video_active = true;
+    tm_summary.sd_video_active = true;
+    tm_esp32cam.sd_active = true;
 
     return true;
 }

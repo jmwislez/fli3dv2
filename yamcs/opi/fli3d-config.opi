@@ -6419,8 +6419,8 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-59b51a4e:194ef1ccf65:-7ca1</wuid>
-    <x>197</x>
-    <y>573</y>
+    <x>160</x>
+    <y>571</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
     <actions hook="false" hook_all="true">
@@ -6475,8 +6475,8 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-59b51a4e:194ef1ccf65:-7ca0</wuid>
-    <x>197</x>
-    <y>589</y>
+    <x>160</x>
+    <y>587</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -6629,8 +6629,8 @@ $(pv_value)</tooltip>
     <widget_type>Action Button</widget_type>
     <width>46</width>
     <wuid>-59b51a4e:194ef1ccf65:-7c9d</wuid>
-    <x>197</x>
-    <y>608</y>
+    <x>160</x>
+    <y>606</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
     <actions hook="false" hook_all="false" />
@@ -17422,7 +17422,7 @@ $(pv_value)</tooltip>
       <keep_wh_ratio>false</keep_wh_ratio>
     </scale_options>
     <scripts />
-    <text>TM_RADIO</text>
+    <text>TM_SUMMARY</text>
     <tooltip />
     <transparent>true</transparent>
     <vertical_alignment>1</vertical_alignment>
@@ -17726,7 +17726,7 @@ $(pv_value)</tooltip>
       <color red="0" green="255" blue="0" />
     </on_color>
     <on_label>ON</on_label>
-    <pv_name>/fli3d/CFG_ESP32_routing_espnow_tm_radio</pv_name>
+    <pv_name>/fli3d/CFG_ESP32_routing_espnow_tm_summary</pv_name>
     <pv_value />
     <rules />
     <scale_options>
@@ -18074,7 +18074,7 @@ $(pv_value)</tooltip>
       <color red="0" green="255" blue="0" />
     </on_color>
     <on_label>ON</on_label>
-    <pv_name>/fli3d/CFG_GNDCTRL_routing_espnow_tm_radio</pv_name>
+    <pv_name>/fli3d/CFG_GNDCTRL_routing_espnow_tm_summary</pv_name>
     <pv_value />
     <rules />
     <scale_options>
@@ -18422,7 +18422,7 @@ $(pv_value)</tooltip>
       <color red="0" green="255" blue="0" />
     </on_color>
     <on_label>ON</on_label>
-    <pv_name>/fli3d/CFG_GNDCTRL_routing_serial_tm_radio</pv_name>
+    <pv_name>/fli3d/CFG_GNDCTRL_routing_serial_tm_summary</pv_name>
     <pv_value />
     <rules />
     <scale_options>
@@ -18886,7 +18886,7 @@ $(pv_value)</tooltip>
       <color red="0" green="255" blue="0" />
     </on_color>
     <on_label>ON</on_label>
-    <pv_name>/fli3d/CFG_ESP32_routing_serial_tm_radio</pv_name>
+    <pv_name>/fli3d/CFG_ESP32_routing_serial_tm_summary</pv_name>
     <pv_value />
     <rules />
     <scale_options>
@@ -19083,7 +19083,7 @@ $(pv_value)</tooltip>
       <action type="RUN_COMMAND">
         <command>/fli3d/ESP32_set_parameter</command>
         <args>
-          <parameter>routing_espnow_tm_radio</parameter>
+          <parameter>routing_espnow_tm_summary</parameter>
           <value>-1</value>
         </args>
         <confirm_message />
@@ -19798,7 +19798,7 @@ $(pv_value)</tooltip>
       <color red="0" green="255" blue="0" />
     </on_color>
     <on_label>ON</on_label>
-    <pv_name>/fli3d/CFG_ESP32CAM_routing_espnow_tm_radio</pv_name>
+    <pv_name>/fli3d/CFG_ESP32CAM_routing_espnow_tm_summary</pv_name>
     <pv_value />
     <rules />
     <scale_options>
@@ -20262,7 +20262,7 @@ $(pv_value)</tooltip>
       <color red="0" green="255" blue="0" />
     </on_color>
     <on_label>ON</on_label>
-    <pv_name>/fli3d/CFG_ESP32CAM_routing_serial_tm_radio</pv_name>
+    <pv_name>/fli3d/CFG_ESP32CAM_routing_serial_tm_summary</pv_name>
     <pv_value />
     <rules />
     <scale_options>
@@ -20459,7 +20459,7 @@ $(pv_value)</tooltip>
       <action type="RUN_COMMAND">
         <command>/fli3d/GNDCTRL_set_parameter</command>
         <args>
-          <parameter>routing_espnow_tm_radio</parameter>
+          <parameter>routing_espnow_tm_summary</parameter>
           <value>-1</value>
         </args>
         <confirm_message />
@@ -21174,7 +21174,7 @@ $(pv_value)</tooltip>
       <color red="0" green="255" blue="0" />
     </on_color>
     <on_label>ON</on_label>
-    <pv_name>/fli3d/CFG_GNDCTRL_routing_radio_tm_radio</pv_name>
+    <pv_name>/fli3d/CFG_GNDCTRL_routing_radio_tm_summary</pv_name>
     <pv_value />
     <rules />
     <scale_options>
@@ -21638,7 +21638,7 @@ $(pv_value)</tooltip>
       <color red="0" green="255" blue="0" />
     </on_color>
     <on_label>ON</on_label>
-    <pv_name>/fli3d/CFG_ESP32_routing_radio_tm_radio</pv_name>
+    <pv_name>/fli3d/CFG_ESP32_routing_radio_tm_summary</pv_name>
     <pv_value />
     <rules />
     <scale_options>
@@ -22102,7 +22102,7 @@ $(pv_value)</tooltip>
       <color red="0" green="255" blue="0" />
     </on_color>
     <on_label>ON</on_label>
-    <pv_name>/fli3d/CFG_GNDCTRL_routing_archive_tm_radio</pv_name>
+    <pv_name>/fli3d/CFG_GNDCTRL_routing_archive_tm_summary</pv_name>
     <pv_value />
     <rules />
     <scale_options>
@@ -22566,7 +22566,7 @@ $(pv_value)</tooltip>
       <color red="0" green="255" blue="0" />
     </on_color>
     <on_label>ON</on_label>
-    <pv_name>/fli3d/CFG_ESP32_routing_archive_tm_radio</pv_name>
+    <pv_name>/fli3d/CFG_ESP32_routing_archive_tm_summary</pv_name>
     <pv_value />
     <rules />
     <scale_options>
@@ -23030,7 +23030,7 @@ $(pv_value)</tooltip>
       <color red="0" green="255" blue="0" />
     </on_color>
     <on_label>ON</on_label>
-    <pv_name>/fli3d/CFG_ESP32CAM_routing_archive_tm_radio</pv_name>
+    <pv_name>/fli3d/CFG_ESP32CAM_routing_archive_tm_summary</pv_name>
     <pv_value />
     <rules />
     <scale_options>
@@ -23227,7 +23227,7 @@ $(pv_value)</tooltip>
       <action type="RUN_COMMAND">
         <command>/fli3d/ESP32_set_parameter</command>
         <args>
-          <parameter>routing_serial_tm_radio</parameter>
+          <parameter>routing_serial_tm_summary</parameter>
           <value>-1</value>
         </args>
         <confirm_message />
@@ -23675,7 +23675,7 @@ $(pv_value)</tooltip>
       <action type="RUN_COMMAND">
         <command>/fli3d/ESP32_set_parameter</command>
         <args>
-          <parameter>routing_radio_tm_radio</parameter>
+          <parameter>routing_radio_tm_summary</parameter>
           <value>-1</value>
         </args>
         <confirm_message />
@@ -24123,7 +24123,7 @@ $(pv_value)</tooltip>
       <action type="RUN_COMMAND">
         <command>/fli3d/ESP32_set_parameter</command>
         <args>
-          <parameter>routing_archive_tm_radio</parameter>
+          <parameter>routing_archive_tm_summary</parameter>
           <value>-1</value>
         </args>
         <confirm_message />
@@ -24571,7 +24571,7 @@ $(pv_value)</tooltip>
       <action type="RUN_COMMAND">
         <command>/fli3d/GNDCTRL_set_parameter</command>
         <args>
-          <parameter>routing_serial_tm_radio</parameter>
+          <parameter>routing_serial_tm_summary</parameter>
           <value>-1</value>
         </args>
         <confirm_message />
@@ -25019,7 +25019,7 @@ $(pv_value)</tooltip>
       <action type="RUN_COMMAND">
         <command>/fli3d/GNDCTRL_set_parameter</command>
         <args>
-          <parameter>routing_radio_tm_radio</parameter>
+          <parameter>routing_radio_tm_summary</parameter>
           <value>-1</value>
         </args>
         <confirm_message />
@@ -25467,7 +25467,7 @@ $(pv_value)</tooltip>
       <action type="RUN_COMMAND">
         <command>/fli3d/GNDCTRL_set_parameter</command>
         <args>
-          <parameter>routing_archive_tm_radio</parameter>
+          <parameter>routing_archive_tm_summary</parameter>
           <value>-1</value>
         </args>
         <confirm_message />
@@ -34852,7 +34852,7 @@ $(pv_value)</tooltip>
       <action type="RUN_COMMAND">
         <command>/fli3d/ESP32CAM_set_parameter</command>
         <args>
-          <parameter>routing_archive_tm_radio</parameter>
+          <parameter>routing_archive_tm_summary</parameter>
           <value>-1</value>
         </args>
         <confirm_message />
@@ -36884,7 +36884,7 @@ $(pv_value)</tooltip>
       <action type="RUN_COMMAND">
         <command>/fli3d/ESP32CAM_set_parameter</command>
         <args>
-          <parameter>routing_serial_tm_radio</parameter>
+          <parameter>routing_serial_tm_summary</parameter>
           <value>-1</value>
         </args>
         <confirm_message />
@@ -38068,7 +38068,7 @@ $(pv_value)</tooltip>
       <action type="RUN_COMMAND">
         <command>/fli3d/ESP32CAM_set_parameter</command>
         <args>
-          <parameter>routing_espnow_tm_radio</parameter>
+          <parameter>routing_espnow_tm_summary</parameter>
           <value>-1</value>
         </args>
         <confirm_message />
@@ -39963,5 +39963,270 @@ $(pv_value)</tooltip>
     <wuid>-27321d34:1a0be0020cc:-6d90</wuid>
     <x>162</x>
     <y>651</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <actions hook="false" hook_all="false" />
+    <alarm_pulsing>false</alarm_pulsing>
+    <auto_size>false</auto_size>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color red="255" green="255" blue="255" />
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <enabled>true</enabled>
+    <font>
+      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="0" green="0" blue="0" />
+    </foreground_color>
+    <format_type>0</format_type>
+    <height>20</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>Text Update_291</name>
+    <precision>0</precision>
+    <precision_from_pv>true</precision_from_pv>
+    <pv_name>/fli3d/CFG_ESP32CAM_camera_mode</pv_name>
+    <pv_value />
+    <rotation_angle>0.0</rotation_angle>
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <show_lohi>true</show_lohi>
+    <show_units>true</show_units>
+    <text>######</text>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <transparent>false</transparent>
+    <vertical_alignment>1</vertical_alignment>
+    <visible>true</visible>
+    <widget_type>Text Update</widget_type>
+    <width>100</width>
+    <wrap_words>false</wrap_words>
+    <wuid>13f0700d:1a0d49d04fb:-692e</wuid>
+    <x>282</x>
+    <y>619</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <actions hook="false" hook_all="false" />
+    <alarm_pulsing>false</alarm_pulsing>
+    <auto_size>false</auto_size>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color red="255" green="255" blue="255" />
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <enabled>true</enabled>
+    <font>
+      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="0" green="0" blue="0" />
+    </foreground_color>
+    <format_type>0</format_type>
+    <height>20</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>Text Update_292</name>
+    <precision>0</precision>
+    <precision_from_pv>true</precision_from_pv>
+    <pv_name>/fli3d/CFG_ESP32_pressure_tm_rate</pv_name>
+    <pv_value />
+    <rotation_angle>0.0</rotation_angle>
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <show_lohi>true</show_lohi>
+    <show_units>true</show_units>
+    <text>######</text>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <transparent>false</transparent>
+    <vertical_alignment>1</vertical_alignment>
+    <visible>true</visible>
+    <widget_type>Text Update</widget_type>
+    <width>52</width>
+    <wrap_words>false</wrap_words>
+    <wuid>13f0700d:1a0d49d04fb:-664f</wuid>
+    <x>210</x>
+    <y>571</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <actions hook="false" hook_all="false" />
+    <alarm_pulsing>false</alarm_pulsing>
+    <auto_size>false</auto_size>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color red="255" green="255" blue="255" />
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <enabled>true</enabled>
+    <font>
+      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="0" green="0" blue="0" />
+    </foreground_color>
+    <format_type>0</format_type>
+    <height>20</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>Text Update_293</name>
+    <precision>0</precision>
+    <precision_from_pv>true</precision_from_pv>
+    <pv_name>/fli3d/CFG_ESP32_gps_tm_rate</pv_name>
+    <pv_value />
+    <rotation_angle>0.0</rotation_angle>
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <show_lohi>true</show_lohi>
+    <show_units>true</show_units>
+    <text>######</text>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <transparent>false</transparent>
+    <vertical_alignment>1</vertical_alignment>
+    <visible>true</visible>
+    <widget_type>Text Update</widget_type>
+    <width>52</width>
+    <wrap_words>false</wrap_words>
+    <wuid>13f0700d:1a0d49d04fb:-51c1</wuid>
+    <x>210</x>
+    <y>609</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <actions hook="false" hook_all="false" />
+    <alarm_pulsing>false</alarm_pulsing>
+    <auto_size>false</auto_size>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color red="255" green="255" blue="255" />
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <enabled>true</enabled>
+    <font>
+      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="0" green="0" blue="0" />
+    </foreground_color>
+    <format_type>0</format_type>
+    <height>20</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>Text Update_294</name>
+    <precision>0</precision>
+    <precision_from_pv>true</precision_from_pv>
+    <pv_name>/fli3d/CFG_ESP32_motion_tm_rate</pv_name>
+    <pv_value />
+    <rotation_angle>0.0</rotation_angle>
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <show_lohi>true</show_lohi>
+    <show_units>true</show_units>
+    <text>######</text>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <transparent>false</transparent>
+    <vertical_alignment>1</vertical_alignment>
+    <visible>true</visible>
+    <widget_type>Text Update</widget_type>
+    <width>52</width>
+    <wrap_words>false</wrap_words>
+    <wuid>13f0700d:1a0d49d04fb:-51b9</wuid>
+    <x>210</x>
+    <y>590</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
+    <actions hook="false" hook_all="false" />
+    <alarm_pulsing>false</alarm_pulsing>
+    <auto_size>false</auto_size>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color red="255" green="255" blue="255" />
+    </background_color>
+    <border_alarm_sensitive>true</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <enabled>true</enabled>
+    <font>
+      <opifont.name fontName="Liberation Sans" height="11" style="0" pixels="false">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="0" green="0" blue="0" />
+    </foreground_color>
+    <format_type>0</format_type>
+    <height>20</height>
+    <horizontal_alignment>2</horizontal_alignment>
+    <name>Text Update_295</name>
+    <precision>0</precision>
+    <precision_from_pv>true</precision_from_pv>
+    <pv_name>/fli3d/CFG_ESP32CAM_camera_image_rate</pv_name>
+    <pv_value />
+    <rotation_angle>0.0</rotation_angle>
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <show_lohi>true</show_lohi>
+    <show_units>true</show_units>
+    <text>######</text>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <transparent>false</transparent>
+    <vertical_alignment>1</vertical_alignment>
+    <visible>true</visible>
+    <widget_type>Text Update</widget_type>
+    <width>52</width>
+    <wrap_words>false</wrap_words>
+    <wuid>13f0700d:1a0d49d04fb:-51ad</wuid>
+    <x>332</x>
+    <y>568</y>
   </widget>
 </display>

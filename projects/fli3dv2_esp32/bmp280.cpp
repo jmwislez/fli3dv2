@@ -41,7 +41,8 @@ bool acquire_bmp280() {
     tm_pressure.pressure2 = uint32_t(bmp280.readPressure()); // convert to Pa
     tm_pressure.height2 = int16_t(bmp280.readAltitude(tm_pressure.pressure2_zero) * 100); // convert to cm
     Serial.printf("BMP280: Pressure: %.2f Pa, Temperature: %.2f C, Height: %.2f m\n", tm_pressure.pressure2, tm_pressure.temperature2, tm_pressure.height2);
-    tm_esp32.pressure_active = true;
+    tm_esp32.pressure2_active = true;
+    tm_summary.pressure2_active = true;
     return true;
 }
 

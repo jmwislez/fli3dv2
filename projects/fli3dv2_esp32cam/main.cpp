@@ -10,8 +10,8 @@
  */
 
 // Set versioning
-#define SW_VERSION "0.2.0"
-#define SW_DATE "20260923"
+#define SW_VERSION "1.0.0"
+#define SW_DATE "20260926"
 
 // Libraries
 #include <Arduino.h>
@@ -47,7 +47,7 @@ cfg_packet_t        *cfg_this = &cfg_esp32cam;
 //                                              |  |  |  |  |  |  |  7: TM_GPS 
 //                                              |  |  |  |  |  |  |  |  8: TM_MOTION 
 //                                              |  |  |  |  |  |  |  |  |  9: TM_PRESSURE
-//                                              |  |  |  |  |  |  |  |  |  |  A: TM_RADIO
+//                                              |  |  |  |  |  |  |  |  |  |  A: TM_SUMMARY
 //                                              |  |  |  |  |  |  |  |  |  |  |  B: TM_ESP32CAM
 //                                              |  |  |  |  |  |  |  |  |  |  |  |  C: TM_CAMERA
 //                                              |  |  |  |  |  |  |  |  |  |  |  |  |  D: TM_GNDCTRL
@@ -59,8 +59,10 @@ cfg_packet_t        *cfg_this = &cfg_esp32cam;
 //                                              |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  J: CFG_GNDCTRL
 //                                              0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F  G  H  I  J
 bool default_routing_espnow[NUMBER_OF_PID] =  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+//bool default_routing_espnow[NUMBER_OF_PID] ={ 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0 };
 bool default_routing_radio[NUMBER_OF_PID] =   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 bool default_routing_serial[NUMBER_OF_PID] =  { 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0 };
+//bool default_routing_serial[NUMBER_OF_PID] ={ 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0 };
 bool default_routing_archive[NUMBER_OF_PID] = { 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 0 };
 
 CameraController cameraController;
@@ -86,6 +88,7 @@ void checkRX(void *arg) {
 void SyncArchive(void *arg) {
     // Ensure storage of archive data
     sync_archive_file();
+    camera_sync_video();
 }
     
 
@@ -96,7 +99,7 @@ void setup() {
     
     // Serial port to Fli3dv2 ESP32
     if (cfg_esp32cam.serial_rx_enable or cfg_esp32cam.serial_tx_enable) {
-        Serial.begin(115200);
+        Serial.begin(57600);
         setup_serialtransfer(Serial);
         tm_esp32cam.serial_rx_enabled = cfg_esp32cam.serial_rx_enable;
         tm_esp32cam.serial_tx_enabled = cfg_esp32cam.serial_tx_enable;
@@ -148,7 +151,7 @@ void setup() {
     esp_timer_start_periodic(timer_handleRX, 500000);
     sleep(10);
 
-    // Sync the archive file every minute
+    // Sync the filesystem every 5 minutes
     esp_timer_create_args_t timer_argsArchive = {
         .callback = &SyncArchive,
         .arg = NULL,
@@ -158,7 +161,7 @@ void setup() {
 
     esp_timer_handle_t timer_handleArchive;
     esp_timer_create(&timer_argsArchive, &timer_handleArchive);
-    esp_timer_start_periodic(timer_handleArchive, 60000000);
+    esp_timer_start_periodic(timer_handleArchive, 300000000);
 
     // Load stored configuration
     if(init_boot_config()) {
@@ -174,7 +177,13 @@ void setup() {
     // Set up file system for local storage of telemetry data
     setup_fs();
     setup_sd();
+    create_today_directory();
     setup_archive();
+
+    // Initialize FTP server
+    if (cfg_this->ftp_enable) {
+        setup_ftp ();
+    }
 
     // Initialize camera
     if (cfg_esp32cam.camera_enable) {
@@ -208,10 +217,11 @@ void loop() {
         // OTA and FTP
         if (cfg_this->ota_enable) {
             ArduinoOTA.handle();
-            tm_this->ota_enabled = true;
+            tm_this->ota_enabled = true; // TODO: put somewhere else and add active
         }
         if (tm_this->ftp_enabled) {
-            //ftp_check(cfg_this->buffer_fs);
+            handle_ftp();
+            tm_this->ftp_enabled = true; // TODO: put somewhere else and add active
         }
     }
 }
