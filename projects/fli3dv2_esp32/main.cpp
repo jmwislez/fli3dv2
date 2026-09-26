@@ -6,7 +6,7 @@
  */
 
 // Set versioning
-#define SW_VERSION "2.00.0"
+#define SW_VERSION "2.0.0"
 #define SW_DATE "20260926"
 
 // Set functionality to compile
@@ -195,6 +195,7 @@ void setup() {
     // Set up ESP-NOW
     setup_wifi();
     setup_espnow();
+    setup_wifi_ap();
 
     // Set up radio
     #ifdef RADIO
@@ -207,9 +208,9 @@ void setup() {
     setup_archive();
 
     // Initialize FTP server
-    if (cfg_this->ftp_enable) {
+   // if (cfg_this->ftp_enable) {
         setup_ftp ();
-    }
+   // }
 
     //
     #ifdef SEPARATION
@@ -265,7 +266,7 @@ void loop() {
 
     var.now = millis();
 
-    if (tm_this->opsmode == MODE_MAINTENANCE) {
+    if (tm_this->opsmode == MODE_CHECKOUT) {
         // In maintenance mode, we can check for OTA and FTP
         if (cfg_this->ota_enable) {
             ArduinoOTA.handle();

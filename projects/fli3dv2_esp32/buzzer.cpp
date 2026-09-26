@@ -24,3 +24,18 @@ void setup_buzzer()
         tm_this->buzzer_active=true;
     }
 }
+
+void ring_buzzer() 
+{
+    if (cfg_esp32.buzzer_enable) {
+        digitalWrite(BZ_PIN, LOW);
+        digitalWrite(BZ_PIN, HIGH);
+        delay(1000);
+        digitalWrite(BZ_PIN, LOW);
+        delay(500);
+        digitalWrite(BZ_PIN, HIGH);
+        delay(1000);
+        digitalWrite(BZ_PIN, LOW);
+        tm_this->buzzer_active=true;
+    }
+}

@@ -965,5 +965,4 @@ extern bool camera_sync_video();
 // Support Functionality
 extern String get_hex_str (byte* blob, uint16_t length);
 
-
 #endif // _FLI3D_H_

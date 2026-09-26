@@ -26,7 +26,7 @@ index_t archive;
 SmartRC_CC1101 radio;
 SoftwareSerial Serial3(RS41_RX_PIN, RS41_TX_PIN);
 SemaphoreHandle_t fifoMutex = xSemaphoreCreateMutex();
-bool SerialDebug = true;
+bool SerialDebug = false;
 FtpServer ftpSrv;
 
 // Functions not exposed in fli3dv2.h
@@ -85,7 +85,7 @@ tm_esp32_t          tm_esp32;
 tm_gps_t            tm_gps;
 tm_motion_t         tm_motion;
 tm_pressure_t       tm_pressure;
-tm_summary_t          tm_summary;
+tm_summary_t        tm_summary;
 tm_esp32cam_t       tm_esp32cam;
 tm_camera_t         tm_camera;
 tm_gndctrl_t        tm_gndctrl;
@@ -258,7 +258,7 @@ void init_config () {
         cfg_this->target_opsmode = MODE_NOMINAL;
         memcpy(&cfg_this->my_mac, &default_mac_esp32, 6);
         memcpy(&cfg_this->peer_mac, &default_mac_gndctrl, 6);  
-        cfg_this->wifi_ap_enable = false;
+        cfg_this->wifi_ap_enable = true;
         cfg_this->wifi_sta_enable = false;
         cfg_this->espnow_rx_enable = true;
         cfg_this->espnow_tx_enable = true;
@@ -276,7 +276,7 @@ void init_config () {
         cfg_this->write_fs_enable = true;
         cfg_this->flush_fs_enable = false;
         cfg_this->sd_enable = false;
-        cfg_this->ftp_enable = false;
+        cfg_this->ftp_enable = true;
         cfg_this->ftp_fs = FS_LITTLEFS;
         cfg_this->archive_fs = FS_LITTLEFS;
         cfg_esp32.pressure_tm_rate = 1;
@@ -832,6 +832,9 @@ bool set_parameter (const char* parameter, const char* value) {
         if(atoi(value)==0 or atoi(value)==1) {
             cfg_this->buzzer_enable = atoi(value);
             sprintf(value_str, "%s", (atoi(value)==1)?"true":"false");
+            #ifdef PLATFORM_ESP32
+            ring_buzzer();
+            #endif
             success = true;
         }
     }
@@ -1183,9 +1186,46 @@ void enable_wifi_services () {
     }
 }
 
+void _callback(FtpOperation ftpOperation, uint32_t freeSpace, uint32_t totalSpace){
+  switch (ftpOperation) {
+    case FTP_CONNECT:
+      Serial.println(F("FTP: Connected!"));
+      break;
+    case FTP_DISCONNECT:
+      Serial.println(F("FTP: Disconnected!"));
+      break;
+    case FTP_FREE_SPACE_CHANGE:
+      Serial.printf("FTP: Free space change, free %u of %u!\n", freeSpace, totalSpace);
+      break;
+    default:
+      break;
+  }
+};
+
+void _transferCallback(FtpTransferOperation ftpOperation, const char* name, uint32_t transferredSize){
+  switch (ftpOperation) {
+    case FTP_UPLOAD_START:
+      Serial.println(F("FTP: Upload start!"));
+      break;
+    case FTP_UPLOAD:
+      Serial.printf("FTP: Upload of file %s byte %u\n", name, transferredSize);
+      break;
+    case FTP_TRANSFER_STOP:
+      Serial.println(F("FTP: Finish transfer!"));
+      break;
+    case FTP_TRANSFER_ERROR:
+      Serial.println(F("FTP: Transfer error!"));
+      break;
+    default:
+      break;
+  }
+}
+
 void setup_ftp () {
     ftpSrv.begin(cfg_this->rocket_name, cfg_this->password);
     tm_this->ftp_enabled=true;
+    ftpSrv.setCallback(_callback);
+    ftpSrv.setTransferCallback(_transferCallback);
     if(tm_this->wifi_ap_enabled or tm_this->wifi_sta_enabled) {
         publish_event (STS_THIS, SS_THIS, EVENT_INIT, "FTP capability initialized (maintenance mode only)");
     }
@@ -2272,9 +2312,9 @@ void update_packet (ccsds_t* ccsds_ptr) {
                         tm_summary.magn_x = int8_t(tm_motion.magn_x);
                         tm_summary.magn_y = int8_t(tm_motion.magn_y);
                         tm_summary.magn_z = int8_t(tm_motion.magn_z);
-                        tm_summary.pressure = uint8_t(tm_pressure.pressure/2);  // ????
-                        tm_summary.temperature_internal = int8_t(tm_pressure.temperature/2);
-                        tm_summary.temperature_external = int8_t(tm_pressure.temperature2/2);
+                        tm_summary.pressure = uint8_t(tm_pressure.pressure/25);  // Pa -> 4 hPa
+                        tm_summary.temperature_internal = int8_t(tm_pressure.temperature/50); // cdeg -> 0.5 deg
+                        tm_summary.temperature_external = int8_t(tm_pressure.temperature2/50);
                         tm_summary.camera_active = tm_summary.wifi_images_active || tm_summary.wifi_video_active || tm_summary.sd_images_active || tm_summary.sd_video_active;
                         tm_summary.camera_frame_ctr = tm_camera.frame_ctr;
                         break;                          

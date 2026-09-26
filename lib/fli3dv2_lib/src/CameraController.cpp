@@ -125,9 +125,6 @@ bool CameraController::initializeCamera() {
 }
 
 bool CameraController::initializeHttpServer() {
-    sprintf(buffer, "DEBUG: entering initializeHttpServer %u %u %u %u", tm_esp32cam.wifi_sta_enabled, tm_esp32cam.wifi_ap_enabled, cfg_esp32cam.wifi_images_enable, cfg_esp32cam.wifi_video_enable);
-    publish_event(STS_THIS, SS_CAMERA, EVENT_INIT, buffer);
-
     if (tm_esp32cam.wifi_sta_enabled || tm_esp32cam.wifi_ap_enabled) {
 
         if(cfg_esp32cam.wifi_images_enable) {

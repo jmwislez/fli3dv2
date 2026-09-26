@@ -482,14 +482,14 @@
                 </UnitSet>
                 <IntegerDataEncoding sizeInBits="8" />
             </IntegerParameterType>
-             <FloatParameterType name="int8_degC_from_2degC_t" signed="true">
+            <FloatParameterType name="int8_degC_from_2degC_t" signed="true">
                 <UnitSet>
                     <Unit description="Unit">°C</Unit>
                 </UnitSet>
                 <IntegerDataEncoding encoding="twosComplement" sizeInBits="8" byteOrder="leastSignificantByteFirst">
                     <DefaultCalibrator>
                         <PolynomialCalibrator>
-                            <Term exponent="1" coefficient="2" />
+                            <Term exponent="1" coefficient="0.5" />
                         </PolynomialCalibrator>
                     </DefaultCalibrator>
                 </IntegerDataEncoding>
