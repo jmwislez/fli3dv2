@@ -2010,21 +2010,21 @@
                     <ParameterRefEntry parameterRef="SUMMARY_gps_satellites" />
                     <ParameterRefEntry parameterRef="SUMMARY_camera_mode" />
 
-                    <ParameterRefEntry parameterRef="SUMMARY_gps_latitude" />
+                    <!--<ParameterRefEntry parameterRef="SUMMARY_gps_latitude" />
                     <ParameterRefEntry parameterRef="SUMMARY_gps_longitude" />
-                    <ParameterRefEntry parameterRef="SUMMARY_gps_altitude" />
+                    <ParameterRefEntry parameterRef="SUMMARY_gps_altitude" />-->
                     <ParameterRefEntry parameterRef="SUMMARY_accel_x" />
                     <ParameterRefEntry parameterRef="SUMMARY_accel_y" />
                     <ParameterRefEntry parameterRef="SUMMARY_accel_z" />
-                    <ParameterRefEntry parameterRef="SUMMARY_gyro_x" />
+                    <!--<ParameterRefEntry parameterRef="SUMMARY_gyro_x" />
                     <ParameterRefEntry parameterRef="SUMMARY_gyro_y" />
-                    <ParameterRefEntry parameterRef="SUMMARY_gyro_z" />                    
+                    <ParameterRefEntry parameterRef="SUMMARY_gyro_z" />  -->                  
                     <ParameterRefEntry parameterRef="SUMMARY_magn_x" />
                     <ParameterRefEntry parameterRef="SUMMARY_magn_y" />
                     <ParameterRefEntry parameterRef="SUMMARY_magn_z" />
-                    <ParameterRefEntry parameterRef="SUMMARY_temperature_internal" />
+                    <!--<ParameterRefEntry parameterRef="SUMMARY_temperature_internal" />
                     <ParameterRefEntry parameterRef="SUMMARY_temperature_external" />
-                    <ParameterRefEntry parameterRef="SUMMARY_pressure" />
+                    <ParameterRefEntry parameterRef="SUMMARY_pressure" />-->
                     <ParameterRefEntry parameterRef="SUMMARY_camera_frame_ctr" />
                 </EntryList>
             </SequenceContainer>

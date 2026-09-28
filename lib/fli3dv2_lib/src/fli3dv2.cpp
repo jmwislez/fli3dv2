@@ -27,7 +27,9 @@ SmartRC_CC1101 radio;
 SoftwareSerial Serial3(RS41_RX_PIN, RS41_TX_PIN);
 SemaphoreHandle_t fifoMutex = xSemaphoreCreateMutex();
 bool SerialDebug = false;
-FtpServer ftpSrv;
+//FtpServer ftpSrv;
+WiFiServer tcp(8080);
+ESPWebDAV dav;
 
 // Functions not exposed in fli3dv2.h
 extern bool save_config_bank (const uint8_t bank, const char* tag, const cfg_packet_t *cfg_ptr);
@@ -86,6 +88,7 @@ tm_gps_t            tm_gps;
 tm_motion_t         tm_motion;
 tm_pressure_t       tm_pressure;
 tm_summary_t        tm_summary;
+tm_summary_t        tm_summary_copy;
 tm_esp32cam_t       tm_esp32cam;
 tm_camera_t         tm_camera;
 tm_gndctrl_t        tm_gndctrl;
@@ -238,6 +241,9 @@ name_t flightState[] = {
 void zero_bmp280();
 void zero_bmp388();
 void zero_gps();
+#ifdef PLATFORM_ESP32
+void ring_buzzer();
+#endif
 
 // Configuration Functionality
 
@@ -1105,6 +1111,7 @@ void setup_wifi () {
     WiFi.disconnect();
     WiFi.config(INADDR_NONE, INADDR_NONE, INADDR_NONE);
     WiFi.setHostname(hostname);
+    MDNS.begin(hostname);
     WiFi.setSleep(false);
     //WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 1); 
 }
@@ -1186,6 +1193,7 @@ void enable_wifi_services () {
     }
 }
 
+/*
 void _callback(FtpOperation ftpOperation, uint32_t freeSpace, uint32_t totalSpace){
   switch (ftpOperation) {
     case FTP_CONNECT:
@@ -1220,22 +1228,42 @@ void _transferCallback(FtpTransferOperation ftpOperation, const char* name, uint
       break;
   }
 }
+*/
 
 void setup_ftp () {
+    /*
     ftpSrv.begin(cfg_this->rocket_name, cfg_this->password);
     tm_this->ftp_enabled=true;
-    ftpSrv.setCallback(_callback);
-    ftpSrv.setTransferCallback(_transferCallback);
+    //ftpSrv.setCallback(_callback);
+    //ftpSrv.setTransferCallback(_transferCallback);
     if(tm_this->wifi_ap_enabled or tm_this->wifi_sta_enabled) {
         publish_event (STS_THIS, SS_THIS, EVENT_INIT, "FTP capability initialized (maintenance mode only)");
     }
     else {
         publish_event (STS_THIS, SS_THIS, EVENT_INIT, "FTP capability initialized (maintenance mode only) but no wifi enabled");
     }
+    */
+    #ifdef PLATFORM_ESP32
+    FS& gfs = LittleFS;
+    #endif
+    #ifdef PLATFORM_ESP32CAM
+    FS& gfs = SD_MMC;
+    #endif
+    tcp.begin();
+    dav.begin(&tcp, &gfs);
+    dav.setTransferStatusCallback([](const char* name, int percent, bool receive)
+    {
+        Serial.printf("%s: '%s': %d%%\n", receive ? "recv" : "send", name, percent);
+    });
+
+    publish_event (STS_THIS, SS_THIS, EVENT_INIT, "WebDAV server started on port 8080");
 }
 
 void handle_ftp () {
+    /*
     ftpSrv.handleFTP();
+    */
+    dav.handleClient();
 }
 
 void disable_wifi_services () {
@@ -1545,17 +1573,15 @@ bool setup_rs41 () {
 bool send_radio_packet_to_rs41 () {
     #ifdef PLATFORM_ESP32
     if (tm_this->radio_tx_enabled) {
-        update_packet((ccsds_t*)&tm_summary);
         tm_this->radio_tx_pktrate++;
   	    tm_this->radio_tx_active = true;
   	    //tm_summary.radio_tx_active = true;
   	    tm_summary.rs41_active = true;
   	    Serial3.print("xdata=4B01");
-  	    Serial3.println(get_hex_str((byte*)&tm_summary, get_ccsds_packet_len((ccsds_t*)&tm_summary)));
+  	    Serial3.println(get_hex_str((byte*)&tm_summary_copy, get_ccsds_packet_len((ccsds_t*)&tm_summary_copy)));
   	    //Serial3.println("xdata=050108CA186A0750B637");  // Ozone sensor
   	    //Serial3.println("xdata=4B02FF00FF00FF00FF00");  // Dummy "free" sensor
         if(SerialDebug) { Serial.print("r"); }
-        reset_packet((ccsds_t*)&tm_summary);
   	    return true;
     }
     #endif
@@ -2300,23 +2326,24 @@ void update_packet (ccsds_t* ccsds_ptr) {
                         tm_summary.esp32_time_set = tm_esp32.time_set;
                         tm_summary.esp32cam_time_set = tm_esp32cam.time_set;
                         tm_summary.gps_satellites = tm_gps.satellites;
-                        tm_summary.gps_latitude = tm_gps.latitude;
-                        tm_summary.gps_longitude = tm_gps.longitude;
-                        tm_summary.gps_altitude = uint16_t(max(0,(tm_gps.altitude+50)/100)); // cm->m (OK)
+                        //tm_summary.gps_latitude = tm_gps.latitude;
+                        //tm_summary.gps_longitude = tm_gps.longitude;
+                        //tm_summary.gps_altitude = uint16_t(max(0,(tm_gps.altitude+50)/100)); // cm->m (OK)
                         tm_summary.accel_x = int8_t((tm_motion.accel_x+((tm_motion.accel_x > 0) - (tm_motion.accel_x < 0))*5)/10); // dm/s2
                         tm_summary.accel_y = int8_t((tm_motion.accel_y+((tm_motion.accel_y > 0) - (tm_motion.accel_y < 0))*5)/10); // dm/s2
                         tm_summary.accel_z = int8_t((tm_motion.accel_z+((tm_motion.accel_z > 0) - (tm_motion.accel_z < 0))*5)/10); // dm/s2  
-                        tm_summary.gyro_x = int8_t((tm_motion.gyro_x+((tm_motion.gyro_x > 0) - (tm_motion.gyro_x < 0))*50)/100);
-                        tm_summary.gyro_y = int8_t((tm_motion.gyro_y+((tm_motion.gyro_y > 0) - (tm_motion.gyro_y < 0))*50)/100);
-                        tm_summary.gyro_z = int8_t((tm_motion.gyro_z+((tm_motion.gyro_z > 0) - (tm_motion.gyro_z < 0))*50)/100);
+                        //tm_summary.gyro_x = int8_t((tm_motion.gyro_x+((tm_motion.gyro_x > 0) - (tm_motion.gyro_x < 0))*50)/100);
+                        //tm_summary.gyro_y = int8_t((tm_motion.gyro_y+((tm_motion.gyro_y > 0) - (tm_motion.gyro_y < 0))*50)/100);
+                        //tm_summary.gyro_z = int8_t((tm_motion.gyro_z+((tm_motion.gyro_z > 0) - (tm_motion.gyro_z < 0))*50)/100);
                         tm_summary.magn_x = int8_t(tm_motion.magn_x);
                         tm_summary.magn_y = int8_t(tm_motion.magn_y);
                         tm_summary.magn_z = int8_t(tm_motion.magn_z);
-                        tm_summary.pressure = uint8_t(tm_pressure.pressure/25);  // Pa -> 4 hPa
-                        tm_summary.temperature_internal = int8_t(tm_pressure.temperature/50); // cdeg -> 0.5 deg
-                        tm_summary.temperature_external = int8_t(tm_pressure.temperature2/50);
+                        //tm_summary.pressure = uint8_t(tm_pressure.pressure/25);  // Pa -> 4 hPa
+                        //tm_summary.temperature_internal = int8_t(tm_pressure.temperature/50); // cdeg -> 0.5 deg
+                        //tm_summary.temperature_external = int8_t(tm_pressure.temperature2/50);
                         tm_summary.camera_active = tm_summary.wifi_images_active || tm_summary.wifi_video_active || tm_summary.sd_images_active || tm_summary.sd_video_active;
                         tm_summary.camera_frame_ctr = tm_camera.frame_ctr;
+                        memcpy(&tm_summary_copy, &tm_summary, sizeof(tm_summary_t));
                         break;                          
     case TM_ESP32CAM:   tm_esp32cam.millis = millis();
                         tm_esp32cam.packet_ctr++;

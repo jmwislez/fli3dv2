@@ -348,7 +348,7 @@ void loop() {
         #ifdef RS41
         else if (tm_esp32.radio_tx_enabled and var.now >= var.next_rs41_time) {
             send_radio_packet_to_rs41();
-            var.next_rs41_time = var.now + 15000;
+            var.next_rs41_time = var.now + 1000;
         }
         #endif
 

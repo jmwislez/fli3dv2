@@ -12,6 +12,8 @@
 #include <WiFi.h>
 #include <esp_wifi.h>
 #include <esp_now.h>
+#include <ESPmDNS.h>
+#include <ESPWebDAV.h>
 #include <SerialTransfer.h>
 #include <SoftwareSerial.h>
 #include <LinkedList.h>
@@ -23,7 +25,9 @@
 #include <ESPmDNS.h>
 #include <ArduinoOTA.h>
 #include <SmartRC_CC1101.h>
-#include <MultiFtpServer.h>
+//#include <MultiFtpServer.h>
+//#include <SimpleFtpServer.h>
+//#include <ESPFtpServer.h>
 #ifdef PLATFORM_ESP32CAM
 #include <eloquent_esp32cam.h>
 #include "CameraController.h"
@@ -485,22 +489,22 @@ struct __attribute__ ((packed)) tm_summary_t {     // APID: 52 (43 bytes)
     uint8_t     gps_satellites:4;      //  1-4
     bool        free_10:1;             //   0
 
-    int32_t     gps_latitude;
-    int32_t     gps_longitude;
-    uint16_t    gps_altitude;          // m
+    //int32_t     gps_latitude;
+    //int32_t     gps_longitude;
+    //uint16_t    gps_altitude;          // m
 
     int8_t      accel_x;               // cm/s2
     int8_t      accel_y;               // cm/s2
     int8_t      accel_z;               // cm/s2
-    int8_t      gyro_x;                // cdeg/s
-    int8_t      gyro_y;                // cdeg/s
-    int8_t      gyro_z;                // cdeg/s
+    //int8_t      gyro_x;                // cdeg/s
+    //int8_t      gyro_y;                // cdeg/s
+    //int8_t      gyro_z;                // cdeg/s
     int8_t      magn_x;                // uT
     int8_t      magn_y;                // uT
     int8_t      magn_z;                // uT
-    int8_t      temperature_internal;  // 0.5 degC
-    int8_t      temperature_external;  // 0.5 degC
-    uint16_t    pressure;              // 2 Pa   
+    //int8_t      temperature_internal;  // 0.5 degC
+    //int8_t      temperature_external;  // 0.5 degC
+    //uint16_t    pressure;              // 2 Pa   
     uint16_t    camera_frame_ctr;
 }; 
 
